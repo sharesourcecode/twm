@@ -5,7 +5,7 @@ _king () {
 	ITVL='3.5'
 	echo -e "\nKing"
 	echo $URL
-	SRC=$(w3m -debug -dump_source $ENC $URL/king/enterGame -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE $URL/king/enterGame -o user_agent="$(shuf -n1 .ua)")
 	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
@@ -30,7 +30,7 @@ _king () {
 # /kingatk
 		if [[ -n $KINGATK && $ddg -ne 4 && $hl -ne 18 && $HP2 -gt 1 ]] ; then
 			echo '👑'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -39,7 +39,7 @@ _king () {
 # /dodge
 		elif [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			HP3=$HP1
 			_access
@@ -51,7 +51,7 @@ _king () {
 		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
 			RPER='7'
 			echo "🆘 HP < $HPER%"
-			SRC=$(w3m -debug -dump_source $ENC "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			hl=0
 			sleep $ITVL
@@ -63,7 +63,7 @@ _king () {
 			HPER='30'
 			RPER='13'
 			echo '🙌'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			grss=0
 			sleep $ITVL
@@ -73,7 +73,7 @@ _king () {
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
 			echo '💪'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -82,7 +82,7 @@ _king () {
 # /random
 		elif [[ `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
 			echo '🔁'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -93,7 +93,7 @@ _king () {
 		else
 			if [[ -n $ALLIES && -n $ALLY && $USER -eq $ALLY ]] ; then
 				echo "🔁"
-				SRC=$(w3m -debug -dump_source $ENC "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)");
+				SRC=$($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)");
 				_access
 				sleep $ITVL
 				ddg=$[$ddg+1]
@@ -101,7 +101,7 @@ _king () {
 				grss=$[$grss+1]
 			fi
 			echo '🎯'
-			SRC=$(w3m -debug -dump_source $ENC "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -112,7 +112,7 @@ _king () {
 	unset HPER RPER ITVL SRC ACCESS EXIT FULL HP3 ddg hl grss
 # /view
 	echo ""
-	w3m -debug $ENC $URL/king -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC
+	$PAGE $URL/king -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC
 	_unset
 	echo "King (✔)"
 	sleep 30

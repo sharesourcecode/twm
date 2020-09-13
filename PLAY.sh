@@ -1,5 +1,7 @@
 #!/bin/bash
-ENC="-o accept_encoding=='*;q=0.1'"
+PAGE='w3m -debug -o accept_encoding=='*;q=0.1''
+DUMP='w3m -debug -dump -o accept_encoding=='*;q=0.1''
+SOURCE='w3m -debug -dump_source -o accept_encoding=='*;q=0.1''
 # /sources
 cd ~/twm
 . requeriments.sh ; . loginlogoff.sh

@@ -1,12 +1,12 @@
 _alliesID () {
 # Friends ID
-	SRC=$(w3m -debug -dump_source $ENC "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
 	NPG=$(echo $SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt; echo -ne "\033[33m"
 	if [[ -z $NPG ]] ; then
-		w3m -debug -dump_source $ENC "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list..."
+		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list..."
 	else
-		for num in `seq $NPG -1 1`; do w3m -debug -dump_source $ENC "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
+		for num in `seq $NPG -1 1`; do $SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
 	fi
 	sort -u tmp.txt -o tmp.txt
 	unset SRC NPG
@@ -17,7 +17,7 @@ _alliesID () {
 	echo "Clan allies by Leader/Deputy on friends list..."
 	while read IDN; do
 		if [[ -n $IDN ]]; then
-			SRC=$(w3m $ENC -dump_source "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
 			LEADPU=$(echo $SRC | grep -E -o "[A-Za-z\ ]{2,20}</a>, <span class='green'>[A-Z]|[A-Za-z\ ]{2,20}</a>, <span class='blue'>[A-Z]" | cut -d\< -f1)
 			alCLAN=$(echo $SRC | grep -E -o '/clan/[[:digit:]]{1,3}' | tail -n1)
 			if [[ -n $LEADPU ]] ; then

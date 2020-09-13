@@ -2,9 +2,9 @@ _play () {
 #	_coliseum #for test
 	_msgs () {
 		echo -e "# Latest posts:" >msgs.txt
-		w3m -debug  $ENC $URL/ -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt
-		w3m -debug  $ENC $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt
-		w3m -debug  $ENC $URL/ -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt
+		$PAGE $URL/ -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt
+		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt
+		$PAGE $URL/ -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt
 	}
 	_msgs
 	_all () {
@@ -33,19 +33,19 @@ _play () {
 				sleep 1
 				[[ $(date +%M) > 00 ]] && break
 			done
-			SRC=$(w3m -debug -dump_source $ENC "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			_undying
 			_msgs
 			_crono ;;
 # /Battle of banners 10:15:00 - 16:15:00
 #		(10:14|16:14)
-#			SRC=$(w3m -debug -dump_source $ENC "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			until [[ $(date +%M:%S) = 14:5* ]] ; do
 #				echo 'Battle of banners will be started...'
 #				sleep 1
 #				[[ $(date +%M) > 15 ]] && break
 #			done
-#			SRC=$(w3m -debug -dump_source $ENC "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			_flagfight
 #			_msgs
 #			_crono ;;
@@ -56,14 +56,14 @@ _play () {
 #				sleep 1
 #				[[ $(date +%M) = 00 ]] && break
 #			done
-#			SRC=$(w3m -debug -dump_source $ENC "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
-#			SRC=$(w3m -debug -dump_source $ENC "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			_clancoliseum
 #			_msgs
 #			_crono ;;
 # /Clan tournament 11:00:00 - 19:00:00
 		(10:59|18:59)
-			SRC=$(w3m -debug -dump_source $ENC "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			until [[ $(date +%M:%S) = 59:40 ]] ; do
 				echo 'Clan tournament will be started...'
 				sleep 1
@@ -79,7 +79,7 @@ _play () {
 				sleep 1
 				[[ $(date +%M) > 30 ]] && break
 			done
-			SRC=$(w3m -debug -dump_source $ENC "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			_king
 			_arena
 			_msgs
@@ -96,7 +96,7 @@ _play () {
 				sleep 1
 				[[ $(date +%M) = 00 ]] && break
 			done
-			SRC=$(w3m -debug -dump_source $ENC "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_altars
 			_msgs
 			_crono ;;
