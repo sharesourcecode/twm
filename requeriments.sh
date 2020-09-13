@@ -116,7 +116,7 @@ dos2unix ~/.tmp/.ua &> /dev/null
 
 			(10|cn) URL='cn.tiwar.net' ; export TZ=Asia/Shanghai ;;
 
-			(11|ba) URL='bahasa.tiwar.net' ; export TZ=Asia/Barnaul ; ALLIES="_WORK";;
+			(11|ba) URL='tiwar-id.net' ; export TZ=Asia/Barnaul ; ALLIES="_WORK";;
 
 			(0) kill -9 $$ ;;
 
