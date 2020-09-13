@@ -98,11 +98,11 @@ dos2unix ~/.tmp/.ua &> /dev/null
 		case $UR in
 			(1) URL='tiwar.net' ; export TZ=Europe/London ; ALLIES="_WORK" ;;
 
-			(2|ru) URL='tiwar.ru' ; export TZ=Europe/Moscow ;;
+			(2|ru) URL='tiwar.ru' ; export TZ=Europe/Moscow ; ALLIES="" ;;
 
-			(3|pl) URL='tiwar.pl' ; export TZ=Europe/Warsaw ;;
+			(3|pl) URL='tiwar.pl' ; export TZ=Europe/Warsaw ; ALLIES="_WORK" ;;
 
-			(4) URL='titanen.mobi' ; export TZ=Europe/Berlin ;;
+			(4) URL='titanen.mobi' ; export TZ=Europe/Berlin ; ALLIES="_WORK" ;;
 
 			(5) URL='guerradetitanes.net' ; export TZ=America/Cancun ; ALLIES="_WORK" ;;
 
@@ -112,11 +112,11 @@ dos2unix ~/.tmp/.ua &> /dev/null
 
 			(8|fr) URL='tiwar.fr' ; export TZ=Europe/Paris ; ALLIES="_WORK" ;;
 
-			(9|ro) URL='tiwar.ro' ; export TZ=Europe/Bucharest ; ALLIES="_WORK";;
+			(9|ro) URL='tiwar.ro' ; export TZ=Europe/Bucharest ; ALLIES="_WORK" ;;
 
-			(10|cn) URL='cn.tiwar.net' ; export TZ=Asia/Shanghai ;;
+			(10|cn) URL='cn.tiwar.net' ; export TZ=Asia/Shanghai ; ALLIES="" ;;
 
-			(11|ba) URL='tiwar-id.net' ; export TZ=Asia/Barnaul ; ALLIES="_WORK";;
+			(11|ba) URL='tiwar-id.net' ; export TZ=Asia/Barnaul ; ALLIES="_WORK" ;;
 
 			(0) kill -9 $$ ;;
 
