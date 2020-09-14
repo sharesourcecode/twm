@@ -1,14 +1,14 @@
 #!/bin/bash
-PAGE='w3m -debug -o accept_encoding=='*;q=0.1''
-DUMP='w3m -debug -dump -o accept_encoding=='*;q=0.1''
-SOURCE='w3m -debug -dump_source -o accept_encoding=='*;q=0.1''
+PAGE="w3m -o http_proxy=$PROXY -debug"
+DUMP="w3m -o http_proxy=$PROXY -debug -dump"
+SOURCE="w3m -o http_proxy=$PROXY -debug -dump_source"
 # /sources
 cd ~/twm
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . play.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
-. trade.sh ; . career.sh ; . cave.sh ; . allies.sh
+. trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
 # /functions
 _show () {
 	HP1=$(echo $SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
@@ -43,11 +43,12 @@ _access () {
 	_show
 }
 _unset () {
-	unset HP1 HP2 ACC USER ALLY ENTERFIGHT ENTERGAME ATK ATTACK ATKRND ATTACKRANDOM KINGATK DODGE HEAL STONE GRASS BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
+	unset HP1 HP2 USER ALLY ENTERFIGHT ENTERGAME ATK ATTACK ATKRND ATTACKRANDOM KINGATK DODGE HEAL STONE GRASS BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
 rpt=0
 _requeriments
 ts=20
+_proxy
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 while true ; do

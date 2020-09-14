@@ -5,7 +5,7 @@ _clanfight () {
 	ITVL='3.5'
 	echo -e "\nClan fight"
 	echo $URL
-	SRC=$($SOURCE $URL/clanfight/?close=reward -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/clanfight/?close=reward -o user_agent="$(shuf -n1 .ua)")
 	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep 'clanfight/enterFight' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
@@ -14,7 +14,7 @@ _clanfight () {
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = 00 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE "$URL/clanfight" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/clanfight/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | grep -o 'clanfight/attack/')
 	done
@@ -29,7 +29,7 @@ _clanfight () {
 # /dodge
 		if [[ $hl -ne 18 && $ddg -ge 4 && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
-			SRC=$($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			HP3=$HP1
 			_access
@@ -41,7 +41,7 @@ _clanfight () {
 		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
 			RPER='7'
 			echo "🆘 HP < $HPER%"
-			SRC=$($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			hl=0
 			sleep $ITVL
@@ -53,7 +53,7 @@ _clanfight () {
 			HPER='30'
 			RPER='13'
 			echo '🙌'
-			SRC=$($SOURCE "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			grss=0
 			sleep $ITVL
@@ -63,7 +63,7 @@ _clanfight () {
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
 			echo '💪'
-			SRC=$($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -72,7 +72,7 @@ _clanfight () {
 # /random
 		elif [[ `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
 			echo '🔁'
-			SRC=$($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -82,7 +82,7 @@ _clanfight () {
 # /atk
 		else
 			echo '🎯'
-			SRC=$($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
