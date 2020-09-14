@@ -2,7 +2,6 @@
 ***STABLE***
 
 **Necessário level 16+ e +50 pontos de treinamento**
-**Necessario VPN: https://play.google.com/store/apps/details?id=com.distimo.phoneguardian**
 Script macros para Titans war mobile game em todos servidores.
 
 1. Abra o Termux(https://play.google.com/store/apps/details?id=com.termux) app no Android e digite ou cole confirmando com a tecla ENTER:
