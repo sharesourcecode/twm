@@ -4,25 +4,25 @@ _alliesID () {
 	NPG=$(echo $SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt; echo -ne "\033[33m"
 	if [[ -z $NPG ]] ; then
-		$SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list..."
+		$SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list..."
 	else
-		for num in `seq $NPG -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | grep -E -o "[0-9]{1,8}/'>[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z]{0,13}</a>," >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
+		for num in `seq $NPG -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
 	fi
 	sort -u tmp.txt -o tmp.txt
 	unset SRC NPG
 # Clan ID by Leader/Deputy on friend list
 	ts=0
 	>callies.txt; echo -ne "\033[36m"
-	cat tmp.txt | awk -F/ '{ print $1 }' >ids.txt
+	cat tmp.txt | cut -d/ -f3 >ids.txt
 	echo "Clan allies by Leader/Deputy on friends list..."
 	while read IDN; do
 		if [[ -n $IDN ]]; then
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
-			LEADPU=$(echo $SRC | grep -E -o "[A-Za-z\ ]{2,20}</a>, <span class='green'>[A-Z]|[A-Za-z\ ]{2,20}</a>, <span class='blue'>[A-Z]" | cut -d\< -f1)
-			alCLAN=$(echo $SRC | grep -E -o '/clan/[[:digit:]]{1,3}' | tail -n1)
+			LEADPU=$(echo $SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
+			alCLAN=$(echo $SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
 			if [[ -n $LEADPU ]] ; then
 				ts=$[$ts+1]
-				echo $LEADPU >>callies.txt
+				echo $LEADPU | sed 's,\ ,_,' >>callies.txt
 				echo "$ts. Ally $LEADPU $alCLAN added."
 				sort -u callies.txt -o callies.txt
 			fi
@@ -30,11 +30,11 @@ _alliesID () {
 	done < ids.txt
 	unset ts IDN SRC LEADPU alCLAN
 # Print info
-	grep -E -o "[A-Z][a-z]{0,14}[\ ]{0,1}[A-Z]{0,1}[a-z\]{0,12}" tmp.txt >allies.txt
+	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
 	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
 	cat allies.txt
 	echo -ne "\033[37m"
-	echo "Look UP↑ or ENTER to continue."
+	echo "Look UP↑ or ENTER to continue.  👈 "
 	read -t 300
 }
 _alliesConf () {

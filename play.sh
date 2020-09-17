@@ -1,12 +1,10 @@
 _play () {
-#	_coliseum #for test
 	_msgs () {
 		echo -e "# Latest posts:" >msgs.txt
 		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt
 		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt
 		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt
 	}
-	_msgs
 	_all () {
 #		_AtakeHelp
 		_arena
@@ -19,6 +17,7 @@ _play () {
 		_trade
 		_money
 #		_built
+		_msgs
 	}
 # /game time
 	L=$(echo {0..3} | sed 's, ,\n,g' | shuf -n1)
@@ -98,12 +97,13 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_altars
+			_coliseum
 			_msgs
 			_crono ;;
 		(0[02468]:[04]$L|0[13579]:2$L|1[048]:4$L|20:[04]$L|1[13579]:2$L|2[13]:2$L|1[28]:0$L)
 			_all ;
 			_coliseum ;
-			_msgs
+			_msgs ;
 			_crono ;;
 		(*)
 			_sleep ;

@@ -3,6 +3,17 @@ _altars () {
 	HPER='55'
 	RPER='9'
 	ITVL='3.5'
+	_show () {
+		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $2 }' | awk -F" [<]" '{ print $1 }')
+		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $5 }' | awk -F" [<]" '{ print $1 }' | sed 's,\ ,_,')
+		CLAN=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $6 }' | awk -F" [(]" '{ print $1}' | sed 's,\ ,_,')
+		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
+		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}')
+		if [[ -n $OUTGATE ]] ; then
+			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
+			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: 💀 - $HP2 :$USER\n"		else
+		fi
+	}
 	echo -e "\nAltars"
 	echo $URL
 	SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/altars/enterFight -o user_agent="$(shuf -n1 .ua)")
@@ -50,28 +61,28 @@ _altars () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /grass
-		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
-			HPER='30'
-			RPER='13'
-			echo '🙌'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			grss=0
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+#		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
+#			HPER='30'
+#			RPER='13'
+#			echo '🙌'
+#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+#			_access
+#			grss=0
+#			sleep $ITVL
+#			ddg=$[$ddg+1]
+#			hl=$[$hl+1]
+#			grss=$[$grss+1]
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
-			echo '💪'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			echo '💪'
+#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+#			_access
+#			sleep $ITVL
+#			ddg=$[$ddg+1]
+#			hl=$[$hl+1]
+#			grss=$[$grss+1]
 # /random
-		elif [[ `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $HOME/.tmp/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
 			echo '🔁'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
