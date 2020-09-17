@@ -1,7 +1,7 @@
 _coliseum () {
 # /enterFight
 	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
-	HPER='30'
+	HPER='40'
 	RPER='10'
 	ITVL='3.5'
 	_show () {

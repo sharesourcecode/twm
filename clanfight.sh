@@ -1,6 +1,6 @@
 _clanfight () {
 # /enterFight
-	HPER='55'
+	HPER='56'
 	RPER='9'
 	ITVL='3.5'
 	_show () {
@@ -12,8 +12,6 @@ _clanfight () {
 		if [[ -n $OUTGATE ]] ; then
 			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
 			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: ðŸ’€ - $HP2 :$USER\n"		else
-#			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: $HP1 - $HP2 :Opponent\n"
-#			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: ðŸ’€ - $HP2 :Opponent\n"
 		fi
 	}
 	echo -e "\nClan fight"

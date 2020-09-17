@@ -1,6 +1,6 @@
 _king () {
 # /enterFight
-	HPER='53'
+	HPER='55'
 	RPER='1'
 	ITVL='3.5'
 	_show () {

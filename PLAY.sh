@@ -38,6 +38,7 @@ ts=20
 _proxy
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
+#_coliseum
 while true ; do
 	rpt=$[$rpt+1]
 	sleep 1

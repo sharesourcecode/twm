@@ -1,6 +1,6 @@
 _flagfight () {
 # /enterFight
-	HPER='55'
+	HPER='56'
 	RPER='9'
 	ITVL='3.5'
 	_show () {

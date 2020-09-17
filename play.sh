@@ -20,7 +20,7 @@ _play () {
 		_msgs
 	}
 # /game time
-	L=$(echo {0..3} | sed 's, ,\n,g' | shuf -n1)
+	L=$(echo {1..4} | sed 's, ,\n,g' | shuf -n1)
 	case $(date +%H:%M) in
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
 		(09:59|15:59|21:59)
@@ -97,10 +97,9 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_altars
-			_coliseum
 			_msgs
 			_crono ;;
-		(0[02468]:[04]$L|0[13579]:2$L|1[048]:4$L|20:[04]$L|1[13579]:2$L|2[13]:2$L|1[28]:0$L)
+		(0[02468]:[024]$L|0[13579]:[024]$L|1[048]:[24]$L|20:[024]$L|1[13579]:[24]$L|2[13]:[24]$L|1[28]:[024]$L)
 			_all ;
 			_coliseum ;
 			_msgs ;
