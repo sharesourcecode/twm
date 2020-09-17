@@ -56,7 +56,7 @@ _requeriments () {
 	if [[ $? = 0 ]] ; then
 		[[ ! -e executed.txt ]] && pkg install termux-api w3m curl dos2unix -y && >executed.txt
 # _sync - to disable coment #
-#		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
+		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
 		reset; clear
 		echo -e "Successful updates!\n"
 	else
