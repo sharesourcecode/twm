@@ -12,8 +12,6 @@ _coliseum () {
 		if [[ -n $OUTGATE ]] ; then
 			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
 			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: 💀 - $HP2 :$USER\n"		else
-#			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: $HP1 - $HP2 :Opponent\n"
-#			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: 💀 - $HP2 :Opponent\n"
 		fi
 }
 	echo -e "\nColiseum"
@@ -29,7 +27,7 @@ _coliseum () {
         EXIT=$(echo $SRC | grep -o '/leaveFight/' | head -n1)
 	while [[ -n $EXIT ]] ; do
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/coliseum -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | grep -o '/leaveFight/' | head -n1)
 	done

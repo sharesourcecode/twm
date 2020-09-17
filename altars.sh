@@ -26,7 +26,7 @@ _altars () {
                 [[ $(date +%M) =  {00..09} && $(date +%S) > 19 ]] && break
 		echo -e "$URL\n 💤	...\n$ACCESS"
 		SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/altars/?close=reward -o user_agent="$(shuf -n1 .ua)")
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/altars/enterFight -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/altars/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | sed 's/href=/\n/g' | grep -o 'altars/attack/')
 	done

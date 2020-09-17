@@ -11,8 +11,6 @@ _king () {
 		if [[ -n $OUTGATE ]] ; then
 			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
 			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: 💀 - $HP2 :$USER\n"		else
-#			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: $HP1 - $HP2 :Opponent\n"
-#			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: 💀 - $HP2 :Opponent\n"
 		fi
 	}
 	echo -e "\nKing"
@@ -26,6 +24,7 @@ _king () {
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = 30 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
 		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | grep -o 'king/kingatk/')

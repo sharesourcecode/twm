@@ -12,8 +12,6 @@ _flagfight () {
 		if [[ -n $OUTGATE ]] ; then
 			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
 			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: ðŸ’€ - $HP2 :$USER\n"		else
-#			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: $HP1 - $HP2 :Opponent\n"
-#			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\nYou: ðŸ’€ - $HP2 :Opponent\n"
 		fi
 	}
 	echo -e "\nFlag Fight"
@@ -27,6 +25,7 @@ _flagfight () {
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = 15 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/flagfight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
 		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/flagfight/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | sed 's/href=/\n/g' | grep -o 'flagfight/attack/')

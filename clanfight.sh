@@ -27,7 +27,7 @@ _clanfight () {
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = 00 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/clanfight/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | grep -o 'clanfight/attack/')
 	done
