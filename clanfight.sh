@@ -83,7 +83,7 @@ _clanfight () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$CLAN" $HOME/.tmp/callies.txt || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $HOME/.tmp/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
 			echo '🔁'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
