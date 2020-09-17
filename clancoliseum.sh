@@ -61,26 +61,26 @@ _clancoliseum () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /grass
-		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
-			HPER='30'
-			RPER='13'
-			echo '🙌'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			grss=0
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+#		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
+#			HPER='30'
+#			RPER='13'
+#			echo '🙌'
+#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+#			_access
+#			grss=0
+#			sleep $ITVL
+#			ddg=$[$ddg+1]
+#			hl=$[$hl+1]
+#			grss=$[$grss+1]
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
-			echo '💪'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			echo '💪'
+#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+#			_access
+#			sleep $ITVL
+#			ddg=$[$ddg+1]
+#			hl=$[$hl+1]
+#			grss=$[$grss+1]
 # /random
 		elif [[ -n $(grep -o "$CLAN" $HOME/.tmp/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 ]] ; then
 			echo '🔁'
