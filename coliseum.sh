@@ -84,7 +84,7 @@ _coliseum () {
 #			grss=$[$grss+1]
 # /random
 		elif [[ -n $(grep -o "$USER" $HOME/.tmp/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
-			echo "🔁 $USER"
+			echo "🔁$USER"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
