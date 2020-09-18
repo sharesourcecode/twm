@@ -44,14 +44,14 @@ _loginlogoff () {
 			fi
 			done
 			echo -e "\n	Please wait..."
-			echo -e "login=$username&pass=$password" >$HOME/.tmp/login.txt
+			echo -e "login=$username&pass=$password" >$TMP/login.txt
 # /login2x
 			unset username password
-			$(w3m -debug -post $HOME/.tmp/login.txt -o accept_encoding=="*;q=0" "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
-			$(w3m -debug -post $HOME/.tmp/login.txt -o accept_encoding=="*;q=0'" "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
+			$(w3m -debug -post $TMP/login.txt -o accept_encoding=="*;q=0" "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
+			$(w3m -debug -post $TMP/login.txt -o accept_encoding=="*;q=0'" "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
 		}
 		_login
-		rm $HOME/.tmp/login.txt
+		rm $TMP/login.txt
 		clear
 		echo "Please wait..."
 		ACC=$($PAGE -o accept_encoding=="*;q=0" "$URL/user" -o user_agent="$(shuf -n1 .ua)" | grep "\[level" | cut -d" " -f2)

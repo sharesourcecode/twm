@@ -45,7 +45,7 @@ _alliesConf () {
 	case $AL in
 		(1) echo "This will take a long time, be patient."; _alliesID ;;
 
-		(2) [[ -e $HOME/.tmp/allies.txt ]] && >$HOME/.tmp/allies.txt && >$HOME/.tmp/callies.txt; echo "No alliances now." ;;
+		(2) [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt && >$TMP/callies.txt; echo "No alliances now." ;;
 
 		(3) echo "Nothing changed." ;;
 

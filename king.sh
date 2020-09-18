@@ -1,6 +1,6 @@
 _king () {
 # /enterFight
-	HPER='56'
+	HPER='57'
 	RPER='1'
 	ITVL='3.5'
 	_show () {
@@ -9,8 +9,9 @@ _king () {
 		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
 		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd [[:digit:]])
 		if [[ -n $OUTGATE ]] ; then
-			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
-			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"		else
+			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
+			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"
+			[[ $HP2 -eq 0 ]] && echo -e "$URL\n$YOU: $HP1 - 💀 :$USER\n"
 		fi
 	}
 	echo -e "\nKing"
@@ -38,21 +39,21 @@ _king () {
 	grss=12
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
 		[[ $(date +%M) = 4[01] ]] && break
-# /kingatk
-		if [[ -n $KINGATK && $ddg -le 4 && $hl -ne 18 && $HP2 -gt 1 ]] ; then
-			echo '👑'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
+# /dodge
+		if [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
+			echo '🛡️'
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			ddg=0
+			HP3=$HP1
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
-# /dodge
-		elif [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
-			echo '🛡️'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
-			ddg=0
-			HP3=$HP1
+# /kingatk
+		elif [[ -n $KINGATK && $ddg -le 4 && $hl -ne 18 ]] ; then
+			echo '👑'
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep $ITVL
 			ddg=$[$ddg+1]
@@ -91,7 +92,7 @@ _king () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$USER" $HOME/.tmp/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
 			echo "🔁$USER"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access

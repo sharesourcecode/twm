@@ -29,7 +29,7 @@ _cat () {
 	[[ $HOUR -lt 6 ||  $HOUR -ge 18 ]] && \
 	echo -ne "\033[33m\033" || \
 	echo -ne "\033[36m\033"
-	cat msgs.txt
+	cat $TMP/msgs.txt
 	echo -ne "\033[37m\033"
 }
 _sleep () {

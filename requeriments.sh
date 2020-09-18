@@ -1,6 +1,40 @@
 _requeriments () {
+# /servers
+	if [[ -z $URL ]] ; then
+		echo -e " 1) 🇬🇧 English, Global: Titan's War online\n 2) 🇷🇺 Русский: Битва Титанов онлайн\n 3) 🇵🇱 Polski: Wojna Tytanów online\n 4) 🇩🇪 Deutsch: Krieg der Titanen online\n 5) 🇪🇸 Español: Guerra de Titanes online\n 6) 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online\n 7) 🇮🇹 Italiano: Guerra di Titani online\n 8) 🇫🇷 Français: Combat des Titans online\n 9) 🇷🇴 Română: Războiul Titanilor online\n10) 🇨🇳 中文, Chinese: 泰坦之战\n11) 🇮🇩 Indonesian: Titan's War Indonesia\n0) ❌ Cancel\n"
+		read -p "Select number Server[1 to 11]: " -t 300 -e -n 2 UR
+		case $UR in
+			(1) URL='tiwar.net' ; TMP="$HOME/.1" ; export TZ=Europe/London ; ALLIES="_WORK" ;;
+
+			(2|ru) URL='tiwar.ru' ; TMP="$HOME/.2" ; export TZ=Europe/Moscow ; ALLIES="_WORK" ;;
+
+			(3|pl) URL='tiwar.pl' ; TMP="$HOME/.3" ; export TZ=Europe/Warsaw ; ALLIES="_WORK" ;;
+
+			(4) URL='titanen.mobi' ; TMP="$HOME/.4" ; export TZ=Europe/Berlin ; ALLIES="_WORK" ;;
+
+			(5) URL='guerradetitanes.net' ; TMP="$HOME/.5" ; export TZ=America/Cancun ; ALLIES="_WORK" ;;
+
+			(6|fu) URL='furiadetitas.net' ; TMP="$HOME/.6" ; export TZ=America/Bahia ; ALLIES="_WORK" ;;
+
+			(7) URL='guerradititani.net' ; TMP="$HOME/.7" ; export TZ=Europe/Rome ; ALLIES="_WORK" ;;
+
+			(8|fr) URL='tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris ; ALLIES="_WORK" ;;
+
+			(9|ro) URL='tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest ; ALLIES="_WORK" ;;
+
+			(10|cn) URL='cn.tiwar.net' ; TMP="$HOME/.10" ; export TZ=Asia/Shanghai ; ALLIES="_WORK" ;;
+
+			(11|ba) URL='tiwar-id.net' ; TMP="$HOME/.11" ; export TZ=Asia/Barnaul ; ALLIES="_WORK" ;;
+
+			(0) kill -9 $$ ;;
+
+			(*) clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
+		esac
+	fi
+	unset UR; clear
+	[[ -z $URL ]] && exit
 # /tmp dir
-	mkdir -p $HOME/.tmp
+	mkdir -p $TMP
 # /update script and dependencies
 	echo -e "\n Upgrading..."
 	echo -e "👉 Please wait...☕👴"
@@ -51,7 +85,7 @@ _requeriments () {
 		dos2unix *.sh &> /dev/null
 	}
 # /termux on android
-	cd $HOME/.tmp
+	cd $TMP
 	termux-wake-lock &> /dev/null
 	if [[ $? = 0 ]] ; then
 		[[ ! -e executed.txt ]] && pkg install termux-api w3m curl dos2unix -y && >executed.txt
@@ -64,9 +98,9 @@ _requeriments () {
 		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
 		reset; clear
 	fi
-# /user agents to $HOME/.tmp/.ua
+# /user agents to $TMP/.ua
 _userAgent () {
-	cd $HOME/.tmp
+	cd $TMP
 #	echo -e 'Mozilla/5.0 (Android 7.1.2; Mobile; rv:80.0) Gecko/80.0 Firefox/80.0' >.ua
 	echo -e '"Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.2.2339 Mobile Safari/537.35+"\n"Mozilla/5.0 (Linux; U; Android 4.3; en-us; ZTE-Z667G Build/JLS36C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"\n"Mozilla/5.0 (Mobile; rv:32.0) Gecko/32.0 Firefox/32.0"\n"Mozilla/5.0 (Android; Linux armv7l; rv:5.0) Gecko/20110615 Firefox/5.0 Fennec/5.0"' >.ua
 	clear
@@ -75,7 +109,7 @@ _userAgent () {
 	read -p "Set up User-Agent[1 to 2]: " -t 300 -e -n 1 UA
 	case $UA in
 
-		(1) clear; xdg-open "https://www.whatsmyua.info" ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 300 -e -n 250 UA && echo "$UA" >$HOME/.tmp/.ua ;;
+		(1) clear; xdg-open "https://www.whatsmyua.info" ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 300 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
 
 		(2) echo "Completed." ;;
 
@@ -83,40 +117,14 @@ _userAgent () {
 	esac
 	unset UA
 }
-_userAgent
-dos2unix ~/.tmp/.ua &> /dev/null
-# /servers
-	if [[ -z $URL ]] ; then
-		echo -e " 1) 🇬🇧 English, Global: Titan's War online\n 2) 🇷🇺 Русский: Битва Титанов онлайн\n 3) 🇵🇱 Polski: Wojna Tytanów online\n 4) 🇩🇪 Deutsch: Krieg der Titanen online\n 5) 🇪🇸 Español: Guerra de Titanes online\n 6) 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online\n 7) 🇮🇹 Italiano: Guerra di Titani online\n 8) 🇫🇷 Français: Combat des Titans online\n 9) 🇷🇴 Română: Războiul Titanilor online\n10) 🇨🇳 中文, Chinese: 泰坦之战\n11) 🇮🇩 Indonesian: Titan's War Indonesia\n0) ❌ Cancel\n"
-		read -p "Select number Server[1 to 11]: " -t 300 -e -n 2 UR
-		case $UR in
-			(1) URL='tiwar.net' ; export TZ=Europe/London ; ALLIES="_WORK" ;;
-
-			(2|ru) URL='tiwar.ru' ; export TZ=Europe/Moscow ; ALLIES="_WORK" ;;
-
-			(3|pl) URL='tiwar.pl' ; export TZ=Europe/Warsaw ; ALLIES="_WORK" ;;
-
-			(4) URL='titanen.mobi' ; export TZ=Europe/Berlin ; ALLIES="_WORK" ;;
-
-			(5) URL='guerradetitanes.net' ; export TZ=America/Cancun ; ALLIES="_WORK" ;;
-
-			(6|fu) URL='furiadetitas.net' ; export TZ=America/Bahia ; ALLIES="_WORK" ;;
-
-			(7) URL='guerradititani.net' ; export TZ=Europe/Rome ; ALLIES="_WORK" ;;
-
-			(8|fr) URL='tiwar.fr' ; export TZ=Europe/Paris ; ALLIES="_WORK" ;;
-
-			(9|ro) URL='tiwar.ro' ; export TZ=Europe/Bucharest ; ALLIES="_WORK" ;;
-
-			(10|cn) URL='cn.tiwar.net' ; export TZ=Asia/Shanghai ; ALLIES="_WORK" ;;
-
-			(11|ba) URL='tiwar-id.net' ; export TZ=Asia/Barnaul ; ALLIES="_WORK" ;;
-
-			(0) kill -9 $$ ;;
-
-			(*) clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
-		esac
-	fi
-	unset UR; clear
-	[[ -z $URL ]] && exit
+if [[ ! -e $TMP/.ua ]] ; then
+	_userAgent
+elif [[ $(cat $TMP/.ua | wc -c) -lt 10 ]] ; then
+	_userAgent
+elif [[ $(cat $TMP/.ua | wc -c) -gt 300 ]] ; then
+	_userAgent
+else
+	echo -e "User-Agent: $(cat $TMP/.ua)"
+fi
+dos2unix $TMP/.ua &> /dev/null
 }

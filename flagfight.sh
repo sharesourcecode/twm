@@ -10,8 +10,9 @@ _flagfight () {
 		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
 		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}')
 		if [[ -n $OUTGATE ]] ; then
-			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
-			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: ðŸ’€ - $HP2 :$USER\n"		else
+			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
+			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"
+			[[ $HP2 -eq 0 ]] && echo -e "$URL\n$YOU: $HP1 - 💀 :$USER\n"
 		fi
 	}
 	echo -e "\nFlag Fight"
@@ -82,7 +83,7 @@ _flagfight () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$CLAN" $HOME/.tmp/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -lt 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -lt 18 && $grss -ne 12 ]] ; then
 			echo "🔁$CLAN"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
