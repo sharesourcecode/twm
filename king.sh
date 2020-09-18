@@ -1,6 +1,6 @@
 _king () {
 # /enterFight
-	HPER='55'
+	HPER='56'
 	RPER='1'
 	ITVL='3.5'
 	_show () {
@@ -9,8 +9,8 @@ _king () {
 		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
 		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd [[:digit:]])
 		if [[ -n $OUTGATE ]] ; then
-			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: $HP1 - $HP2 :$USER\n"
-			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$ACC: 💀 - $HP2 :$USER\n"		else
+			[[ -n $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
+			[[ -z $HP1 && -n $HP2 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"		else
 		fi
 	}
 	echo -e "\nKing"
