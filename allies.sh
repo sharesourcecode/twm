@@ -1,3 +1,10 @@
+_members () {
+	cd $TMP
+	echo -e "\nClan members..."
+	_clanid
+	for num in `seq 5 -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt; done
+	sort -u allies.txt -o allies.txt
+}
 _alliesID () {
 # Friends ID
 	SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
@@ -32,6 +39,7 @@ _alliesID () {
 # Print info
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
 	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
+	_members
 	cat allies.txt
 	echo -ne "\033[37m"
 	echo "Look UP↑ or ENTER to continue.  👈 "
@@ -39,7 +47,7 @@ _alliesID () {
 }
 _alliesConf () {
 	clear
-	echo "The script will consider users on your friends list as allies in the Coliseum and the King of the immortals."
+	echo "The script will consider users on your friends list and you Clan as allies in the Coliseum and the King of the immortals."
 	echo -e "\n1) Add/Update alliances\n2) Remove alliances\n3) Do nothing\n"
 	read -p "Set up alliances[1 to 3]: " -t 300 -e -n 1 AL
 	case $AL in
