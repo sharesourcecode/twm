@@ -20,6 +20,8 @@ _alliesID () {
 	sort -u tmp.txt -o tmp.txt
 	unset SRC NPG
 # Clan ID by Leader/Deputy on friend list
+	_clanid
+	[[ -n $CLD ]] && {
 	ts=0
 	>callies.txt; echo -ne "\033[36m"
 	cat tmp.txt | cut -d/ -f3 >ids.txt
@@ -29,15 +31,16 @@ _alliesID () {
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
 			LEADPU=$(echo $SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
 			alCLAN=$(echo $SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
-			if [[ -n $LEADPU ]] ; then
-				ts=$[$ts+1]
-				echo $LEADPU | sed 's,\ ,_,' >>callies.txt
-				echo "$ts. Ally $LEADPU $alCLAN added."
-				sort -u callies.txt -o callies.txt
-			fi
+			[[ -n $LEADPU ]] && {
+			ts=$[$ts+1]
+			echo $LEADPU | sed 's,\ ,_,' >>callies.txt
+			echo "$ts. Ally $LEADPU $alCLAN added."
+			sort -u callies.txt -o callies.txt
+			}
 		fi
 	done < ids.txt
 	unset ts IDN SRC LEADPU alCLAN
+	}
 # Print info
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
 	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
