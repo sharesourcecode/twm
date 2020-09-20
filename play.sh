@@ -25,6 +25,7 @@ _play () {
 	case $(date +%H:%M) in
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
 		(09:59|15:59|21:59)
+			_msgs
 #			_AtakeHelp
 			_fullmana
 #			_AdeleteEnd
@@ -35,10 +36,10 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			_undying
-			_msgs
 			_crono ;;
 # /Battle of banners 10:15:00 - 16:15:00
 #		(10:14|16:14)
+#			_msgs
 #			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			until [[ $(date +%M:%S) = 14:5* ]] ; do
 #				echo 'Battle of banners will be started...'
@@ -47,10 +48,10 @@ _play () {
 #			done
 #			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			_flagfight
-#			_msgs
 #			_crono ;;
 # /Clan coliseum 10:30:00 - 15:00:00
 		(10:29|14:59)
+			_msgs
 			until [[ $(date +%M:%S) = *9:5* ]] ; do
 				echo 'Clan coliseum will be started...'
 				sleep 1
@@ -59,10 +60,10 @@ _play () {
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_clancoliseum
-			_msgs
 			_crono ;;
 # /Clan tournament 11:00:00 - 19:00:00
 		(10:59|18:59)
+			_msgs
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			until [[ $(date +%M:%S) = 59:40 ]] ; do
 				echo 'Clan tournament will be started...'
@@ -70,10 +71,11 @@ _play () {
 				[[ $(date +%M) = 00 ]] && break
 			done
 			_clanfight
-			_msgs
 			_crono ;;
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
 		(12:29|16:29|22:29)
+			_msgs
+			_members
 			until [[ $(date +%M:%S) = 29:5* ]] ; do
 				echo 'King of the Immortals will be started...'
 				sleep 1
@@ -82,10 +84,10 @@ _play () {
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			_king
 			_arena
-			_msgs
 			_crono ;;
 # /Ancient Altars 14:00:00 - 21:00:00
 		(13:59|20:59)
+			_msgs
 			if [[ $(date +%H) = 13 ]] ; then
 #				_AtakeHelp
 				_fullmana
@@ -98,12 +100,11 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_altars
-			_msgs
 			_crono ;;
 		(0[02468]:[024]$L|0[13579]:[024]$L|1[048]:[24]$L|20:[024]$L|1[13579]:[24]$L|2[13]:[24]$L|1[28]:[024]$L)
+			_msgs ;
 			_all ;
 			_coliseum ;
-			_msgs ;
 			_crono ;;
 		(*)
 			_sleep ;

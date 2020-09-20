@@ -1,6 +1,6 @@
 _members () {
 	cd $TMP
-	echo -e "\nClan members..."
+	echo -e "\nUpdating clan members into allies..."
 	_clanid
 	for num in `seq 5 -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt; done
 	sort -u allies.txt -o allies.txt
