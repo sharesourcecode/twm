@@ -3,7 +3,7 @@ PAGE="w3m -o http_proxy=$PROXY -debug"
 DUMP="w3m -o http_proxy=$PROXY -debug -dump"
 SOURCE="w3m -o http_proxy=$PROXY -debug -dump_source"
 # /sources
-cd ~/twm
+cd ~/wwww
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . play.sh ; . altars.sh ; . clanfight.sh
@@ -39,6 +39,7 @@ _proxy
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 #_coliseum
+_msgs
 while true ; do
 	rpt=$[$rpt+1]
 	sleep 1
