@@ -3,7 +3,7 @@ PAGE="w3m -o http_proxy=$PROXY -debug"
 DUMP="w3m -o http_proxy=$PROXY -debug -dump"
 SOURCE="w3m -o http_proxy=$PROXY -debug -dump_source"
 # /sources
-cd ~/twm
+cd ~/wwww
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . play.sh ; . altars.sh ; . clanfight.sh
@@ -39,6 +39,13 @@ _proxy
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 #_coliseum
+_msgs () {
+		cd $TMP
+		echo -e "# Latest posts:" >msgs.txt
+		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt
+		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt
+		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt
+	}
 _msgs
 while true ; do
 	rpt=$[$rpt+1]
