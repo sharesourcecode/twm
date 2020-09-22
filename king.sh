@@ -1,17 +1,17 @@
 _king () {
 # /enterFight
-	HPER='57'
+	HPER='40'
 	RPER='1'
 	ITVL='3.5'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F" [<]" '{print $1}' | awk -F"[>] " '{print $2}' | sed 's,\ ,_,')
-		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $4 }' | awk -F" [<]" '{ print $1}' | sed 's,\ ,_,')
+		U=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $4 }' | awk -F" [<]" '{ print $1}' | sed 's,\ ,_,')
 		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
 		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd [[:digit:]])
 		if [[ -n $OUTGATE ]] ; then
-			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
-			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"
-			[[ $HP2 -eq 0 ]] && echo -e "$URL\n$YOU: $HP1 - 💀 :$USER\n"
+			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$U\n"
+			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$U\n"
+			[[ $HP2 -eq 0 ]] && echo -e "$URL\n$YOU: $HP1 - 💀 :$U\n"
 		fi
 	}
 	echo -e "\nKing"
@@ -34,88 +34,58 @@ _king () {
 	FULL=$(echo $SRC | sed "s/alt/\\n/g" | grep "hp" | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd "[[:digit:]]")
 	_access
 	HP3=$HP1
-	ddg=4
-	hl=18
-	grss=12
+	ddg=8
+	grss=24
+	hl=36
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
 		[[ $(date +%M) = 4[01] ]] && break
 # /dodge
-		if [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
+		if [[ $HP3 -lt $HP1 && ddg -ge 8 && hl -ne 36 ]] ; then
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
-			ddg=0
-			HP3=$HP1
 			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+			HP3=$HP1
+			sleep 1
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+			_access
 # /kingatk
-		elif [[ -n $KINGATK && $ddg -le 4 && $hl -ne 18 ]] ; then
+		elif [[ -n $KINGATK && $HP3 -eq $HP1 ]] ; then
+			sleep 1
 			echo '👑'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+			sleep 1
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+			_access
 # /heal
-		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
-			RPER='7'
+		elif [[ $HP1 -le $HLHP && $hl -ge 36 ]] ; then
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			hl=0
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
-# /grass
-#		elif [[ $HP2 -le 25 || -z $KINGATK && $ddg != [34] && $hl != 1[78] && $grss -ge 12 ]] ; then
-#			HPER='30'
-#			RPER='13'
-#			echo '🙌'
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
-#			_access
-#			grss=0
-#			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
-# /stone
-#		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
-#			echo '💪'
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
-#			_access
-#			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+			_access
+			sleep 1
 # /random
-		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
-			echo "🔁$USER"
+		elif [[ $hl -ne 36 && -n $(grep "$U" $TMP/allies.txt) ]] ; then
+			sleep 1
+			echo "🔁$U"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 
 # /atk
 		else
-			echo '🎯'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			sleep $ITVL
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+			[[ -z $(grep "$U" $TMP/allies.txt) ]] && {
+				sleep 1
+				echo '🎯'
+				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+				_access
+			}
 		fi
 	done
 	unset HPER RPER ITVL SRC ACCESS EXIT FULL HP3 ddg hl grss
 # /view
 	echo ""
-	$PAGE $URL/king -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC
+	$PAGE $URL/king -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[U\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC
 	_unset
 	echo "King (✔)"
 	sleep 30
