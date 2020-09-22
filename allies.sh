@@ -9,6 +9,7 @@ _members () {
 }
 _alliesID () {
 # Friends ID
+	cd $TMP
 	SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
 	NPG=$(echo $SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt; echo -ne "\033[33m"
@@ -18,10 +19,18 @@ _alliesID () {
 		for num in `seq $NPG -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
 	fi
 	sort -u tmp.txt -o tmp.txt
-	unset SRC NPG
+# Print info
+	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
+	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
+	cat allies.txt
+	echo -ne "\033[37m"
+	read -p "Look UP↑ or ENTER to continue.  👈 " -t 150 -e -n 1
+}
+_calliesID () {
 # Clan ID by Leader/Deputy on friend list
 	_clanid
 	[[ -n $CLD ]] && {
+	cd $TMP
 	ts=0
 	>callies.txt; echo -ne "\033[36m"
 	cat tmp.txt | cut -d/ -f3 >ids.txt
@@ -39,30 +48,24 @@ _alliesID () {
 			}
 		fi
 	done < ids.txt
-	unset ts IDN SRC LEADPU alCLAN
 	}
-# Print info
-	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
-	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
-	_members
-	cat allies.txt
-	echo -ne "\033[37m"
-	echo "Look UP↑ or ENTER to continue.  👈 "
-	read -t 300
 }
 _alliesConf () {
+	cd $TMP
 	clear
-	echo "The script will consider users on your friends list and you Clan as allies in the Coliseum and the King of the immortals."
-	echo -e "\n1) Add/Update alliances\n2) Remove alliances\n3) Do nothing\n"
-	read -p "Set up alliances[1 to 3]: " -t 300 -e -n 1 AL
+	echo -e "The script will consider users on your friends list and you Clan as allies, Leader/Deputy on friend list will add Clan allies."
+	echo -e "\n1) Add/Update alliances(All Battles)\n\n2) Add/Update just Herois alliances(Coliseum/King of immortals\n\n3) Add/Update just Clan alliances(Altars,Clan Coliseum,Clan Fight and Flagfight)\n\n4) Do nothing\n"
+	read -p "Set up alliances[1 to 4]: " -t 300 -e -n 1 AL
 	case $AL in
-		(1) echo "This will take a long time, be patient."; _alliesID ;;
+		(1) _alliesID; _calliesID; _members; echo "Alliances on all battles active" ;;
 
-		(2) [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt && >$TMP/callies.txt; echo "No alliances now." ;;
+		(2) _alliesID; _members; [[ -e $TMP/callies.txt ]] && >$TMP/callies.txt; echo "Just Herois alliances now." ;;
 
-		(3) echo "Nothing changed." ;;
+		(3) _alliesID; _calliesID; [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt; echo "Just Clan alliances now." ;;
+
+		(4) echo "Nothing changed."; >>allies.txt; >>callies.txt ;;
 
 		(*) clear; [[ -n $AL ]] && echo -e "\n Invalid option: $(echo $AL)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 	esac
-	unset AL
+	unset ts IDN SRC LEADPU alCLA AL SRC NPG
 }
