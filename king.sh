@@ -43,11 +43,15 @@ _king () {
 		if [[ $HP3 -lt $HP1 && ddg -ge 8 && hl -ne 36 ]] ; then
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			ddg=0
 			_access
 			HP3=$HP1
 			sleep 1
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
+			ddg=$[$ddg+1]
+			hl=$[$hl+1]
+			grss=$[$grss+1]
 # /kingatk
 		elif [[ -n $KINGATK && $HP3 -eq $HP1 ]] ; then
 			sleep 1
@@ -57,21 +61,30 @@ _king () {
 			sleep 1
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 			_access
+			ddg=$[$ddg+1]
+			hl=$[$hl+1]
+			grss=$[$grss+1]
 # /heal
 		elif [[ $HP1 -le $HLHP && $hl -ge 36 ]] ; then
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			hl=0
 			_access
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep 1
+			ddg=$[$ddg+1]
+			hl=$[$hl+1]
+			grss=$[$grss+1]
 # /random
 		elif [[ $hl -ne 36 && -n $(grep "$U" $TMP/allies.txt) ]] ; then
 			sleep 1
 			echo "🔁$U"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
-
+			ddg=$[$ddg+1]
+			hl=$[$hl+1]
+			grss=$[$grss+1]
 # /atk
 		else
 			[[ -z $(grep "$U" $TMP/allies.txt) ]] && {
@@ -79,6 +92,9 @@ _king () {
 				echo '🎯'
 				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 				_access
+				ddg=$[$ddg+1]
+				hl=$[$hl+1]
+				grss=$[$grss+1]
 			}
 		fi
 	done
