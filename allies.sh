@@ -1,11 +1,16 @@
 _members () {
+	cd $TMP
 	_clanid
 	[[ -n $CLD ]] && {
-	cd $TMP
 	echo -e "\nUpdating clan members into allies..."
 	for num in `seq 5 -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt; done
 	sort -u allies.txt -o allies.txt
 	}
+# Print info
+	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
+	cat allies.txt
+	echo -ne "\033[37m"
+	read -p "Look UP↑ or wait 15s to continue.  👈" -t 15 -e -n 1
 }
 _alliesID () {
 # Friends ID
@@ -19,12 +24,7 @@ _alliesID () {
 		for num in `seq $NPG -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
 	fi
 	sort -u tmp.txt -o tmp.txt
-# Print info
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
-	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
-	cat allies.txt
-	echo -ne "\033[37m"
-	read -p "Look UP↑ or ENTER to continue.  👈 " -t 150 -e -n 1
 }
 _calliesID () {
 # Clan ID by Leader/Deputy on friend list
@@ -57,13 +57,13 @@ _alliesConf () {
 	echo -e "\n1) Add/Update alliances(All Battles)\n\n2) Add/Update just Herois alliances(Coliseum/King of immortals\n\n3) Add/Update just Clan alliances(Altars,Clan Coliseum,Clan Fight and Flagfight)\n\n4) Do nothing\n"
 	read -p "Set up alliances[1 to 4]: " -t 300 -e -n 1 AL
 	case $AL in
-		(1) _alliesID; _calliesID; _members; echo "Alliances on all battles active" ;;
+		(1) _alliesID; _calliesID; _members; ALD=1; echo "Alliances on all battles active" ;;
 
-		(2) _alliesID; _members; [[ -e $TMP/callies.txt ]] && >$TMP/callies.txt; echo "Just Herois alliances now." ;;
+		(2) _alliesID; _members; [[ -e $TMP/callies.txt ]] && >$TMP/callies.txt; ALD=1; echo "Just Herois alliances now." ;;
 
-		(3) _alliesID; _calliesID; [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt; echo "Just Clan alliances now." ;;
+		(3) _alliesID; _calliesID; [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt; unset ALD; echo "Just Clan alliances now." ;;
 
-		(4) echo "Nothing changed."; >>allies.txt; >>callies.txt ;;
+		(4) echo "Nothing changed."; ALD=1; >>allies.txt; >>callies.txt ;;
 
 		(*) clear; [[ -n $AL ]] && echo -e "\n Invalid option: $(echo $AL)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 	esac

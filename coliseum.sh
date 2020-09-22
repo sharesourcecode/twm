@@ -1,9 +1,13 @@
 _coliseum () {
+[[ -n $ALD ]] && {
+_alliesID
+_members
+}
 # /enterFight
 	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
-	HPER='40'
-	RPER='10'
-	ITVL='3.5'
+	HPER='20'
+	RPER='15'
+#	ITVL='3.5'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
 		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
@@ -35,30 +39,31 @@ _coliseum () {
 	FULL=$(echo $SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
 	HP3=$HP1
-	ddg=4
-	grss=12
-	hl=18
+	ddg=8
+	grss=24
+	hl=36
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
 # /dodge
-		echo $SRC | sed 's/href=/\n/g' | grep '/dodge' | grep 'timer' | awk -F"[:]" '{print $2}' | awk -F"[<]" '{print $1}' | tr -cd '[[:digit:]]';echo " ";
-		if [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
+#		echo $SRC | sed 's/href=/\n/g' | grep '/dodge' | grep 'timer' | awk -F"[:]" '{print $2}' | awk -F"[<]" '{print $1}' | tr -cd '[[:digit:]]';echo " ";
+#		echo "$ddg $grss $hl"
+		if [[ $ddg -ge 8 && $hl -ne 36 && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			HP3=$HP1
 			_access
-			sleep $ITVL
+			sleep 1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
-		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
+		elif [[ $hl -ge 36 && $HP1 -le $HLHP ]] ; then
 			RPER='7'
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			hl=0
-			sleep $ITVL
+			sleep 1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
@@ -84,11 +89,11 @@ _coliseum () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 8 && $hl -ne 36 && $grss -ne 24 ]] ; then
 			echo "🔁$USER"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
+			sleep 1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
@@ -98,7 +103,7 @@ _coliseum () {
 			echo '🎯'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
+			sleep 1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
