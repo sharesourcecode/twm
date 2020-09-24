@@ -37,7 +37,7 @@ _king () {
 	grss=27
 	hl=40
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
-		[[ $(date +%M) = 4[01] ]] && break
+#		[[ $(date +%M) = 4[01] ]] && break
 # /dodge
 		if [[ $HP3 -lt $HP1 && $ddg -ge 9 && $hl -ne 40 ]] ; then
 			echo '🛡️'
@@ -86,15 +86,13 @@ _king () {
 			grss=$[$grss+1]
 # /atk
 		else
-			[[ -z $(grep "$U" $TMP/allies.txt) ]] && {
-				sleep 0.9
-				echo '🎯'
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
-				_access
-				ddg=$[$ddg+1]
-				hl=$[$hl+1]
-				grss=$[$grss+1]
-			}
+			sleep 0.9
+			echo '🎯'
+			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+			_access
+			ddg=$[$ddg+1]
+			hl=$[$hl+1]
+			grss=$[$grss+1]
 		fi
 	done
 	unset HPER RPER ITVL SRC ACCESS EXIT FULL HP3 ddg hl grss
