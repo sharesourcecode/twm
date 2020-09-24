@@ -1,7 +1,7 @@
 _altars () {
 # /enterFight
-	HPER='55'
-	RPER='9'
+	HPER='49'
+	RPER='15'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F" [<]" '{print $1}' | awk -F"[>] " '{print $2}' | sed 's,\ ,_,')
 		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $5 }' | awk -F" [<]" '{ print $1 }' | sed 's,\ ,_,')
@@ -40,7 +40,7 @@ _altars () {
                 [[ $(date +%M) = 0[98] ]] && break
 # /dodge
 		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
-			sleep 4.5
+			sleep 0.45
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
@@ -51,8 +51,8 @@ _altars () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
-		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
-			sleep 4.5
+		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
+			sleep 0.45
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
