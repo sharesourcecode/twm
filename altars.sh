@@ -2,7 +2,6 @@ _altars () {
 # /enterFight
 	HPER='55'
 	RPER='9'
-	ITVL='3.5'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F" [<]" '{print $1}' | awk -F"[>] " '{print $2}' | sed 's,\ ,_,')
 		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $5 }' | awk -F" [<]" '{ print $1 }' | sed 's,\ ,_,')
@@ -34,30 +33,31 @@ _altars () {
 	FULL=$(echo $SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
 	HP3=$HP1
-	ddg=4
-	hl=18
-	grss=12
+	ddg=9
+	hl=40
+	grss=27
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
                 [[ $(date +%M) = 0[98] ]] && break
 # /dodge
-		if [[ $ddg -ge 4 && $hl -ne 18 && $HP3 -ne $HP1 ]] ; then
+		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
+			sleep 4.5
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			HP3=$HP1
 			_access
-			sleep $ITVL
+			sleep 1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
 		elif [[ $hl -ge 18 && $HP1 -le $HLHP ]] ; then
-			RPER='7'
+			sleep 4.5
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			hl=0
-			sleep $ITVL
+			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
@@ -83,11 +83,11 @@ _altars () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 4 && $hl -ne 18 && $grss -ne 12 ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$CLAN"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
+			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
@@ -97,7 +97,7 @@ _altars () {
 			echo '🎯'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep $ITVL
+			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]

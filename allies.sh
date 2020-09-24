@@ -10,7 +10,8 @@ _members () {
 	echo -ne "\033[33m"; echo "Allies for Coliseum and King of the Immortals:"
 	cat allies.txt
 	echo -ne "\033[37m"
-	read -p "Look UP↑ or wait 15s to continue.  👈" -t 15 -e -n 1
+	echo "Look UP↑ or wait to continue.  👈"
+	sleep 3
 }
 _alliesID () {
 # Friends ID

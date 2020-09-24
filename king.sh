@@ -2,7 +2,6 @@ _king () {
 # /enterFight
 	HPER='40'
 	RPER='1'
-	ITVL='3.5'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F" [<]" '{print $1}' | awk -F"[>] " '{print $2}' | sed 's,\ ,_,')
 		U=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $4 }' | awk -F" [<]" '{ print $1}' | sed 's,\ ,_,')
@@ -35,19 +34,18 @@ _king () {
 	_access
 	HP3=$HP1
 	ddg=9
-	grss=24
-	hl=36
+	grss=27
+	hl=40
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
 		[[ $(date +%M) = 4[01] ]] && break
 # /dodge
-		if [[ $HP3 -lt $HP1 && ddg -ge 9 && hl -ne 36 ]] ; then
-			sleep 0.9
+		if [[ $HP3 -lt $HP1 && $ddg -ge 9 && $hl -ne 40 ]] ; then
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			_access
 			HP3=$HP1
-			sleep 0.9
+			sleep 1
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
@@ -66,8 +64,7 @@ _king () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
-		elif [[ $HP1 -le $HLHP && $hl -ge 36 ]] ; then
-			sleep 0.9
+		elif [[ $HP1 -le $HLHP && $hl -ge 40 ]] ; then
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			hl=0
@@ -79,7 +76,7 @@ _king () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /random
-		elif [[ $hl -ne 36 && -n $(grep "$U" $TMP/allies.txt) ]] ; then
+		elif [[ $hl -ne 40 && -n $(grep "$U" $TMP/allies.txt) ]] ; then
 			sleep 0.9
 			echo "🔁$U"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")

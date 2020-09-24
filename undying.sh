@@ -33,7 +33,6 @@ _undying () {
 		OUTGATE=$(echo $SRC | grep -o 'out_gate')
 		echo -e " 🎲 $HIT"
 		sleep 1.43
-#		sleep 1.42
 	done
 	unset SRC ACCESS MANA HIT OUTGATE
 # /view
