@@ -5,7 +5,7 @@ _members
 }
 # /enterFight
 	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
-	HPER='20'
+	HPER='25'
 	RPER='15'
 #	ITVL='3.5'
 	_show () {

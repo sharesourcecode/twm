@@ -34,31 +34,32 @@ _king () {
 	FULL=$(echo $SRC | sed "s/alt/\\n/g" | grep "hp" | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd "[[:digit:]]")
 	_access
 	HP3=$HP1
-	ddg=8
+	ddg=9
 	grss=24
 	hl=36
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
 		[[ $(date +%M) = 4[01] ]] && break
 # /dodge
-		if [[ $HP3 -lt $HP1 && ddg -ge 8 && hl -ne 36 ]] ; then
+		if [[ $HP3 -lt $HP1 && ddg -ge 9 && hl -ne 36 ]] ; then
+			sleep 0.9
 			echo '🛡️'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			_access
 			HP3=$HP1
-			sleep 1
+			sleep 0.9
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /kingatk
-		elif [[ -n $KINGATK && $HP3 -eq $HP1 ]] ; then
-			sleep 1
+		elif [[ -n $KINGATK ]] ; then
+			sleep 0.9
 			echo '👑'
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep 1
+			sleep 0.9
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
@@ -66,19 +67,20 @@ _king () {
 			grss=$[$grss+1]
 # /heal
 		elif [[ $HP1 -le $HLHP && $hl -ge 36 ]] ; then
+			sleep 0.9
 			echo "🆘 HP < $HPER%"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			hl=0
 			_access
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 			_access
-			sleep 1
+			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /random
 		elif [[ $hl -ne 36 && -n $(grep "$U" $TMP/allies.txt) ]] ; then
-			sleep 1
+			sleep 0.9
 			echo "🔁$U"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
@@ -88,7 +90,7 @@ _king () {
 # /atk
 		else
 			[[ -z $(grep "$U" $TMP/allies.txt) ]] && {
-				sleep 1
+				sleep 0.9
 				echo '🎯'
 				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 				_access
