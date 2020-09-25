@@ -1,5 +1,6 @@
 _members () {
 	cd $TMP
+	echo "Ilililililililil" >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
 	echo -e "\nUpdating clan members into allies..."
@@ -33,7 +34,7 @@ _calliesID () {
 	[[ -n $CLD ]] && {
 	cd $TMP
 	ts=0
-	>callies.txt; echo -ne "\033[36m"
+	echo "Ilililililililililil" >callies.txt; echo -ne "\033[36m"
 	cat tmp.txt | cut -d/ -f3 >ids.txt
 	echo "Clan allies by Leader/Deputy on friends list..."
 	while read IDN; do
