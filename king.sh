@@ -5,8 +5,8 @@ _king () {
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F" [<]" '{print $1}' | awk -F"[>] " '{print $2}' | sed 's,\ ,_,')
 		U=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $4 }' | awk -F" [<]" '{ print $1}' | sed 's,\ ,_,')
-		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
-		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd [[:digit:]])
+		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1 }')
+		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1 }' | tr -cd [[:digit:]])
 		if [[ -n $OUTGATE ]] ; then
 			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$U\n"
 			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$U\n"
@@ -37,7 +37,7 @@ _king () {
 	grss=27
 	hl=40
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
-#		[[ $(date +%M) = 4[01] ]] && break
+#	until [[ $(date +%M) = 4[01] ]]; do
 # /dodge
 		if [[ $HP3 -lt $HP1 && $ddg -ge 9 && $hl -ne 40 ]] ; then
 			echo '🛡️'
