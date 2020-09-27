@@ -94,7 +94,7 @@ _requeriments () {
 		reset; clear
 		echo -e "Successful updates!\n"
 	else
-		sudo apt install w3m curl dos2unix -y
+		sudo apt install w3m curl dos2unix dnsutils -y
 		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
 		reset; clear
 	fi
