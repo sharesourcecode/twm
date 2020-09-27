@@ -68,7 +68,10 @@ _play () {
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
 		(12:29|16:29|22:29)
 			_msgs
+			[[ -n $ALD ]] && {
+			_alliesID
 			_members
+			}
 			until [[ $(date +%M:%S) = 29:5* ]] ; do
 				echo 'King of the Immortals will be started...'
 				sleep 1
@@ -94,7 +97,7 @@ _play () {
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			_altars
 			_crono ;;
-		(0[02468]:[024]$L|0[13579]:[024]$L|1[048]:[24]$L|20:[024]$L|1[13579]:[24]$L|2[13]:[24]$L|1[28]:[024]$L)
+		(0[0123456789]:[01234]$L|1[0248]:[01234]$L|20:[01234]$L|1[13579]:[234]$L|2[13]:[234]$L)
 			_msgs ;
 			_all ;
 			_coliseum ;
