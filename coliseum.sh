@@ -5,8 +5,8 @@ _members
 }
 # /enterFight
 	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
-	HPER='28'
-	RPER='15'
+	HPER='30'
+	RPER='20'
 	_show () {
 		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
 		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
