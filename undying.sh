@@ -32,7 +32,7 @@ _undying () {
 		HIT=$(echo $SRC | sed 's/href=/\n/g' | grep 'undying/hit/' | head -n1 | awk -F\' '{ print $2 }')
 		OUTGATE=$(echo $SRC | grep -o 'out_gate')
 		echo -e " 🎲 $HIT"
-		sleep 1.43
+		sleep 1.44
 	done
 	unset SRC ACCESS MANA HIT OUTGATE
 # /view
