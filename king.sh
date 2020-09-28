@@ -36,7 +36,7 @@ _king () {
 	ddg=9
 	grss=27
 	hl=0
-	until [[ -n $BEXIT && -z $OUTGATE ]]; do
+	until [[ -z $OUTGATE ]]; do
 #	until [[ $(date +%M) = 4[01] ]]; do
 # /dodge
 		if [[ $HP3 -lt $HP1 && $ddg -ge 9 ]]; then
@@ -49,11 +49,6 @@ _king () {
 			grss=$[$grss+1]
 			HP3=$HP1
 			sleep 1
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /kingatk
 		elif [[ -n $KINGATK ]]; then
 			sleep 0.9
@@ -64,11 +59,6 @@ _king () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 			sleep 0.9
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /heal
 		elif [[ $HP1 -le $HLHP && $hl -le 41 ]]; then
 			echo "🆘 HP < $HPER%"
@@ -78,14 +68,8 @@ _king () {
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
-			_access
-			sleep 0.9
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /random
-		elif [[ $hl -le 41 && -n $(grep "$U" $TMP/allies.txt) ]]; then
+		elif [[ $hl -ne 41 && -n $(grep "$U" $TMP/allies.txt) ]]; then
 			sleep 0.9
 			echo "🔁$U"
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
