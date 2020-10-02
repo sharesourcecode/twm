@@ -36,7 +36,7 @@ _clanfight () {
 	hl=40
 	grss=27
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
-		[[ $(date +%M) = 0[78] ]] && break
+		[[ $(date +%M) = 08 ]] && break
 # /dodge
 		if [[ $hl -ne 40 && $ddg -ge 9 && $HP3 -ne $HP1 ]] ; then
 			sleep 0.45
