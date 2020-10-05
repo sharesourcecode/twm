@@ -18,7 +18,7 @@ Script macros para Titans war mobile game em todos servidores.
 
 3. Para executar o twm(ENTER para confirmar):
 
-**./twm/PLAY.sh**
+**./twm/PLAY.x**
 
 **Para interroper (CTRL c) ou force a parada do app Termux**
 
