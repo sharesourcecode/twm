@@ -19,7 +19,7 @@ _play () {
 		echo "Clã Money" & _money
 		sleep 5
 #		_built
-		_msgs
+		sleep 3 & _msgs
 	}
 # /game time
 	L=$(echo {1..4} | sed 's, ,\n,g' | shuf -n1)
@@ -53,7 +53,7 @@ _play () {
 #			_crono ;;
 # /Clan coliseum 10:30:00 - 15:00:00
 		(10:29|14:59)
-			_msgs
+			sleep 3 & _msgs
 			until [[ $(date +%M:%S) = *9:5* ]] ; do
 				echo 'Clan coliseum will be started...'
 				sleep 1
@@ -66,7 +66,7 @@ _play () {
 			_crono ;;
 # /Clan tournament 11:00:00 - 19:00:00
 		(10:59|18:59)
-			_msgs
+			sleep 3 & _msgs
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			until [[ $(date +%M:%S) = 59:40 ]] ; do
 				echo 'Clan tournament will be started...'
@@ -78,10 +78,12 @@ _play () {
 			_crono ;;
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
 		(12:29|16:29|22:29)
-			_msgs
+			sleep 3 & _msgs
 			[[ -n $ALD ]] && {
-			_alliesID
-			_members
+			sleep 3 & _alliesID
+			sleep 15
+			sleep 3 & _members
+			sleep 5
 			}
 			until [[ $(date +%M:%S) = 29:5* ]] ; do
 				echo 'King of the Immortals will be started...'
@@ -96,10 +98,10 @@ _play () {
 			_crono ;;
 # /Ancient Altars 14:00:00 - 21:00:00
 		(13:59|20:59)
-			_msgs
+			sleep 3 & _msgs
 			if [[ $(date +%H) = 13 ]] ; then
 #				_AtakeHelp
-				_fullmana
+				sleep 3 & _fullmana
 #				_AdeleteEnd
 			fi
 			until [[ $(date +%M:%S) = 59:5* ]] ; do
@@ -112,7 +114,7 @@ _play () {
 			sleep 420
 			_crono ;;
 		(0[0123456789]:[01234]$L|1[0248]:[01234]$L|20:[01234]$L|1[13579]:[234]$L|2[13]:[234]$L)
-			_msgs ;
+			sleep 3 & _msgs ;
 			_all ;
 			echo Coliseum & _coliseum
 			sleep 250
