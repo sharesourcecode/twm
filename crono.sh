@@ -70,6 +70,6 @@ _sleep () {
 		clear
 		_cat
 		echo ' No battles now, waiting 30s' && sleep 29
-		break
+		break &> /dev/null
 	fi
 }
