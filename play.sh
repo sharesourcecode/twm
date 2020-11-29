@@ -1,15 +1,23 @@
 _play () {
 	_all () {
 #		_AtakeHelp
-		_arena
-		_openChest
+		echo Arena & _arena
+		sleep 30
+		echo "Open Chest" & _openChest
+		sleep 5
 #		_AdeleteEnd
-		_cave
-		_campaign
-		_career
-		_clandungeon
-		_trade
-		_money
+		echo Cave & _cave
+		sleep 10
+		echo Campaign & _campaign
+		sleep 30
+		echo Career & _career
+		sleep 10
+		echo "Clan Dungeon" & _clandungeon
+		sleep 15
+		echo Trade &_trade
+		sleep 5
+		echo "Clã Money" & _money
+		sleep 5
 #		_built
 		_msgs
 	}
@@ -28,7 +36,8 @@ _play () {
 				[[ $(date +%M) > 00 ]] && break
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
-			_undying
+			echo Undying & _undying
+			sleep 300
 			_crono ;;
 # /Battle of banners 10:15:00 - 16:15:00
 #		(10:14|16:14)
@@ -52,7 +61,8 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
-			_clancoliseum
+			echo "Clan Coliseum" & _clancoliseum
+			sleep 300
 			_crono ;;
 # /Clan tournament 11:00:00 - 19:00:00
 		(10:59|18:59)
@@ -63,7 +73,8 @@ _play () {
 				sleep 1
 				[[ $(date +%M) = 00 ]] && break
 			done
-			_clanfight
+			echo "Clan Fight" & _clanfight
+			sleep 420
 			_crono ;;
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
 		(12:29|16:29|22:29)
@@ -78,8 +89,10 @@ _play () {
 				[[ $(date +%M) > 30 ]] && break
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
-			_king
-			_arena
+			echo King & _king
+			sleep 600
+			echo Arena & _arena
+			sleep 30
 			_crono ;;
 # /Ancient Altars 14:00:00 - 21:00:00
 		(13:59|20:59)
@@ -95,12 +108,14 @@ _play () {
 				[[ $(date +%M) = 00 ]] && break
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
-			_altars
+			echo Altars & _altars
+			sleep 420
 			_crono ;;
 		(0[0123456789]:[01234]$L|1[0248]:[01234]$L|20:[01234]$L|1[13579]:[234]$L|2[13]:[234]$L)
 			_msgs ;
 			_all ;
-			_coliseum ;
+			echo Coliseum & _coliseum
+			sleep 250
 			_crono ;;
 		(*)
 			_sleep ;
