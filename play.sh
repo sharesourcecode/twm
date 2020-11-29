@@ -16,7 +16,7 @@ _play () {
 		sleep 15
 		echo Trade &_trade
 		sleep 5
-		echo "Clã Money" & _money
+		echo "Clan Money" & _money
 		sleep 5
 #		_built
 		echo "" & _msgs
