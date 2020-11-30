@@ -97,7 +97,7 @@ _play () {
 			done
 			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			echo King & _king
-			sleep 600
+			sleep 599
 			echo Arena & _arena
 			sleep 30
 			_crono ;;
