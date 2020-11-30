@@ -84,7 +84,6 @@ _play () {
 		(12:29|16:29|22:29)
 			echo "" & _msgs
 			sleep 3
-			}
 			until [[ $(date +%M:%S) = 29:5* ]] ; do
 				echo 'King of the Immortals will be started...'
 				sleep 1
