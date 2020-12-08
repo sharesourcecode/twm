@@ -1,10 +1,10 @@
 _coliseum () {
-[[ -n $ALD ]] && {
-echo "Allies on Friend list" & _alliesID
-sleep 5
-echo "Clan Members" & _members
-sleep 5
-}
+#[[ -n $ALD ]] && {
+#echo "Allies on Friend list" & _alliesID
+#sleep 5
+#echo "Clan Members" & _members
+#sleep 5
+#}
 # /enterFight
 	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
 	HPER='30'
