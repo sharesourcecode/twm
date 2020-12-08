@@ -14,7 +14,7 @@ function _cave () {
 		MEGA=$(echo $SRC | sed 's/src=/\n/g' | grep '/images/icon/silver.png' | grep "'s'" | tail -n1 | grep -o 'M')
 	}
 	_condition
-	num=2
+	num=3
 	until [[ $num -eq 0 ]]; do
 		_condition
 		case $ACTION in
@@ -23,7 +23,7 @@ function _cave () {
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavespeedUpr)
-#				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavedownr|cavedownrclanbuiltprivateUpgradetruerrefcave)

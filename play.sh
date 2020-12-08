@@ -118,7 +118,7 @@ _play () {
 			sleep 3
 			_all ;
 			echo Coliseum & _coliseum
-			sleep 250
+			sleep 299
 			_crono ;;
 		(*)
 			_sleep ;

@@ -21,23 +21,24 @@ _AtakeHelp () {
 	_clanid
 	if [[ -n $CLD ]]; then
 		$PAGE "$URL/clan/$CLD/quest/take/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
-		$PAGE "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+#		$PAGE "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		$PAGE "$URL/clan/$CLD/quest/take/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
-		$PAGE "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+#		$PAGE "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 	fi
 	unset CLD
 }
 _AdeleteEnd () {
 	_clanid
 	if [[ -n $CLD ]]; then
-		$PAGE "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
-		$PAGE "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+#		$PAGE "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+#		$PAGE "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		$PAGE "$URL/clan/$CLD/quest/end/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		$PAGE "$URL/clan/$CLD/quest/end/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 	fi
 	unset CLD
 }
 _arena () {
+	_AtakeHelp
 	SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/arena/" -o user_agent="$(shuf -n1 .ua)")
 	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep 'arena/attack' | head -n1 | awk -F\' '{ print $2 }') #/arena/attack/1/1234567*/
 	EXIT=$(echo $SRC | sed 's/href=/\n/g' | grep 'lab/wizard' | head -n1 | awk -F\' '{ print $2 }') #/lab/wizard/potion/1234567*/?ref=/arena/
@@ -47,6 +48,7 @@ _arena () {
 		echo "$ACCESS"
 		EXIT=$(echo $SRC | sed 's/href=/\n/g' | grep 'lab/wizard' | head -n1 | awk -F\' '{ print $2 }') #/lab/wizard/potion/1234567*/?ref=/arena/
 	done
+	_AdeleteEnd
 	unset SRC ACCESS EXIT
 	echo -e "arena (✔)\n"
 }

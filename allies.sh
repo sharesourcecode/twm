@@ -55,19 +55,14 @@ _calliesID () {
 _alliesConf () {
 	cd $TMP
 	clear
-	echo -e "The script will consider users on your friends list and you Clan as allies, Leader/Deputy on friend list will add Clan allies."
-	echo -e "\n1) Add/Update alliances(All Battles)\n\n2) Add/Update just Herois alliances(Coliseum/King of immortals\n\n3) Add/Update just Clan alliances(Altars,Clan Coliseum,Clan Fight and Flagfight)\n\n4) Do nothing\n"
-	read -p "Set up alliances[1 to 4]: " -t 300 -e -n 1 AL
-	case $AL in
-		(1) _alliesID; _calliesID; _members; ALD=1; echo "Alliances on all battles active" ;;
+	_alliesID; _calliesID; _members; ALD=1; echo "Alliances on all battles active" ;
 
-		(2) _alliesID; _members; [[ -e $TMP/callies.txt ]] && >$TMP/callies.txt; ALD=1; echo "Just Herois alliances now." ;;
+#	_alliesID; _members; [[ -e $TMP/callies.txt ]] && >$TMP/callies.txt; ALD=1; echo "Just Herois alliances now.";
 
-		(3) _alliesID; _calliesID; [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt; unset ALD; echo "Just Clan alliances now." ;;
+#	(3) _alliesID; _calliesID; [[ -e $TMP/allies.txt ]] && >$TMP/allies.txt; unset ALD; echo "Just Clan alliances now." ;;
 
-		(4) echo "Nothing changed."; ALD=1; >>allies.txt; >>callies.txt ;;
+#	(4) echo "Nothing changed."; ALD=1; >>allies.txt; >>callies.txt ;;
 
-		(*) clear; [[ -n $AL ]] && echo -e "\n Invalid option: $(echo $AL)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
-	esac
-	unset ts IDN SRC LEADPU alCLA AL SRC NPG
+#	(*) clear; [[ -n $AL ]] && echo -e "\n Invalid option: $(echo $AL)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
+unset ts IDN SRC LEADPU alCLA AL SRC NPG
 }
