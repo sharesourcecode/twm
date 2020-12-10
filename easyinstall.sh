@@ -8,5 +8,5 @@ git clone https://github.com/sharesourcecode/twm.git
 chmod a+x -R twm/
 cp -R twm/ storage/downloads/twm
 reset; clear
-echo "Intalled scripts! Run command ./twm/Play to execute."
+echo -e "\n Intalled scripts!\n Run command bash twm/PLAY.sh to execute."
 exit
