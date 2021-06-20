@@ -1,5 +1,6 @@
 #!/bin/bash
 termux-wake-lock &> /dev/null
+echo "deb https://termux.mentality.rip/termux-main stable main" >$PREFIX/etc/apt/sources.list
 [[ ! -e installed.txt ]] && pkg update -y && pkg install git termux-api w3m curl dos2unix dnsutils -y && >installed.txt
 termux-setup-storage &> /dev/null
 echo "Click Enter to continue."
