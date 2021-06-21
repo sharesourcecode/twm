@@ -2,25 +2,25 @@ _play () {
 	_all () {
 #		_AtakeHelp
 		echo Arena & _arena
-		sleep 30
+		sleep 5
 		echo "Open Chest" & _openChest
 		sleep 5
 #		_AdeleteEnd
 		echo Cave & _cave
-		sleep 10
+		sleep 5
 		echo Campaign & _campaign
-		sleep 30
+		sleep 5
 		echo Career & _career
-		sleep 10
+		sleep 5
 		echo "Clan Dungeon" & _clandungeon
-		sleep 15
+		sleep 5
 		echo Trade &_trade
 		sleep 5
 		echo "Clan Money" & _money
 		sleep 5
 #		_built
 		echo "" & _msgs
-		sleep 3
+		sleep 5
 	}
 # /game time
 	L=$(echo {1..4} | sed 's, ,\n,g' | shuf -n1)
