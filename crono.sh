@@ -37,11 +37,11 @@ _sleep () {
 		echo Arena & _arena
 		sleep 30
 		echo Coliseum & _coliseum
-		sleep 300
+		sleep 60
 		reset
 		clear
 		_cat
-		sleep 290
+		sleep 200
 	elif [[ $(date +%M) = [25][89] ]] ; then
 		reset
 		clear
