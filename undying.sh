@@ -1,6 +1,6 @@
 _undying () {
 # /clear bag
-$PAGE $URL/inv/bag/sellAll/1/
+	$PAGE $URL/inv/bag/sellAll/1/ -o user_agent="$(shuf -n1 .ua)"
 # /enterGame
 	echo "Undying"
 	$PAGE $URL/undying/enterGame -o user_agent="$(shuf -n1 .ua)" | head -n5
