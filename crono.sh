@@ -34,14 +34,14 @@ _cat () {
 }
 _sleep () {
 	if [[ $(date +%d) = 01 && $(date +%H) = 0[012345678] ]] ; then
-		echo Arena & _arena
+		echo "Arena..." & _arena
 		sleep 30
-		echo Coliseum & _coliseum
-		sleep 60
+		echo "Coliseum..." & _coliseum
+		sleep 30
 		reset
 		clear
 		_cat
-		sleep 200
+		echo ' No battles now, waiting 3m' && sleep 3m
 	elif [[ $(date +%M) = [25][89] ]] ; then
 		reset
 		clear
