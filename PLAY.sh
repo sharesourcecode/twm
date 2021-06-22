@@ -2,9 +2,9 @@
 mkdir -p ~/.termux/boot
 ln -s ~/twm/PLAY.sh ~/.termux/boot/PLAY.sh &> /dev/null
 chmod a+x ~/.termux/boot/PLAY.sh
-PAGE="w3m -o http_proxy=$PROXY -debug"
-DUMP="w3m -o http_proxy=$PROXY -debug -dump"
-SOURCE="w3m -o http_proxy=$PROXY -debug -dump_source"
+PAGE="w3m -o https_proxy=$PROXY -debug"
+DUMP="w3m -o https_proxy=$PROXY -debug -dump"
+SOURCE="w3m -o https_proxy=$PROXY -debug -dump_source"
 # /sources
 cd ~/twm
 . requeriments.sh ; . loginlogoff.sh
