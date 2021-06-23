@@ -24,8 +24,10 @@ _AtakeHelp () {
 		sleep 1
 		$DUMP "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		sleep 1
+		sleep 1 &
 		$DUMP "$URL/clan/$CLD/quest/take/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		sleep 1
+		sleep 1 &
 		$DUMP "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 	fi
 	unset CLD
@@ -35,11 +37,14 @@ _AdeleteEnd () {
 	if [[ -n $CLD ]]; then
 		$DUMP "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		sleep 1
-		$DUMP "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
-		sleep 1
 		$DUMP "$URL/clan/$CLD/quest/end/3" -o user_agent="$(shuf -n1 .ua)" | head -n15;
 		sleep 1
+		sleep 1 &
+		$DUMP "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+		sleep 1
+		sleep 1 &
 		$DUMP "$URL/clan/$CLD/quest/end/4" -o user_agent="$(shuf -n1 .ua)" | head -n15;
+		sleep 1
 	fi
 	unset CLD
 }
