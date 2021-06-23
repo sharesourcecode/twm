@@ -4,7 +4,7 @@ _members () {
 	_clanid
 	[[ -n $CLD ]] && {
 	echo -e "\nUpdating clan members into allies..."
-	for num in `seq 5 -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt; done
+	for num in `seq 5 -1 1`; do $SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt; done
 	sort -u allies.txt -o allies.txt
 	}
 # Print info
@@ -17,13 +17,13 @@ _members () {
 _alliesID () {
 # Friends ID
 	cd $TMP
-	SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)")
 	NPG=$(echo $SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt; echo -ne "\033[33m"
 	if [[ -z $NPG ]] ; then
-		$SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list..."
+		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list..."
 	else
-		for num in `seq $NPG -1 1`; do $SOURCE -o accept_encoding=="*;q=0" "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
+		for num in `seq $NPG -1 1`; do $SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt; echo "Looking for allies on friend list page $num..."; done
 	fi
 	sort -u tmp.txt -o tmp.txt
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
@@ -39,7 +39,7 @@ _calliesID () {
 	echo "Clan allies by Leader/Deputy on friends list..."
 	while read IDN; do
 		if [[ -n $IDN ]]; then
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)")
 			LEADPU=$(echo $SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
 			alCLAN=$(echo $SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
 			[[ -n $LEADPU ]] && {

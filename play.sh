@@ -37,20 +37,20 @@ _play () {
 				sleep 1
 				[[ $(date +%M) > 00 ]] && break
 			done
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/undying/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			echo Undying & _undying
 			sleep 300
 			_crono ;;
 # /Battle of banners 10:15:00 - 16:15:00
 #		(10:14|16:14)
 #			_msgs
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			until [[ $(date +%M:%S) = 14:5* ]] ; do
 #				echo 'Battle of banners will be started...'
 #				sleep 1
 #				[[ $(date +%M) > 15 ]] && break
 #			done
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 #			_flagfight
 #			_crono ;;
 # /Clan coliseum 10:30:00 - 15:00:00
@@ -62,8 +62,8 @@ _play () {
 				sleep 1
 				[[ $(date +%M) = 00 ]] && break
 			done
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			echo "Clan Coliseum" & _clancoliseum
 			sleep 300
 			_crono ;;
@@ -71,7 +71,7 @@ _play () {
 		(10:59|18:59)
 			echo "" & _msgs
 			sleep 3
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/clanfight/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			until [[ $(date +%M:%S) = 59:40 ]] ; do
 				echo 'Clan tournament will be started...'
 				sleep 1
@@ -89,7 +89,7 @@ _play () {
 				sleep 1
 				[[ $(date +%M) > 30 ]] && break
 			done
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/king/enterGame" -o user_agent="$(shuf -n1 .ua)")
 			echo King & _king
 			sleep 599
 			echo Arena & _arena
@@ -109,7 +109,7 @@ _play () {
 				sleep 1
 				[[ $(date +%M) = 00 ]] && break
 			done
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL/altars/enterFight" -o user_agent="$(shuf -n1 .ua)")
 			echo Altars & _altars
 			sleep 420
 			_crono ;;

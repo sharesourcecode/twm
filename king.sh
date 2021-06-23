@@ -15,17 +15,17 @@ _king () {
 	}
 	echo -e "\nKing"
 	echo $URL
-	SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/king/enterGame -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE $URL/king/enterGame -o user_agent="$(shuf -n1 .ua)")
 	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F"[']" '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
 	echo " 😴 Waiting..."
-	SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/king/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE "$URL/king/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
         EXIT=$(echo $SRC | grep -o 'king/kingatk/')
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = 30 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F"[']" '{ print $2 }')
 		EXIT=$(echo $SRC | grep -o 'king/kingatk/')
 	done
@@ -41,7 +41,7 @@ _king () {
 # /dodge
 		if [[ $HP3 -lt $HP1 && $ddg -ge 9 ]]; then
 			echo '🛡️'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			_access
 			ddg=$[$ddg+1]
@@ -53,7 +53,7 @@ _king () {
 		elif [[ -n $KINGATK ]]; then
 			sleep 0.9
 			echo '👑'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
@@ -62,7 +62,7 @@ _king () {
 # /heal
 		elif [[ $HP1 -le $HLHP && $hl -le 41 ]]; then
 			echo "🆘 HP < $HPER%"
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			hl=0
 			_access
 			ddg=$[$ddg+1]
@@ -72,7 +72,7 @@ _king () {
 		elif [[ $hl -ne 41 && -n $(grep "$U" $TMP/allies.txt) ]]; then
 			sleep 0.9
 			echo "🔁$U"
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
@@ -81,7 +81,7 @@ _king () {
 		else
 			sleep 0.9
 			echo '🎯'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]

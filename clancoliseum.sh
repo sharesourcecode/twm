@@ -16,7 +16,7 @@ _clancoliseum () {
 	}
 	echo -e "\nClan coliseum"
 	echo $URL
-	SRC=$($SOURCE -o accept_encoding=="*;q=0" $URL/clancoliseum/?close=reward -o user_agent="$(shuf -n1 .ua)")
+	SRC=$($SOURCE $URL/clancoliseum/?close=reward -o user_agent="$(shuf -n1 .ua)")
 	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep 'clancoliseum/enterFight' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
@@ -25,8 +25,8 @@ _clancoliseum () {
 	while [[ -z $EXIT ]] ; do
 		[[ $(date +%M) = *0 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/clancoliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE "$URL/clancoliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/clancoliseum/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(echo $SRC | sed 's/href=/\n/g' | grep -o 'clancoliseum/attack/')
 	done
@@ -42,7 +42,7 @@ _clancoliseum () {
 		if [[ $hl -ne 40 && $ddg -ge 9 && $HP3 -ne $HP1 ]] ; then
 			sleep 0.45
 			echo '🛡️'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
 			ddg=0
 			HP3=$HP1
 			_access
@@ -54,7 +54,7 @@ _clancoliseum () {
 		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
 			sleep 0.45
 			echo "🆘 HP < $HPER%"
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			hl=0
 			sleep 0.9
@@ -66,7 +66,7 @@ _clancoliseum () {
 #			HPER='30'
 #			RPER='13'
 #			echo '🙌'
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 #			_access
 #			grss=0
 #			sleep $ITVL
@@ -76,7 +76,7 @@ _clancoliseum () {
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
 #			echo '💪'
-#			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
+#			SRC=$($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 #			_access
 #			sleep $ITVL
 #			ddg=$[$ddg+1]
@@ -85,7 +85,7 @@ _clancoliseum () {
 # /random
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$CLAN"
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep 0.9
 			ddg=$[$ddg+1]
@@ -95,7 +95,7 @@ _clancoliseum () {
 # /atk
 		else
 			echo '🎯'
-			SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
+			SRC=$($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)")
 			_access
 			sleep 0.9
 			ddg=$[$ddg+1]

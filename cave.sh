@@ -6,7 +6,7 @@ function _cave () {
 #		$PAGE "$URL/clan/$CLD/quest/help/5" -o user_agent="$(shuf -n1 .ua)" | head -n15
 #	fi
 	_condition () {
-		SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/cave/" -o user_agent="$(shuf -n1 .ua)")
+		SRC=$($SOURCE "$URL/cave/" -o user_agent="$(shuf -n1 .ua)")
 		ACCESS1=$(echo $SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n1 | awk -F\' '{ print $2 }')
 		DOWN=$(echo $SRC | sed 's/href=/\n/g' | grep '/cave/down' | awk -F\' '{ print $2 }')
 		ACCESS2=$(echo $SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n2 | tail -n1 | awk -F\' '{ print $2 }')
@@ -19,21 +19,21 @@ function _cave () {
 		_condition
 		case $ACTION in
 			(cavechancercavegatherrcavedownr)
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavespeedUpr)
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") ;
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavedownr|cavedownrclanbuiltprivateUpgradetruerrefcave)
 				num=$[$num-1] ;
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$DOWN" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE "$URL$DOWN" -o user_agent="$(shuf -n1 .ua)") ;
 				echo $num ;;
 			(caveattackrcaverunawayr)
 				num=$[$num-1] ;
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL$ACCESS1" -o user_agent="$(shuf -n1 .ua)") ;
-				SRC=$($SOURCE -o accept_encoding=="*;q=0" "$URL/cave/runaway" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE "$URL$ACCESS1" -o user_agent="$(shuf -n1 .ua)") ;
+				SRC=$($SOURCE "$URL/cave/runaway" -o user_agent="$(shuf -n1 .ua)") ;
 				echo $num ;;
 			(*) num=0 ;;
 		esac
