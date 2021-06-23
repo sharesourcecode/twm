@@ -6,7 +6,7 @@ chmod a+x ~/.termux/boot/PLAY.sh
 #DUMP="w3m -o https_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump"
 PAGE="w3m -o https_proxy=$PROXY -debug"
 DUMP="w3m -o https_proxy=$PROXY -debug -dump"
-SOURCE="w3m -o https_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source"
+SOURCE="w3m -o https_proxy=$PROXY -o accept_language=pt-BR -o accept_encoding=UTF-8 -debug -dump_source"
 # /sources
 cd ~/twm
 . requeriments.sh ; . loginlogoff.sh
