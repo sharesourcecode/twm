@@ -1,11 +1,11 @@
 _undying () {
 # /clear bag
 	$PAGE $URL/inv/bag/sellAll/1/ -o user_agent="$(shuf -n1 .ua)" | head -n 3 | tail -n 2 &
-	x=$! ; sleep 2 && kill -9 $x &> /dev/null
+	x=$! ; sleep 3 && kill -9 $x &> /dev/null
 # /enterGame
 	echo "Undying"
 	$PAGE $URL/undying/enterGame -o user_agent="$(shuf -n1 .ua)" | head -n5 &
-	x=$! ; sleep 2 && kill -9 $x &> /dev/null
+	x=$! ; sleep 3 && kill -9 $x &> /dev/null
 #
 	echo " 👣 Entering..."
 	echo $($SOURCE $URL/undying -o user_agent="$(shuf -n1 .ua)") >SRC &
