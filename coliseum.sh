@@ -33,11 +33,12 @@ _coliseum () {
         EXIT=$(echo $SRC | grep -o '/leaveFight/' | head -n1)
 	while [[ -n $EXIT ]] ; do
 		echo -e " 💤	...\n$ACCESS"
-		SRC=$($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)")
-		ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
-		EXIT=$(echo $SRC | grep -o '/leaveFight/' | head -n1)
+		echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
+		x=$! ; sleep 3 && kill -9 $x &> /dev/null
+		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
+		EXIT=$(cat SRC | grep -o '/leaveFight/' | head -n1)
 	done
-	FULL=$(echo $SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
+	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
 	HP3=$HP1
 	ddg=9
