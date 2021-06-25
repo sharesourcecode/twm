@@ -6,7 +6,7 @@ _members () {
 	echo -e "\nUpdating clan members into allies..."
 	for num in `seq 5 -1 1`; do
 		$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
-		x=$! ; sleep 5 && kill -9 $x &> /dev/null;
+		x=$! ; sleep 3 && kill -9 $x &> /dev/null;
 	done
 	sort -u allies.txt -o allies.txt
 	}
@@ -21,17 +21,17 @@ _alliesID () {
 # Friends ID
 	cd $TMP
 	echo $($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null;
+	x=$! ; sleep 3 && kill -9 $x &> /dev/null;
 	NPG=$(cat SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt; echo -ne "\033[33m"
 	if [[ -z $NPG ]] ; then
 		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
-		x=$! ; sleep 5 && kill -9 $x &> /dev/null;
+		x=$! ; sleep 3 && kill -9 $x &> /dev/null;
 		echo "Looking for allies on friend list..."
 	else
 		for num in `seq $NPG -1 1`; do
 			$SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
-			x=$! ; sleep 5 && kill -9 $x &> /dev/null;
+			x=$! ; sleep 3 && kill -9 $x &> /dev/null;
 			echo "Looking for allies on friend list page $num...";
 		done
 	fi
@@ -50,7 +50,7 @@ _calliesID () {
 	while read IDN; do
 		if [[ -n $IDN ]]; then
 			echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 5 && kill -9 $x &> /dev/null;
+			x=$! ; sleep 3 && kill -9 $x &> /dev/null;
 			LEADPU=$(cat SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
 			alCLAN=$(cat SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
 			[[ -n $LEADPU ]] && {
