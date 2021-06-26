@@ -25,13 +25,13 @@ _colifight () {
 _AtakeHelp () {
 	_clanid
 	if [[ -n $CLD ]]; then
-		$DUMP "$URL/clan/$CLD/quest/take/3" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/take/3" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/take/4" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/take/4" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
 	fi
 	unset CLD
@@ -39,13 +39,13 @@ _AtakeHelp () {
 _AdeleteEnd () {
 	_clanid
 	if [[ -n $CLD ]]; then
-		$DUMP "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/end/3" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/end/3" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
-		$DUMP "$URL/clan/$CLD/quest/end/4" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
+		$DUMP "$URL/clan/$CLD/quest/end/4" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
 		x=$! ; sleep 3 ; kill -9 $x &> /dev/null ; echo ""
 	fi
 	unset CLD

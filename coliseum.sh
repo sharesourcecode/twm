@@ -6,14 +6,15 @@ _coliseum () {
 #sleep 5
 #}
 # /enterFight
-	SRC=$($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)")
+	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
+	x=$! ; sleep 5 && kill -9 $x &> /dev/null
 	HPER='30'
 	RPER='20'
 	_show () {
-		YOU=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
-		USER=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
-		HP1=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
-		HP2=$(echo $SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}')
+		YOU=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
+		USER=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
+		HP1=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}')
+		HP2=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}')
 		if [[ -n $OUTGATE ]] ; then
 			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$URL\n$YOU: $HP1 - $HP2 :$USER\n"
 			[[ $HP1 -eq 0 ]] && echo -e "$URL\n$YOU: 💀 - $HP2 :$USER\n"
@@ -22,19 +23,22 @@ _coliseum () {
 }
 	echo -e "\nColiseum"
 	echo $URL
-	$PAGE $URL/coliseum/ -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d"
-	SRC=$($SOURCE $URL/coliseum -o user_agent="$(shuf -n1 .ua)")
-	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/enterFight/' | head -n1 | awk -F\' '{ print $2 }')
+	$PAGE $URL/coliseum -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" &
+	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/enterFight/' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
-	SRC=$($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)")
+	echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	x=$! ; sleep 5 && kill -9 $x &> /dev/null
 # /wait
 	echo " 😴 Waiting..."
-	ACCESS=$(echo $SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
-        EXIT=$(echo $SRC | grep -o '/leaveFight/' | head -n1)
+	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
+        EXIT=$(cat SRC | grep -o '/leaveFight/' | head -n1)
 	while [[ -n $EXIT ]] ; do
 		echo -e " 💤	...\n$ACCESS"
-		echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
+		echo $($SOURCE $URL/coliseum -o user_agent="$(shuf -n1 .ua)") >SRC &
+		x=$! ; sleep 5 && kill -9 $x &> /dev/null
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | grep -o '/leaveFight/' | head -n1)
 	done
@@ -49,11 +53,10 @@ _coliseum () {
 #		echo $SRC | sed 's/href=/\n/g' | grep '/dodge' | grep 'timer' | awk -F"[:]" '{print $2}' | awk -F"[<]" '{print $1}' | tr -cd '[[:digit:]]';echo " ";
 #		echo "$ddg $grss $hl"
 		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
-			sleep 0.45
 			echo '🛡️'
-			SRC=$($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)")
+			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			x=$! ; sleep 1.45 && kill -9 $x &> /dev/null
 			_access
-			sleep 1
 			ddg=0
 			HP3=$HP1
 			ddg=$[$ddg+1]
@@ -61,11 +64,10 @@ _coliseum () {
 			grss=$[$grss+1]
 # /heal
 		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
-			sleep 0.45
 			echo "🆘 HP < $HPER%"
-			SRC=$($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)")
+			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			x=$! ; sleep 1.35 && kill -9 $x &> /dev/null
 			_access
-			sleep 0.9
 			hl=0
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
@@ -94,9 +96,9 @@ _coliseum () {
 # /random
 		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$USER"
-			SRC=$($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)")
+			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
 			_access
-			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
@@ -104,19 +106,19 @@ _coliseum () {
 # /atk
 		else
 			echo '🎯'
-			SRC=$($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)")
+			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
 			_access
-			sleep 0.9
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 		fi
 	done
-	unset HPER RPER ITVL SRC ACCESS EXIT FULL HP3 ddg hl grss
+	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
 # /view
 	echo ""
-	$PAGE $URL/coliseum/ -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" | grep --color $ACC
+	$PAGE $URL/coliseum/ -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" | grep --color $ACC &
+	x=$! ; sleep 5 && kill -9 $x &> /dev/null
 	_unset
 	echo 'Coliseum (✔)'
-	sleep 5
 }
