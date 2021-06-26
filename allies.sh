@@ -3,11 +3,11 @@ _members () {
 	echo "Ilililililililil" >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
-	echo -e "\nUpdating clan members into allies..."
+	echo -e "\n________________________________________\nUpdating clan members into allies..."
 	for num in `seq 5 -1 1`; do
 		echo "$URL/clan/$CLD/$num ..."
 		$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
-		x=$! &> /dev/null ; sleep 4 ; cat allies.txt && kill -9 $x &> /dev/null;
+		x=$! &> /dev/null ; sleep 4 ; kill -9 $x &> /dev/null;
 	done
 	sort -u allies.txt -o allies.txt
 	}
@@ -20,7 +20,7 @@ _members () {
 }
 _alliesID () {
 # Friends ID
-	echo "Looking for allies on friend list..."
+	echo -e "\n________________________________________\nLooking for allies on friends list..."
 	cd $TMP
 	echo "$URL/mail/friends ..."
 	echo $($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)") >SRC &
@@ -34,7 +34,7 @@ _alliesID () {
 		kill -9 $x &> /dev/null
 	else
 		for num in `seq $NPG -1 1`; do
-			echo -e "Looking for allies on friend list page ...\n$URL/mail/friends/$num";
+			echo -e "Friends list page ...\n$URL/mail/friends/$num";
 			$SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
 			x=$! &> /dev/null ; sleep 4
 			kill -9 $x &> /dev/null;
@@ -51,7 +51,7 @@ _calliesID () {
 	ts=0
 	echo "Ilililililililililil" >callies.txt; echo -ne "\033[36m"
 	cat tmp.txt | cut -d/ -f3 >ids.txt
-	echo "Clan allies by Leader/Deputy on friends list..."
+	echo -e "\n________________________________________\nClan allies by Leader/Deputy on friends list..."
 	while read IDN; do
 		if [[ -n $IDN ]]; then
 			echo "$URL/user/$IDN ..."
@@ -63,7 +63,7 @@ _calliesID () {
 			[[ -n $LEADPU ]] && {
 			ts=$[$ts+1]
 			echo $LEADPU | sed 's,\ ,_,' >>callies.txt
-			echo "$ts. Ally $LEADPU $alCLAN added."
+			echo -e "$ts. Ally $LEADPU $alCLAN added.\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
 			sort -u callies.txt -o callies.txt
 			kill -9 $x &> /dev/null;
 			}
