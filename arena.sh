@@ -5,7 +5,7 @@ _openChest () {
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'quest/openChest' | head -n1 | awk -F\' '{ print $2 }')
 	while [[ -n $ACCESS ]]; do
 		echo $ACCESS
-		cat $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
+		echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
 		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'quest/openChest' | head -n1 | awk -F\' '{ print $2 }')
 	done
