@@ -6,7 +6,7 @@ _openChest () {
 	while [[ -n $ACCESS ]]; do
 		echo $ACCESS
 		echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 3
+		sleep 2
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'quest/openChest' | head -n1 | awk -F\' '{ print $2 }')
 	done
 	unset ACCESS
@@ -17,24 +17,24 @@ _colifight () {
 	echo $($SOURCE "$URL/collfight/enterFight" -o user_agent="$(shuf -n1 .ua)") >SRC &
 	sleep 2
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'collfight/take' | head -n1 | awk -F\' '{ print $2 }') #/arena/attack/1/1234567*/
-	SRC=$($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") &
+	$SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
 	sleep 2
-	SRC=$($SOURCE "$URL/collfight/enterFight" -o user_agent="$(shuf -n1 .ua)") &
-	sleep 5
-	unset SRC ACCESS
+	$SOURCE "$URL/collfight/enterFight" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
+	sleep 2
+	unset ACCESS
 	killall -q -9 w3m
 }
 _AtakeHelp () {
 	_clanid
 	if [[ -n $CLD ]]; then
 		$DUMP "$URL/clan/$CLD/quest/take/3" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/take/3" ; sleep 2
+		echo "/clan/$CLD/quest/take/3" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/help/3" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/help/3" ; sleep 2
+		echo "/clan/$CLD/quest/help/3" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/take/4" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/take/4" ; sleep 2
+		echo "/clan/$CLD/quest/take/4" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/help/4" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/help/4" ; sleep 5
+		echo "/clan/$CLD/quest/help/4" ; sleep 2
 		killall -q -9 w3m
 	fi
 	unset CLD
@@ -43,13 +43,13 @@ _AdeleteEnd () {
 	_clanid
 	if [[ -n $CLD ]]; then
 		$DUMP "$URL/clan/$CLD/quest/deleteHelp/3" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/deleteHelp/3" ; sleep 2
+		echo "/clan/$CLD/quest/deleteHelp/3" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/end/3" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/end/3" ; sleep 2
+		echo "/clan/$CLD/quest/end/3" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/deleteHelp/4" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/deleteHelp/4" ; sleep 2
+		echo "/clan/$CLD/quest/deleteHelp/4" ; sleep 2
 		$DUMP "$URL/clan/$CLD/quest/end/4" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "$URL/clan/$CLD/quest/end/4" ; sleep 5
+		echo "/clan/$CLD/quest/end/4" ; sleep 2
 		killall -q -9 w3m
 	fi
 	unset CLD
@@ -58,7 +58,7 @@ _arena () {
 	echo "arena ..."
 	_AtakeHelp
 	echo $($SOURCE "$URL/arena/" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	sleep 5
+	sleep 2
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'arena/attack' | head -n1 | awk -F\' '{ print $2 }') #/arena/attack/1/1234567*/
 	EXIT=$(cat SRC | sed 's/href=/\n/g' | grep 'lab/wizard' | head -n1 | awk -F\' '{ print $2 }') #/lab/wizard/potion/1234567*/?ref=/arena/
 	while [[ -z $EXIT && -n $ACCESS ]]; do
@@ -75,7 +75,7 @@ _arena () {
 }
 _fullmana () {
 	echo $($SOURCE $URL/arena/quit -o user_agent="$(shuf -n1 .ua)" | sed "s/href='/\n/g" | grep "attack/1" | head -n1 | awk -F\/ '{ print $5 }' | tr -cd "[[:digit:]]") >ARENA &
-	sleep 3
+	sleep 2
 	echo " ⚔ - 1 Attack..."
 	echo $($SOURCE "$URL/arena/attack/1/?r=`cat ARENA`" -o user_agent="$(shuf -n1 .ua)" | sed "s/href='/\n/g" | grep "arena/lastPlayer" | head -n1 | awk -F\' '{ print $1 }' | tr -cd "[[:digit:]]") >ATK1 &
 	sleep 2
