@@ -13,7 +13,7 @@ _requeriments () {
 				elif [[ $UR == 1 ]]; then
 					URL='tiwar-id.net' ; TMP="$HOME/.11" ; export TZ=Asia/Jakarta LANG=id.UTF-8 ; ALLIES="_WORK" ; break
 				elif [[  $UR  == $'\177' ]]; then
-					_requeriments
+					_requeriments ; break
 				else
 					clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!"
 				fi
