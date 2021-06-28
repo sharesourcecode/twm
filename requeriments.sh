@@ -1,32 +1,50 @@
 _requeriments () {
 # /servers
+	clear
 	if [[ -z $URL ]] ; then
-		echo -e " 1) 🇬🇧 English, Global: Titan's War online\n 2) 🇷🇺 Русский: Битва Титанов онлайн\n 3) 🇵🇱 Polski: Wojna Tytanów online\n 4) 🇩🇪 Deutsch: Krieg der Titanen online\n 5) 🇪🇸 Español: Guerra de Titanes online\n 6) 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online\n 7) 🇮🇹 Italiano: Guerra di Titani online\n 8) 🇫🇷 Français: Combat des Titans online\n 9) 🇷🇴 Română: Războiul Titanilor online\n10) 🇨🇳 中文, Chinese: 泰坦之战\n11) 🇮🇩 Indonesian: Titan's War Indonesia\n0) ❌ Cancel\n"
-		read -p "Select number Server[1 to 11]: " -t 300 -e -n 2 UR
+		_one () {
+			clear
+			echo -e " \e[01;32m\e[01;07m1\e[00m)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[01;32m\e[01;07m[ENTER]\e[00m\n 2)\e[05;30m\e[08;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[08;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[08;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[08;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[08;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[08;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[08;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[08;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n\e[01;32m\e[01;07m1\e[00m0)\e[05;30m\e[05;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n\e[01;32m\e[01;07m1\e[00m1)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[01;07m ❌ Cancel \e[00m"
+			while IFS= read -p "Select number Server[1 to 11]: 1" -t 300 -r -s -n 1 UR; do
+				if [[ $UR == $'\0' ]]; then
+					URL='tiwar.net' ; TMP="$HOME/.1" ; export TZ=Europe/London LANG=en.UTF-8 ; ALLIES="_WORK" ; break
+				elif [[ $UR == 0 ]]; then
+					URL='cn.tiwar.net' ; TMP="$HOME/.10" ; export TZ=Asia/Shanghai LANG=zh-CN.UTF-8 ; ALLIES="_WORK" ; break
+				elif [[ $UR == 1 ]]; then
+					URL='tiwar-id.net' ; TMP="$HOME/.11" ; export TZ=Asia/Jakarta LANG=id.UTF-8 ; ALLIES="_WORK" ; break
+				elif [[  $UR  == $'\177' ]]; then
+					_requeriments
+				else
+					clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!"
+				fi
+			done
+		}
+		echo -e " 1)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[00m\n 2)\e[05;30m\e[05;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[01;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[05;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[01;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[05;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[01;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[05;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[01;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n10)\e[05;30m\e[05;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n11)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[02;07m ❌ Cancel \e[00m"
+		read -p "Select number Server[1 to 11]: " -t 300 -e -n 1 UR
 		case $UR in
-			(1) URL='tiwar.net' ; TMP="$HOME/.1" ; export TZ=Europe/London ; lang=en.UTF-8 ; ALLIES="_WORK" ;;
+			(1) _one ;;
 
-			(2|ru) URL='tiwar.ru' ; TMP="$HOME/.2" ; export TZ=Europe/Moscow ; lang=ru.UTF-8 ; ALLIES="_WORK" ;;
+			(2|ru) URL='tiwar.ru' ; TMP="$HOME/.2" ; export TZ=Europe/Moscow LANG=ru.UTF-8 ; ALLIES="_WORK" ;;
 
-			(3|pl) URL='tiwar.pl' ; TMP="$HOME/.3" ; export TZ=Europe/Warsaw ; lang=pl.UTF-8 ; ALLIES="_WORK" ;;
+			(3|pl) URL='tiwar.pl' ; TMP="$HOME/.3" ; export TZ=Europe/Warsaw LANG=pl.UTF-8 ; ALLIES="_WORK" ;;
 
-			(4) URL='titanen.mobi' ; TMP="$HOME/.4" ; export TZ=Europe/Berlin ; lang=de.UTF-8 ; ALLIES="_WORK" ;;
+			(4) URL='titanen.mobi' ; TMP="$HOME/.4" ; export TZ=Europe/Berlin LANG=de.UTF-8 ; ALLIES="_WORK" ;;
 
-			(5) URL='guerradetitanes.net' ; TMP="$HOME/.5" ; export TZ=America/Cancun ; lang=es-MX.UTF-8 ;  ALLIES="_WORK" ;;
+			(5) URL='guerradetitanes.net' ; TMP="$HOME/.5" ; export TZ=America/Cancun LANG=es-MX.UTF-8 ;  ALLIES="_WORK" ;;
 
-			(6|fu) URL='furiadetitas.net' ; TMP="$HOME/.6" ; export TZ=America/Bahia ; lang=pt-BR.UTF-8 ;ALLIES="_WORK" ;;
+			(6|fu) URL='furiadetitas.net' ; TMP="$HOME/.6" ; export TZ=America/Bahia LANG=pt-BR.UTF-8 ;ALLIES="_WORK" ;;
 
-			(7) URL='guerradititani.net' ; TMP="$HOME/.7" ; export TZ=Europe/Rome ; lang=it.UTF-8 ; ALLIES="_WORK" ;;
+			(7) URL='guerradititani.net' ; TMP="$HOME/.7" ; export TZ=Europe/Rome LANG=it.UTF-8 ; ALLIES="_WORK" ;;
 
-			(8|fr) URL='tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris ; lang=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
+			(8|fr) URL='tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris LANG=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
 
-			(9|ro) URL='tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest ; lang=ro.UTF-8 ; ALLIES="_WORK" ;;
+			(9|ro) URL='tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest LANG=ro.UTF-8 ; ALLIES="_WORK" ;;
 
-			(10|cn) URL='cn.tiwar.net' ; TMP="$HOME/.10" ; export TZ=Asia/Shanghai ; lang=zh-CN.UTF-8 ; ALLIES="_WORK" ;;
+			(10|cn) _one ;;
 
-			(11|ba) URL='tiwar-id.net' ; TMP="$HOME/.11" ; export TZ=Asia/Barnaul ; lang=ru.UTF-8 ; ALLIES="_WORK" ;;
+			(11|ba) _one ;;
 
-			(0) kill -9 $$ ;;
+			(0|c|C) kill -9 $$ ;;
 
 			(*) clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 		esac
