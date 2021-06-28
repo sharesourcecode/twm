@@ -89,7 +89,7 @@ _requeriments () {
 		echo -e "\n Downloading 15/21 king.sh"
 		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/king.sh -O -L &> /dev/null ;
 		echo -e "\n Downloading 16/21 loginlogoff.sh"
-		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/loginlogoff.sh ;
+		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/loginlogoff.sh &> /dev/null ;
 		echo -e "\n Downloading 17/21 play.sh"
 		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/play.sh -O -L &> /dev/null ;
 		echo -e "\n Downloading 18/21 requeriments.sh"
