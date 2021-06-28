@@ -19,7 +19,7 @@ _requeriments () {
 				fi
 			done
 		}
-		echo -e " 1)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[00m\n 2)\e[05;30m\e[05;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[01;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[05;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[01;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[05;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[01;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[05;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[01;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n10)\e[05;30m\e[05;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n11)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[02;07m ❌ Cancel \e[00m"
+		echo -e " 1)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[00m\n 2)\e[01;30m\e[01;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[01;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[01;30m\e[01;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[01;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[01;30m\e[01;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[01;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[01;30m\e[01;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[01;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n10)\e[01;30m\e[01;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n11)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[02;07m ❌ Cancel \e[00m"
 		read -p "Select number Server[1 to 11]: " -t 300 -e -n 1 UR
 		case $UR in
 			(1) _one ;;
