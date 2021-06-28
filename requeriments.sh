@@ -54,8 +54,7 @@ _requeriments () {
 # /tmp dir
 	mkdir -p $TMP
 # /update script and dependencies
-	echo -e "\n Upgrading..."
-	echo -e "👉 Please wait...☕👴"
+	echo -e "\e[01;30m\e[01;07m\n Upgrading...\n👉 Please wait...☕👴\e[00m"
 	_sync () {
 		cd $HOME/twm
 		echo -e "\n Downloading 1/21 PLAY.sh"
