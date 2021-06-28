@@ -58,11 +58,11 @@ _requeriments () {
 	echo -e "👉 Please wait...☕👴"
 	_sync () {
 		cd $HOME/twm
-		curl https://github.com/sharesourcecode/twm/raw/master/cave.sh -O -L &> /dev/null ;
+		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/cave.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 1/21"
-		curl https://github.com/sharesourcecode/twm/raw/master/PLAY.sh -O -L &> /dev/null ;
+		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/PLAY.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 2/21"
-		curl https://github.com/sharesourcecode/twm/raw/master/altars.sh -O -L &> /dev/null ;
+		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/altars.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 3/21"
 		curl https://github.com/sharesourcecode/twm/raw/master/arena.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 4/21"
@@ -88,7 +88,7 @@ _requeriments () {
 		echo -e "\n Upgrading 14/21"
 		curl https://github.com/sharesourcecode/twm/raw/master/play.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 15/21"
-		curl https://github.com/sharesourcecode/twm/raw/master/requeriments.sh -O -L &> /dev/null ;
+		curl https://raw.githubusercontent.com/sharesourcecode/twm/master/requeriments.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 16/21"
 		curl https://github.com/sharesourcecode/twm/raw/master/trade.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 17/21"
