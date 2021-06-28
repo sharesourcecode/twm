@@ -1,7 +1,7 @@
 #!/bin/bash
 termux-wake-lock &> /dev/null
 [[ ! -e installed.txt ]] && apt install coreutils ncurses-utils git termux-api w3m curl dos2unix dnsutils -y; >installed.txt
-rm -rf twm/ &> /dev/null
+rm -rf $HOME/twm/ &> /dev/null
 mkdir -p $HOME/twm
 cd $HOME/twm
 curl https://github.com/sharesourcecode/twm/raw/master/cave.sh -O -L &> /dev/null ;
