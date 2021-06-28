@@ -60,7 +60,7 @@ _requeriments () {
 		cd $HOME/twm
 		curl https://github.com/sharesourcecode/twm/raw/master/cave.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 1/21"
-		curl https://github.com/sharesourcecode/twm/raw/master/PLAY.x -O -L &> /dev/null ;
+		curl https://github.com/sharesourcecode/twm/raw/master/PLAY.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 2/21"
 		curl https://github.com/sharesourcecode/twm/raw/master/altars.sh -O -L &> /dev/null ;
 		echo -e "\n Upgrading 3/21"
