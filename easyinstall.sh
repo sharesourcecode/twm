@@ -35,7 +35,7 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/flagfight.sh -
 echo -e "\n Downloading 15/21 king.sh"
 curl https://raw.githubusercontent.com/sharesourcecode/twm/master/king.sh -O -L &> /dev/null ;
 echo -e "\n Downloading 16/21 loginlogoff.sh"
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/loginlogoff.sh &> /dev/null ;
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/loginlogoff.sh -O -L &> /dev/null ;
 echo -e "\n Downloading 17/21 play.sh"
 curl https://raw.githubusercontent.com/sharesourcecode/twm/master/play.sh -O -L &> /dev/null ;
 echo -e "\n Downloading 18/21 requeriments.sh"
@@ -47,9 +47,9 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/trade.sh -O -L
 echo -e "\n Downloading 21/21 undying.sh"
 curl https://raw.githubusercontent.com/sharesourcecode/twm/master/undying.sh -O -L &> /dev/null ;
 dos2unix *.sh &> /dev/null
-cd $HOME    
+cd $HOME
 chmod a+x -R twm/
-cp -R twm/ storage/downloads/twm
+#cp -R twm/ storage/downloads/twm
 reset; clear
 echo -e "\n Intalled scripts!\n Run command bash twm/PLAY.sh to execute."
 exit
