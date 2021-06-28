@@ -127,7 +127,7 @@ _userAgent () {
 
 		(1) clear; xdg-open "https://www.whatsmyua.info" ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 900 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
 
-		(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ; sleep 10 ;;
+		(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ; sleep 5 ;;
 
 		(*) clear; [[ -n $UA ]] && echo -e "\n Invalid option: $(echo $UA)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 	esac
@@ -141,7 +141,7 @@ elif [[ $(cat $TMP/.ua | wc -c) -gt 300 ]] ; then
 	_userAgent
 else
 	echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m"
-	sleep 10
+	sleep 5
 fi
 dos2unix $TMP/.ua &> /dev/null
 }
