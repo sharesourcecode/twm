@@ -17,7 +17,7 @@ _members () {
 	echo -e "\e[01;30m\e[05;07m\nAllies for Coliseum and King of the Immortals:\n\e[00m"
 	cat allies.txt
 	echo -e "\e[01;30m\e[05;07mWait to continue.  👈\e[00m"
-	sleep 5
+	sleep 10
 }
 _alliesID () {
 # Friends ID
@@ -25,13 +25,13 @@ _alliesID () {
 	cd $TMP
 	echo -e "\e[03;34m\e[02;04m/mail/friends\e[00m"
 	echo $($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	sleep 2
+	sleep 4
 	NPG=$(cat SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt
 	if [[ -z $NPG ]] ; then
 		echo -e "\e[03;34m\e[02;04m/mail/friends\e[00m"
 		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
-		sleep 2
+		sleep 3
 	else
 		for num in `seq $NPG -1 1`; do
 			echo -e "\e[01;30m\e[05;07mFriends list page $num\e[00m\n\e[03;34m\e[02;04m/mail/friends/$num\e[00m";
