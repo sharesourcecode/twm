@@ -19,9 +19,8 @@ _undying () {
 	echo " 😴 Waiting..."
 	until [[ -n $MANA ]] ; do
 		[[ $(date +%M) = 00 && $(date +%S) > 19 ]] && break
-		echo -e " 💤 	..."
 		echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		echo -e "$ACCESS"
+		echo -e " 💤 $ACCESS"
 		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/undying/' | head -n1 | awk -F\' '{ print $2 }')
 		MANA=$(cat SRC | grep -o 'undying/mana/' | head -n1)
