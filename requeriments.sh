@@ -104,17 +104,17 @@ _requeriments () {
 # /termux on android
 	cd $TMP
 	termux-wake-lock &> /dev/null
-	if [[ $? = 0 ]] ; then
+	[[ $? = 0 ]] && {
 		[[ ! -e executed.txt ]] && pkg install termux-api w3m curl dos2unix dnsutils -y && >executed.txt
 # _sync - to disable coment #
 		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
 		reset; clear
 		echo -e "Successful updates!\n"
-	else
+	} || {
 		sudo apt install w3m curl dos2unix dnsutils -y
 		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
 		reset; clear
-	fi
+	}
 # /user agents to $TMP/.ua
 	_userAgent () {
 		cd $TMP
