@@ -34,10 +34,8 @@ _cat () {
 }
 _sleep () {
 	if [[ $(date +%d) = 01 && $(date +%H) = 0[012345678] ]] ; then
-		echo "Arena..." & _arena
-		sleep 30
-		echo "Coliseum..." & _coliseum
-		sleep 30
+		_arena
+		_coliseum
 		reset
 		clear
 		_cat
