@@ -62,10 +62,10 @@ _calliesID () {
 			alCLAN=$(cat SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
 			echo -e "\e[03;34m\e[02;03m $LEADPU - $alCLAN\e[00m"
 			[[ -n $LEADPU ]] && {
-			ts=$[$ts+1]
-			echo $LEADPU | sed 's,\ ,_,' >>callies.txt
-			echo -e "\e[01;30m\e[05;07m $ts. Ally $LEADPU $alCLAN added.\e[00m"
-			sort -u callies.txt -o callies.txt
+				ts=$[$ts+1]
+				echo $LEADPU | sed 's,\ ,_,' >>callies.txt
+				echo -e "\e[01;30m\e[05;07m $ts. Ally $LEADPU $alCLAN added.\e[00m"
+				sort -u callies.txt -o callies.txt
 			}
 		}
 		sleep 2
