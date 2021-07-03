@@ -2,8 +2,6 @@
 mkdir -p ~/.termux/boot
 ln -s ~/twm/PLAY.sh ~/.termux/boot/PLAY.sh &> /dev/null
 chmod a+x ~/.termux/boot/PLAY.sh
-#PAGE="w3m -o https_proxy=$PROXY -o accept_encoding=UTF-8 -debug"
-#DUMP="w3m -o https_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump"
 PAGE="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug"
 DUMP="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug -dump"
 SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$lang -o accept_encoding=UTF-8 -debug -dump_source"
@@ -46,9 +44,13 @@ _loginlogoff
 _msgs () {
 		cd $TMP
 		echo -e "# Latest posts:" >msgs.txt
-		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt
-		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt
-		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt
+		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt &
+		sleep 2
+		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt &
+		sleep 2
+		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
+		sleep 3
+		killal -q -9 w3m
 	}
 _msgs
 while true ; do
