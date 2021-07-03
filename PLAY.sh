@@ -50,7 +50,7 @@ _msgs () {
 		sleep 2
 		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
 		sleep 3
-		killal -q -9 w3m
+		killall -q -9 w3m
 	}
 _msgs
 while true ; do
