@@ -17,7 +17,7 @@ _altars () {
 	echo -e "\nAltars"
 	echo $URL
 	echo $($SOURCE $URL/altars/enterFight -o user_agent="$(shuf -n1 .ua)") >SRC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	sleep 5
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'altars/enterFight' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
@@ -27,11 +27,12 @@ _altars () {
                 [[ $(date +%M) =  {00..09} && $(date +%S) > 19 ]] && break
 		echo -e "$URL\n 💤	...\n$ACCESS"
 		$DUMP $URL/altars/?close=reward -o user_agent="$(shuf -n1 .ua)" &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
+		sleep 3
 		echo $($SOURCE "$URL/altars/enterFight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		x=$! ; sleep 5 && kill -9 $x &> /dev/null
+		sleep 4
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/altars/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | sed 's/href=/\n/g' | grep -o 'altars/attack/')
+		killall -q -9 w3m
 	done
 	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
@@ -45,7 +46,7 @@ _altars () {
 		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.45 && kill -9 $x &> /dev/null
+			sleep 1.45
 			ddg=0
 			HP3=$HP1
 			_access
@@ -56,7 +57,7 @@ _altars () {
 		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.35 && kill -9 $x &> /dev/null
+			sleep 1.35
 			_access
 			hl=0
 			ddg=$[$ddg+1]
@@ -87,28 +88,29 @@ _altars () {
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
+			sleep 1.15
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
-
 # /atk
 		else
 			echo '🎯'
 			echo $($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
+			sleep 1.15
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 		fi
+		killall -q -9 w3m
 	done
 	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
 # /view
 	$PAGE $URL/altars -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	sleep 5
 	_unset
+	killall -q -9 w3m
 	echo "Altars (✔)"
 	sleep 30
 }
