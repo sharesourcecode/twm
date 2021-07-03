@@ -1,6 +1,6 @@
 _members () {
 	cd $TMP
-	echo "Bot_Master" >>allies.txt
+	echo "Ilililililililil" >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
 	echo -e "\e[01;30m\e[05;07m\nUpdating clan members into allies\n\e[00m"
@@ -28,17 +28,17 @@ _alliesID () {
 	sleep 4
 	NPG=$(cat SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt
-	if [[ -z $NPG ]] ; then
+	[[ -z $NPG ]] && {
 		echo -e "\e[03;34m\e[02;04m/mail/friends\e[00m"
 		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
 		sleep 3
-	else
+	} || {
 		for num in `seq $NPG -1 1`; do
 			echo -e "\e[01;30m\e[05;07mFriends list page $num\e[00m\n\e[03;34m\e[02;04m/mail/friends/$num\e[00m";
 			$SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
 			sleep 2
 		done
-	fi
+	}
 	sleep 2
 	sort -u tmp.txt -o tmp.txt
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
@@ -50,11 +50,11 @@ _calliesID () {
 	[[ -n $CLD ]] && {
 	cd $TMP
 	ts=0
-	echo "Background_Process" >callies.txt
+	echo "Ilililililililililil" >callies.txt
 	cat tmp.txt | cut -d/ -f3 >ids.txt
 	echo -e "\e[01;30m\e[05;07m\nClan allies by Leader/Deputy on friends list\n\e[00m"
 	while read IDN; do
-		if [[ -n $IDN ]]; then
+		[[ -n $IDN ]] && {
 			echo -e "\e[03;34m\e[02;04m/user/$IDN\e[00m"
 			echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 2
@@ -67,7 +67,7 @@ _calliesID () {
 			echo -e "\e[01;30m\e[05;07m $ts. Ally $LEADPU $alCLAN added.\e[00m"
 			sort -u callies.txt -o callies.txt
 			}
-		fi
+		}
 		sleep 2
 	done < ids.txt
 	killall -q -9 w3m
