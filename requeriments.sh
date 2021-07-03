@@ -132,15 +132,11 @@ _requeriments () {
 		esac
 		unset UA
 	}
-	if [[ ! -e $TMP/.ua ]] ; then
+	[[ ! -e $TMP/.ua || $(cat $TMP/.ua | wc -c) -lt 10 || $(cat $TMP/.ua | wc -c) -gt 300 ]] && {
 		_userAgent
-	elif [[ $(cat $TMP/.ua | wc -c) -lt 10 ]] ; then
-		_userAgent
-	elif [[ $(cat $TMP/.ua | wc -c) -gt 300 ]] ; then
-		_userAgent
-	else
+	} || {
 		echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m"
 		sleep 2
-	fi
+	}
 	dos2unix $TMP/.ua &> /dev/null
 }
