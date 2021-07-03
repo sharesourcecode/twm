@@ -3,15 +3,15 @@ _members () {
 	echo "Bot_Master" >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
-	echo -e "\e[01;30m\e[05;07m\nUpdating clan members into allies\n\e[00m"
-	for num in `seq 5 -1 1`; do
-		echo -e "\e[03;34m\e[02;04m/clan/$CLD/$num\e[00m"
-		$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
+		echo -e "\e[01;30m\e[05;07m\nUpdating clan members into allies\n\e[00m"
+		for num in `seq 5 -1 1`; do
+			echo -e "\e[03;34m\e[02;04m/clan/$CLD/$num\e[00m"
+			$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
+			sleep 2
+		done
 		sleep 2
-	done
-	sleep 2
-	sort -u allies.txt -o allies.txt
-	killall -q -9 w3m
+		sort -u allies.txt -o allies.txt
+		killall -q -9 w3m
 	}
 # Print info
 	echo -e "\e[01;30m\e[05;07m\nAllies for Coliseum and King of the Immortals:\n\e[00m"
@@ -48,29 +48,29 @@ _calliesID () {
 # Clan ID by Leader/Deputy on friend list
 	_clanid
 	[[ -n $CLD ]] && {
-	cd $TMP
-	ts=0
-	echo "Background_Process" >callies.txt
-	cat tmp.txt | cut -d/ -f3 >ids.txt
-	echo -e "\e[01;30m\e[05;07m\nClan allies by Leader/Deputy on friends list\n\e[00m"
-	while read IDN; do
-		[[ -n $IDN ]] && {
-			echo -e "\e[03;34m\e[02;04m/user/$IDN\e[00m"
-			echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 2
-			LEADPU=$(cat SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
-			alCLAN=$(cat SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
-			echo -e "\e[03;34m\e[02;03m $LEADPU - $alCLAN\e[00m"
-			[[ -n $LEADPU ]] && {
-				ts=$[$ts+1]
-				echo $LEADPU | sed 's,\ ,_,' >>callies.txt
-				echo -e "\e[01;30m\e[05;07m $ts. Ally $LEADPU $alCLAN added.\e[00m"
-				sort -u callies.txt -o callies.txt
+		cd $TMP
+		ts=0
+		echo "Background_Process" >callies.txt
+		cat tmp.txt | cut -d/ -f3 >ids.txt
+		echo -e "\e[01;30m\e[05;07m\nClan allies by Leader/Deputy on friends list\n\e[00m"
+		while read IDN; do
+			[[ -n $IDN ]] && {
+				echo -e "\e[03;34m\e[02;04m/user/$IDN\e[00m"
+				echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
+				sleep 2
+				LEADPU=$(cat SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
+				alCLAN=$(cat SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
+				echo -e "\e[03;34m\e[02;03m $LEADPU - $alCLAN\e[00m"
+				[[ -n $LEADPU ]] && {
+					ts=$[$ts+1]
+					echo $LEADPU | sed 's,\ ,_,' >>callies.txt
+					echo -e "\e[01;30m\e[05;07m $ts. Ally $LEADPU $alCLAN added.\e[00m"
+					sort -u callies.txt -o callies.txt
+				}
 			}
-		}
-		sleep 2
-	done < ids.txt
-	killall -q -9 w3m
+			sleep 2
+		done < ids.txt
+		killall -q -9 w3m
 	}
 }
 _alliesConf () {
