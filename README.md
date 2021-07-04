@@ -1,5 +1,4 @@
 # twm(Titans War Macro)
-***STABLE***
 
 **Necessário level 16+ e +50 pontos de treinamento**
 Script macros para Titans war mobile game em todos servidores.
