@@ -54,7 +54,7 @@ _altars () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
-		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
+		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.35
