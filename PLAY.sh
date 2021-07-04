@@ -29,7 +29,7 @@ _access () {
 	OUTGATE=$(cat SRC | grep -o 'out_gate')
 	LEAVEFIGHT=$(cat SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
 	WDRED=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F"[']" '{ print $4 }') #white/dred
-	HLHP=$(expr $FULL \* $HPER \/ 100)
+	HLHP=$(expr "$FULL" \* "$HPER" \/ 100)
 	_show
 }
 _unset () {
