@@ -2,7 +2,7 @@ _coliseum () {
 # /enterFight
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo -e "$URL/settings/graphics/0\n" ; sleep 3
+	echo -e "/settings/graphics/0\n" ; sleep 3
 	HPER='30'
 	RPER='20'
 	_show () {
@@ -17,13 +17,13 @@ _coliseum () {
 		}
 }
 	$PAGE $URL/coliseum -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" &
-	echo "$URL/coliseum" ; sleep 3
+	echo "/coliseum" ; sleep 3
 	echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo -e "\n$URL/coliseum/?close_clan_msg=true" ; sleep 2
+	echo '/coliseum/?close_clan_msg=true' ; sleep 2
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/enterFight/' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 	echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo "$URL$ACCESS" ; sleep 3
+	echo "$ACCESS" ; sleep 3
 	killall -q -9 w3m
 # /wait
 	echo "😴 Waiting..."
@@ -48,7 +48,7 @@ _coliseum () {
 #		echo "$ddg $grss $hl"
 		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🛡️ $URL$DODGE" ; sleep 1.45
+			echo "🛡️ $DODGE" ; sleep 1.45
 			_access
 			ddg=0
 			HP3=$HP1
@@ -58,7 +58,7 @@ _coliseum () {
 # /heal
 		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "HP < $HPER%\n🆘 $URL$HEAL" ; sleep 1.35
+			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.35
 			_access
 			hl=0
 			ddg=$[$ddg+1]
@@ -88,7 +88,7 @@ _coliseum () {
 # /random
 		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && "$ddg" -ne 9 && "$hl" -ne 40 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "$USER\n🔁 $URL$ATKRND" ; sleep 1.15
+			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.15
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
@@ -97,7 +97,7 @@ _coliseum () {
 # /atk
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🎯 $URL$ATK" ; sleep 1.15
+			echo "🎯 $ATK" ; sleep 1.15
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
