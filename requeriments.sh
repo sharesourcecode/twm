@@ -107,7 +107,7 @@ _requeriments () {
 	[[ $? = 0 ]] && {
 		[[ ! -e executed.txt ]] && pkg install termux-api w3m curl dos2unix dnsutils -y && >executed.txt
 # _sync - to disable coment #
-		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
+		[[ $(date +%H) > 10 || $(date +%H) < 22 ]] && echo oi _sync
 		reset; clear
 		echo -e "Successful updates!\n"
 	} || {
