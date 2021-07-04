@@ -42,7 +42,7 @@ _coliseum () {
 	ddg=9
 	grss=27
 	hl=40
-	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
+	until [[ -n "$BEXIT" && -z "$OUTGATE" ]] ; do
 # /dodge
 #		echo $SRC | sed 's/href=/\n/g' | grep '/dodge' | grep 'timer' | awk -F"[:]" '{print $2}' | awk -F"[<]" '{print $1}' | tr -cd '[[:digit:]]';echo " ";
 #		echo "$ddg $grss $hl"
@@ -56,7 +56,7 @@ _coliseum () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 # /heal
-		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
+		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "HP < $HPER%\n🆘 $URL$HEAL" ; sleep 1.35
 			_access
@@ -86,7 +86,7 @@ _coliseum () {
 #			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
+		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && "$ddg" -ne 9 && "$hl" -ne 40 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "$USER\n🔁 $URL$ATKRND" ; sleep 1.15
 			_access
@@ -103,7 +103,7 @@ _coliseum () {
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 		fi
-		kill -q -9 w3m
+		killall -q -9 w3m
 	done
 	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
 # /view
@@ -112,5 +112,5 @@ _coliseum () {
 	sleep 5
 	_unset
 	echo 'Coliseum (✔)'
-	kill -q -9 w3m
+	killall -q -9 w3m
 }
