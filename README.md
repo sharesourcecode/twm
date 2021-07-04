@@ -13,7 +13,7 @@ Script macros para Titans war mobile game em todos servidores.
 
 **curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -O -L**
 
-**bash easyinstall.sh
+**bash easyinstall.sh**
 
 3. Para executar o twm(ENTER para confirmar):
 
