@@ -1,7 +1,4 @@
 #!/bin/bash
-mkdir -p ~/.termux/boot
-ln -s ~/twm/PLAY.sh ~/.termux/boot/PLAY.sh &> /dev/null
-chmod a+x ~/.termux/boot/PLAY.sh
 PAGE="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug"
 DUMP="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug -dump"
 SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$lang -o accept_encoding=UTF-8 -debug -dump_source"
