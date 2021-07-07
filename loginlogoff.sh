@@ -13,9 +13,8 @@ _loginlogoff () {
 	echo "Please wait..."
 	while [[ -z $ACC && -n $URL ]]; do
 		function _login () {
-# /logoff2x
-			$($PAGE "$URL/?exit" -o user_agent="$(shuf -n1 .ua)") 2&>-
-			$($PAGE "$URL/?exit" -o user_agent="$(shuf -n1 .ua)") 2&>-
+# /logoff
+			$($PAGE -cookie "$URL/?exit" -o user_agent="$(shuf -n1 .ua)") 2&>-
 			unset username; unset password
 			echo -e "\nIn case of error will repeat"
 			echo -n 'Username: '
@@ -47,8 +46,9 @@ _loginlogoff () {
 			echo -e "login=$username&pass=$password" >$TMP/login.txt
 # /login2x
 			unset username password
-			$(w3m -debug -post $TMP/login.txt "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
-			$(w3m -debug -post $TMP/login.txt -o accept_encoding=="*;q=0'" "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
+			$(w3m -cookie -post $TMP/login.txt "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
+			sleep 3
+			$(w3m -cookie -post $TMP/login.txt "$URL/?sign_in=1" -o user_agent="$(shuf -n1 .ua)") 2&>-
 		}
 		_login
 		rm $TMP/login.txt
@@ -56,4 +56,5 @@ _loginlogoff () {
 		echo "Please wait..."
 		ACC=$($PAGE "$URL/user" -o user_agent="$(shuf -n1 .ua)" | grep "\[level" | cut -d" " -f2)
 	done
+	_msgs
 }
