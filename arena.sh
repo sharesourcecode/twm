@@ -1,28 +1,34 @@
 # /arena
 _openChest () {
+	echo "openChest ..."
 	echo $($SOURCE  "$URL/quest" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	sleep 2
+	sleep 3
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'quest/openChest' | head -n1 | awk -F\' '{ print $2 }')
 	while [[ -n $ACCESS ]]; do
-		echo $ACCESS
 		echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 2
+		echo $ACCESS
+		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'quest/openChest' | head -n1 | awk -F\' '{ print $2 }')
+		killall -q -9 w3m
 	done
 	unset ACCESS
 	echo -e "openChest (✔)\n"
-	killall -q -9 w3m
 }
 _colifight () {
+	echo "collfight ..."
 	echo $($SOURCE "$URL/collfight/enterFight" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	echo "/collfight/enterFight"
 	sleep 2
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'collfight/take' | head -n1 | awk -F\' '{ print $2 }') #/arena/attack/1/1234567*/
 	$SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
+	echo "$ACCESS"
 	sleep 2
 	$SOURCE "$URL/collfight/enterFight" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
+	echo "/collfight/enterFight"
 	sleep 2
 	unset ACCESS
 	killall -q -9 w3m
+	echo -e "collfight (✔)\n"
 }
 _AtakeHelp () {
 	_clanid
@@ -74,6 +80,7 @@ _arena () {
 	echo -e "arena (✔)\n"
 }
 _fullmana () {
+	echo "energy arena ..."
 	echo $($SOURCE $URL/arena/quit -o user_agent="$(shuf -n1 .ua)" | sed "s/href='/\n/g" | grep "attack/1" | head -n1 | awk -F\/ '{ print $5 }' | tr -cd "[[:digit:]]") >ARENA &
 	sleep 2
 	echo " ⚔ - 1 Attack..."
@@ -83,4 +90,5 @@ _fullmana () {
 	$DUMP "$URL/arena/lastPlayer/?r=`cat ATK1`&fullmana=true" -o user_agent="$(shuf -n1 .ua)" | head -n5 | tail -n4 &
 	sleep 2
 	killall -q -9 w3m
+	echo -e "energy arena (✔)\n"
 }
