@@ -27,26 +27,27 @@ function _cave () {
 		case $ACTION in
 			(cavechancercavegatherrcavedownr)
 				echo $($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") >SRC &
+				echo "$ACCESS2"
 				sleep 3
-				num=$[$num-1] ;
-				echo $num ;;
+				num=$[$num-1] ;;
 			(cavespeedUpr)
 				echo $($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") >SRC &
+				echo "$ACCESS2"
 				sleep 3
-				num=$[$num-1] ;
-				echo $num ;;
+				num=$[$num-1] ;;
 			(cavedownr|cavedownrclanbuiltprivateUpgradetruerrefcave)
 				num=$[$num-1] ;
 				echo $($SOURCE "$URL$DOWN" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				sleep 3
-				echo $num ;;
+				echo "$DOWN"
+				sleep 3 ;;
 			(caveattackrcaverunawayr)
 				num=$[$num-1] ;
 				echo $($SOURCE "$URL$ACCESS1" -o user_agent="$(shuf -n1 .ua)") >SRC &
+				echo "$ACCESS1"
 				sleep 3
 				echo $($SOURCE "$URL/cave/runaway" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				sleep 3
-				echo $num ;;
+				echo "/cave/runaway"
+				sleep 3 ;;
 			(*) num=0 ;;
 		esac
 		cat SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n2 | tail -n1 | awk -F\' '{ print $2 }'
