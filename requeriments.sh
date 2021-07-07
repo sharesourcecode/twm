@@ -36,9 +36,9 @@ _requeriments () {
 
 			(7) URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0" | base64 -d) ; TMP="$HOME/.7" ; export TZ=Europe/Rome LANG=it.UTF-8 ; ALLIES="_WORK" ;;
 
-			(8|fr) URL=$(echo "dGl3YXIuZnI=" | base64 -d)'tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris LANG=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
+			(8|fr) URL=$(echo "dGl3YXIuZnI=" | base64 -d) ; TMP="$HOME/.8" ; export TZ=Europe/Paris LANG=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
 
-			(9|ro) URL=$(echo "dGl3YXIucm8=" | base64 -d)'tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest LANG=ro.UTF-8 ; ALLIES="_WORK" ;;
+			(9|ro) URL=$(echo "dGl3YXIucm8=" | base64 -d) ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest LANG=ro.UTF-8 ; ALLIES="_WORK" ;;
 
 #			(10|cn) _one ;;
 
