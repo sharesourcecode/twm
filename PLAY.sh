@@ -49,7 +49,6 @@ _msgs () {
 		sleep 3
 		killall -q -9 w3m
 	}
-_msgs
 while true ; do
 	rpt=$[$rpt+1]
 	sleep 1
