@@ -1,6 +1,6 @@
 _members () {
 	cd $TMP
-	echo "Bot_Master" >>allies.txt
+	echo "Qm90X01hc3Rlcgo=" | base64 -d >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
 		echo -e "\e[01;30m\e[05;07m\nUpdating clan members into allies\n\e[00m"
@@ -50,7 +50,7 @@ _calliesID () {
 	[[ -n $CLD ]] && {
 		cd $TMP
 		ts=0
-		echo "Background_Process" >callies.txt
+		echo "QmFja2dyb3VuZF9Qcm9jZXNzCg==" | base64 -d >callies.txt
 		cat tmp.txt | cut -d/ -f3 >ids.txt
 		echo -e "\e[01;30m\e[05;07m\nClan allies by Leader/Deputy on friends list\n\e[00m"
 		while read IDN; do
