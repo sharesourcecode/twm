@@ -7,11 +7,11 @@ _requeriments () {
 			echo -e " \e[01;32m\e[01;07m1\e[00m)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[01;32m\e[01;07m[ENTER]\e[00m\n 2)\e[05;30m\e[08;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[08;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[08;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[08;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[08;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[08;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[08;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[08;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n\e[01;32m\e[01;07m1\e[00m0)\e[01;30m\e[01;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n\e[01;32m\e[01;07m1\e[00m1)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[01;07m ❌ Cancel \e[00m"
 			while IFS= read -p "Select number Server[1 to 11]: 1" -t 300 -r -s -n 1 UR; do
 				if [[ $UR == $'\0' ]]; then
-					URL='tiwar.net' ; TMP="$HOME/.1" ; export TZ=Europe/London LANG=en.UTF-8 ; ALLIES="_WORK" ; break
+					URL=$(echo "dGl3YXIubmV0" | base64 -d) ; TMP="$HOME/.1" ; export TZ=Europe/London LANG=en.UTF-8 ; ALLIES="_WORK" ; break
 				elif [[ $UR == 0 ]]; then
-					URL='cn.tiwar.net' ; TMP="$HOME/.10" ; export TZ=Asia/Shanghai LANG=zh-CN.UTF-8 ; ALLIES="_WORK" ; break
+					URL=$(echo "Y24udGl3YXIubmV0" | base64 -d) ; TMP="$HOME/.10" ; export TZ=Asia/Shanghai LANG=zh-CN.UTF-8 ; ALLIES="_WORK" ; break
 				elif [[ $UR == 1 ]]; then
-					URL='tiwar-id.net' ; TMP="$HOME/.11" ; export TZ=Asia/Jakarta LANG=id.UTF-8 ; ALLIES="_WORK" ; break
+					URL=$(echo "dGl3YXItaWQubmV0" | base64 -d) ; TMP="$HOME/.11" ; export TZ=Asia/Jakarta LANG=id.UTF-8 ; ALLIES="_WORK" ; break
 				elif [[  $UR  == $'\177' ]]; then
 					_requeriments ; break
 				else
@@ -24,21 +24,21 @@ _requeriments () {
 		case $UR in
 			(1) _one ; break ;;
 
-			(2|ru) URL='tiwar.ru' ; TMP="$HOME/.2" ; export TZ=Europe/Moscow LANG=ru.UTF-8 ; ALLIES="_WORK" ;;
+			(2|ru) URL=$(echo "dGl3YXIucnU=" | base64 -d) ; TMP="$HOME/.2" ; export TZ=Europe/Moscow LANG=ru.UTF-8 ; ALLIES="_WORK" ;;
 
-			(3|pl) URL='tiwar.pl' ; TMP="$HOME/.3" ; export TZ=Europe/Warsaw LANG=pl.UTF-8 ; ALLIES="_WORK" ;;
+			(3|pl) URL=$(echo "dGl3YXIucGw=" | base64 -d) ; TMP="$HOME/.3" ; export TZ=Europe/Warsaw LANG=pl.UTF-8 ; ALLIES="_WORK" ;;
 
-			(4) URL='titanen.mobi' ; TMP="$HOME/.4" ; export TZ=Europe/Berlin LANG=de.UTF-8 ; ALLIES="_WORK" ;;
+			(4) URL=$(echo "dGl0YW5lbi5tb2Jp" | base64 -d) ; TMP="$HOME/.4" ; export TZ=Europe/Berlin LANG=de.UTF-8 ; ALLIES="_WORK" ;;
 
-			(5) URL='guerradetitanes.net' ; TMP="$HOME/.5" ; export TZ=America/Cancun LANG=es-MX.UTF-8 ;  ALLIES="_WORK" ;;
+			(5) URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA==" | base64 -d) ; TMP="$HOME/.5" ; export TZ=America/Cancun LANG=es-MX.UTF-8 ;  ALLIES="_WORK" ;;
 
-			(6|fu) URL='furiadetitas.net' ; TMP="$HOME/.6" ; export TZ=America/Bahia LANG=pt-BR.UTF-8 ;ALLIES="_WORK" ;;
+			(6|fu) URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA==" | base64 -d) ; TMP="$HOME/.6" ; export TZ=America/Bahia LANG=pt-BR.UTF-8 ;ALLIES="_WORK" ;;
 
-			(7) URL='guerradititani.net' ; TMP="$HOME/.7" ; export TZ=Europe/Rome LANG=it.UTF-8 ; ALLIES="_WORK" ;;
+			(7) URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0" | base64 -d) ; TMP="$HOME/.7" ; export TZ=Europe/Rome LANG=it.UTF-8 ; ALLIES="_WORK" ;;
 
-			(8|fr) URL='tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris LANG=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
+			(8|fr) URL=$(echo "dGl3YXIuZnI=" | base64 -d)'tiwar.fr' ; TMP="$HOME/.8" ; export TZ=Europe/Paris LANG=fr-FR.UTF-8 ; ALLIES="_WORK" ;;
 
-			(9|ro) URL='tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest LANG=ro.UTF-8 ; ALLIES="_WORK" ;;
+			(9|ro) URL=$(echo "dGl3YXIucm8=" | base64 -d)'tiwar.ro' ; TMP="$HOME/.9" ; export TZ=Europe/Bucharest LANG=ro.UTF-8 ; ALLIES="_WORK" ;;
 
 #			(10|cn) _one ;;
 
@@ -127,7 +127,7 @@ _requeriments () {
 		read -p "Set up User-Agent[1 to 2]: " -t 300 -e -n 1 UA
 		case $UA in
 
-			(1) clear; xdg-open "https://www.whatsmyua.info" ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 900 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
+			(1) clear; xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 900 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
 
 			(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ; sleep 2 ;;
 
@@ -142,5 +142,14 @@ _requeriments () {
 		sleep 2
 	}
 	dos2unix $TMP/.ua &> /dev/null
+	cd $TMP
+	echo -e "# Latest posts:" >msgs.txt
+	$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt &
+	sleep 2
+	$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt &
+	sleep 2
+	$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
+	sleep 3
+	killall -q -9 w3m
 	unset UR
 }
