@@ -49,7 +49,7 @@ _requeriments () {
 			(*) clear; [[ -n $UR ]] && echo -e "\n Invalid option: $(echo $UR)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 		esac
 	fi
-	unset UR; clear
+	clear
 	[[ -z $URL ]] && exit
 # /tmp dir
 	mkdir -p $TMP
@@ -142,4 +142,5 @@ _requeriments () {
 		sleep 2
 	}
 	dos2unix $TMP/.ua &> /dev/null
+	unset UR
 }
