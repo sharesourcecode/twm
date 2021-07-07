@@ -2,16 +2,18 @@
 function _cave () {
 	_clanid
 	if [[ -n $CLD ]]; then
-		$PAGE "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
-		echo ""
-		$PAGE "$URL/clan/$CLD/quest/help/5" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n 3 &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
-		echo ""
+		$PAGE "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo "/clan/$CLD/quest/take/5"
+		sleep 3
+		$PAGE "$URL/clan/$CLD/quest/help/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo "/clan/$CLD/quest/help/5"
+		sleep 3
+		killall -q -9 w3m
 	fi
 	_condition () {
 		echo $($SOURCE "$URL/cave/" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
+		echo "cave ..."
+		sleep 3
 		ACCESS1=$(cat SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n1 | awk -F\' '{ print $2 }')
 		DOWN=$(cat SRC | sed 's/href=/\n/g' | grep '/cave/down' | awk -F\' '{ print $2 }')
 		ACCESS2=$(cat SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n2 | tail -n1 | awk -F\' '{ print $2 }')
@@ -25,35 +27,39 @@ function _cave () {
 		case $ACTION in
 			(cavechancercavegatherrcavedownr)
 				echo $($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				x=$! ; sleep 3 && kill -9 $x &> /dev/null
+				sleep 3
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavespeedUpr)
 				echo $($SOURCE "$URL$ACCESS2" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				x=$! ; sleep 3 && kill -9 $x &> /dev/null
+				sleep 3
 				num=$[$num-1] ;
 				echo $num ;;
 			(cavedownr|cavedownrclanbuiltprivateUpgradetruerrefcave)
 				num=$[$num-1] ;
 				echo $($SOURCE "$URL$DOWN" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				x=$! ; sleep 3 && kill -9 $x &> /dev/null
+				sleep 3
 				echo $num ;;
 			(caveattackrcaverunawayr)
 				num=$[$num-1] ;
 				echo $($SOURCE "$URL$ACCESS1" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				x=$! ; sleep 3 && kill -9 $x &> /dev/null
+				sleep 3
 				echo $($SOURCE "$URL/cave/runaway" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				x=$! ; sleep 3 && kill -9 $x &> /dev/null
+				sleep 3
 				echo $num ;;
 			(*) num=0 ;;
 		esac
 		cat SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n2 | tail -n1 | awk -F\' '{ print $2 }'
+		killall -q -9 w3m
 	done
 	if [[ -n $CLD ]]; then
-		$PAGE "$URL/clan/$CLD/quest/end/5" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
-		$PAGE "$URL/clan/$CLD/quest/deleteHelp/5" -o user_agent="$(shuf -n1 .ua)" | head -n4 | tail -n3 &
-		x=$! ; sleep 3 && kill -9 $x &> /dev/null
+		$PAGE "$URL/clan/$CLD/quest/deleteHelp/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo "/clan/$CLD/quest/deleteHelp/5"
+		sleep 3
+		$PAGE "$URL/clan/$CLD/quest/end/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo "/clan/$CLD/quest/end/5"
+		sleep 3
+		killall -q -9 w3m
 	fi
 	unset CLD ACCESS1 DOWN ACCESS2 ACTION MEGA num
 	echo -e "cave (✔)\n"
