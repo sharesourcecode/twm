@@ -1,7 +1,7 @@
 #!/bin/bash
-PAGE="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug"
-DUMP="w3m -o https_proxy=$PROXY -o accept_language=$lang -debug -dump"
-SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$lang -o accept_encoding=UTF-8 -debug -dump_source"
+PAGE="w3m -o https_proxy=$PROXY -o accept_language=$LANG -debug"
+DUMP="w3m -o https_proxy=$PROXY -o accept_language=$LANG -debug -dump"
+SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$LANG -o accept_encoding=UTF-8 -debug -dump_source"
 # /sources
 cd ~/twm
 . requeriments.sh ; . loginlogoff.sh
