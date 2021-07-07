@@ -129,7 +129,7 @@ _requeriments () {
 
 			(1) clear; xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 900 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
 
-			(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ; sleep 2 ;;
+			(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ;;
 
 			(*) clear; [[ -n $UA ]] && echo -e "\n Invalid option: $(echo $UA)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 		esac
@@ -139,15 +139,14 @@ _requeriments () {
 		_userAgent
 	} || {
 		echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m"
-		sleep 2
 	}
 	dos2unix $TMP/.ua &> /dev/null
 	cd $TMP
 	echo -e "# Latest posts:" >msgs.txt
 	$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt &
-	sleep 2
+	sleep 3
 	$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt &
-	sleep 2
+	sleep 5
 	$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
 	sleep 3
 	killall -q -9 w3m
