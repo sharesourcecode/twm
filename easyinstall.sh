@@ -1,4 +1,5 @@
 _sync () {
+	echo -e "\e[01;30m\e[01;07m\n Upgrading...\n👉 Please wait...☕👴\e[00m"
 	echo -e "\n Downloading 1/21 PLAY.sh"
 	curl https://raw.githubusercontent.com/sharesourcecode/twm/master/PLAY.sh -O -L &> /dev/null ;
 	echo -e "\n Downloading 2/21 allies.sh"
