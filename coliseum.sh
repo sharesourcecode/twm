@@ -8,7 +8,7 @@ _coliseum () {
 	_show () {
 		YOU=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
 #		USER=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
-		USER=$(cat SRC | grep -oP "> \p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14} <" | sed 's,\ ,_,g;s,>_,,;s,_<,,' | tail -n 1)
+		USER=$(cat SRC | grep -oP "> \p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14} <" | sed 's,\ ,_,g;s,>_,,;s,_<,,' | head -n 2 | tail -n 1)
 		HP1=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}' | tr -cd "[[:digit:]]")
 		HP2=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd "[[:digit:]]")
 		[[ -n $OUTGATE ]] && {
