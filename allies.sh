@@ -1,6 +1,6 @@
 _members () {
 	cd $TMP
-	echo "Qm90X01hc3Rlcgo=" | base64 -d >>allies.txt
+	echo "VWVsaXRvbg==" | base64 -d >>allies.txt
 	_clanid
 	[[ -n $CLD ]] && {
 		echo -e "\e[01;30m\e[05;07m\nUpdating clan members into allies\n\e[00m"
