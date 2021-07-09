@@ -1,5 +1,6 @@
 # /cave
 function _cave () {
+	echo "cave ..."
 	_clanid
 	if [[ -n $CLD ]]; then
 		$PAGE "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
@@ -12,7 +13,6 @@ function _cave () {
 	fi
 	_condition () {
 		echo $($SOURCE "$URL/cave/" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		echo "cave ..."
 		sleep 3
 		ACCESS1=$(cat SRC | sed 's/href=/\n/g' | grep '/cave/' | head -n1 | awk -F\' '{ print $2 }')
 		DOWN=$(cat SRC | sed 's/href=/\n/g' | grep '/cave/down' | awk -F\' '{ print $2 }')
