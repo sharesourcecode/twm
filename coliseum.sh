@@ -6,12 +6,9 @@ _coliseum () {
 	HPER='30'
 	RPER='20'
 	_show () {
-		YOU=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | sed 's,\ ,_,g' | awk -F"_[<]" '{print $1}' | awk -F"[>]_" '{print $2}')
-#		USER=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{print $4}' | awk -F" [<]" '{print $1}' | sed 's,\ ,_,')
-		USER=$(cat SRC | grep -o -P "> \p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14} <" | sed 's,\ ,_,g;s,>_,,;s,_<,,' | head -n 2 | tail -n 1)
-#		HP1=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"[>] " '{ print $3 }' | awk -F"[<]" '{ print $1}' | tr -cd "[[:digit:]]")
-		HP1=$(cat SRC | grep -o -P "(hp)\W{1,4}\d{1,6}" | sed "s,hp[']\/[>],,")
-#		HP2=$(cat SRC | sed 's,/images/icon/race/,\n,' | sed -n -e 2p | awk -F"nbsp[;]" '{ print $2 }' | awk -F"[<]" '{ print $1}' | tr -cd "[[:digit:]]")
+		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,[ ],_,;1p')
+		USER=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,[ ],_,;1p')
+		HP1=$(cat SRC | grep -o -P "(hp)\W{3,4}\d{1,6}" | sed "s,hp[']\/[>],,")
 		HP2=$(cat SRC | grep -o -P "(nbsp)\W{1,2}\d{1,6}" | sed 's,nbsp[;],,')
 		[[ -n $OUTGATE ]] && {
 			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$YOU: $HP1 - $HP2 :$USER\n"
