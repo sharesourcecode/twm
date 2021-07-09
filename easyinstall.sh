@@ -1,9 +1,3 @@
-#!/bin/bash
-termux-wake-lock &> /dev/null
-[[ ! -e installed.txt ]] && apt install coreutils ncurses-utils git termux-api w3m curl dos2unix dnsutils -y; >installed.txt
-rm -rf $HOME/twm/ &> /dev/null
-mkdir -p $HOME/twm
-cd $HOME/twm
 _sync () {
 	echo -e "\n Downloading 1/21 PLAY.sh"
 	curl https://raw.githubusercontent.com/sharesourcecode/twm/master/PLAY.sh -O -L &> /dev/null ;
@@ -51,6 +45,10 @@ _sync () {
 	chmod a+x -R $HOME/twm/
 	#cp -R twm/ storage/downloads/twm
 }
+termux-wake-lock &> /dev/null
+[[ ! -e installed.txt ]] && apt install coreutils ncurses-utils git termux-api w3m curl dos2unix dnsutils -y; >installed.txt
+rm -rf $HOME/twm/ &> /dev/null
+mkdir -p $HOME/twm
+cd $HOME/twm
 _sync
 echo -e "\n Intalled scripts!\n Run command bash twm/PLAY.sh to execute."
-exit
