@@ -6,6 +6,7 @@ SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$LANG -o accept_encoding=UT
 [[ ! -e "$HOME/easyinstall.sh" ]] && {
 	echo -e "\n Downloading easyinstall.sh"
 	curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -O -L &> /dev/null ;
+	mv easyinstall.sh $HOME/easyinstall.sh &> /dev/null
 }
 source $HOME/easyinstall.sh
 cd ~/twm
