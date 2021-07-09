@@ -61,6 +61,7 @@ while true ; do
 	if [[ $rpt -ne 1 ]] ; then
 		ts=20
 	fi
+#	_cave
 #	_coliseum
 	_play
 done
