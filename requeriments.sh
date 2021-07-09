@@ -59,7 +59,7 @@ _requeriments () {
 	[[ $? = 0 ]] && {
 		[[ ! -e executed.txt ]] && pkg install termux-api w3m dos2unix dnsutils -y && >executed.txt
 # _sync - to disable coment #
-		[[ $(date +%H) < 10 || $(date +%H) > 22 ]] && _sync
+		[[ $(date +%H) < 10 || $(date +%H) > 22 ]] && . $HOME/easyinstall.sh ;
 		mkdir -p ~/.termux/boot
 		ln -s ~/twm/PLAY.sh ~/.termux/boot/PLAY.sh &> /dev/null
 		chmod a+x ~/.termux/boot/PLAY.sh
@@ -67,7 +67,7 @@ _requeriments () {
 		echo -e "Successful updates!\n"
 	} || {
 		sudo apt install w3m dos2unix dnsutils -y
-		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && _sync
+		[[ $(date +%H) -lt 10 || $(date +%H) -gt 22 ]] && . $HOME/easyinstall.sh ;
 		reset; clear
 	}
 # /user agents to $TMP/.ua
