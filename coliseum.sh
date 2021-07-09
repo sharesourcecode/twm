@@ -41,7 +41,7 @@ _coliseum () {
 	_access
 	HP3=$HP1
 	ddg=9
-	grss=27
+#	grss=27
 	hl=40
 	until [[ -n "$BEXIT" && -z "$OUTGATE" ]] ; do
 # /dodge
@@ -55,7 +55,7 @@ _coliseum () {
 			HP3=$HP1
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			grss=$[$grss+1]
 # /heal
 		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
@@ -64,7 +64,7 @@ _coliseum () {
 			hl=0
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			grss=$[$grss+1]
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
 #			HPER='30'
@@ -93,7 +93,7 @@ _coliseum () {
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			grss=$[$grss+1]
 
 # /atk
 		else
@@ -102,7 +102,7 @@ _coliseum () {
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
-			grss=$[$grss+1]
+#			grss=$[$grss+1]
 		fi
 		killall -q -9 w3m
 	done
