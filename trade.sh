@@ -38,13 +38,13 @@ _built () {
 		echo -e "clan built ..."
 		echo $($SOURCE $URL/arena/quit -o user_agent="$(shuf -n1 .ua)" | sed "s/href='/\n/g" | grep "attack/1" | head -n1 | awk -F\/ '{ print $5 }' | tr -cd "[[:digit:]]") >CODE &
 		sleep 3
-		echo -e "/clan/$CLD/built/?goldUpgrade=true&r=`cat CODE`"
 		$PAGE "$URL/clan/$CLD/built/?goldUpgrade=true&r=`cat CODE`" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo -e "/clan/$CLD/built/?goldUpgrade=true&r=`cat CODE`"
 		sleep 3
 		echo $($SOURCE $URL/arena/quit -o user_agent="$(shuf -n1 .ua)" | sed "s/href='/\n/g" | grep "attack/1" | head -n1 | awk -F\/ '{ print $5 }' | tr -cd "[[:digit:]]") >CODE &
 		sleep 3
-		echo -e "/clan/$CLD/built/?silverUpgrade=true&r=`cat CODE`"
 		$PAGE "$URL/clan/$CLD/built/?silverUpgrade=true&r=`cat CODE`" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+		echo -e "/clan/$CLD/built/?silverUpgrade=true&r=`cat CODE`"
 		sleep 3
 		echo -e "clan built (✔)\n"
 		killall -q -9 w3m
