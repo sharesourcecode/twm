@@ -73,9 +73,10 @@ _requeriments () {
 # /user agents to $TMP/.ua
 	_userAgent () {
 		cd $TMP
-		echo -e '"Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.2.2339 Mobile Safari/537.35+"\n"Mozilla/5.0 (Linux; U; Android 4.3; en-us; ZTE-Z667G Build/JLS36C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"\n"Mozilla/5.0 (Mobile; rv:32.0) Gecko/32.0 Firefox/32.0"\n"Mozilla/5.0 (Android; Linux armv7l; rv:5.0) Gecko/20110615 Firefox/5.0 Fennec/5.0"' >$TMP/.ua
+ 		echo -e '"Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.2.2339 Mobile Safari/537.35+"\n"Mozilla/5.0 (Linux; U; Android 4.3; en-us; ZTE-Z667G Build/JLS36C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"\n"Mozilla/5.0 (Mobile; rv:32.0) Gecko/32.0 Firefox/32.0"\n"Mozilla/5.0 (Android; Linux armv7l; rv:5.0) Gecko/20110615 Firefox/5.0 Fennec/5.0"' >$TMP/.ua
+		sed -i 's,\",,g' $TMP/.ua
 		clear
-		echo -e "\e[01;30m\e[01;07m Simulate your real or random device. \e[00m\n1)\e[01;30m\e[01;07m Mannualy (Recommended) \e[00m\n2)\e[01;30m\e[01;07m Automatic (not secure) \e[00m"
+		echo -e "\e[01;30m\e[01;07m Simulate your real or random device. \e[00m\n1)\e[01;30m\e[01;07m Mannualy (Recommended) \e[00m\n2)\e[01;30m\e[01;07m Automatic \e[00m"
 		read -p "Set up User-Agent[1 to 2]: " -t 300 -e -n 1 UA
 		case $UA in
 
@@ -90,7 +91,7 @@ _requeriments () {
 	[[ ! -e $TMP/.ua || $(cat $TMP/.ua | wc -c) -lt 10 || $(cat $TMP/.ua | wc -c) -gt 300 ]] && {
 		_userAgent
 	} || {
-		echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m"
+		echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(shuf -n 1 $TMP/.ua)" ; echo -e "\e[00m"
 	}
 	dos2unix $TMP/.ua &> /dev/null
 	killall -q -9 w3m
