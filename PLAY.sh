@@ -63,8 +63,9 @@ while true ; do
 	if [[ $rpt -ne 1 ]] ; then
 		ts=20
 	fi
+#	_coliseum
 #	_cave
-#	_play
+	_play
 done
 unset rpt ts
 kill -9 $$
