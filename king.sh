@@ -40,7 +40,7 @@ _king () {
 	ddg=9
 	grss=27
 	hl=0
-	until [[ -z $OUTGATE ]]; do
+	until [[ -z $OUTGATE && -z $ATK ]]; do
 #	until [[ $(date +%M) = 4[01] ]]; do
 # /dodge
 		if [[ $HP3 -lt $HP1 && $ddg -ge 9 ]]; then
@@ -54,14 +54,14 @@ _king () {
 			grss=$[$grss+1]
 			HP3=$HP1
 # /kingatk
-		elif [[ -n $KINGATK ]]; then
-			echo '👑'
-			echo $($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.8
-			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
+#		elif [[ -n $KINGATK ]]; then
+#			echo '👑'
+#			echo $($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
+#			sleep 1.8
+#			_access
+#			ddg=$[$ddg+1]
+#			hl=$[$hl+1]
+#			grss=$[$grss+1]
 # /heal
 		elif [[ $HP1 -le $HLHP && $hl -le 41 ]]; then
 			echo "🆘 HP < $HPER%"
@@ -75,7 +75,7 @@ _king () {
 # /random
 		elif [[ $hl -ne 41 && -n $(grep "$USER" $TMP/allies.txt) ]]; then
 			echo "🔁$USER"
-			echo $($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.20
 			_access
 			ddg=$[$ddg+1]
@@ -84,7 +84,8 @@ _king () {
 # /atk
 		else
 			echo '🎯'
-			echo $($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)") >SRC &
+#			echo '👑'
+			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.20
 			_access
 			ddg=$[$ddg+1]

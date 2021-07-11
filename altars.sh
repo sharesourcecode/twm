@@ -87,7 +87,7 @@ _altars () {
 # /random
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$CLAN"
-			echo $($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.15
 			_access
 			ddg=$[$ddg+1]
@@ -96,7 +96,7 @@ _altars () {
 # /atk
 		else
 			echo '🎯'
-			echo $($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.15
 			_access
 			ddg=$[$ddg+1]

@@ -17,7 +17,7 @@ _clanfight () {
 	echo -e "\nClan fight"
 	echo $URL
 	echo $($SOURCE $URL/clanfight/?close=reward -o user_agent="$(shuf -n1 .ua)") >SRC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	sleep 5
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep 'clanfight/enterFight' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 # /wait
@@ -27,9 +27,10 @@ _clanfight () {
 		[[ $(date +%M) = 00 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
 		echo $($SOURCE "$URL/clanfight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		x=$! ; sleep 5 && kill -9 $x &> /dev/null
+		sleep 5
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/clanfight/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | grep -o 'clanfight/attack/')
+		killall -q -9 w3m
 	done
 	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
@@ -43,7 +44,7 @@ _clanfight () {
 		if [[ $hl -ne 40 && $ddg -ge 9 && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.45 && kill -9 $x &> /dev/null
+			sleep 1.45
 			ddg=0
 			HP3=$HP1
 			_access
@@ -54,7 +55,7 @@ _clanfight () {
 		elif [[ $hl -ge 40 && $HP1 -le $HLHP ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.35 && kill -9 $x &> /dev/null
+			sleep 1.35
 			_access
 			hl=0
 			ddg=$[$ddg+1]
@@ -84,8 +85,8 @@ _clanfight () {
 # /random
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
 			echo "🔁$CLAN"
-			echo $($SOURCE "$URL$ATTACKRANDOM" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
+			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			sleep 1.20
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
@@ -94,19 +95,20 @@ _clanfight () {
 # /atk
 		else
 			echo '🎯'
-			echo $($SOURCE "$URL$ATTACK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			x=$! ; sleep 1.20 && kill -9 $x &> /dev/null
+			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			sleep 1.20
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 			grss=$[$grss+1]
 		fi
+		killall -q -9 w3m
 	done
 	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
 # /view
 	echo ""
 	$PAGE $URL/clanfight -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	sleep 5
 	_unset
 	echo "ClanFight(✔)"
 	sleep 30
