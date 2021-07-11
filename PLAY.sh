@@ -28,6 +28,8 @@ _access () {
 	HEAL=$(grep -o -P '\W\w{4,12}\Wh\w{3}\W{2}r\W\d{0,10}' SRC)
 	STONE=$(grep -o -P '\W\w{4,12}\Ws\w{4}\W{2}r\W\d{0,10}' SRC)
 	GRASS=$(grep -o -P '\W\w{4,12}\Wg\w{4}\W{2}r\W\d{0,10}' SRC)
+	DT=$(grep -o -P 'dodge(.*)dgreen medium\D{2}\d{2}\D\d{2}' SRC | sed "s,^dodge\(.*\)[>],,g")
+	HT=$(grep -o -P 'potion.png(.*)dgreen medium\D{2}\d{2}\D\d{2}' SRC | sed "s,^potion\(.*\)[>],,g")
 	BEXIT=$(grep -o 'user.png' SRC)
 	OUTGATE=$(grep -o 'out_gate' SRC)
 	LEAVEFIGHT=$(cat SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
@@ -42,6 +44,7 @@ rpt=0
 _requeriments
 ts=20
 _proxy
+	_coliseum
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 _msgs () {
@@ -62,8 +65,7 @@ while true ; do
 		ts=20
 	fi
 #	_cave
-#	_coliseum
-	_play
+#	_play
 done
 unset rpt ts
 kill -9 $$

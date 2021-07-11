@@ -44,11 +44,10 @@ _coliseum () {
 	hl=40
 	until [[ -n "$BEXIT" && -z "$OUTGATE" ]] ; do
 # /dodge
-#		echo $SRC | sed 's/href=/\n/g' | grep '/dodge' | grep 'timer' | awk -F"[:]" '{print $2}' | awk -F"[<]" '{print $1}' | tr -cd '[[:digit:]]';echo " ";
-#		echo "$ddg $grss $hl"
-		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
+		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🛡️ $DODGE" ; sleep 1.45
+			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			_access
 			ddg=0
 			HP3=$HP1
@@ -56,9 +55,10 @@ _coliseum () {
 			hl=$[$hl+1]
 #			grss=$[$grss+1]
 # /heal
-		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
+		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.35
+			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			_access
 			hl=0
 			ddg=$[$ddg+1]
@@ -71,25 +71,19 @@ _coliseum () {
 #			echo '🙌'
 #			SRC=$($SOURCE "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 #			_access
-#			grss=0
 #			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
 #			echo '💪'
 #			SRC=$($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 #			_access
 #			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && "$ddg" -ne 9 && "$hl" -ne 40 ]] ; then
+		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && -n $DT ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.15
 			_access
+			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 #			grss=$[$grss+1]
@@ -98,6 +92,7 @@ _coliseum () {
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🎯 $ATK" ; sleep 1.45
+			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
