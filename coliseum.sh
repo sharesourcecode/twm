@@ -39,29 +39,18 @@ _coliseum () {
 	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
 	HP3=$HP1
-	ddg=9
-#	grss=27
-	hl=40
 	until [[ -n "$BEXIT" && -z "$OUTGATE" ]] ; do
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🛡️ $DODGE" ; sleep 1.45
 			_access
-			ddg=0
 			HP3=$HP1
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.45
 			_access
-			hl=0
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
 #			HPER='30'
@@ -81,18 +70,12 @@ _coliseum () {
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.45
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-#			grss=$[$grss+1]
 
 # /atk
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🎯 $ATK" ; sleep 1.45
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-#			grss=$[$grss+1]
 		fi
 		killall -q -9 w3m
 	done
