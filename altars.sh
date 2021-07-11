@@ -37,32 +37,21 @@ _altars () {
 	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
 	_access
 	HP3=$HP1
-	ddg=9
-	hl=40
-	grss=27
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
                 [[ $(date +%M) = 0[98] ]] && break
 # /dodge
-		if [[ $ddg -ge 9 && $hl -ne 40 && $HP3 -ne $HP1 ]] ; then
-			echo '🛡️'
+		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
+			echo "🛡️"
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.45
-			ddg=0
 			HP3=$HP1
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /heal
-		elif [[ "$hl" -ge 40 && "$HP1" -le "$HLHP" ]] ; then
+		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.35
 			_access
-			hl=0
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
 #			HPER='30'
@@ -72,36 +61,24 @@ _altars () {
 #			_access
 #			grss=0
 #			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
 #			echo '💪'
 #			echo $($SOURCE "$URL$STONE" -o user_agent="$(shuf -n1 .ua)")
 #			_access
 #			sleep $ITVL
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /random
-		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && $ddg -ne 9 && $hl -ne 40 ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && -n $DT ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.15
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /atk
 		else
 			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.15
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 		fi
 		killall -q -9 w3m
 	done
