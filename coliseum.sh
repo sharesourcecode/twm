@@ -47,7 +47,6 @@ _coliseum () {
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🛡️ $DODGE" ; sleep 1.45
-			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			_access
 			ddg=0
 			HP3=$HP1
@@ -57,8 +56,7 @@ _coliseum () {
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.35
-			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
+			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.45
 			_access
 			hl=0
 			ddg=$[$ddg+1]
@@ -81,9 +79,8 @@ _coliseum () {
 # /random
 		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && -n $DT ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.15
+			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.45
 			_access
-			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
 #			grss=$[$grss+1]
@@ -92,7 +89,6 @@ _coliseum () {
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo "🎯 $ATK" ; sleep 1.45
-			grep -o -P 'dgreen medium\D{2}\d{2}\D\d{2}' SRC
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
