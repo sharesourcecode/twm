@@ -44,7 +44,6 @@ rpt=0
 _requeriments
 ts=20
 _proxy
-	_coliseum
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 _msgs () {
