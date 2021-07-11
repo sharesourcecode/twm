@@ -50,7 +50,7 @@ _altars () {
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.35
+			sleep 1.45
 			_access
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
@@ -59,7 +59,6 @@ _altars () {
 #			echo '🙌'
 #			echo $($SOURCE "$URL$GRASS" -o user_agent="$(shuf -n1 .ua)")
 #			_access
-#			grss=0
 #			sleep $ITVL
 # /stone
 #		[[ `expr $HP1 + $HP1 \* 1 \/ 100` -le $HP2 ]]
@@ -71,13 +70,13 @@ _altars () {
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && -n $DT ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.15
+			sleep 1.45
 			_access
 # /atk
 		else
 			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.15
+			sleep 1.45
 			_access
 		fi
 		killall -q -9 w3m
