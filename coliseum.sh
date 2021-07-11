@@ -97,7 +97,7 @@ _coliseum () {
 # /atk
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🎯 $ATK" ; sleep 1.44
+			echo "🎯 $ATK" ; sleep 1.45
 			_access
 			ddg=$[$ddg+1]
 			hl=$[$hl+1]
