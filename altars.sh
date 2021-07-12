@@ -29,7 +29,7 @@ _altars () {
 		$DUMP $URL/altars/?close=reward -o user_agent="$(shuf -n1 .ua)" &
 		sleep 3
 		echo $($SOURCE "$URL/altars/enterFight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 4
+		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/altars/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | sed 's/href=/\n/g' | grep -o 'altars/attack/')
 		killall -q -9 w3m
