@@ -68,7 +68,7 @@ _clancoliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 -n $DT ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.45
