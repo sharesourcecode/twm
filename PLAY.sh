@@ -29,7 +29,7 @@ _access () {
 	STONE=$(grep -o -P '\W\w{4,12}\Ws\w{4}\W{2}r\W\d{0,10}' SRC)
 	GRASS=$(grep -o -P '\W\w{4,12}\Wg\w{4}\W{2}r\W\d{0,10}' SRC)
 	DT=$(grep -o -P 'dodge(.*)dgreen medium\D{2}\d{2}\D\d{2}' SRC | sed "s,^dodge\(.*\)[>],,g")
-	HT=$(grep -o -P 'potion.png(.*)dgreen medium\D{2}\d{2}\D\d{2}' SRC | sed "s,^potion\(.*\)[>],,g")
+	HT=$(grep -o -P '\Wheal\W(.*)\d{1,2}:\d{2}(.*)\Wstone\W' SRC | grep -o -P '\d{2}:\d{2}')
 	BEXIT=$(grep -o 'user.png' SRC)
 	OUTGATE=$(grep -o 'out_gate' SRC)
 	LEAVEFIGHT=$(cat SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
@@ -52,7 +52,7 @@ _msgs () {
 		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | head -n3 | sed "/\[/d;/\|/d" >> msgs.txt &
 		sleep 2
 		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt &
-		sleep 2
+		sleep 3
 		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
 		sleep 3
 		killall -q -9 w3m

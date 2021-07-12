@@ -3,7 +3,7 @@ _coliseum () {
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
 	echo -e "/settings/graphics/0\n" ; sleep 3
-	HPER='30'
+	HPER='50'
 	RPER='20'
 	_show () {
 		YOU=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
@@ -47,10 +47,12 @@ _coliseum () {
 			_access
 			HP3=$HP1
 # /heal
-		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
+		elif [[ -z $HT && $HP1 -le $HLHP ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "HP < $HPER%\n🆘 $HEAL" ; sleep 1.45
+			echo -e "HP < $HPER%\n🆘 $HEAL"
+			sleep 1.45
 			_access
+#			HP3=$HP1
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
 #			HPER='30'
@@ -66,7 +68,7 @@ _coliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" && -n $DT ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.45
 			_access
