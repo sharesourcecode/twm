@@ -3,7 +3,7 @@ _coliseum () {
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
 	echo -e "/settings/graphics/0\n" ; sleep 3
-	HPER='50'
+	HPER='45'
 	RPER='20'
 	_show () {
 		YOU=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
