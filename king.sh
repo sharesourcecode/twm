@@ -28,30 +28,23 @@ _king () {
 		[[ $(date +%M) = 30 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
 		echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 4
+		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F"[']" '{ print $2 }')
 		EXIT=$(cat SRC | grep -o 'king/kingatk/')
-		killall -q -9 w3m
+#		killall -q -9 w3m
 	done
 # /game
 	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep "hp" | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd "[[:digit:]]")
 	_access
 	HP3=$HP1
-	ddg=9
-	grss=27
-	hl=0
 	until [[ -z $OUTGATE && -z $ATK ]]; do
 #	until [[ $(date +%M) = 4[01] ]]; do
 # /dodge
-		if [[ $HP3 -lt $HP1 && $ddg -ge 9 ]]; then
+		if [[ -z $DT && $HP3 -ne $HP1 ]]; then
 			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.20
-			ddg=0
+			sleep 1.45
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 			HP3=$HP1
 # /kingatk
 #		elif [[ -n $KINGATK ]]; then
@@ -59,38 +52,25 @@ _king () {
 #			echo $($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 #			sleep 1.8
 #			_access
-#			ddg=$[$ddg+1]
-#			hl=$[$hl+1]
-#			grss=$[$grss+1]
 # /heal
-		elif [[ $HP1 -le $HLHP && $hl -le 41 ]]; then
+		elif [[ -z $HT && "$HP1" -le "$HLHP" ]]; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep 1.45
-			hl=0
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /random
-		elif [[ $hl -ne 41 && -n $(grep "$USER" $TMP/allies.txt) ]]; then
+		elif [[ -n $DT && -n $(grep "$USER" $TMP/allies.txt) ]]; then
 			echo "🔁$USER"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.20
+			sleep 1.45
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 # /atk
 		else
 			echo '🎯'
 #			echo '👑'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.20
+			sleep 1.45
 			_access
-			ddg=$[$ddg+1]
-			hl=$[$hl+1]
-			grss=$[$grss+1]
 		fi
 		killall -q -9 w3m
 	done
