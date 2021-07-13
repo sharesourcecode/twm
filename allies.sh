@@ -74,6 +74,7 @@ _calliesID () {
 	}
 }
 _alliesConf () {
+	curl -s -L https://raw.githubusercontent.com/sharesourcecode/twm/master/allies.sh | cmp -s --bytes $((100 * 1024 * 1024)) $HOME/twm/allies.sh || echo -e " There is a new update for allies.sh,\nuse bash easyinstall.sh to update this script."
 	cd $TMP
 	clear
 	echo -e "\e[01;30m\e[05;07m\nThe script will consider users on your friends list and \nClan as allies.\nLeader/Deputy on friend list will add \nClan allies.\n\e[00m\n1) Add/Update alliances(All Battles)\n\n2) Add/Update just Herois alliances(Coliseum/King of immortals)\n\n3) Add/Update just Clan alliances(Altars,Clan Coliseum and Clan Fight)\n\n4) Do nothing\n"
