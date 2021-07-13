@@ -56,5 +56,5 @@ _loginlogoff () {
 		echo "Please wait..."
 		ACC=$($PAGE "$URL/user" -o user_agent="$(shuf -n1 .ua)" | grep "\[level" | cut -d" " -f2)
 	done
-	_msgs
+	_msgs &> /dev/null
 }

@@ -38,7 +38,7 @@ _access () {
 	_show
 }
 _unset () {
-	unset HP1 HP2 YOU USER CLAN ENTERFIGHT ENTERGAME ATK ATTACK ATKRND ATTACKRANDOM KINGATK DODGE HEAL STONE GRASS BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
+	unset HP1 HP2 YOU USER CLAN ENTERFIGHT ENTERGAME ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
 rpt=0
 _requeriments
@@ -54,10 +54,10 @@ _msgs () {
 		sleep 2
 		$PAGE $URL/mail -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 >> msgs.txt &
 		sleep 3
-		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -oP '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
+		$PAGE $URL -o user_agent="$(shuf -n1 .ua)" | grep -o -P '(lvl\s\d+|g\s\d\S+|s\s\d\S+$)' | sed ':a;N;s/\n//g;ta' | sed 's/lvl/\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvl/g;s/g/\ g/g;s/s/\ s/g' >> msgs.txt &
 		sleep 3
 		killall -q -9 w3m
-	}
+}
 while true ; do
 	rpt=$[$rpt+1]
 	sleep 1
