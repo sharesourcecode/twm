@@ -1,8 +1,8 @@
 _altars () {
 # /enterFight
-	INT="1.67"
+	INT="2"
 	HPER="49"
-	RPER="15"
+	RPER="25"
 	_show () {
 		CLAN=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\(" | sed -n 's,\ [(],,;s,\ ,_,;2p')
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
@@ -66,7 +66,7 @@ _altars () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && -n $DT ]] ; then
+		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 && -n $DT ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
