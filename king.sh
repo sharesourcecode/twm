@@ -47,12 +47,6 @@ _king () {
 			sleep $INT
 			_access
 			HP3=$HP1
-# /kingatk
-#		elif [[ -n $KINGATK ]]; then
-#			echo '👑'
-#			echo $($SOURCE "$URL$KINGATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-#			sleep 1.8
-#			_access
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]]; then
 			echo "🆘 HP < $HPER%"
@@ -67,7 +61,7 @@ _king () {
 			_access
 # /atk
 		else
-			grep -q -o "king/kingatk" && {
+			grep -q -o "king/kingatk" SRC && {
 				echo '👑'
 			} || {
 				echo '🎯'
