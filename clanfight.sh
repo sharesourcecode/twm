@@ -1,7 +1,8 @@
 _clanfight () {
 # /enterFight
-	HPER='49'
-	RPER='15'
+	INT=2
+	HPER=49
+	RPER=15
 	_show () {
 		CLAN=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\(" | sed -n 's,\ [(],,;s,\ ,_,;2p')
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
@@ -39,16 +40,16 @@ _clanfight () {
 		[[ $(date +%M) = 08 ]] && break
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
-			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
-			HP3=$HP1
+			sleep $INT
+			echo '🛡️'
 			_access
+			HP3=$HP1
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
-			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.35
+			sleep $INT
+			echo "🆘 HP < $HPER%"
 			_access
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] ]] ; then
@@ -66,22 +67,22 @@ _clanfight () {
 #			sleep $ITVL
 
 # /random
-		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && -n $DT ]] ; then
-			echo "🔁$CLAN"
+		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 && -n $DT ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.20
+			sleep $INT
+			echo "🔁$CLAN"
 			_access
 
 # /atk
 		else
-			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.20
+			sleep $INT
+			echo '🎯'
 			_access
 		fi
 		killall -q -9 w3m
 	done
-	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
+	unset HPER RPER ITVL ACCESS EXIT HP3 INT
 # /view
 	echo ""
 	$PAGE $URL/clanfight -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC &

@@ -42,17 +42,16 @@ _clancoliseum () {
 		[[ $(date +%M) = *7 ]] && break
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
-			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
-			ddg=0
-			HP3=$HP1
+			echo '🛡️'
 			_access
+			HP3=$HP1
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
-			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo "🆘 HP < $HPER%"
 			_access
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
@@ -69,26 +68,27 @@ _clancoliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
-			echo "🔁$CLAN"
+		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || -n $DT && $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo "🔁$CLAN"
 			_access
 # /atk
 		else
-			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo '🎯'
 			_access
 		fi
 		killall -q -9 w3m
 	done
-	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
+	unset HPER RPER ITVL ACCESS EXIT HP3 INT
 # /view
 	echo ""
 	$PAGE $URL/clancoliseum -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[user\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC &
-	x=$! ; sleep 5 && kill -9 $x &> /dev/null
+	sleep 5
 	_unset
 	echo "Clan Coliseum (✔)"
 	sleep 25
+	killall -q -9 w3m
 }

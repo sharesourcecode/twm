@@ -1,8 +1,8 @@
 _king () {
 # /enterFight
 	INT=2
-	HPER=55
-	RPER=1
+	HPER=53
+	RPER=3
 	_show () {
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
 		USER=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;2p')
@@ -42,37 +42,37 @@ _king () {
 #	until [[ $(date +%M) = 4[01] ]]; do
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]]; then
-			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo '🛡️'
 			_access
 			HP3=$HP1
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]]; then
-			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo "🆘 HP < $HPER%"
 			_access
 # /random
-		elif [[ -n $DT && -n $(grep "$USER" $TMP/allies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]]; then
-			echo "🔁$USER"
+		elif [[ -n $DT && -n $(grep "$USER" $TMP/allies.txt) || -n $DT && $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]]; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
+			echo "🔁$USER"
 			_access
 # /atk
 		else
+			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
+			sleep $INT
 			grep -q -o "king/kingatk" SRC && {
 				echo '👑'
 			} || {
 				echo '🎯'
 			}
-			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep $INT
 			_access
 		fi
 		killall -q -9 w3m
 	done
-	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
+	unset HPER RPER ITVL ACCESS EXIT HP3 INT
 # /view
 	echo ""
 	$PAGE $URL/king -o user_agent="$(shuf -n1 .ua)" | head -n15 | tail -n14 | sed "/\[U\]/d;/\[arrow\]/d;/\ \[/d" | grep --color $ACC &

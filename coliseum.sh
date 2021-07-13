@@ -1,8 +1,8 @@
 _coliseum () {
 # /enterFight
-	INT="1.9"
-	HPER="43"
-	RPER="20"
+	INT=2
+	HPER=43
+	RPER=25
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
 	echo -e "/settings/graphics/0\n" ; sleep 3
@@ -44,16 +44,16 @@ _coliseum () {
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🛡️ $DODGE" ; sleep $INT
+			sleep $INT
+			echo "🛡️ $DODGE"
 			_access
 			HP3=$HP1
 # /heal
 		elif [[ -z $HT && $HP1 -le $HLHP ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "HP < $HPER%\n🆘 $HEAL"
 			sleep $INT
+			echo -e "HP < $HPER%\n🆘 $HEAL"
 			_access
-#			HP3=$HP1
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
 #			HPER='30'
@@ -70,20 +70,22 @@ _coliseum () {
 #			sleep $ITVL
 # /random
 #		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
-		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `echo $(($HP1 + $HP1 * $RPER / 100))` -le "$HP2" ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || -n $DT && echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "$USER\n🔁 $ATKRND" ; sleep $INT
+			sleep $INT
+			echo -e "$USER\n🔁 $ATKRND"
 			_access
 
 # /atk
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🎯 $ATK" ; sleep $INT
+			sleep $INT
+			echo "🎯 $ATK"
 			_access
 		fi
 		killall -q -9 w3m
 	done
-	unset HPER RPER ITVL ACCESS EXIT FULL HP3 ddg hl grss
+	unset HPER RPER ITVL ACCESS EXIT HP3 INT
 # /view
 	echo ""
 	$PAGE $URL/coliseum/ -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n6 | sed "/\[2hit/d;/\[str/d;/combat/d" | grep --color "$ACC" &
