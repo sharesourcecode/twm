@@ -1,10 +1,13 @@
 _coliseum () {
 # /enterFight
+	INT="1.67"
+	HPER="43"
+	RPER="20"
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
 	echo -e "/settings/graphics/0\n" ; sleep 3
-	HPER='45'
-	RPER='20'
+	echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	echo '/coliseum/?close_clan_msg=true' ; sleep 2
 	_show () {
 		YOU=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
 		USER=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;2p')
@@ -18,8 +21,6 @@ _coliseum () {
 }
 	$PAGE $URL/coliseum -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" &
 	echo "/coliseum" ; sleep 3
-	echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo '/coliseum/?close_clan_msg=true' ; sleep 2
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/enterFight/' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 	echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
@@ -43,14 +44,14 @@ _coliseum () {
 # /dodge
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🛡️ $DODGE" ; sleep 1.45
+			echo "🛡️ $DODGE" ; sleep $INT
 			_access
 			HP3=$HP1
 # /heal
 		elif [[ -z $HT && $HP1 -le $HLHP ]] ; then
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "HP < $HPER%\n🆘 $HEAL"
-			sleep 1.45
+			sleep $INT
 			_access
 #			HP3=$HP1
 # /grass
@@ -70,13 +71,13 @@ _coliseum () {
 # /random
 		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo -e "$USER\n🔁 $ATKRND" ; sleep 1.45
+			echo -e "$USER\n🔁 $ATKRND" ; sleep $INT
 			_access
 
 # /atk
 		else
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			echo "🎯 $ATK" ; sleep 1.45
+			echo "🎯 $ATK" ; sleep $INT
 			_access
 		fi
 		killall -q -9 w3m

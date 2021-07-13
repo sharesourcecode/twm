@@ -1,7 +1,8 @@
 _altars () {
 # /enterFight
-	HPER='49'
-	RPER='15'
+	INT="1.67"
+	HPER="49"
+	RPER="15"
 	_show () {
 		CLAN=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\(" | sed -n 's,\ [(],,;s,\ ,_,;2p')
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
@@ -26,10 +27,8 @@ _altars () {
 	while [[ -z $EXIT ]] ; do
                 [[ $(date +%M) =  {00..09} && $(date +%S) > 19 ]] && break
 		echo -e "$URL\n 💤	...\n$ACCESS"
-		$DUMP $URL/altars/?close=reward -o user_agent="$(shuf -n1 .ua)" &
-		sleep 3
-		echo $($SOURCE "$URL/altars/enterFight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 3
+		echo $($SOURCE "$URL/altars" -o user_agent="$(shuf -n1 .ua)") >SRC &
+		sleep 5
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/altars/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | sed 's/href=/\n/g' | grep -o 'altars/attack/')
 		killall -q -9 w3m
@@ -43,14 +42,14 @@ _altars () {
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo "🛡️"
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			HP3=$HP1
 			_access
 # /heal
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
@@ -70,13 +69,13 @@ _altars () {
 		elif [[ -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 && -n $DT ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
 # /atk
 		else
 			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
 		fi
 		killall -q -9 w3m
