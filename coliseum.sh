@@ -1,3 +1,4 @@
+#diff test
 _coliseum () {
 # /enterFight
 	INT="1.9"
