@@ -4,8 +4,8 @@ _career () {
 	echo "career ..."
 	_clanid
 	[[ -n $CLD ]] && {
-		$PAGE "$URL/clan/$CLD/quest/take/6" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
-		echo "/clan/$CLD/quest/take/6" ; sleep 2
+#		$PAGE "$URL/clan/$CLD/quest/take/6" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
+#		echo "/clan/$CLD/quest/take/6" ; sleep 2
 		$PAGE "$URL/clan/$CLD/quest/help/6" -o user_agent="$(shuf -n1 .ua)" | tail -n0 &
 		echo "/clan/$CLD/quest/help/6" ; sleep 3
 		killall -q -9 w3m
