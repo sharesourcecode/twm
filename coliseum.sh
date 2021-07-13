@@ -1,6 +1,6 @@
 _coliseum () {
 # /enterFight
-	INT="1.67"
+	INT="1.9"
 	HPER="43"
 	RPER="20"
 	echo -e "\nColiseum ..."
@@ -69,7 +69,8 @@ _coliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
+#		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `echo $(($HP1 + $HP1 * $RPER / 100))` -le "$HP2" ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			echo -e "$USER\n🔁 $ATKRND" ; sleep $INT
 			_access

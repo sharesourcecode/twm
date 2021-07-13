@@ -34,7 +34,7 @@ _access () {
 	OUTGATE=$(grep -o 'out_gate' SRC)
 	LEAVEFIGHT=$(cat SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
 	WDRED=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F"[']" '{ print $4 }') #white/dred
-	HLHP=$(expr "$FULL" \* "$HPER" \/ 100)
+	HLHP=$(echo $(($FULL * $HPER / 100)))
 	_show
 }
 _unset () {
@@ -44,6 +44,7 @@ rpt=0
 _requeriments
 ts=20
 _proxy
+#_coliseum
 _loginlogoff
 [[ -n $ALLIES ]] && _alliesConf
 _msgs () {
