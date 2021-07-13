@@ -1,7 +1,8 @@
 _clancoliseum () {
 # /enterFight
-	HPER='49'
-	RPER='15'
+	INT=2
+	HPER=49
+	RPER=15
 	_show () {
 		CLAN=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\(" | sed -n 's,\ [(],,;s,\ ,_,;2p')
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
@@ -43,7 +44,7 @@ _clancoliseum () {
 		if [[ -z $DT && $HP3 -ne $HP1 ]] ; then
 			echo '🛡️'
 			echo $($SOURCE "$URL$DODGE" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			ddg=0
 			HP3=$HP1
 			_access
@@ -51,7 +52,7 @@ _clancoliseum () {
 		elif [[ -z $HT && "$HP1" -le "$HLHP" ]] ; then
 			echo "🆘 HP < $HPER%"
 			echo $($SOURCE "$URL$HEAL" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
 # /grass
 #		elif [[ $grss -ge 12 && $ddg != [34] && $hl != 1[78] && `expr $HP1 + $HP1 \* 90 \/ 100` -le $HP2 ]] ; then
@@ -68,17 +69,16 @@ _clancoliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || `expr $HP1 + $HP1 \* $RPER \/ 100` -le $HP2 ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
 			echo "🔁$CLAN"
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
-
 # /atk
 		else
 			echo '🎯'
 			echo $($SOURCE "$URL$ATK" -o user_agent="$(shuf -n1 .ua)") >SRC &
-			sleep 1.45
+			sleep $INT
 			_access
 		fi
 		killall -q -9 w3m
