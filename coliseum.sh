@@ -69,8 +69,7 @@ _coliseum () {
 #			_access
 #			sleep $ITVL
 # /random
-#		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || `expr "$HP1" + "$HP1" \* "$RPER" \/ 100` -le "$HP2" ]] ; then
-		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || -n $DT && echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$USER" $TMP/allies.txt) || -n $DT && $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
 			echo -e "$USER\n🔁 $ATKRND"

@@ -67,7 +67,7 @@ _clanfight () {
 #			sleep $ITVL
 
 # /random
-		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 && -n $DT ]] ; then
+		elif [[ -n $DT && -n $(grep -o "$CLAN" $TMP/callies.txt) || -n $DT && $(echo $(($HP1 + $HP1 * $RPER / 100))) -le $HP2 ]] ; then
 			echo $($SOURCE "$URL$ATKRND" -o user_agent="$(shuf -n1 .ua)") >SRC &
 			sleep $INT
 			echo "🔁$CLAN"
