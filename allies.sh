@@ -8,9 +8,9 @@ _members () {
 			echo -e ""$b__"/clan/$CLD/$num\e[00m"
 			$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
 			sleep 5
+			killall -q -9 w3m
 		done
 		sort -u allies.txt -o allies.txt
-		killall -q -9 w3m
 	}
 # Print info
 	echo -e ""$ww_"\nAllies for Coliseum and King of the Immortals:\n\e[00m"
@@ -36,6 +36,7 @@ _alliesID () {
 			echo -e ""$ww_"Friends list page $num\e[00m\n"$b__"/mail/friends/$num\e[00m";
 			$SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
 			sleep 5
+			killall -q -9 w3m
 		done
 	}
 	sort -u tmp.txt -o tmp.txt
@@ -66,6 +67,7 @@ _calliesID () {
 					sort -u callies.txt -o callies.txt
 				}
 			}
+			killall -q -9 w3m
 		done < ids.txt
 		killall -q -9 w3m
 	}
