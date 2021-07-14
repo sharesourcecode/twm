@@ -7,9 +7,8 @@ _members () {
 		for num in `seq 5 -1 1`; do
 			echo -e ""$b__"/clan/$CLD/$num\e[00m"
 			$SOURCE "$URL/clan/$CLD/$num" -o user_agent="$(shuf -n1 .ua)" | grep -oP "/>\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}, <s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt &
-			sleep 4
+			sleep 5
 		done
-		sleep 2
 		sort -u allies.txt -o allies.txt
 		killall -q -9 w3m
 	}
@@ -25,21 +24,20 @@ _alliesID () {
 	cd $TMP
 	echo -e ""$b__"/mail/friends\e[00m"
 	echo $($SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	sleep 4
+	sleep 5
 	NPG=$(cat SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
 	>tmp.txt
 	[[ -z $NPG ]] && {
 		echo -e ""$b__"/mail/friends\e[00m"
 		$SOURCE "$URL/mail/friends" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' |  grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
-		sleep 4
+		sleep 5
 	} || {
 		for num in `seq $NPG -1 1`; do
 			echo -e ""$ww_"Friends list page $num\e[00m\n"$b__"/mail/friends/$num\e[00m";
 			$SOURCE "$URL/mail/friends/$num" -o user_agent="$(shuf -n1 .ua)" | sed 's,/user/,\n/user/,g' | grep "/user/" | grep "/mail/" | cut -d\< -f1 >>tmp.txt &
-			sleep 4
+			sleep 5
 		done
 	}
-	sleep 2
 	sort -u tmp.txt -o tmp.txt
 	cat tmp.txt | cut -d\> -f2 | sed 's,\ ,_,' >allies.txt
 	killall -q -9 w3m
@@ -57,7 +55,7 @@ _calliesID () {
 			[[ -n $IDN ]] && {
 				echo -e ""$b__"/user/$IDN\e[00m"
 				echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
-				sleep 4
+				sleep 5
 				LEADPU=$(cat SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
 				alCLAN=$(cat SRC | grep -E -o '/clan/[0-9]{1,3}' | tail -n1)
 				echo -e ""$bi_" $LEADPU - $alCLAN\e[00m"
@@ -68,7 +66,6 @@ _calliesID () {
 					sort -u callies.txt -o callies.txt
 				}
 			}
-			sleep 2
 		done < ids.txt
 		killall -q -9 w3m
 	}
