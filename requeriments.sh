@@ -4,7 +4,7 @@ _requeriments () {
 	if [[ -z $URL ]] ; then
 		_one () {
 			clear
-			echo -e " "$rr_"1\e[00m)"$ww_" 🇬🇧 English, Global: Titan's War online "$gg_"[ENTER]\e[00m\n 2)\e[05;30m\e[08;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)"$_w_" 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[08;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)"$_w_" 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[08;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)"$_w_" 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[08;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)"$_w_" 🇷🇴 Română: Războiul Titanilor online \e[00m\n"$rr_"1\e[00m"$gg_"0\e[00m)"$ww_" 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n"$rr_"1\e[00m"$gg_"1\e[00m)"$ww_" 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)"$yy_" ❌ Cancel \e[00m"
+			echo -e " "$rr_"1\e[00m)"$ww_" 🇬🇧 English, Global: Titan's War online "$gg_"[ENTER]\e[00m\n 2)"$_w_" 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)"$_w_" 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)"$_w_" 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)"$_w_" 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)"$_w_" 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)"$_w_" 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)"$_w_" 🇫🇷 Français: Combat des Titans online \e[00m\n 9)"$_w_" 🇷🇴 Română: Războiul Titanilor online \e[00m\n"$rr_"1\e[00m"$gg_"0\e[00m)"$ww_" 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n"$rr_"1\e[00m"$gg_"1\e[00m)"$ww_" 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)"$yy_" ❌ Cancel \e[00m"
 			while IFS= read -p "Select number Server[1 to 11]: 1" -t 300 -r -s -n 1 UR; do
 				if [[ $UR == $'\0' ]]; then
 					URL=$(echo "dGl3YXIubmV0" | base64 -d) ; TMP="$HOME/.1" ; export TZ=Europe/London LANG=en.UTF-8 ; ALLIES="_WORK" ; break
