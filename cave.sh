@@ -3,9 +3,9 @@ function _cave () {
 	echo "cave ..."
 	_clanid
 	if [[ -n $CLD ]]; then
-		$PAGE "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
-		echo "/clan/$CLD/quest/take/5"
-		sleep 3
+#		$PAGE "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
+#		echo "/clan/$CLD/quest/take/5"
+#		sleep 3
 		$PAGE "$URL/clan/$CLD/quest/help/5" -o user_agent="$(shuf -n1 .ua)" | tail -n 0 &
 		echo "/clan/$CLD/quest/help/5"
 		sleep 3
