@@ -4,7 +4,7 @@ _requeriments () {
 	if [[ -z $URL ]] ; then
 		_one () {
 			clear
-			echo -e " \e[01;31m\e[01;07m1\e[00m)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[01;32m\e[01;07m[ENTER]\e[00m\n 2)\e[05;30m\e[08;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[08;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[08;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[08;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[08;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[08;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[08;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[08;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n\e[01;31m\e[01;07m1\e[00m\e[01;32m\e[01;07m0\e[00m)\e[01;30m\e[01;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n\e[01;31m\e[01;07m1\e[00m\e[01;32m\e[01;07m1\e[00m)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[01;07m ❌ Cancel \e[00m"
+			echo -e " "$rr_"1\e[00m)"$ww_" 🇬🇧 English, Global: Titan's War online "$gg_"[ENTER]\e[00m\n 2)\e[05;30m\e[08;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)"$_w_" 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[05;30m\e[08;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)"$_w_" 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[05;30m\e[08;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)"$_w_" 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[05;30m\e[08;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)"$_w_" 🇷🇴 Română: Războiul Titanilor online \e[00m\n"$rr_"1\e[00m"$gg_"0\e[00m)"$ww_" 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n"$rr_"1\e[00m"$gg_"1\e[00m)"$ww_" 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)"$yy_" ❌ Cancel \e[00m"
 			while IFS= read -p "Select number Server[1 to 11]: 1" -t 300 -r -s -n 1 UR; do
 				if [[ $UR == $'\0' ]]; then
 					URL=$(echo "dGl3YXIubmV0" | base64 -d) ; TMP="$HOME/.1" ; export TZ=Europe/London LANG=en.UTF-8 ; ALLIES="_WORK" ; break
@@ -19,7 +19,7 @@ _requeriments () {
 				fi
 			done
 		}
-		echo -e " 1)\e[01;30m\e[01;07m 🇬🇧 English, Global: Titan's War online \e[00m\n 2)\e[01;30m\e[01;07m 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)\e[01;30m\e[01;07m 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)\e[01;30m\e[01;07m 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)\e[01;30m\e[01;07m 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)\e[01;30m\e[01;07m 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)\e[01;30m\e[01;07m 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)\e[01;30m\e[01;07m 🇫🇷 Français: Combat des Titans online \e[00m\n 9)\e[01;30m\e[01;07m 🇷🇴 Română: Războiul Titanilor online \e[00m\n10)\e[01;30m\e[01;07m 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n11)\e[01;30m\e[01;07m 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[02;07m ❌ Cancel \e[00m"
+		echo -e " 1)"$ww_" 🇬🇧 English, Global: Titan's War online \e[00m\n 2)"$ww_" 🇷🇺 Русский: Битва Титанов онлайн \e[00m\n 3)"$ww_" 🇵🇱 Polski: Wojna Tytanów online \e[00m\n 4)"$ww_" 🇩🇪 Deutsch: Krieg der Titanen online \e[00m\n 5)"$ww_" 🇪🇸 Español: Guerra de Titanes online \e[00m\n 6)"$ww_" 🇧🇷 Brazil, 🇵🇹 Português: Furia de Titãs online \e[00m\n 7)"$ww_" 🇮🇹 Italiano: Guerra di Titani online \e[00m\n 8)"$ww_" 🇫🇷 Français: Combat des Titans online \e[00m\n 9)"$ww_" 🇷🇴 Română: Războiul Titanilor online \e[00m\n10)"$ww_" 🇨🇳 中文, Chinese: 泰坦之战 \e[00m\n11)"$ww_" 🇮🇩 Indonesian: Titan's War Indonesia \e[00m\n C)\e[00;33m\e[02;07m ❌ Cancel \e[00m"
 		read -p "Select number Server[1 to 11]: " -t 300 -e -n 1 UR
 		case $UR in
 			(1) _one ; break ;;
@@ -76,13 +76,13 @@ _requeriments () {
  		echo -e '"Mozilla/5.0 (BB10; Touch) AppleWebKit/537.35+ (KHTML, like Gecko) Version/10.3.2.2339 Mobile Safari/537.35+"\n"Mozilla/5.0 (Linux; U; Android 4.3; en-us; ZTE-Z667G Build/JLS36C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"\n"Mozilla/5.0 (Mobile; rv:32.0) Gecko/32.0 Firefox/32.0"\n"Mozilla/5.0 (Android; Linux armv7l; rv:5.0) Gecko/20110615 Firefox/5.0 Fennec/5.0"' >$TMP/.ua
 		sed -i 's,\",,g' $TMP/.ua
 		clear
-		echo -e "\e[01;30m\e[01;07m Simulate your real or random device. \e[00m\n1)\e[01;30m\e[01;07m Mannualy (Recommended) \e[00m\n2)\e[01;30m\e[01;07m Automatic \e[00m"
+		echo -e ""$ww_" Simulate your real or random device. \e[00m\n1)"$ww_" Mannualy (Recommended) \e[00m\n2)"$ww_" Automatic \e[00m"
 		read -p "Set up User-Agent[1 to 2]: " -t 300 -e -n 1 UA
 		case $UA in
 
 			(1) clear; xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) ; read -p "Copy and paste your User Agent here and tip ENTER: " -t 900 -e -n 250 UA && echo "$UA" >$TMP/.ua ;;
 
-			(2) echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ;;
+			(2) echo -e ""$pp_"" ; echo -e "User-Agent: $(cat $TMP/.ua)" ; echo -e "\e[00m" ;;
 
 			(*) clear; [[ -n $UA ]] && echo -e "\n Invalid option: $(echo $UA)" && kill -9 $$ || echo -e "\n Time exceeded!" ;;
 		esac
@@ -91,7 +91,7 @@ _requeriments () {
 	[[ ! -e $TMP/.ua || $(cat $TMP/.ua | wc -c) -lt 10 || $(cat $TMP/.ua | wc -c) -gt 300 ]] && {
 		_userAgent
 	} || {
-		echo -e "\e[01;35m\e[01;07m" ; echo -e "User-Agent: $(shuf -n 1 $TMP/.ua)" ; echo -e "\e[00m"
+		echo -e ""$pp_"" ; echo -e "User-Agent: $(shuf -n 1 $TMP/.ua)" ; echo -e "\e[00m"
 	}
 	dos2unix $TMP/.ua &> /dev/null
 	killall -q -9 w3m
