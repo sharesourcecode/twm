@@ -2,6 +2,19 @@
 PAGE="w3m -o https_proxy=$PROXY -o accept_language=$LANG -debug"
 DUMP="w3m -o https_proxy=$PROXY -o accept_language=$LANG -debug -dump"
 SOURCE="w3m -o https_proxy=$PROXY -o accept_language=$LANG -o accept_encoding=UTF-8 -debug -dump_source"
+# /colors
+ww_='\e[01;30m\e[01;07m' # \e[01;30m\e[05;07m
+_w_='\e[01;30m\e[08;07m'
+rr_='\e[01;31m\e[01;07m'
+gg_='\e[01;32m\e[01;07m'
+y_='\033[33m\033'
+yy_='\e[00;33m\e[01;07m'
+bi_='\e[03;34m\e[02;03m'
+b__='\e[03;34m\e[02;04m'
+pp_='\e[01;35m\e[01;07m'
+b_='\033[36m\033'
+c_='\033[37m\033'
+#cc_='\e[00m'
 # /sources
 [[ ! -e "$HOME/easyinstall.sh" ]] && {
 	echo -e "\n Downloading easyinstall.sh"
@@ -41,6 +54,7 @@ _unset () {
 	unset HP1 HP2 YOU USER CLAN ENTERFIGHT ENTERGAME ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
 rpt=0
+#sleep 5
 _requeriments
 ts=20
 _proxy
