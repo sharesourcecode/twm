@@ -32,12 +32,12 @@ _coliseum () {
         EXIT=$(cat SRC | grep -o '/leaveFight/' | head -n1)
 	while [[ -n $EXIT ]] ; do
 		echo $($SOURCE $URL/coliseum -o user_agent="$(shuf -n1 .ua)") >SRC &
-		echo -e "💤 $ACCESS" ; sleep 2
+		echo -e "💤 $ACCESS" ; sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/coliseum/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | grep -o '/leaveFight/' | head -n1)
 		killall -q -9 w3m
 	done
-	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
+	FULL=$(cat SRC | grep -o -P "(hp)\W{1,4}\d{1,6}" | sed "s,hp[']\/[>],,;s,\ ,,")
 	_access
 	HP3=$HP1
 	until [[ -n "$BEXIT" && -z "$OUTGATE" ]] ; do

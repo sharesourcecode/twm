@@ -35,7 +35,7 @@ _king () {
 #		killall -q -9 w3m
 	done
 # /game
-	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep "hp" | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd "[[:digit:]]")
+	FULL=$(cat SRC | grep -o -P "(hp)\W{1,4}\d{1,6}" | sed "s,hp[']\/[>],,;s,\ ,,")
 	_access
 	HP3=$HP1
 	until [[ -z $OUTGATE && -z $ATK ]]; do

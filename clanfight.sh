@@ -28,12 +28,12 @@ _clanfight () {
 		[[ $(date +%M) = 00 && $(date +%S) > 19 ]] && break
 		echo -e " 💤	...\n$ACCESS"
 		echo $($SOURCE "$URL/clanfight/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-		sleep 5
+		sleep 3
 		ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/clanfight/' | head -n1 | awk -F\' '{ print $2 }')
 		EXIT=$(cat SRC | grep -o 'clanfight/attack/')
 		killall -q -9 w3m
 	done
-	FULL=$(cat SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F\< '{ print $2 }' | awk -F\> '{ print $2 }' | tr -cd '[[:digit:]]')
+	FULL=$(cat SRC | grep -o -P "(hp)\W{1,4}\d{1,6}" | sed "s,hp[']\/[>],,;s,\ ,,")
 	_access
 	HP3=$HP1
 	until [[ -n $BEXIT && -z $OUTGATE ]] ; do
