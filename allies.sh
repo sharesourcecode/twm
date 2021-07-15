@@ -58,7 +58,6 @@ _calliesID () {
 		for num in `seq $Lnl -1 $nl`;
 		do
 			IDN=$(cat ids.txt | tail -n $Lnl | head -n 1)
-			Lnl=$[$Lnl-1]
 #		while read IDN; do
 			[[ -n $IDN ]] && {
 				echo -e "$Lnl "$b__"/user/$IDN\e[00m"
@@ -73,6 +72,7 @@ _calliesID () {
 					echo -e ""$ww_" $ts. Ally $LEADPU $alCLAN added.\e[00m"
 					sort -u callies.txt -o callies.txt
 				}
+				Lnl=$[$Lnl-1]
 			}
 			killall -q -9 w3m
 #		done < ids.txt
