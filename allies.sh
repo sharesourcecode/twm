@@ -48,13 +48,20 @@ _calliesID () {
 	_clanid
 	[[ -n $CLD ]] && {
 		cd $TMP
-		ts=0
 		echo "QmFja2dyb3VuZF9Qcm9jZXNzCg==" | base64 -d >callies.txt
 		cat tmp.txt | cut -d/ -f3 >ids.txt
 		echo -e ""$ww_"\nClan allies by Leader/Deputy on friends list\n\e[00m"
-		while read IDN; do
+		#loop conf
+		Lnl=$(cat ids.txt | wc -l)
+		nl=1
+		ts=0
+		for num in `seq $Lnl -1 $nl`;
+		do
+			IDN=$(cat ids.txt | tail -n $Lnl | head -n 1)
+			Lnl=$[$Lnl-1]
+#		while read IDN; do
 			[[ -n $IDN ]] && {
-				echo -e ""$b__"/user/$IDN\e[00m"
+				echo -e "$Lnl "$b__"/user/$IDN\e[00m"
 				echo $($SOURCE "$URL/user/$IDN" -o user_agent="$(shuf -n1 .ua)") >SRC &
 				sleep 5
 				LEADPU=$(cat SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
@@ -68,8 +75,8 @@ _calliesID () {
 				}
 			}
 			killall -q -9 w3m
-		done < ids.txt
-		killall -q -9 w3m
+#		done < ids.txt
+		done
 	}
 }
 _alliesConf () {
