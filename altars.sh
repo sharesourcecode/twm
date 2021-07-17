@@ -1,6 +1,6 @@
 _altars () {
 # /enterFight
-	INT='1.9'
+	INT='1.92'
 	HPER=47
 	RPER=25
 	_show () {
