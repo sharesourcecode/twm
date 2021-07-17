@@ -1,6 +1,6 @@
 _clancoliseum () {
 # /enterFight
-	INT=2
+	INT='1.92'
 	HPER=47
 	RPER=15
 	_show () {
