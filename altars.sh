@@ -1,7 +1,7 @@
 _altars () {
 # /enterFight
 	INT=2
-	HPER=49
+	HPER=47
 	RPER=25
 	_show () {
 		CLAN=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\(" | sed -n 's,\ [(],,;s,\ ,_,;2p')

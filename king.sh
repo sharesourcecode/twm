@@ -1,7 +1,7 @@
 _king () {
 # /enterFight
 	INT=2
-	HPER=53
+	HPER=50
 	RPER=3
 	_show () {
 		YOU=$(cat SRC | grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
