@@ -1,13 +1,22 @@
 _coliseum () {
 # /enterFight
-	INT=2
-	HPER=43
+	INT='1.92' # 2.1 2.3 2.4
+	HPER=35
 	RPER=25
 	echo -e "\nColiseum ..."
 	echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo -e "/settings/graphics/0\n" ; sleep 3
-	echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
-	echo '/coliseum/?close_clan_msg=true' ; sleep 2
+	sleep 3
+	grep -o '/graphics/0' SRC && {
+		echo $($PAGE $URL/settings/graphics/0 -o user_agent="$(shuf -n1 .ua)") >SRC &
+		echo -e "/settings/graphics/0" ; sleep 3
+	}
+	grep -o '?close_clan_msg' SRC && {
+		echo $($SOURCE "$URL/coliseum/?close_clan_msg=true" -o user_agent="$(shuf -n1 .ua)") >SRC &
+		echo '/coliseum/?close_clan_msg=true'
+		sleep 3
+	}
+	echo $($SOURCE "$URL/coliseum" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	sleep 3
 	_show () {
 		YOU=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;1p')
 		USER=$(grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" SRC | sed -n 's,\ [<]s,,;s,\ ,_,;2p')
@@ -17,10 +26,14 @@ _coliseum () {
 			[[ $HP1 -gt 0 && $HP2 -gt 0 ]] && echo -e "$YOU: $HP1 - $HP2 :$USER\n"
 			[[ $HP1 -eq 0 ]] && echo -e "$YOU: 💀 - $HP2 :$USER\n"
 			[[ $HP2 -eq 0 ]] && echo -e "$YOU: $HP1 - 💀 :$USER\n"
-		}
+	}
 }
-	$PAGE "$URL/coliseum/?end_fight=true" -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" &
-	echo "/coliseum/?end_fight=true" ; sleep 3
+	grep -o '?end_fight' SRC && {
+		$PAGE "$URL/coliseum/?end_fight=true" -o user_agent="$(shuf -n1 .ua)" | head -n11 | tail -n7 | sed "/\[2hit/d;/\[str/d;/combat/d" &
+		echo "/coliseum/?end_fight=true" ; sleep 3
+	}
+	echo $($SOURCE "$URL/coliseum" -o user_agent="$(shuf -n1 .ua)") >SRC &
+	sleep 3
 	ACCESS=$(cat SRC | sed 's/href=/\n/g' | grep '/enterFight/' | head -n1 | awk -F\' '{ print $2 }')
 	echo -e " 👣 Entering...\n$ACCESS"
 	echo $($SOURCE "$URL$ACCESS" -o user_agent="$(shuf -n1 .ua)") >SRC &
