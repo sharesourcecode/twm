@@ -14,36 +14,36 @@ if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; th
  printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-slogan_func () {
- colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
+script_slogan () {
+ colors="10 9 8 7 6 5 4 3 2 1"
  t=339
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
- for (( i=0; i<${#colors[@]}; i++ )) ; do
+ for i in $colors ; do
   clear
-  t=$(($t - 27))
-  w=$(($w + 1))
-  m=$(($m - 2))
+  t=$((t - 27))
+  w=$((w + 1))
+  m=$((m - 2))
   # //⟨
-  printf "\033[1;38;5;${t}m   ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗
-   ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣
-   ${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
-   ${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
-        ╔╦═╦╗╔══╗╔══╗
-        ║║║║║║╔╗║║╚╝╣
-        ║║║║║║╔╗║║║╗║
-        ╚═╩═╝╚╝╚╝╚╝╚╝\033[1;38;5;${m}m
-    ╔═╦═╗╔══╗╔══╗╔══╗╔══╗
-    ║║║║║║╔╗║║╔═╝║╚╝╣║╔╗║
-    ║║║║║║╔╗║║╚═╗║║╗║║╚╝║
-    ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
-        ${COLOR_RESET}\n"
+  printf "\033[1;38;5;${t}m  ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗
+  ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣
+  ${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
+  ${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
+       ╔╦═╦╗╔══╗╔══╗
+       ║║║║║║╔╗║║╚╝╣
+       ║║║║║║╔╗║║║╗║
+       ╚═╩═╝╚╝╚╝╚╝╚╝\033[1;38;5;${m}m
+  ╔═╦═╗╔══╗╔══╗╔══╗╔══╗
+  ║║║║║║╔╗║║╔═╝║╚╝╣║╔╗║
+  ║║║║║║╔╗║║╚═╗║║╗║║╚╝║
+  ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
+  ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}${COLOR_RESET}\n"
   sleep 0.3s
  done
-} #slogan_func
+} # script_slogan
 cd ~/
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
