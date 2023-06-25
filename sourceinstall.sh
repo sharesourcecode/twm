@@ -11,7 +11,7 @@ COLOR_RESET='\033[00m'
 COLOR_YELLOW='\033[00;33m\033[01;07m'
 LETTER_YELLOW='\033[33m'
 if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null; then
- printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}"
+ printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
 slogan_func () {
@@ -38,12 +38,12 @@ slogan_func () {
     ║║║║║║╔╗║║╔═╝║╚╝╣║╔╗║
     ║║║║║║╔╗║║╚═╗║║╗║║╚╝║
     ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
-        ${COLOR_RESET}"
+        ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}"
+  printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}\n"
   sleep 0.3
  done
-} #slogan_func()
+}
 cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
@@ -54,7 +54,7 @@ else
  local_count=1
 fi
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
- printf "${COLOR_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}"
+ printf "${COLOR_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
   termux-wake-lock
@@ -119,7 +119,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  #linux
  if uname -o | grep -q -i GNU/Linux ; then
   LS="/usr/share/doc"
-  printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl w3m coreutils\napk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y"
+  printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
   read -t 15
  fi #uname -o
@@ -129,7 +129,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  cd ~/twm
  rm -rf twm/*
  slogan_func
- printf "${COLOR_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}"
+ printf "${COLOR_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh trade.sh undying.sh)
@@ -140,7 +140,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | head -n 128 >twm.sh
   for (( i=0; i<$NUM_SCRIPTS; i++ )) ; do
    script=${SCRIPTS[i]}
-   printf "Checking $((i+1))/$NUM_SCRIPTS $script"
+   printf "Checking $((i+1))/$NUM_SCRIPTS ${script}\n"
    remote_count=$(curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L | wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
@@ -148,12 +148,12 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     local_count=1
    fi
    if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
-    printf "✅ ${COLOR_CYAN}Updated $script${COLOR_RESET}"
+    printf "✅ ${COLOR_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
-    printf "🔁 ${COLOR_GREEN}Updating $script${COLOR_RESET}"
+    printf "🔁 ${COLOR_GREEN}Updating $script${COLOR_RESET}\n"
     curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L > $script
    else
-    printf "🔽 ${COLOR_YELLOW}Downloading $script${COLOR_RESET}"
+    printf "🔽 ${COLOR_YELLOW}Downloading $script${COLOR_RESET}\n"
     curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L -O
    fi
    sleep 0.1s
@@ -165,7 +165,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  }
  sync_func
  slogan_func
- printf "✅ ${COLOR_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${LETTER_YELLOW}bash twm/play.sh${COLOR_RESET}\n\ For cave run: ${LETTER_YELLOW}bash twm/play.sh -cv${COLOR_RESET}\n\ For coliseum run: ${LETTER_YELLOW}bash twm/play.sh -cl${COLOR_RESET}"
+ printf "✅ ${COLOR_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${LETTER_YELLOW}./twm/play.sh${COLOR_RESET}\n For cave run: ${LETTER_YELLOW}./twm/play.sh -cv${COLOR_RESET}\n For coliseum run: ${LETTER_YELLOW}./twm/play.sh -cl${COLOR_RESET}\n"
  pidf=$(ps ax -o pid=,args= | grep 'twm/play.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
@@ -180,15 +180,15 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  done
  if [ -f ~/twm/.runmode_file ] ; then
   if awk '{if ($0 == "-cv") print $0}' ~/twm/.runmode_file ; then
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}"
+   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cl
   elif awk '{if ($0 == "-cv") print $0}' ~/twm/.runmode_file ; then
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}"
+   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cv
   else
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}"
+   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh
   fi
@@ -198,6 +198,5 @@ else #$(curl -s -L ...
  chmod +x $HOME/sourceinstall.sh
  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}easyinstall.sh -s -L >$HOME/easyinstall.sh
  chmod +x $HOME/easyinstall.sh
- printf "${COLOR_YELLOW}Mistake! Try again later.\nRun 'bash easyinstall.sh'${COLOR_RESET}"
+ printf "${COLOR_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
 fi #$(curl -s -L ...
-
