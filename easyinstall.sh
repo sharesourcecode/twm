@@ -131,16 +131,17 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  slogan_func
  printf "${COLOR_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
-#  SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh undying.sh)
-  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh trade.sh undying.sh)
-  NUM_SCRIPTS=${#SCRIPTS[@]}
+#  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh undying.sh"
+  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh trade.sh undying.sh"
   cd ~/twm
   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}play.sh -s -L -O
   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L -O
   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | head -n 128 >twm.sh
-  for (( i=0; i<$NUM_SCRIPTS; i++ )) ; do
-   script=${SCRIPTS[i]}
-   printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
+  NUM_SCRIPTS=$(echo $SCRIPTS | wc -w)
+  LEN=0
+  for script in $SCRIPTS ; do
+   LEN=$((LEN+1))
+   printf "Checking $LEN/$NUM_SCRIPTS $script\n"
 #   remote_count=$(curl -s -L "${SERVER}/${script}" | wc -c)
 #   if [ -e ~/twm/$script ] ; then
 #    local_count=$(wc -c < "$script")
