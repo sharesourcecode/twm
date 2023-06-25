@@ -3,18 +3,18 @@
 # automatic update turned on
 # Definindo variáveis de cores
 COLOR_BLUE='\033[01;36m\033[01;07m'
-COLOR_BLACK='\e[0;30m'
+COLOR_BLACK='\033[0;30m'
 COLOR_CYAN='\033[01;36m\033[01;07m'
 COLOR_GREEN='\033[00;32m\033[01;07m'
 COLOR_RED='\033[1;38;5;1m'
 COLOR_RESET='\033[00m'
 COLOR_YELLOW='\033[00;33m\033[01;07m'
 LETTER_YELLOW='\033[33m'
-if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null; then
+if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; then
  printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-slogan_func() {
+slogan_func () {
  colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
  t=339
  w=59
@@ -41,9 +41,9 @@ slogan_func() {
         ${COLOR_RESET}\n"
   # ⟩\\
   printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}\n"
-  sleep 0.3
+  sleep 0.3s
  done
-} #slogan_func()
+} #slogan_func
 cd ~/
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
