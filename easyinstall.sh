@@ -14,7 +14,7 @@ if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null; the
  printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-slogan_func () {
+slogan_func() {
  colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
  t=339
  w=59
