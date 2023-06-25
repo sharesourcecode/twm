@@ -1,6 +1,6 @@
-#!/bin/bash
-# 15/6/2023
-# automatic update turned off
+#!/bin/sh
+# 25/6/2023
+# automatic update turned on
 # Definindo variáveis de cores
 COLOR_BLUE='\033[01;36m\033[01;07m'
 COLOR_BLACK='\e[0;30m'
