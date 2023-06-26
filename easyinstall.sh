@@ -14,7 +14,7 @@ if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; th
  printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-script_slogan () {
+slogan_func () {
  colors="10 9 8 7 6 5 4 3 2 1"
  t=339
  w=59
@@ -43,7 +43,7 @@ script_slogan () {
   printf "\033[1;38;5;${i}m${author}${COLOR_RESET}\n"
   sleep 0.3s
  done
-} # script_slogan
+}
 cd ~/
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
@@ -54,7 +54,6 @@ else
  local_count=1
 fi
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
- printf "${COLOR_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
   termux-wake-lock
@@ -118,7 +117,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  fi #cygwin
  #linux
  if uname -o | grep -q -i GNU/Linux ; then
-  LS="/usr/share/doc"
+  LS='/usr/share/doc'
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
   read -t 15
@@ -136,7 +135,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   cd ~/twm
   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}play.sh -s -L -O
   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L -O
-  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | head -n 128 >twm.sh
+  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | sed -n '1,128p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS | wc -w)
   LEN=0
   for script in $SCRIPTS ; do
@@ -159,7 +158,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   fi
    sleep 0.1s
   done
-  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | tail -n 87 >>twm.sh
+  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | sed -n '136,223p' >>twm.sh
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0 | xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
