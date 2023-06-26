@@ -11,20 +11,16 @@
   done
   run_mode () {
    case $RUN in
-   (*boot)
-    chmod +x $HOME/twm/twm.sh
-    $HOME/twm/twm.sh -boot ;;
-   (*cl)
+   (-cl)
     chmod +x $HOME/twm/twm.sh
     $HOME/twm/twm.sh ;;
-   (*cv)
+   (-cv)
     chmod +x $HOME/twm/twm.sh
     $HOME/twm/twm.sh -cv ;;
-   (*)
-    unset RUN
-    >$HOME/twm/.runmode_file
+   (-boot|""|*)
+    echo '-boot' >$HOME/twm/.runmode_file
     chmod +x $HOME/twm/twm.sh
-    $HOME/twm/twm.sh ;;
+    $HOME/twm/twm.sh -boot ;;
    esac
   }
   run_mode

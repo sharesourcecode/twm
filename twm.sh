@@ -51,7 +51,7 @@ else
   fi
  fi
 fi
-printf "${COLOR=CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR=RESET}"
+printf "${COLOR=CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR=RESET}\n"
 script_slogan () {
  colors="10 9 8 7 6 5 4 3 2 1"
  t=339
@@ -103,7 +103,7 @@ time_exit () {
    elif [ "$TE" -lt 1 ] ; then
     kill -s PIPE $FPID &>/dev/null
     kill -15 $FPID &>/dev/null
-    echo -e "${COLOR_RED}Command execution was interrupted!${COLOR_RESET}"
+    printf "${COLOR_RED}Command execution was interrupted!${COLOR_RESET}\n"
     local TE=0
     break &>/dev/null
    fi
@@ -124,57 +124,54 @@ pp_='\033[01;35m\033[01;07m'
 b_='\033[36m\033'
 c_='\033[37m\033'
 #cc_='\033[00m'
-# /sources
+#/sources
 cd ~/twm
-#head -n 128 /remove from easyinstall.sh
+#sed -n 1,129 /remove sources to easyinstall.sh
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
-#tail -n $((total - 135)) /remove from easyinstall.sh
+#sed -n 136,last /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  case $FUNC in
- (-boot)
-  unset PLAY
-  twm_play ;;
  (-cv)
-  PLAY="cv" && cave_start ;;
+  PLAY='cv' && cave_start ;;
  (-cl)
-  PLAY="cl"
+  PLAY='cl'
   twm_play ;;
- (*)
-  unset PLAY
+ (-boot|""|*)
+  PLAY='boot'
   twm_play ;;
  esac
 }
-func_access () {
- HLHP=$((FULL * HPER / 100))
- ATK=$(grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC | sed -n 1p)
- ATKRND=$(grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- DODGE=$(grep -o -E '(/[a-z]+/dodge/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- HEAL=$(grep -o -E '(/[a-z]+/heal/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- stone=$(grep -o -E '(/[a-z]+/stone/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- GRASS=$(grep -o -E '(/[a-z]+/grass/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- SHIELD=$(grep -o -E '(/[a-z]+/shield/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
- DT=$(grep -o -E 'dodge(.*)dgreen medium[^0-9]{2}00:(0|1|2)[0-9]{1}(.*)/at' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
- HT=$(grep -o -E '[^A-Za-z0-9]heal[^A-Za-z0-9](.*)[0-9]{1,2}:[0-9]{2}(.*)/stone/' $TMP/SRC | grep -m1 -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
- ST=$(grep -o -E '/stone/(.*)00:[0-9]{2}(.*)/grass/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
- GT=$(grep -o -E '/grass/(.*)00:[0-9]{2}(.*)/[A-Za-z]+/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
- CT=$(grep -o -E '/images/icon/health.png(.*)(0|1)[0-9]{1}:[0-9]{2}(.*)/images/icon/health.png' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | head -n1)
- BEXIT=$(grep -o 'user.png' $TMP/SRC)
- OUTGATE=$(grep -o 'out_gate' $TMP/SRC)
- LEAVEFIGHT=$(cat $TMP/SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
- WDRED=$(cat $TMP/SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F"[']" '{ print $4 }') #white/dred
- twm_show
-}
+#func_access () {
+# HLHP=$((FULL * HPER / 100))
+# ATK=$(grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC | sed -n 1p)
+# ATKRND=$(grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# DODGE=$(grep -o -E '(/[a-z]+/dodge/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# HEAL=$(grep -o -E '(/[a-z]+/heal/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# stone=$(grep -o -E '(/[a-z]+/stone/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# GRASS=$(grep -o -E '(/[a-z]+/grass/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# SHIELD=$(grep -o -E '(/[a-z]+/shield/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
+# DT=$(grep -o -E 'dodge(.*)dgreen medium[^0-9]{2}00:(0|1|2)[0-9]{1}(.*)/at' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
+# HT=$(grep -o -E '[^A-Za-z0-9]heal[^A-Za-z0-9](.*)[0-9]{1,2}:[0-9]{2}(.*)/stone/' $TMP/SRC | grep -m1 -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
+# ST=$(grep -o -E '/stone/(.*)00:[0-9]{2}(.*)/grass/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
+# GT=$(grep -o -E '/grass/(.*)00:[0-9]{2}(.*)/[A-Za-z]+/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
+# CT=$(grep -o -E '/images/icon/health.png(.*)(0|1)[0-9]{1}:[0-9]{2}(.*)/images/icon/health.png' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | head -n1)
+# BEXIT=$(grep -o 'user.png' $TMP/SRC)
+# OUTGATE=$(grep -o 'out_gate' $TMP/SRC)
+# LEAVEFIGHT=$(cat $TMP/SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
+# WDRED=$(cat $TMP/SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F"[']" '{ print $4 }') #white/dred
+# twm_show
+#}
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
 if [ -f "$HOME/twm/.ur_file" ] && [ -s "$HOME/twm/.ur_file" ] ; then
- echo -e "\033[32m\033\ Starting with last settings used.\033[00m"
+ printf "\033[32m\033\ Starting with last settings used.\033[00m\n"
  num=6
  for i in `seq 6 -1 1` ; do
   i=$((i - 1))
@@ -187,23 +184,23 @@ if [ -f "$HOME/twm/.ur_file" ] && [ -s "$HOME/twm/.ur_file" ] ; then
    unset AL
    break &> /dev/null
   fi
-  echo -e " Hit\033[33m\033\ [Enter]\033[00m to\033[33m\033\ reconfigure\033[32m\033\ "$i"s\e[00m"
+  printf " Hit\033[33m\033\ [Enter]\033[00m to\033[33m\033\ reconfigure\033[32m\033\ "$i"s\e[00m\n"
  done
 fi
 requer_func
 func_proxy
 messages_info () {
- echo -e "\ ##### mail #####" > $TMP/msg_file
+ printf "\ ##### mail #####\n" > $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/mail -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | tee $TMP/info_file | sed -n '/[|]\ mp/,/\[arrow\]/p' | sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- echo -e "##### chat titans #####" >> $TMP/msg_file
+ printf "##### chat titans #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/chat/titans/changeRoom -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -n '/\(\»\)/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- echo -e "##### chat clan #####" >> $TMP/msg_file
+ printf "##### chat clan #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/chat/clan/changeRoom -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -ne '/\[[^a-z]\]/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
