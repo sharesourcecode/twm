@@ -46,8 +46,8 @@ slogan_func () {
 }
 cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
-SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
-remote_count=$(curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L | wc -c)
+SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L | wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -135,13 +135,13 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh trade.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
   cd ~/twm
-#  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}play.sh -s -L -O
-#  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L -O
-#  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | head -n 128 >twm.sh
+#  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
+#  curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
+#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | head -n 128 >twm.sh
   for (( i=0; i<$NUM_SCRIPTS; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS ${script}\n"
-   remote_count=$(curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L | wc -c)
+   remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L | wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
    else
@@ -151,14 +151,14 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     printf "✅ ${COLOR_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${COLOR_GREEN}Updating $script${COLOR_RESET}\n"
-    curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L > $script
+    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
    else
     printf "🔽 ${COLOR_YELLOW}Downloading $script${COLOR_RESET}\n"
-    curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}$script -s -L -O
+    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O
    fi
    sleep 0.1s
   done
-#  curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}twm.sh -s -L | tail -n 104 >>twm.sh
+#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | tail -n 104 >>twm.sh
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0 | xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
@@ -194,9 +194,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
  chmod +x $HOME/sourceinstall.sh
- curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}easyinstall.sh -s -L >$HOME/easyinstall.sh
+ curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L >$HOME/easyinstall.sh
  chmod +x $HOME/easyinstall.sh
  printf "${COLOR_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
 fi #$(curl -s -L ...

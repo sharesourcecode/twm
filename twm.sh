@@ -1,7 +1,7 @@
 #!/bin/bash
 FUNC=$(cat $HOME/twm/.runmode_file)
 cd $HOME/twm
-# Definindo variáveis de cores
+#/Definindo variáveis de cores
 COLOR_BLUE='\033[01;36m\033[01;07m'
 COLOR_BLACK='\033[00;30m'
 COLOR_CYAN='\033[01;36m\033[01;07m'
@@ -10,7 +10,7 @@ COLOR_RED='\033[01;38m\033[05;01m'
 COLOR_RESET='\033[00m'
 COLOR_YELLOW='\033[00;33m\033[01;07m'
 LETTER_YELLOW='\033[33m'
-# script ads
+#/script ads
 script_ads () {
  if [ "$FUNC" != '-boot' ] && [ -f "$HOME/twm/.ads_file" ] && [ -s "$HOME/twm/.ads_file" ] && [ "$(cat $HOME/twm/.ads_file)" != "$(date +%d)" ] ; then
   if [ "$(cat $HOME/twm/.ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
@@ -22,13 +22,13 @@ script_ads () {
  fi
 }
 script_ads
-# /sync
+#/sync
 if [ ! -z "$FUNC" ] ; then
  :
 else
  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
- SERVER="https://api.github.com/repos/sharesourcecode/twm/contents/"
- remote_count=$(curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}sourceinstall.sh -s -L | wc -c)
+ SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+ remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L | wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
   local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
  else
@@ -42,7 +42,7 @@ else
    exit 1
   else
    rm $HOME/twm/easyinstall.s*
-   curl -H "Authorization: Bearer $TWMKEY" -H "Accept: application/vnd.github.v3.raw" ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+   curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
    rm $HOME/easyinstall.s*
    cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
    SYNC=1
@@ -81,7 +81,7 @@ script_slogan () {
   printf "\033[1;38;5;${i}m${author}${COLOR_RESET}\n"
   sleep 0.3s
  done
-} # script_slogan
+}
 script_slogan
 sleep 1s
 #/termux
@@ -111,7 +111,7 @@ time_exit () {
   done
  )
 }
-#/colors
+#/+colors
 ww_='\033[01;36m\033[01;07m'
 _w_='\033[01;36m\033[08;07m'
 rr_='\033[01;31m\033[01;07m'
