@@ -25,7 +25,7 @@ requer_func () {
  menu_two () {
   options_two
   printf "Select number Server[1 to 11]: 1\n"
-  read -r -s -n 1 UR
+  read -n 1 UR
   echo $UR
   if [ "$UR" = $'\0' ] ; then
    echo "s_en" >$HOME/twm/ur_file
@@ -52,7 +52,7 @@ requer_func () {
  menu_one () {
   options_one
   printf "Select number Server[1 to 11]: \n"
-  read -r -s -n 1 UR
+  read -n 1 UR
   if [ $UR = 1 ] ; then
    menu_two
   elif [ $UR = 2 ] ; then
@@ -186,7 +186,8 @@ requer_func () {
   (1)
    clear ; echo "0" >$HOME/twm/fileAgent.txt
    xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) &>/dev/null
-   read -p "Copy and paste your User Agent here and tip ENTER: " -n 300 UA
+   printf "Copy and paste your User Agent here and tip ENTER: \n"
+   read -n 300 UA
    echo "$UA" >$TMP/userAgent.txt
    if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ] ; then
     printf " ...\n"
@@ -214,7 +215,7 @@ requer_func () {
  else
   printf "${BLACK_PINK}\n"
   printf "User-Agent: $(shuf -n 1 $TMP/userAgent.txt)\n"
-  printf "\033[00m\n"
+  printf "${COLOR_RESET}\n"
  fi
  #/DOS to Unix
  sed -i 's/^M$//g' $TMP/userAgent.txt &>/dev/null
