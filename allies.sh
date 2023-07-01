@@ -3,7 +3,7 @@ members_allies () {
  echo "" >>allies.txt
  clan_id
  if [ -n "$CLD" ] ; then
-  printf "${BLACK_CYAN}\nUpdating clan members into allies\n\${COLOR_RESET}\n"
+  printf "${BLACK_CYAN}\nUpdating clan members into allies${COLOR_RESET}\n\\n"
   for num in `seq 5 -1 1` ; do
    printf "${PURPLEis_BLACK}/clan/${CLD}/${num}${COLOR_RESET}\n"
    (
