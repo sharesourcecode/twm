@@ -55,7 +55,7 @@ script_slogan () {
 cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L | wc -c)
+remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L | wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
