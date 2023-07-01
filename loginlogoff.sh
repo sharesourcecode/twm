@@ -33,7 +33,7 @@ login_logoff () {
  clear
  printf "Please wait...\n"
  while [ -z "$ACC" ] && [ -n "$URL" ] ; do
-  log_in() {
+  log_in () {
    #/logoff
    (
     w3m -cookie -o http_proxy=$PROXY -dump "$URL/?exit" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
@@ -64,7 +64,7 @@ login_logoff () {
      local password="${password}${char}"
     fi
    done
-   echo -e "\n	Please wait..."
+   printf "\n	Please wait...\n"
    #/cryptography
    if [ -z "$ACC" ] ; then
 #    echo "login=$username&pass=$password" | openssl enc -aes-256-cbc -md sha512 -a -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" > $TMP/cript_file
