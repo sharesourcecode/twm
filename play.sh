@@ -10,19 +10,16 @@
    sleep 1s
   done
   run_mode () {
-   awk -v run="$RUN" -v mcl="-cl" mcv="-cv" mboot="-boot" '
-    BEGIN {
-     if (run == mcl) {
-      system("chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh")
-     } else if (run == mcv) {
-      system("chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -cv")
-     } else if (run == mboot) {
-      system("echo '-boot' >$HOME/twm/runmode_file ; chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -boot")
-     } else {
-      system("echo '-boot' >$HOME/twm/runmode_file ; chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -boot")
-     }
-    }
-   '
+   case "$RUN" in
+    (-cl)
+     chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh ;;
+    (-cv)
+     chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -cv ;;
+    (-boot)
+     echo '-boot' >$HOME/twm/runmode_file ; chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -boot ;;
+    (*)
+     echo '-boot' >$HOME/twm/runmode_file ; chmod +x $HOME/twm/twm.sh ; $HOME/twm/twm.sh -boot ;;
+   esac
   }
   run_mode
   sleep 0.1s
