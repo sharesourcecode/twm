@@ -39,7 +39,7 @@ king_fight () {
     time_exit 17
    else
     echo 1 >BREAK_LOOP
-    echo -e "${COLOR_YELLOW}Battle's over.${COLOR_RESET}\n"
+    echo -e "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
     sleep 3s
    fi
   fi

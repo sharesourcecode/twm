@@ -1,13 +1,9 @@
 # TWM(Titans War Macro)
-Script macros para mobile game em todos os servidores.
-
-_[->English](https://github.com/sharesourcecode/twm/wiki)_
-
-
+Scripts macros para titanswar.net em todos os servidores.
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
-***Recomendada para qualquer Android e Iphone***
+***Recomendado para qualquer Android e Iphone***
 
 >1 - No Android abra o app UserLAnd(https://f-droid.org/repo/tech.ula_2927098.apk), instale o Alpine com SSH e entre com a senha que foi criada.
 >  - No Iphone abra o app iSH(https://ish.app/).
@@ -73,9 +69,9 @@ Modo de prioridade coliseu no Android(UserLAnd) e Iphone(iSH):
 ./twm/play.sh -cl
 ```
 
-* Para interromper `Ctrl c` ou force a parada do App Termux.
+* Para interromper `Ctrl c` ou force a parada dos Apps.
 
-* Para desinstalar scripts em qualquer sistema:
+* Para desinstalar scripts em ambos sistemas:
 
 ```bash
 rm -rf $HOME/twm
@@ -145,18 +141,18 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
+curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x easyinstall.sh
+chmod +x sourceinstall.sh
 ```
 >3 - Copie e cole este comando para instalar o twm:
 
 ```bash
-./$HOME/easyinstall.sh
+./$HOME/sourceinstall.sh
 ```
 
 >4 - Para executar o twm:
@@ -202,18 +198,18 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
+curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x easyinstall.sh
+chmod +x sourceinstall.sh
 ```
 >5 - Copie e cole este comando para instalar o twm:
 
 ```bash
-./easyinstall.sh
+./sourceinstall.sh
 ```
 
 >6 - Comando para executar o twm:
@@ -239,7 +235,8 @@ Modo de prioridade coliseu:
 
 *Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
 
-As atualizações são exibidas nesta página: https://github.com/sharesourcecode/twm/commits/master
+As atualizações são exibidas nesta página:
+https://gitea.com/Ueliton/twm/commits/branch/master
 
 Clique nelas para saber o que foi alterado.
 

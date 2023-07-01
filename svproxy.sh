@@ -15,7 +15,7 @@ func_proxy () {
   fi
  fi
  #/Imprime o URL e o proxy selecionado na tela com formatação de cor
- echo -e "\e[01;30m\e[01;07m Server: $URL|$PROXY \e[00m"
+ printf "${BLACK_GRAY} Server: ${URL}|${PROXY} ${COLOR_RESET}\n"
  #/Remove a variável temporária UR
  unset UR SVPROXY
  #/Use w3m com a opção -o http_proxy=$PROXY e o URL fornecido como argumento

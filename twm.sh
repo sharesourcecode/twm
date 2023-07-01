@@ -1,29 +1,37 @@
 #!/bin/bash
-FUNC=$(cat $HOME/twm/.runmode_file)
+RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
-#/Definindo variáveis de cores
-COLOR_BLUE='\033[01;36m\033[01;07m'
-COLOR_BLACK='\033[00;30m'
-COLOR_CYAN='\033[01;36m\033[01;07m'
-COLOR_GREEN='\033[00;32m\033[01;07m'
-COLOR_RED='\033[01;38m\033[05;01m'
+#/Colors - font(formatting)_background
+BLACK_BLACK='\033[00;30m'
+BLACK_CYAN='\033[01;36m\033[01;07m'
+BLACK_GRAY='\033[01;30m\033[01;07m'
+BLACK_GREEN='\033[00;32m\033[01;07m'
+BLACK_PINK='\033[01;35m\033[01;07m'
+BLACK_RED='\033[01;31m\033[01;07m'
+BLACK_YELLOW='\033[00;33m\033[01;07m'
+CYAN_BLACK='\033[36m'
+CYAN_CYAN='\033[01;36m\033[08;07m'
 COLOR_RESET='\033[00m'
-COLOR_YELLOW='\033[00;33m\033[01;07m'
-LETTER_YELLOW='\033[33m'
+GOLD_BLACK='\033[33m'
+GREEN_BLACK='\033[32m'
+PURPLEi_BLACK='\033[03;34m\033[02;03m'
+PURPLEis_BLACK='\033[03;34m\033[02;04m'
+WHITE_BLACK='\033[37m'
+WHITEb_BLACK='\033[01;38m\033[05;01m'
 #/script ads
 script_ads () {
- if [ "$FUNC" != '-boot' ] && [ -f "$HOME/twm/.ads_file" ] && [ -s "$HOME/twm/.ads_file" ] && [ "$(cat $HOME/twm/.ads_file)" != "$(date +%d)" ] ; then
-  if [ "$(cat $HOME/twm/.ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
+ if [ "$RUN" != '-boot' ] && [ -f "$HOME/twm/ads_file" ] && [ -s "$HOME/twm/ads_file" ] && [ "$(cat $HOME/twm/ads_file)" != "$(date +%d)" ] ; then
+  if [ "$(cat $HOME/twm/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
    xdg-open "https://apps.disroot.org/search?q=Shell+Script&category_general=on&language=pt-BR&time_range=&safesearch=1&theme=beetroot"
-   echo $(date +%d) >$HOME/twm/.ads_file
+   echo $(date +%d) >$HOME/twm/ads_file
   fi
  else
-   echo $(date +%d) >$HOME/twm/.ads_file
+   echo $(date +%d) >$HOME/twm/ads_file
  fi
 }
 script_ads
 #/sync
-if [ ! -z "$FUNC" ] ; then
+if [ ! -z "$RUN" ] ; then
  :
 else
  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
@@ -38,7 +46,7 @@ else
   :
  else
   if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; then
-   echo -e "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}"
+   echo -e "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}"
    exit 1
   else
    rm $HOME/twm/easyinstall.s*
@@ -66,8 +74,8 @@ script_slogan () {
   # //⟨
   printf "\033[1;38;5;${t}m  ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗
   ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣
-  ${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
-  ${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
+  ${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
+  ${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
        ╔╦═╦╗╔══╗╔══╗
        ║║║║║║╔╗║║╚╝╣
        ║║║║║║╔╗║║║╗║
@@ -103,7 +111,7 @@ time_exit () {
    elif [ "$TE" -lt 1 ] ; then
     kill -s PIPE $FPID &>/dev/null
     kill -15 $FPID &>/dev/null
-    printf "${COLOR_RED}Command execution was interrupted!${COLOR_RESET}\n"
+    printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
     local TE=0
     break &>/dev/null
    fi
@@ -111,19 +119,6 @@ time_exit () {
   done
  )
 }
-#/+colors
-ww_='\033[01;36m\033[01;07m'
-_w_='\033[01;36m\033[08;07m'
-rr_='\033[01;31m\033[01;07m'
-gg_='\033[01;32m\033[01;07m'
-y_='\033[33m\033'
-yy_='\033[00;33m\033[01;07m'
-bi_='\033[03;34m\033[02;03m'
-b__='\033[03;34m\033[02;04m'
-pp_='\033[01;35m\033[01;07m'
-b_='\033[36m\033'
-c_='\033[37m\033'
-#cc_='\033[00m'
 #/sources
 cd ~/twm
 #sed -n 1,129 /remove sources to easyinstall.sh
@@ -136,81 +131,58 @@ cd ~/twm
 #sed -n 136,last /remove sources to easyinstall.sh
 #/functions
 twm_start () {
- case $FUNC in
+ case $RUN in
  (-cv)
-  PLAY='cv' && cave_start ;;
+  cave_start ;;
  (-cl)
-  PLAY='cl'
   twm_play ;;
- (-boot|""|*)
-  PLAY='boot'
+ (-boot|*)
   twm_play ;;
  esac
 }
-#func_access () {
-# HLHP=$((FULL * HPER / 100))
-# ATK=$(grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC | sed -n 1p)
-# ATKRND=$(grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# DODGE=$(grep -o -E '(/[a-z]+/dodge/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# HEAL=$(grep -o -E '(/[a-z]+/heal/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# stone=$(grep -o -E '(/[a-z]+/stone/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# GRASS=$(grep -o -E '(/[a-z]+/grass/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# SHIELD=$(grep -o -E '(/[a-z]+/shield/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC)
-# DT=$(grep -o -E 'dodge(.*)dgreen medium[^0-9]{2}00:(0|1|2)[0-9]{1}(.*)/at' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
-# HT=$(grep -o -E '[^A-Za-z0-9]heal[^A-Za-z0-9](.*)[0-9]{1,2}:[0-9]{2}(.*)/stone/' $TMP/SRC | grep -m1 -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
-# ST=$(grep -o -E '/stone/(.*)00:[0-9]{2}(.*)/grass/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
-# GT=$(grep -o -E '/grass/(.*)00:[0-9]{2}(.*)/[A-Za-z]+/' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | tail -n1)
-# CT=$(grep -o -E '/images/icon/health.png(.*)(0|1)[0-9]{1}:[0-9]{2}(.*)/images/icon/health.png' $TMP/SRC | grep -o -E '[0-9]{2}:[0-9]{2}' | head -n1)
-# BEXIT=$(grep -o 'user.png' $TMP/SRC)
-# OUTGATE=$(grep -o 'out_gate' $TMP/SRC)
-# LEAVEFIGHT=$(cat $TMP/SRC | sed 's/href=/\n/g' | grep '/leaveFight/' | head -n1 | awk -F"[']" '{ print $2 }')
-# WDRED=$(cat $TMP/SRC | sed "s/alt/\\n/g" | grep 'hp' | head -n1 | awk -F"[']" '{ print $4 }') #white/dred
-# twm_show
-#}
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
-if [ -f "$HOME/twm/.ur_file" ] && [ -s "$HOME/twm/.ur_file" ] ; then
- printf "\033[32m\033\ Starting with last settings used.\033[00m\n"
+if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
+ printf "${GREEN_BLACK} Starting with last settings used.\033[00m\n"
  num=6
  for i in `seq 6 -1 1` ; do
   i=$((i - 1))
   if read -t1 ; then
-   >$HOME/twm/.al_file
-   >$HOME/twm/.ur_file
+   >$HOME/twm/al_file
+   >$HOME/twm/ur_file
    >$HOME/twm/fileAgent.txt
    unset UR
    unset UA
    unset AL
-   break &> /dev/null
+   break &>/dev/null
   fi
-  printf " Hit\033[33m\033\ [Enter]\033[00m to\033[33m\033\ reconfigure\033[32m\033\ "$i"s\e[00m\n"
+  printf " Hit${GOLD_BLACK} [Enter]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} "$i"s${COLOR_RESET}\n"
  done
 fi
 requer_func
 func_proxy
 messages_info () {
- printf "\ ##### mail #####\n" > $TMP/msg_file
+ printf " ##### mail #####\n" > $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/mail -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | tee $TMP/info_file | sed -n '/[|]\ mp/,/\[arrow\]/p' | sed '1,1d;$d;6q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | tee $TMP/info_file | sed -n '/[|]\ mp/,/\[arrow\]/p' | sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf "##### chat titans #####\n" >> $TMP/msg_file
+ printf " ##### chat titans #####\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/chat/titans/changeRoom -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -n '/\(\»\)/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -n '/\(\»\)/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf "##### chat clan #####\n" >> $TMP/msg_file
+ printf " ##### chat clan #####\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug ${URL}/chat/clan/changeRoom -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -ne '/\[[^a-z]\]/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -ne '/\[[^a-z]\]/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
-# lvl | g | s
-# sed ':a;N;s/\n//g;ta' |
+# sed :a;N;s/\n//g;ta |
  printf "${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file | sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')\n" >> $TMP/msg_file
 }
 login_logoff
-if [ -n "$ALLIES" ] && [ "$FUNC" != "-cv" ] ; then
+if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
  conf_allies
 fi
 messages_info

@@ -10,7 +10,7 @@ undying_fight () {
    w3m -dump -T text/html "$TMP/src.html" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[hit\],🗡️,;s,\[2hit\],⚔️,;s,\[rage\],⚰️,;s,\[bot\],🧟‍,;s,\[vs\]\ ,🆚\ 👹,;s,\[rip\],💀,g'
   else
    echo 1 >BREAK_LOOP
-   echo -e "${COLOR_YELLOW}Battle's over.${COLOR_RESET}\n"
+   echo -e "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
    sleep 2s
   fi
  }

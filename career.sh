@@ -3,7 +3,7 @@ career_func () {
  clan_id
  if [ -n "$CLD" ]; then
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/help/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &> /dev/null
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/help/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
   ) </dev/null &>/dev/null &
   time_exit 17
   echo "/clan/$CLD/quest/help/6"
@@ -51,12 +51,12 @@ career_func () {
  done
  if [ -n "$CLD" ]; then
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/deleteHelp/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &> /dev/null
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/deleteHelp/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
   ) </dev/null &>/dev/null &
   time_exit 17
   echo "/clan/$CLD/quest/deleteHelp/6"
 #  (
-#  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/end/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &> /dev/null
+#  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/end/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
 #  ) </dev/null &>/dev/null &
 #  time_exit 17
 #  echo "/clan/$CLD/quest/end/6"

@@ -1,26 +1,34 @@
 #!/bin/bash
 # 15/6/2023
 # automatic update turned off
-# Definindo variáveis de cores
-COLOR_BLUE='\033[01;36m\033[01;07m'
-COLOR_BLACK='\033[0;30m'
-COLOR_CYAN='\033[01;36m\033[01;07m'
-COLOR_GREEN='\033[00;32m\033[01;07m'
-COLOR_RED='\033[1;38;5;1m'
+#/Colors - font(formatting)_background
+BLACK_BLACK='\033[00;30m'
+BLACK_CYAN='\033[01;36m\033[01;07m'
+BLACK_GREEN='\033[00;32m\033[01;07m'
+BLACK_GRAY='\033[01;30m\033[01;07m'
+BLACK_PINK='\033[01;35m\033[01;07m'
+BLACK_RED='\033[01;31m\033[01;07m'
+BLACK_YELLOW='\033[00;33m\033[01;07m'
+CYAN_BLACK='\033[36m'
+CYAN_CYAN='\033[01;36m\033[08;07m'
 COLOR_RESET='\033[00m'
-COLOR_YELLOW='\033[00;33m\033[01;07m'
-LETTER_YELLOW='\033[33m'
-if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null; then
- printf "${COLOR_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
+GOLD_BLACK='\033[33m'
+GREEN_BLACK='\033[32m'
+PURPLEi_BLACK='\033[03;34m\033[02;03m'
+PURPLEis_BLACK='\033[03;34m\033[02;04m'
+WHITE_BLACK='\033[37m'
+WHITEb_BLACK='\033[01;38m\033[05;01m'
+if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; then
+ printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-slogan_func () {
+script_slogan () {
  colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
  t=339
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
- for (( i=0; i<${#colors[@]}; i++ )); do
+ for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
   w=$(($w + 1))
@@ -28,8 +36,8 @@ slogan_func () {
   # //⟨
   printf "\033[1;38;5;${t}m   ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗
    ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣
-   ${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║║${COLOR_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
-   ${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝${COLOR_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
+   ${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║
+   ${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m
         ╔╦═╦╗╔══╗╔══╗
         ║║║║║║╔╗║║╚╝╣
         ║║║║║║╔╗║║║╗║
@@ -47,30 +55,30 @@ slogan_func () {
 cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
 SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L | wc -c)
+remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L | wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
  local_count=1
 fi
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
- printf "${COLOR_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
+ printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
   termux-wake-lock
-  sed -u -i '/nameserver/d' $PREFIX/etc/resolv.conf &> /dev/null
-  printf "nameserver 1.1.1.1\nnameserver 8.8.8.8" >$PREFIX/etc/resolv.conf
+  sed -u -i '/nameserver/d' $PREFIX/etc/resolv.conf &>/dev/null
+  printf "nameserver 94.140.14.15\nnameserver 94.140.15.16" >$PREFIX/etc/resolv.conf
   LS="/data/data/com.termux/files/usr/share/doc"
   rm -rf ~/.termux/boot/play.sh 2> /dev/null
   mkdir -p ~/.termux/boot
   echo "IyEvZGF0YS9kYXRhL2NvbS50ZXJtdXgvZmlsZXMvdXNyL2Jpbi9zaApiYXNoICRIT01FL3R3bS90d20uc2ggLWJvb3QK" | base64 -d >~/.termux/boot/play.sh 2> /dev/null
   chmod +x ~/.termux/boot/play.sh 2> /dev/null
-  if which w3m &> /dev/null ; then
+  if whereis w3m &>/dev/null ; then
    :
   else
    pkg install w3m -y
   fi
-  if which coreutils &> /dev/null ; then
+  if whereis coreutils &>/dev/null ; then
    :
   else
    pkg install coreutils ncurses-utils -y
@@ -92,28 +100,28 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   if [ -e /bin/apt-cyg ] ; then
    :
   else
-   curl -q -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &> /dev/null
+   curl -q -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
    install apt-cyg /bin
   fi #ls /bin
   if [ -e "${LS}/w3m" ] ; then
    :
   else
-   apt-cyg install w3m -y &> /dev/null
+   apt-cyg install w3m -y &>/dev/null
   fi
   if [ -e "${LS}/ncurses-term" ] ; then
    :
   else
-   apt-cyg install ncurses-term -y &> /dev/null
+   apt-cyg install ncurses-term -y &>/dev/null
   fi
   if [ "${LS}/coreutils" ] ; then
    :
   else
-   apt-cyg install coreutils -y &> /dev/null
+   apt-cyg install coreutils -y &>/dev/null
   fi
   if [ "${LS}/procps" ] ; then
    :
   else
-   apt-cyg install procps -y &> /dev/null
+   apt-cyg install procps -y &>/dev/null
   fi
  fi #cygwin
  #linux
@@ -128,8 +136,8 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  mkdir -p ~/twm
  cd ~/twm
  rm -rf twm/*
- slogan_func
- printf "${COLOR_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
+ script_slogan
+ printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh trade.sh undying.sh)
@@ -148,12 +156,12 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     local_count=1
    fi
    if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
-    printf "✅ ${COLOR_CYAN}Updated $script${COLOR_RESET}\n"
+    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
-    printf "🔁 ${COLOR_GREEN}Updating $script${COLOR_RESET}\n"
+    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
    else
-    printf "🔽 ${COLOR_YELLOW}Downloading $script${COLOR_RESET}\n"
+    printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O
    fi
    sleep 0.1s
@@ -164,8 +172,8 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   chmod +x ~/twm/*.sh &>/dev/null
  }
  sync_func
- slogan_func
- printf "✅ ${COLOR_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${LETTER_YELLOW}./twm/play.sh${COLOR_RESET}\n For cave run: ${LETTER_YELLOW}./twm/play.sh -cv${COLOR_RESET}\n For coliseum run: ${LETTER_YELLOW}./twm/play.sh -cl${COLOR_RESET}\n"
+ script_slogan
+ printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
  pidf=$(ps ax -o pid=,args= | grep 'twm/play.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
@@ -178,25 +186,25 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   pidf=$(ps ax -o pid=,args= | grep 'twm/twm.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
   sleep 1s
  done
- if [ -f ~/twm/.runmode_file ] ; then
-  if awk '{if ($0 == "-cv") print $0}' ~/twm/.runmode_file ; then
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
+ if [ -f ~/twm/runmode_file ] ; then
+  if awk '{if ($0 == "-cv") print $0}' ~/twm/runmode_file ; then
+   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cl
-  elif awk '{if ($0 == "-cv") print $0}' ~/twm/.runmode_file ; then
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
+  elif awk '{if ($0 == "-cv") print $0}' ~/twm/runmode_file ; then
+   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cv
   else
-   printf "${COLOR_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
+   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
-   ~/twm/play.sh
+   ~/twm/play.sh -boot
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
  chmod +x $HOME/sourceinstall.sh
- curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L >$HOME/easyinstall.sh
+ curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L >$HOME/easyinstall.sh
  chmod +x $HOME/easyinstall.sh
- printf "${COLOR_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
+ printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
 fi #$(curl -s -L ...

@@ -1,6 +1,6 @@
-twm_play() {
+twm_play () {
  restart_script () {
-  if [ "$(cat ~/twm/.runmode_file)" != '-boot' ]; then
+  if [ "$RUN" != '-boot' ] ; then
    pidf=$(ps ax -o pid=,args= | grep 'twm/twm' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
    until [ -z "$pidf" ]; do
     kill -9 $pidf 2> /dev/null
@@ -286,12 +286,14 @@ twm_play() {
   func_crono ;;
  (*)
   func_crono
-  if [ "$(cat $HOME/twm/.runmode_file)" = '-cl' ]; then
+  case $RUN in
+  (-cl)
+   printf "Running in coliseum mode: $RUN\n"
+   sleep 5s
    arena_duel
-#   sleep 150s
    coliseum_start
-   messages_info
-  fi
+   messages_info ;;
+  esac
   func_sleep
   func_crono ;;
  esac
