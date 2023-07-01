@@ -15,12 +15,12 @@ clancoliseum_fight () {
   grep -o -E "(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}" $src_ram | sed -n 's,nbsp[;],,;s,\ ,,;1p' >ENH 2> /dev/null
   awk -v ush="$(cat USH)" -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }' >RHP
   awk -v ush="$(cat $full_ram)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
-  if grep -q -o '/dodge/' $src_ram; then
+  if grep -q -o '/dodge/' $src_ram ; then
    echo -e -n "\n     🙇‍ "
    w3m -dump -T text/html "$src_ram" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
   else
    echo 1 >BREAK_LOOP
-   echo -e "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
+   printf "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
    sleep 2s
   fi
  }
@@ -30,25 +30,25 @@ clancoliseum_fight () {
  echo $(( $(date +%s) - 20 )) >last_dodge
  echo $(( $(date +%s) - 90 )) >last_heal
  echo $(( $(date +%s) - $LA )) >last_atk
- until [ -s "BREAK_LOOP" ]; do
+ until [ -s "BREAK_LOOP" ] ; do
   #/heal/ userAgent.txtndo o USH cair para 38% e só pode ser reutilizado a cada 90 segundos
-  if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush <= hlhp) }' &&  [ $(( $(date +%s) - $(cat last_heal) )) -gt 90 ]; then
+  if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' &&  [ $(( $(date +%s) - $(cat last_heal) )) -gt 90 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
-   cat USH >$full_ram; cat USH >old_HP
+   cat USH >$full_ram ; cat USH >old_HP
    date +%s >last_heal
   #/dodge/ userAgent.txtndo o USH cair 1% e só pode ser re-acessado a cada 20 segundos
-  elif awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' && [ $(( $(date +%s) - $(cat last_dodge) )) -ge 20 ]; then
+  elif awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' && [ $(( $(date +%s) - $(cat last_dodge) )) -gt 20 ]; then
 #   sleep 3.5s
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
-   cat USH >old_HP; date +%s >last_dodge
+   cat USH >old_HP ; date +%s >last_dodge
   #/random
   elif grep -q -o "$(cat CLAN)" callies.txt || [ -s "ATKRND" ] && awk -v rhp="$(cat RHP)" -v enh="$(cat ENH)" 'BEGIN { exit !(rhp < enh) }' ; then
    (
@@ -58,7 +58,7 @@ clancoliseum_fight () {
    cf_access
    date +%s >last_atk
   #/attack
-  elif [ $(( $(date +%s) - $(cat last_atk) )) -ge $LA ]; then
+  elif [ $(( $(date +%s) - $(cat last_atk) )) -gt $LA ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ATK)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -79,7 +79,7 @@ clancoliseum_fight () {
  unset dir_ram tmp_ram src_ram full_ram ACCESS cf_access
  #/end
  func_unset
- echo "ClanColiseum(✔)"
+ printf "ClanColiseum(✔)\n"
  sleep 10s
  clear
 }
@@ -108,7 +108,7 @@ clancoliseum_start () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo 'Clan coliseum will be started...'
+  printf "Clan coliseum will be started...\n"
   until $(case $(date +%M:%S) in ([2][9]|[5][9]:5[5-9]) exit 1 ;; esac) ; do
    sleep 3
   done
@@ -116,15 +116,14 @@ clancoliseum_start () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo -e "\nClanColiseum"
-  echo $URL
+  printf "\nClanColiseum\n$URL\n"
   ACCESS=$(grep -o -E '(/clancoliseum(/[a-z]+/[?]r[=][0-9]+|/))' $src_ram | grep -v 'dodge' | sed -n 1p)
-  echo -e " 👣 Entering...\n${ACCESS}"
+  printf " 👣 Entering...\n${ACCESS}\n"
   #/wait
-  echo " 😴 Waiting..."
+  printf " 😴 Waiting...\n"
   local BREAK=$(( $(date +%s) + 30 ))
-  until grep -q -o 'clancoliseum/dodge/' $src_ram || [ "$(date +%s)" -ge "$BREAK" ]; do
-   echo -e " 💤	...\n${ACCESS}"
+  until grep -q -o 'clancoliseum/dodge/' $src_ram || [ "$(date +%s)" -gt "$BREAK" ] ; do
+   printf " 💤	...\n${ACCESS}\n"
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clancoliseum/" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
