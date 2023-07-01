@@ -23,7 +23,7 @@ king_fight () {
   grep -o -E "(hp)[^A-Za-z0-9_]{1,4}[0-9]{1,6}" $TMP/src.html | sed "s,hp[']\/[>],,;s,\ ,," >HP 2> /dev/null
   grep -o -E "(nbsp)[^A-Za-z0-9_]{1,2}[0-9]{1,6}" $TMP/src.html | sed -n 's,nbsp[;],,;s,\ ,,;1p' >HP2 2> /dev/null
   if grep -q -o '/dodge/' $TMP/src.html; then
-   echo -e -n "\n     🙇‍ "
+   printf "\n     🙇‍ "
    w3m -dump -T text/html "$TMP/src.html" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g;s,\[king\],👑,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
   else
    (
@@ -32,14 +32,14 @@ king_fight () {
    time_exit 17
    #/king/unrip/?r=1682796653
    grep -o -E '(/king/unrip/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html >UNRIP 2> /dev/null
-   if grep -q -o -E '(/king/unrip/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html; then
+   if grep -q -o -E '(/king/unrip/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html ; then
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat UNRIP)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
     ) </dev/null &>/dev/null &
     time_exit 17
    else
     echo 1 >BREAK_LOOP
-    echo -e "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
+    printf "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
     sleep 3s
    fi
   fi
@@ -50,37 +50,37 @@ king_fight () {
  echo $(( $(date +%s) - 90 )) >last_heal
  echo $(( $(date +%s) - $LA )) >last_atk
  >BREAK_LOOP
- until [ -s "BREAK_LOOP" ]; do
+ until [ -s "BREAK_LOOP" ] ; do
   >BREAK_LOOP
   #/dodge userAgent.txtndo o HP é alterado só pode ser re-acessado a cada 20 segundos
-  if [ "$(cat old_HP)" -ne "$(cat HP)" ] && [ "$(cat HP2)" -ge 25 ] && [ $(( $(date +%s) - $(cat last_dodge) )) -ge 20 ]; then
+  if [ "$(cat old_HP)" -ne "$(cat HP)" ] && [ "$(cat HP2)" -gt 25 ] && [ $(( $(date +%s) - $(cat last_dodge) )) -gt 20 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
    cl_access
-   cat HP >old_HP; date +%s >last_dodge
+   cat HP >old_HP ; date +%s >last_dodge
   fi
   #/heal userAgent.txtndo o HP cair uma determinada porcentagem e só pode ser reutilizado a cada 90 segundos
-  if [ -s "HEAL" ] && [ "$(cat HP)" -le "$HLHP" ] && [ $(( $(date +%s) - $(cat last_heal) )) -gt 90 ]; then
+  if [ -s "HEAL" ] && [ "$(cat HP)" -lt "$HLHP" ] && [ $(( $(date +%s) - $(cat last_heal) )) -gt 90 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
    cl_access
-   cat HP >FULL; date +%s >last_heal
+   cat HP >FULL ; date +%s >last_heal
   fi
   sleep 0.3s
   #/attack_all
-  if [ $(( $(date +%s) - $(cat last_atk) )) -ge $LA ]; then
-   if grep -q -o -E '(king/kingatk/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html; then  #kingatk...
+  if [ $(( $(date +%s) - $(cat last_atk) )) -gt $LA ] ; then
+   if grep -q -o -E '(king/kingatk/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html ; then  #kingatk...
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat KINGATK)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
     ) </dev/null &>/dev/null &
     time_exit 17
     cl_access
     #/stone...
-#    if [ "$(cat HP2)" -le 25 ]; then
+#    if [ "$(cat HP2)" -lt 25 ] ; then
 #     (
 #      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat STONE)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
 #     ) </dev/null &>/dev/null &
@@ -89,7 +89,7 @@ king_fight () {
 #    fi #...stone
    else #...kingatk
     #/random
-    if grep -q -o "$(cat USER)" $TMP/allies.txt || [ -s "ATKRND" ] && [ $(( "$(cat HP)" * "$RPER" / 100 + "$(cat HP)" )) -lt "$(cat HP2)" ]; then
+    if grep -q -o "$(cat USER)" $TMP/allies.txt || [ -s "ATKRND" ] && [ $(( "$(cat HP)" * "$RPER" / 100 + "$(cat HP)" )) -lt "$(cat HP2)" ] ; then
      (
       w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ATKRND)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
      ) </dev/null &>/dev/null &
@@ -109,7 +109,7 @@ king_fight () {
  done #
  unset cl_access _random
  func_unset
- echo -e "King (✔)"
+ printf "King (✔)\n"
  sleep 10s
  clear
 }
@@ -124,25 +124,23 @@ king_start () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/enterGame" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo 'King of the Immortals will be started...'
-  until $(case $(date +%M) in (2[5-9]) exit 1 ;; esac) ;
-  do
+  printf "King of the Immortals will be started...\n"
+  until $(case $(date +%M) in (2[5-9]) exit 1 ;; esac) ; do
    sleep 3
   done
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/enterGame" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo -e "\nKing"
-  echo $URL
+  printf "\nKing\n$URL\n"
   cat $TMP/src.html | sed 's/href=/\n/g' | grep '/king/' | head -n1 | awk -F"[']" '{ print $2 }' >ACCESS 2> /dev/null
-  echo -e " 👣 Entering...\n$(cat ACCESS)"
+  printf " 👣 Entering...\n$(cat ACCESS)\n"
   #/wait
-  echo " 😴 Waiting..."
+  printf " 😴 Waiting...\n"
   cat $TMP/src.html | grep -o 'king/kingatk/' >EXIT 2> /dev/null
   local BREAK=$(( $(date +%s) + 30 ))
-  until [ -s "EXIT" ] || [ $(date +%s) -ge "$BREAK" ]; do
-   echo -e " 💤	...\n$(cat ACCESS)"
+  until [ -s "EXIT" ] || [ $(date +%s) -gt "$BREAK" ] ; do
+   printf " 💤	...\n$(cat ACCESS)\n"
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ACCESS)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
    ) </dev/null &>/dev/null &
