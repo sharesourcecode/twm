@@ -132,12 +132,18 @@ cd ~/twm
 #/functions
 twm_start () {
  case $RUN in
- (-cv)
-  cave_start ;;
- (-cl)
-  twm_play ;;
- (-boot|*)
-  twm_play ;;
+ -cv)
+  cave_start
+  ;;
+ -cl)
+  twm_play
+  ;;
+ -boot)
+  twm_play
+  ;;
+ *)
+  twm_play
+  ;;
  esac
 }
 func_unset () {

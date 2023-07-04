@@ -166,12 +166,14 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   fi
    sleep 0.1s
   done
-  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | sed -n '131,192p' >>twm.sh
+  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | sed -n '131,198p' >>twm.sh
   case $(uname -o) in
   (Android)
-   : ;;
+   :
+   ;;
   (*)
-   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/twm.sh ;;
+   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/twm.sh
+   ;;
   esac
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0 | xargs -0 sed -i 's/\r$//' 2>/dev/null
@@ -180,16 +182,16 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  sync_func
  script_slogan
  printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
- pidf=$(ps ax -o pid=,args= | grep 'twm/play.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+ pidf=$(ps ax -o pid=,args= | grep "sh.*twm/play.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args= | grep 'twm/play.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args= | grep "sh.*twm/play.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
   sleep 1s
  done
- pidf=$(ps ax -o pid=,args= | grep 'twm/twm.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+ pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args= | grep 'twm/twm.sh' | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
   sleep 1s
  done
  if [ -f ~/twm/runmode_file ] ; then

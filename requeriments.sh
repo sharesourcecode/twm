@@ -46,7 +46,6 @@ requer_func () {
    kill -9 $$ 2> /dev/null
   else
    invalid_two
-#   echo "$UR" >$HOME/twm/ur_file
   fi
  }
  menu_one () {
@@ -56,7 +55,6 @@ requer_func () {
   if [ $UR = 1 ] ; then
    menu_two
   elif [ $UR = 2 ] ; then
-#   LANG=ru.UTF-8
    echo "2" >$HOME/twm/ur_file
   elif [ $UR = 3 ] ; then
    echo "3" >$HOME/twm/ur_file
@@ -84,7 +82,6 @@ requer_func () {
    kill -9 $$ 2> /dev/null
   else
    invalid_one
-#   echo "$UR" >$HOME/twm/ur_file
   fi
  }
  if [ -f $HOME/twm/ur_file ] && [ -s $HOME/twm/ur_file ] ; then
@@ -182,7 +179,8 @@ requer_func () {
    clear ; echo "0" >$HOME/twm/fileAgent.txt
    if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ] ; then
     curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
-   fi ;;
+   fi
+   ;;
   (1)
    clear ; echo "0" >$HOME/twm/fileAgent.txt
    xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) &>/dev/null
@@ -192,13 +190,14 @@ requer_func () {
    if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ] ; then
     printf " ...\n"
     curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
-   fi ;;
+   fi
+   ;;
   (2)
    printf " ...\n${BLACK_PINK}"
    curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
    echo "0" >$HOME/twm/fileAgent.txt
-   printf "Automatic User Agent selected\n"
-   printf "\033[00m\n" ;;
+   printf "Automatic User Agent selected\n${COLOR_RESET}"
+   ;;
   (*)
    clear
    if [ -n $UA ] ; then
@@ -206,16 +205,15 @@ requer_func () {
     kill -9 $$
    else
     printf "\n Time exceeded!\n"
-   fi ;;
+   fi
+   ;;
   esac
   unset UA
  }
  if [ ! -e $TMP/userAgent.txt ] || [ $(cat $TMP/userAgent.txt | wc -c) -lt 10 ] || [ $(cat $TMP/userAgent.txt | wc -c) -gt 65 ] ; then
   user_agent
  else
-  printf "${BLACK_PINK}\n"
-  printf "User-Agent: $(shuf -n 1 $TMP/userAgent.txt)\n"
-  printf "${COLOR_RESET}\n"
+  printf "${BLACK_PINK}\nUser-Agent: $(shuf -n 1 $TMP/userAgent.txt)\n${COLOR_RESET}\n"
  fi
  #/DOS to Unix
  sed -i 's/^M$//g' $TMP/userAgent.txt &>/dev/null
