@@ -152,25 +152,25 @@ chmod +x sourceinstall.sh
 >3 - Copie e cole este comando para instalar o twm:
 
 ```bash
-./$HOME/sourceinstall.sh
+bash $HOME/sourceinstall.sh
 ```
 
 >4 - Para executar o twm:
 
 ```bash
-./$HOME/twm/play.sh
+bash $HOME/twm/play.sh
 ```
 
 Executar em modo caverna:
 
 ```bash
-./$HOME/twm/play.sh -cv
+bash $HOME/twm/play.sh -cv
 ```
 
 Modo de prioridade coliseu:
 
 ```bash
-./$HOME/twm/play.sh -cl
+bash $HOME/twm/play.sh -cl
 ```
 
 `Para interroper (CTRL c) ou feche o programa Cygwin`
@@ -209,25 +209,25 @@ chmod +x sourceinstall.sh
 >5 - Copie e cole este comando para instalar o twm:
 
 ```bash
-./sourceinstall.sh
+bash sourceinstall.sh
 ```
 
 >6 - Comando para executar o twm:
 
 ```bash
-./twm/play.sh
+bash twm/play.sh
 ```
 
 Executar em modo caverna:
 
 ```bash
-./twm/play.sh -cv
+bash twm/play.sh -cv
 ```
 
 Modo de prioridade coliseu:
 
 ```bash
-./twm/play.sh -cl
+bash twm/play.sh -cl
 ```
 
 `Para interroper (CTRL c)`
