@@ -109,9 +109,18 @@ clancoliseum_start () {
   ) </dev/null &>/dev/null &
   time_exit 17
   printf "Clan coliseum will be started...\n"
-  while $(case $(date +%M:%S) in (29:[3-5][0-9]) exit 1 ;; esac) || $(case $(date +%M:%S) in (59:[3-5][0-9]) exit 1 ;; esac) ; do
-   sleep 3
-  done
+  case $(date +%H:%M) in
+  (10:2[5-9])
+   while $(case $(date +%M:%S) in (29:[3-5][0-9]) exit 1 ;; esac) ; do
+    sleep 3
+   done
+   ;;
+  (14:5[5-9])
+   while $(case $(date +%M:%S) in (59:[3-5][0-9]) exit 1 ;; esac) ; do
+    sleep 3
+   done
+   ;;
+  esac
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
   ) </dev/null &>/dev/null &
@@ -137,7 +146,6 @@ clancoliseum_start () {
    rm -rf $tmp_ram
    rm $src_ram $full_ram
    unset dir_ram tmp_ram src_ram full_ram ACCESS
-  fi
-  ;;
+  fi ;;
  esac
 }
