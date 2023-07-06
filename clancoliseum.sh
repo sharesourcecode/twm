@@ -32,7 +32,7 @@ clancoliseum_fight () {
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
   #/heal/ userAgent.txtndo o USH cair para 38% e só pode ser reutilizado a cada 90 segundos
-  if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' &&  [ $(( $(date +%s) - $(cat last_heal) )) -gt 90 ] ; then
+  if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -41,7 +41,7 @@ clancoliseum_fight () {
    cat USH >$full_ram ; cat USH >old_HP
    date +%s >last_heal
   #/dodge/ userAgent.txtndo o USH cair 1% e só pode ser re-acessado a cada 20 segundos
-  elif awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' && [ $(( $(date +%s) - $(cat last_dodge) )) -gt 20 ]; then
+  elif ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
 #   sleep 3.5s
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
@@ -50,7 +50,7 @@ clancoliseum_fight () {
    cf_access
    cat USH >old_HP ; date +%s >last_dodge
   #/random
-  elif grep -q -o "$(cat CLAN)" callies.txt || [ -s "ATKRND" ] && awk -v rhp="$(cat RHP)" -v enh="$(cat ENH)" 'BEGIN { exit !(rhp < enh) }' ; then
+  elif awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && awk -v rhp="$RHP" -v enh="$ENH" 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "$(cat CLAN)" $TMP/callies.txt ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ATKRND)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -58,7 +58,7 @@ clancoliseum_fight () {
    cf_access
    date +%s >last_atk
   #/attack
-  elif [ $(( $(date +%s) - $(cat last_atk) )) -gt $LA ] ; then
+  elif awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ATK)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
