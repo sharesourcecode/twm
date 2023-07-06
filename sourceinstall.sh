@@ -1,6 +1,4 @@
 #!/bin/bash
-# 15/6/2023
-# automatic update turned off
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
