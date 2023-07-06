@@ -161,7 +161,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   else
 #    printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L >>twm.sh
-    echo -e "\n" >>twm.sh
+    printf "\n#\n" >>twm.sh
 #   fi
    sleep 0.1s
   done
