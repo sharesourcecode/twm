@@ -19,15 +19,21 @@ undying_fight () {
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
   cf_access
-  sleep 0.1s
   #/attack
-  if [ $(( "$(date +%s)" - "$(cat last_atk)" )) -gt "$LA" ] && [ -s "HITMANA" ] ; then
+  if awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
    date +%s >last_atk
+  else
+   (
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/src.html
+   ) </dev/null &>/dev/null &
+   time_exit 17
+   cf_access
+   sleep 1s
   fi
  done
  unset cf_access
@@ -47,7 +53,7 @@ undying_start () {
  case $(date +%H:%M) in
  (09:5[5-9]|15:5[5-9]|21:5[5-9])
   while $(case $(date +%M) in (58) exit 1 ;; esac) ; do
-   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm:%Ss)\n"
+   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm:%Ss)"
    sleep 1s
   done
   arena_takeHelp

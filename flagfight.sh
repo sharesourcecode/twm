@@ -108,8 +108,8 @@ flagfight_start () {
   ) </dev/null &>/dev/null &
   time_exit 17
   printf "Flag fight will be started...\n"
-  until $(case $(date +%M:%S) in (14:[5][5-9]) exit 1 ;; esac) ; do
-   sleep 3
+  while $(case $(date +%M:%S) in (14:[3-5][0-9]) exit 1 ;; esac) ; do
+   sleep 3s
   done
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/flagfight/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
