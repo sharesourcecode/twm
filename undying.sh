@@ -96,6 +96,7 @@ undying_start () {
   done
   arena_fullmana
   arena_deleteEnd
-  undying_fight ;;
+  undying_fight
+  ;;
  esac
 }
