@@ -262,4 +262,7 @@ https://link.mercadopago.com.br/titanswarmacro
 ```bash
 git clone https://github.com/sharesourcecode/twm.git
 ```
->Após aprovadas, aplicarei em https://gitea.com/Ueliton/twm.git para os usuários do script.
+
+O código deve ser compatível em bash e principalmente em sh. Recomenda-se testar no Termux e no UserLAnd, no caso do Iphone use o app iSH.
+
+>Após aprovadas, aplicarei em https://gitea.com/Ueliton/twm.git para os usuários finais.
