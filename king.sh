@@ -11,18 +11,18 @@ king_fight () {
  cl_access () {
 #  sed -n 's/.*\(\/[a-z]\{3,12\}\/[A-Za-z]\{3,12\}\/[^[:alnum:]][a-z]\{1,3\}[^[:alnum:]][0-9]\+\).*/\1/p'
 #  sed -n 's/.*\(\/king\/attack\/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]\+\).*/\1/p' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
-  grep -o -E '(/king/attack/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
-  grep -o -E '(/king/kingatk/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html | sed -n 1p >KINGATK 2> /dev/null
-  grep -o -E '(/king/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html >ATKRND 2> /dev/null
-  grep -o -E '(/king/dodge/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html >DODGE 2> /dev/null
-  grep -o -E '(/king/stone/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html >STONE 2> /dev/null
-  grep -o -E '(/king/heal/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/src.html >HEAL 2> /dev/null
+  grep -o -E '(/king/attack/[?]r[=][0-9]+)' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
+  grep -o -E '(/king/kingatk/[?]r[=][0-9]+)' $TMP/src.html | sed -n 1p >KINGATK 2> /dev/null
+  grep -o -E '(/king/at[a-z]{0,3}k[a-z]{3,6}/[?]r[=][0-9]+)' $TMP/src.html >ATKRND 2> /dev/null
+  grep -o -E '(/king/dodge/[?]r[=][0-9]+)' $TMP/src.html >DODGE 2> /dev/null
+  grep -o -E '(/king/stone/[?]r[=][0-9]+)' $TMP/src.html >STONE 2> /dev/null
+  grep -o -E '(/king/heal/[?]r[=][0-9]+)' $TMP/src.html >HEAL 2> /dev/null
   grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:][:space:]]' $TMP/src.html | sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
 #  grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" $TMP/src.html | sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
   grep -o -E "(hp)[^A-Za-z0-9_]{1,4}[0-9]{1,6}" $TMP/src.html | sed "s,hp[']\/[>],,;s,\ ,," >HP 2> /dev/null
   grep -o -E "(nbsp)[^A-Za-z0-9_]{1,2}[0-9]{1,6}" $TMP/src.html | sed -n 's,nbsp[;],,;s,\ ,,;1p' >HP2 2> /dev/null
   RHP=$(awk -v ush="$(cat HP)" -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }')
-  HLHP=$(awk -v ush="$(cat $FULL)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }')
+  HLHP=$(awk -v ush="$(cat FULL)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }')
   if grep -q -o '/dodge/' $TMP/src.html; then
    printf "\n     🙇‍ "
    w3m -dump -T text/html "$TMP/src.html" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g;s,\[king\],👑,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
