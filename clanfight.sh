@@ -40,16 +40,15 @@ clanfight_fight () {
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
   cf_access
-  #/dodge/ userAgent.txtndo o HP cair 1% e só pode ser re-acessado a cada 20 segundos
+  #/dodge/
   if ! grep -q -o 'txt smpl grey' $TMP/src.html && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat HP)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
-#   sleep 3.5s
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
    cat HP >old_HP ; date +%s >last_dodge
-  #/heal/ userAgent.txtndo o HP cair para 38% e só pode ser reutilizado a cada 90 segundos
+  #/heal/
   elif awk -v ush="$(cat HP)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
@@ -130,6 +129,7 @@ clanfight_start () {
    grep -o -E '(/clanfight(/[a-z]+/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+|/))' $TMP/src.html | sed -n 1p >ACCESS 2> /dev/null
    sleep 3
   done
-  clanfight_fight ;;
+  clanfight_fight
+  ;;
  esac
 }

@@ -53,7 +53,7 @@ king_fight () {
  >BREAK_LOOP
  until [ -s "BREAK_LOOP" ] ; do
   >BREAK_LOOP
-  #/dodge userAgent.txtndo o HP é alterado só pode ser re-acessado a cada 20 segundos
+  #/dodge
   if ! grep -q -o 'txt smpl grey' $TMP/src.html && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat HP)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
@@ -61,7 +61,7 @@ king_fight () {
    time_exit 17
    cl_access
    cat HP >old_HP ; date +%s >last_dodge
-  #/heal userAgent.txtndo o HP cair uma determinada porcentagem e só pode ser reutilizado a cada 90 segundos
+  #/heal
   elif awk -v ush="$(cat HP)" -v hlhp="$HLHP" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
@@ -155,6 +155,7 @@ king_start () {
    cat $TMP/src.html | grep -o 'king/kingatk/' >EXIT 2> /dev/null
    sleep 2
   done
-  king_fight ;;
+  king_fight
+  ;;
  esac
 }

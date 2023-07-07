@@ -4,12 +4,11 @@ altars_fight () {
  local LA=5 # interval attack
  echo "48" >HPER # % to heal
  echo "15" >RPER # % to random
- awk -v ush="$(cat FULL)" -v hper="$(cat HPER)" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
  cf_access () {
-  grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
-  grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/src.html >ATKRND 2> /dev/null
-  grep -o -E '(/altars/dodge/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/src.html >DODGE 2> /dev/null
-  grep -o -E '(/altars/heal/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/src.html >HEAL 2> /dev/null
+  grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[?]r[=][0-9]+)' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
+  grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[?]r[=][0-9]+)' $TMP/src.html >ATKRND 2> /dev/null
+  grep -o -E '(/altars/dodge/[?]r[=][0-9]+)' $TMP/src.html >DODGE 2> /dev/null
+  grep -o -E '(/altars/heal/[?]r[=][0-9]+)' $TMP/src.html >HEAL 2> /dev/null
   grep -o -E '([[:upper:]][[:lower:]]{0,20}( [[:upper:]][[:lower:]]{0,17})?)[[:space:]]\(' $TMP/src.html | sed -n 's,\ [(],,;s,\ ,_,;2p' >CLAN 2> /dev/null
 #  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $TMP/src.html | sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
   grep -o -E "(hp)[^A-Za-z0-9]{1,4}[0-9]{1,6}" $TMP/src.html | sed "s,hp[']\/[>],,;s,\ ,," >HP 2> /dev/null
@@ -32,7 +31,7 @@ altars_fight () {
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
   cf_access
-  #/dodge/ userAgent.txtndo o HP cair 1% e só pode ser re-acessado a cada 20 segundos
+  #/dodge/
   if ! grep -q -o 'txt smpl grey' $TMP/src.html && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat HP)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
 #   sleep 3s
    (
@@ -41,7 +40,7 @@ altars_fight () {
    time_exit 17
    cf_access
    cat HP >old_HP ; date +%s >last_dodge
-  #/heal/ userAgent.txtndo o HP cair para 38% e só pode ser reutilizado a cada 90 segundos
+  #/heal/
   elif awk -v ush="$(cat HP)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
@@ -117,6 +116,7 @@ altars_start () {
    grep -o -E '(/altars(/[A-Za-z]+/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+|/))' $TMP/src.html | sed -n 1p >ACCESS 2> /dev/null
    sleep 3
   done
-  altars_fight ;;
+  altars_fight
+  ;;
  esac
 }

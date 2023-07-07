@@ -16,7 +16,7 @@ clancoliseum_fight () {
   awk -v ush="$(cat USH)" -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }' >RHP
   awk -v ush="$(cat $full_ram)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
   if grep -q -o '/dodge/' $src_ram ; then
-   echo -e -n "\n     🙇‍ "
+   printf "\n     🙇‍ "
    w3m -dump -T text/html "$src_ram" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
   else
    echo 1 >BREAK_LOOP
@@ -31,7 +31,7 @@ clancoliseum_fight () {
  echo $(( $(date +%s) - 90 )) >last_heal
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
-  #/heal/ userAgent.txtndo o USH cair para 38% e só pode ser reutilizado a cada 90 segundos
+  #/heal/
   if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
@@ -40,7 +40,7 @@ clancoliseum_fight () {
    cf_access
    cat USH >$full_ram ; cat USH >old_HP
    date +%s >last_heal
-  #/dodge/ userAgent.txtndo o USH cair 1% e só pode ser re-acessado a cada 20 segundos
+  #/dodge/
   elif ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
 #   sleep 3.5s
    (
@@ -146,6 +146,7 @@ clancoliseum_start () {
    rm -rf $tmp_ram
    rm $src_ram $full_ram
    unset dir_ram tmp_ram src_ram full_ram ACCESS
-  fi ;;
+  fi
+  ;;
  esac
 }
