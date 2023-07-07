@@ -5,10 +5,10 @@ clancoliseum_fight () {
  local HPER=48 # % to heal
  local RPER=15 # % to random
  cf_access () {
-  grep -o -E '(/clancoliseum/[a-z]{0,4}at[a-z]{0,3}k/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $src_ram | sed -n 1p >ATK 2> /dev/null
-  grep -o -E '(/clancoliseum/at[a-z]{0,3}k[a-z]{3,6}/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $src_ram >ATKRND 2> /dev/null
-  grep -o -E '(/clancoliseum/dodge/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $src_ram >DODGE 2> /dev/null
-  grep -o -E '(/clancoliseum/heal/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $src_ram >HEAL 2> /dev/null
+  grep -o -E '(/clancoliseum/[a-z]{0,4}at[a-z]{0,3}k/[?]r[=][0-9]+)' $src_ram | sed -n 1p >ATK 2> /dev/null
+  grep -o -E '(/clancoliseum/at[a-z]{0,3}k[a-z]{3,6}/[?]r[=][0-9]+)' $src_ram >ATKRND 2> /dev/null
+  grep -o -E '(/clancoliseum/dodge/[?]r[=][0-9]+)' $src_ram >DODGE 2> /dev/null
+  grep -o -E '(/clancoliseum/heal/[?]r[=][0-9]+)' $src_ram >HEAL 2> /dev/null
   grep -o -E '([[:upper:]][[:lower:]]{0,20}( [[:upper:]][[:lower:]]{0,17})?)[[:space:]]\(' $src_ram | sed -n 's,\ [(],,;s,\ ,_,;2p' >CLAN 2> /dev/null
 #  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $src_ram | sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
   grep -o -E "(hp)[^A-Za-z0-9]{1,4}[0-9]{1,6}" $src_ram | sed "s,hp[']\/[>],,;s,\ ,," >USH 2> /dev/null
