@@ -1,10 +1,14 @@
 # TWM(Titans War Macro)
 Scripts macros para titanswar.net em todos os servidores.
 
+Se pretende colaborar no código acesse:
+👉 https://tinyurl.com/c0l4b0r4d0r 👍
+
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
-***
 
 ***Recomendado para qualquer Android e Iphone***
+
+_[Vídeo Tutorial](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0a02b406733c)_
 
 >1 - No Android abra o app UserLAnd(https://f-droid.org/repo/tech.ula_2927098.apk), instale o Alpine com SSH e entre com a senha que foi criada.
 >  - No Iphone abra o app iSH(https://ish.app/).
@@ -77,7 +81,6 @@ Modo de prioridade coliseu no Android(UserLAnd) e Iphone(iSH):
 ```bash
 rm -rf $HOME/twm
 ```
-***
 
 ***Alternativa para Android 7 ou superior***
 
@@ -136,8 +139,8 @@ rm -rf $HOME/twm
 ```bash
 rm -rf $HOME/.termux/boot/play.sh
 ```
-***
 
+***
 ***Windows com Cygwin***
 
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
@@ -176,8 +179,8 @@ bash $HOME/twm/play.sh -cl
 ```
 
 `Para interroper (CTRL c) ou feche o programa Cygwin`
-***
 
+***
 ***Distribuição Alt Linux, ou base Debian e Ubuntu - Windows WSL***
 
 >1 - No emulador de terminal digite, ou copie e cole para atualizar as listas de pacotes:
@@ -253,17 +256,3 @@ https://link.mercadopago.com.br/titanswarmacro
 <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="33" width="130" /><br>**ueliton@disroot.org** <br>
 
 ***
-
-***Colaboradores***
-
->Envie o email de sua conta no GitHub e nome, ou apelido para ueliton@disroot.org
-
->As contribuições serão aplicadas neste repositório:
-```bash
-git clone https://github.com/sharesourcecode/twm.git
-```
-
->O código deve ser compatível principalmente com sh(#!/bin/sh). >Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
->Em caso de dúvidas: https://www.perplexity.ai/ 😉
-
->Após aprovado, será aplicado com os devidos créditos(inclusive no slogan) em https://gitea.com/Ueliton/twm.git para os usuários finais.
