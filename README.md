@@ -266,7 +266,7 @@ https://link.mercadopago.com.br/titanswarmacro
 git clone https://github.com/sharesourcecode/twm.git
 ```
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). >Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
 >Após aprovado, será aplicado com os devidos créditos(inclusive no slogan) em https://gitea.com/Ueliton/twm.git para os usuários finais.
