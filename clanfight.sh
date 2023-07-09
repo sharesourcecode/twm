@@ -8,7 +8,7 @@
 clanfight_fight () {
  cd $TMP
  #/enterFight
- local LA=5 # interval attack
+ local LA=4 # interval attack
  local HPER=48 # % to heal
  local RPER=15 # % to random
  awk -v ush="$(cat FULL)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP

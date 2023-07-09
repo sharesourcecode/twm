@@ -1,7 +1,7 @@
 undying_fight () {
  cd $TMP
  #/enterFight
- local LA=6 # hit interval
+ local LA=5 # hit interval
  cf_access () {
   #/undying/hit/?r=79583539
   grep -o -E '/undying/(hit|mana)/[?][r][=][0-9]+' $TMP/src.html | sed -n 1p >HITMANA 2> /dev/null
@@ -75,7 +75,7 @@ undying_start () {
   #/undying/mana/?r=553
   grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/src.html | head -n 1 >HITMANA 2> /dev/null
   >BREAK_LOOP
-  local BREAK=$(( $(date +%s) + 60 ))
+  local BREAK=$(( $(date +%s) + 15 ))
   until [ -s "BREAK_LOOP" ] || [ "$(date +%s)" -gt "$BREAK" ] ; do
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
@@ -83,7 +83,7 @@ undying_start () {
    time_exit 17
    #/undying/mana/?r=553
    grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/src.html | head -n 1 >HITMANA 2> /dev/null
-   if grep -q -o '/undying/(hit|mana)' $TMP/src.html ; then
+   if grep -q -o -E '/undying/(hit|mana)' $TMP/src.html ; then
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
     ) </dev/null &>/dev/null &

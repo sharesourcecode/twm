@@ -1,7 +1,7 @@
 altars_fight () {
  cd $TMP
  #/enterFight
- local LA=5 # interval attack
+ local LA=4 # interval attack
  echo "48" >HPER # % to heal
  echo "15" >RPER # % to random
  cf_access () {
