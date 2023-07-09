@@ -5,19 +5,19 @@ clancoliseum_fight () {
  local HPER=48 # % to heal
  local RPER=15 # % to random
  cf_access () {
-  grep -o -E '(/clancoliseum/[a-z]{0,4}at[a-z]{0,3}k/[?]r[=][0-9]+)' $src_ram | sed -n 1p >ATK 2> /dev/null
+  grep -o -E '(/clancoliseum/[a-z]{0,4}at[a-z]{0,3}k/[?]r[=][0-9]+)' $src_ram|sed -n 1p >ATK 2> /dev/null
   grep -o -E '(/clancoliseum/at[a-z]{0,3}k[a-z]{3,6}/[?]r[=][0-9]+)' $src_ram >ATKRND 2> /dev/null
   grep -o -E '(/clancoliseum/dodge/[?]r[=][0-9]+)' $src_ram >DODGE 2> /dev/null
   grep -o -E '(/clancoliseum/heal/[?]r[=][0-9]+)' $src_ram >HEAL 2> /dev/null
-  grep -o -E '([[:upper:]][[:lower:]]{0,20}( [[:upper:]][[:lower:]]{0,17})?)[[:space:]]\(' $src_ram | sed -n 's,\ [(],,;s,\ ,_,;2p' >CLAN 2> /dev/null
-#  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $src_ram | sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
-  grep -o -E "(hp)[^A-Za-z0-9]{1,4}[0-9]{1,6}" $src_ram | sed "s,hp[']\/[>],,;s,\ ,," >USH 2> /dev/null
-  grep -o -E "(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}" $src_ram | sed -n 's,nbsp[;],,;s,\ ,,;1p' >ENH 2> /dev/null
+  grep -o -E '([[:upper:]][[:lower:]]{0,20}( [[:upper:]][[:lower:]]{0,17})?)[[:space:]]\(' $src_ram|sed -n 's,\ [(],,;s,\ ,_,;2p' >CLAN 2> /dev/null
+#  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $src_ram|sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
+  grep -o -E "(hp)[^A-Za-z0-9]{1,4}[0-9]{1,6}" $src_ram|sed "s,hp[']\/[>],,;s,\ ,," >USH 2> /dev/null
+  grep -o -E "(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}" $src_ram|sed -n 's,nbsp[;],,;s,\ ,,;1p' >ENH 2> /dev/null
   awk -v ush="$(cat USH)" -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }' >RHP
   awk -v ush="$(cat $full_ram)" -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
   if grep -q -o '/dodge/' $src_ram ; then
    printf "\n     🙇‍ "
-   w3m -dump -T text/html "$src_ram" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
+   w3m -dump -T text/html "$src_ram"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
   else
    echo 1 >BREAK_LOOP
    printf "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
@@ -31,18 +31,17 @@ clancoliseum_fight () {
  echo $(( $(date +%s) - 90 )) >last_heal
  echo $(( $(date +%s) - $LA )) >last_atk
  until [ -s "BREAK_LOOP" ] ; do
-  #/heal/
+  #/heal
   if awk -v ush="$(cat USH)" -v hlhp="$(cat HLHP)" 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - $(cat last_heal) ))" -gt 90 -a "$(( $(date +%s) - $(cat last_heal) ))" -lt 300 ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HEAL)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
-   cat USH >$full_ram ; cat USH >old_HP
+   cat USH >old_HP
    date +%s >last_heal
-  #/dodge/
+  #/dodge
   elif ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - $(cat last_dodge) ))" -gt 20 -a "$(( $(date +%s) - $(cat last_dodge) ))" -lt 300 ] && awk -v ush="$(cat USH)" -v oldhp="$(cat old_HP)" 'BEGIN { exit !(ush < oldhp) }' ; then
-#   sleep 3.5s
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat DODGE)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -50,7 +49,7 @@ clancoliseum_fight () {
    cf_access
    cat USH >old_HP ; date +%s >last_dodge
   #/random
-  elif awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && awk -v rhp="$RHP" -v enh="$ENH" 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "$(cat CLAN)" $TMP/callies.txt ; then
+  elif awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && awk -v rhp="$(cat RHP)" -v enh="$(cat ENH)" 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "$(cat CLAN)" $TMP/callies.txt ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat ATKRND)" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -97,7 +96,7 @@ clancoliseum_start () {
  case $(date +%H:%M) in
  (10:2[5-9]|14:5[5-9])
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" | grep -o -E '\(([0-9]+)\)' | sed 's/[()]//g' >$full_ram
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$full_ram
   ) </dev/null &>/dev/null &
   time_exit 17
   (
@@ -126,7 +125,7 @@ clancoliseum_start () {
   ) </dev/null &>/dev/null &
   time_exit 17
   printf "\nClanColiseum\n$URL\n"
-  ACCESS=$(grep -o -E '(/clancoliseum(/[a-z]+/[?]r[=][0-9]+|/))' $src_ram | grep -v 'dodge' | sed -n 1p)
+  ACCESS=$(grep -o -E '(/clancoliseum(/[a-z]+/[?]r[=][0-9]+|/))' $src_ram|grep -v 'dodge'|sed -n 1p)
   printf " 👣 Entering...\n${ACCESS}\n"
   #/wait
   printf " 😴 Waiting...\n"
@@ -137,7 +136,7 @@ clancoliseum_start () {
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clancoliseum/" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
-   ACCESS=$(grep -o -E '(/clancoliseum/[a-z]+/[?]r[=][0-9]+)' $src_ram | grep -v 'dodge' | sed -n 1p)
+   ACCESS=$(grep -o -E '(/clancoliseum/[a-z]+/[?]r[=][0-9]+)' $src_ram|grep -v 'dodge'|sed -n 1p)
    sleep 3
   done
   if [ -n $ACCESS ] ; then
