@@ -50,7 +50,7 @@ script_slogan () {
   sleep 0.3
  done
 }
-cd ~/twm
+mkdir -p ~/twm ; cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
 remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L|wc -c)
