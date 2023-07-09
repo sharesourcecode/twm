@@ -16,7 +16,7 @@ PURPLEi_BLACK='\033[03;34m\033[02;03m'
 PURPLEis_BLACK='\033[03;34m\033[02;04m'
 WHITE_BLACK='\033[37m'
 WHITEb_BLACK='\033[01;38m\033[05;01m'
-if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; then
+if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
  printf "${BLACK_RED}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
@@ -51,16 +51,16 @@ script_slogan () {
  done
 }
 cd ~/
-TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
+TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L | wc -c)
+remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ] ; then
  local_count=$(wc -c < "easyinstall.sh")
 else
  local_count=1
 fi
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
- #termux
+ #/termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
   termux-wake-lock
   sed -u -i '/nameserver/d' $PREFIX/etc/resolv.conf &>/dev/null
@@ -68,7 +68,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   LS="/data/data/com.termux/files/usr/share/doc"
   rm -rf ~/.termux/boot/play.sh 2> /dev/null
   mkdir -p ~/.termux/boot
-  echo "IyEvZGF0YS9kYXRhL2NvbS50ZXJtdXgvZmlsZXMvdXNyL2Jpbi9zaApiYXNoICRIT01FL3R3bS90d20uc2ggLWJvb3QK" | base64 -d >~/.termux/boot/play.sh 2> /dev/null
+  echo "IyEvZGF0YS9kYXRhL2NvbS50ZXJtdXgvZmlsZXMvdXNyL2Jpbi9zaApiYXNoICRIT01FL3R3bS90d20uc2ggLWJvb3QK"|base64 -d >~/.termux/boot/play.sh 2> /dev/null
   chmod +x ~/.termux/boot/play.sh 2> /dev/null
   if whereis w3m &>/dev/null ; then
    :
@@ -92,7 +92,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #ls /data/...
  #cygwin
- if uname | grep -q -i cygwin ; then
+ if uname|grep -q -i cygwin ; then
   LS="/usr/share/doc"
   if [ -e /bin/apt-cyg ] ; then
    :
@@ -122,7 +122,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #cygwin
  #linux
- if uname -o | grep -q -i GNU/Linux ; then
+ if uname -o|grep -q -i GNU/Linux ; then
   LS='/usr/share/doc'
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
@@ -141,13 +141,13 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   cd ~/twm
   curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
-  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | sed -n '1,124p' >twm.sh
-  NUM_SCRIPTS=$(echo $SCRIPTS | wc -w)
+  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '1,124p' >twm.sh
+  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
   for script in $SCRIPTS ; do
    LEN=$((LEN+1))
    printf "Checking $LEN/$NUM_SCRIPTS $script\n"
-#   remote_count=$(curl -s -L "${SERVER}/${script}" | wc -c)
+#   remote_count=$(curl -s -L "${SERVER}/${script}"|wc -c)
 #   if [ -e ~/twm/$script ] ; then
 #    local_count=$(wc -c < "$script")
 #   else
@@ -165,7 +165,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   fi
    sleep 0.1s
   done
-  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L | sed -n '131,198p' >>twm.sh
+  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,198p' >>twm.sh
   case $(uname -o) in
   (Android)
    :
@@ -175,22 +175,22 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
    ;;
   esac
   #DOS to Unix
-  find ~/twm -type f -name '*.sh' -print0 | xargs -0 sed -i 's/\r$//' 2>/dev/null
+  find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
  }
  sync_func
  script_slogan
  printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
- pidf=$(ps ax -o pid=,args= | grep "sh.*twm/play.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+ pidf=$(ps ax -o pid=,args=|grep "sh.*twm/play.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args= | grep "sh.*twm/play.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args=|grep "sh.*twm/play.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
   sleep 1s
  done
- pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+ pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
  until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
   sleep 1s
  done
  if [ -f ~/twm/runmode_file ] ; then
