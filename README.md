@@ -8,7 +8,7 @@ Se pretende colaborar no código acesse:
 
 ***Recomendado para qualquer Android e Iphone***
 
-_[Vídeo Tutorial](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0a02b406733c)_
+_[Vídeo Tutorial](https://tube.tchncs.de/videos/embed/22c53a1b-ec82-4f3f-a640-ed54862da523)_
 
 >1 - No Android abra o app UserLAnd(https://f-droid.org/repo/tech.ula_2927098.apk), instale o Alpine com SSH e entre com a senha que foi criada.
 >  - No Iphone abra o app iSH(https://ish.app/).
