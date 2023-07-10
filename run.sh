@@ -1,10 +1,10 @@
 twm_play () {
  restart_script () {
   if [ "$RUN" != '-boot' ] ; then
-   pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+   pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
    until [ -z "$pidf" ] ; do
     kill -9 $pidf 2> /dev/null
-    pidf=$(ps ax -o pid=,args= | grep "sh.*twm/twm.sh" | grep -v 'grep' | head -n1 | grep -o -E '([0-9]{3,5})')
+    pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
     sleep 1s
    done
   fi
@@ -116,7 +116,8 @@ twm_play () {
   else
    sleep 300s
   fi
-  arena_duel
+  arena_fullmana
+  sleep 55s
   messages_info
   func_crono
   ;;
@@ -214,7 +215,8 @@ twm_play () {
   func_crono
   ;;
  (15:30)
-  arena_duel
+  arena_fullmana
+  sleep 55s
   messages_info
   func_crono
   ;;
@@ -302,7 +304,7 @@ twm_play () {
 # /Clan dmg  09:30:00 - 21:30:00
  (21:2[5-9])
   #_clanmgfight
-  arena_duel
+  arena_fullmana
   messages_info
   func_crono
   ;;
@@ -336,7 +338,6 @@ twm_play () {
   func_crono
   ;;
  (*)
-  func_crono
   case $RUN in
   -cl)
    printf "Running in coliseum mode: $RUN\n"
