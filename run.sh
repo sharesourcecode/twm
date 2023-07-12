@@ -9,7 +9,7 @@ twm_play () {
    done
   fi
  }
- if [ ! -z $TMP/CLD ] ; then
+ if [ ! -s $TMP/CLD ] ; then
   clan_id
  fi
  #/game time
