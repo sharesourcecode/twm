@@ -16,99 +16,117 @@ twm_play () {
  case $(date +%H:%M) in
  (00:00)
   arena_duel
+  clanDungeon
   func_trade
   messages_info
   func_crono
   ;;
  (00:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (01:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (01:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (02:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (02:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (03:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (03:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (04:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (04:30)
   arena_duel
-  coliseum_fight
+  clanDungeon
   messages_info
   func_crono
   ;;
  (05:00)
   arena_duel
+  clanDungeon
   func_trade
   messages_info
   func_crono
   ;;
  (05:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (06:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (06:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (07:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (07:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (08:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (08:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (09:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -121,6 +139,7 @@ twm_play () {
    sleep 300s
   fi
   arena_fullmana
+  clanDungeon
   sleep 55s
   messages_info
   func_crono
@@ -151,6 +170,7 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -162,16 +182,19 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (11:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (12:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -179,16 +202,19 @@ twm_play () {
  (12:2[5-9])
   king_start
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (13:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (13:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -200,11 +226,13 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (14:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -216,12 +244,14 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   func_trade
   messages_info
   func_crono
   ;;
  (15:30)
   arena_fullmana
+  clanDungeon
   sleep 55s
   messages_info
   func_crono
@@ -230,6 +260,7 @@ twm_play () {
  (15:5[5-9])
   undying_start
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -247,26 +278,31 @@ twm_play () {
  (16:2[5-9])
   king_start
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (17:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (17:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (18:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (18:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -278,22 +314,26 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (19:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (20:00)
   arena_duel
+  clanDungeon
   func_trade
   messages_info
   func_crono
   ;;
  (20:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -305,6 +345,7 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -312,6 +353,7 @@ twm_play () {
  (21:2[5-9])
   #_clanmgfight
   arena_fullmana
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -319,6 +361,7 @@ twm_play () {
  (21:5[5-9])
   undying_start
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
@@ -326,21 +369,25 @@ twm_play () {
  (22:2[5-9])
   king_start
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (23:00)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (23:30)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
  (23:59)
   arena_duel
+  clanDungeon
   messages_info
   func_crono
   ;;
