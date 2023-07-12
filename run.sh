@@ -14,6 +14,7 @@ twm_play () {
  case $(date +%H:%M) in
  (00:00)
   arena_duel
+  func_trade
   messages_info
   func_crono
   ;;
@@ -65,6 +66,7 @@ twm_play () {
   ;;
  (05:00)
   arena_duel
+  func_trade
   messages_info
   func_crono
   ;;
@@ -124,6 +126,7 @@ twm_play () {
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
  (09:5[5-9])
   undying_start
+  func_trade
   clanDungeon
   messages_info
   func_crono
@@ -211,6 +214,7 @@ twm_play () {
    sleep 300s
   fi
   arena_duel
+  func_trade
   messages_info
   func_crono
   ;;
@@ -282,6 +286,7 @@ twm_play () {
   ;;
  (20:00)
   arena_duel
+  func_trade
   messages_info
   func_crono
   ;;
