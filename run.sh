@@ -9,7 +9,9 @@ twm_play () {
    done
   fi
  }
- clan_id
+ if [ ! -z $TMP/CLD ] ; then
+  clan_id
+ fi
  #/game time
  case $(date +%H:%M) in
  (00:00)
