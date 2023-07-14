@@ -153,7 +153,7 @@ coliseum_fight () {
    sleep 10s ; clear
  else
   printf "${WHITEb_BLACK}It was not possible to start the battle at this time.${COLOR_RESET}\n"
-a fi
+ fi
 }
 coliseum_start () {
  case $RUN in
