@@ -153,16 +153,15 @@ coliseum_fight () {
    sleep 10s ; clear
  else
   printf "${WHITEb_BLACK}It was not possible to start the battle at this time.${COLOR_RESET}\n"
- fi
+a fi
 }
 coliseum_start () {
  case $RUN in
- (-boot|"")
+ (-boot)
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 20
-  local GOQUEST=$(grep -o -E '/coliseum/[?]quest_t[=]quest&quest_id[=]11&qz[=][a-z0-9]+' $TMP/SRC)
   ;;
  esac
  if $(case $(date +%H:%M) in
@@ -170,16 +169,16 @@ coliseum_start () {
       exit 1
       ;;
      esac) ; then
+  if grep -o -E '/coliseum/[?]quest_t[=]quest&quest_id[=]11&qz[=][a-z0-9]+' $TMP/SRC ; then
+    coliseum_fight
+    coliseum_fight
+    coliseum_fight
+  fi
   case $RUN in
    -cl)
     coliseum_fight
    ;;
   esac
-  if [ -n $GOQUEST ] ; then
-    coliseum_fight
-    coliseum_fight
-    coliseum_fight
-  fi
  else
   printf "Battle or event time...\n" && sleep 5s
  fi
