@@ -1,6 +1,6 @@
 career_func () {
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/career" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 17
  local GOQUEST=$(grep -o -E '/career/[?]quest_t[=]quest&quest_id[=]16&qz[=][a-z0-9]+' $TMP/SRC)
