@@ -3,7 +3,7 @@ cave_start () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
- if grep -q -o -E '/career/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+' $TMP/SRC || echo "$RUN"|grep -q -E '[-]cv' ; then
+ if grep -q -o -E '/cave/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+' $TMP/SRC || echo "$RUN"|grep -q -E '[-]cv' ; then
   printf "cave ...\n"
   clan_id
   if [ -n "$CLD" ] ; then
