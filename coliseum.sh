@@ -156,13 +156,30 @@ coliseum_fight () {
  fi
 }
 coliseum_start () {
+ case $RUN in
+ (-boot|"")
+  (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  ) </dev/null &>/dev/null &
+  time_exit 20
+  local GOQUEST=$(grep -o -E '/coliseum/[?]quest_t[=]quest&quest_id[=]11&qz[=][a-z0-9]+' $TMP/SRC)
+  ;;
+ esac
  if $(case $(date +%H:%M) in
      (09:2[4-9]|9:5[4-9]|10:1[0-4]|10:2[4-9]|10:5[4-9]|12:2[4-9]|13:5[4-9]|14:5[4-9]|15:5[4-9]|16:1[0-4]|16:2[4-9]|18:5[4-9]|20:5[4-9]|21:2[4-9]|21:5[4-9]|22:2[4-9])
       exit 1
       ;;
      esac) ; then
-  cd $tmp_ram
-  coliseum_fight
+  case $RUN in
+   -cl)
+    coliseum_fight
+   ;;
+  esac
+  if [ -n $GOQUEST ] ; then
+    coliseum_fight
+    coliseum_fight
+    coliseum_fight
+  fi
  else
   printf "Battle or event time...\n" && sleep 5s
  fi

@@ -18,6 +18,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   func_trade
   messages_info
   func_crono
@@ -26,6 +27,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -33,6 +35,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -40,6 +43,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -47,6 +51,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -54,6 +59,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -61,6 +67,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -68,6 +75,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -75,6 +83,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -82,6 +91,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -89,6 +99,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   func_trade
   messages_info
   func_crono
@@ -97,6 +108,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -104,6 +116,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -111,6 +124,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -118,6 +132,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -125,6 +140,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -132,6 +148,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -139,6 +156,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -146,6 +164,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -160,6 +179,7 @@ twm_play () {
   arena_fullmana
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -169,6 +189,7 @@ twm_play () {
   func_trade
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -192,6 +213,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -205,6 +227,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -212,6 +235,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -219,6 +243,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -228,6 +253,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -235,6 +261,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -242,6 +269,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -255,6 +283,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -262,6 +291,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -275,6 +305,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   func_trade
   messages_info
   func_crono
@@ -283,6 +314,7 @@ twm_play () {
   arena_fullmana
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -292,6 +324,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -311,6 +344,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -318,6 +352,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -325,6 +360,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -332,6 +368,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -339,6 +376,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -352,6 +390,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -359,6 +398,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -366,6 +406,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   func_trade
   messages_info
   func_crono
@@ -374,6 +415,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -387,6 +429,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -396,6 +439,7 @@ twm_play () {
   arena_fullmana
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -405,6 +449,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -414,6 +459,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -421,6 +467,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
@@ -428,13 +475,15 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
- (23:59)
+ (23:50)
   arena_duel
   clanDungeon
   campaign_func
+  coliseum_start
   messages_info
   func_crono
   ;;
