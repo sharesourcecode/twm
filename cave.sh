@@ -30,7 +30,7 @@ cave_start () {
    MEGA=$(cat $TMP/SRC|sed 's/src=/\n/g'|grep '/images/icon/silver.png'|grep "'s'"|tail -n 1|grep -o 'M')
   }
   condition_func
-  local num=1
+  local num=5
   local BREAK=$(( $(date +%s) + 120 ))
   until [ $num -eq 0 ] && awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' ; do
    if awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' && [ "$(date +%s)" -eq "$BREAK" ] ; then
