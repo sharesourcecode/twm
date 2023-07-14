@@ -19,6 +19,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   func_trade
   messages_info
   func_crono
@@ -28,6 +29,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -36,6 +38,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -44,6 +47,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -52,6 +56,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -60,6 +65,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -68,6 +74,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -76,6 +83,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -84,6 +92,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -92,6 +101,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -100,6 +110,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   func_trade
   messages_info
   func_crono
@@ -109,6 +120,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -117,6 +129,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -125,6 +138,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -133,6 +147,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -141,6 +156,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -149,6 +165,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -157,6 +174,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -165,6 +183,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -180,6 +199,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -190,6 +210,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -214,6 +235,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -228,6 +250,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -236,6 +259,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -244,6 +268,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -254,6 +279,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -262,6 +288,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -270,6 +297,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -284,6 +312,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -292,6 +321,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -306,6 +336,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   func_trade
   messages_info
   func_crono
@@ -315,6 +346,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -325,6 +357,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -345,6 +378,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -353,6 +387,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -361,6 +396,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -369,6 +405,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -377,6 +414,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -391,6 +429,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -399,6 +438,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -407,6 +447,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   func_trade
   messages_info
   func_crono
@@ -416,6 +457,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -430,6 +472,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -440,6 +483,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -450,6 +494,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -460,6 +505,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -468,6 +514,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -476,6 +523,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
@@ -484,6 +532,7 @@ twm_play () {
   clanDungeon
   campaign_func
   coliseum_start
+  career_func
   messages_info
   func_crono
   ;;
