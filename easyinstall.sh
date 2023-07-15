@@ -166,7 +166,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   fi
    sleep 0.1s
   done
-  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,198p' >>twm.sh
+  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh
   case $(uname -o) in
   (Android)
    :
@@ -195,14 +195,19 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   sleep 1s
  done
  if [ -f ~/twm/runmode_file ] ; then
-  if awk '{if ($0 == "-cl") print $0}' ~/twm/runmode_file ; then
+  local RUN=$(cat $HOME/twm/runmode_file)
+  if echo "$RUN"|grep -q -E '[-]cl' ; then
    printf " ${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cl
-  elif awk '{if ($0 == "-cv") print $0}' ~/twm/runmode_file ; then
+  elif echo "$RUN"|grep -q -E '[-]cv' ; then
    printf " ${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
    ~/twm/play.sh -cv
+  elif echo "$RUN"|grep -q -E '[-]boot' ; then
+   printf " ${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
+   sleep 5s
+   ~/twm/play.sh -boot
   else
    printf " ${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s

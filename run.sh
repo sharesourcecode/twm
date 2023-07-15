@@ -192,8 +192,6 @@ twm_play () {
   if [ -n $CLD ] ; then
    :
    #_clanmgfight
-  else
-   sleep 300s
   fi
   arena_fullmana
   clanDungeon
@@ -202,6 +200,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
  (09:5[5-9])
@@ -218,18 +217,15 @@ twm_play () {
  (10:1[0-4])
   if [ -n $CLD ] ; then
    flagfight_start
-  else
-   sleep 300s
   fi
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /Clan coliseum 10:30:00 - 15:00:00
  (10:2[5-9])
   if [ -n $CLD ] ; then
    clancoliseum_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -238,13 +234,12 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /Clan tournament 11:00:00 - 19:00:00
  (10:5[5-9])
   if [ -n $CLD ] ; then
    clanfight_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -253,6 +248,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
  (11:30)
   arena_duel
@@ -305,8 +301,6 @@ twm_play () {
  (13:5[5-9])
   if [ -n $CLD ] ; then
    altars_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -315,6 +309,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
  (14:30)
   arena_duel
@@ -329,8 +324,6 @@ twm_play () {
  (14:5[8-9])
   if [ -n $CLD ] ; then
    clancoliseum_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -340,6 +333,7 @@ twm_play () {
   func_trade
   messages_info
   func_crono
+  sleep 300s
   ;;
  (15:30)
   arena_fullmana
@@ -365,11 +359,10 @@ twm_play () {
  (16:1[0-4])
   if [ -n $CLD ] ; then
    flagfight_start
-  else
-   sleep 300s
   fi
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
  (16:2[5-9])
@@ -422,8 +415,6 @@ twm_play () {
  (18:5[5-9])
   if [ -n $CLD ] ; then
    clanfight_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -432,6 +423,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
  (19:30)
   arena_duel
@@ -465,8 +457,6 @@ twm_play () {
  (20:5[5-9])
   if [ -n $CLD ] ; then
    altars_start
-  else
-   sleep 300s
   fi
   arena_duel
   clanDungeon
@@ -475,6 +465,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /Clan dmg  09:30:00 - 21:30:00
  (21:2[5-9])
@@ -486,6 +477,7 @@ twm_play () {
   career_func
   messages_info
   func_crono
+  sleep 300s
   ;;
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
  (21:5[5-9])
@@ -537,15 +529,13 @@ twm_play () {
   func_crono
   ;;
  (*)
-  case $RUN in
-  -cl)
+  if echo "$RUN"|grep -q -E '[-]cl' ; then
    printf "Running in coliseum mode: $RUN\n"
    sleep 5s
    arena_duel
    coliseum_start
    messages_info
-   ;;
-  esac
+  fi
   func_sleep
   func_crono
   ;;

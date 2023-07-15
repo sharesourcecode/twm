@@ -34,9 +34,9 @@ script_ads
 if [ ! -z "$RUN" ] ; then
  :
 else
- TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
+ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
  SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
- remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L | wc -c)
+ remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
   local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
  else
@@ -45,8 +45,8 @@ else
  if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
   :
  else
-  if ! curl -s --head --request GET titanswar.net | grep "200 OK" > /dev/null ; then
-   echo -e "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}"
+  if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
+   printf "${WHITEb_BLACK}Network error! Please check your internet connection.${BLACK_RESET}\n"
    exit 1
   else
    rm $HOME/twm/easyinstall.s*
@@ -59,7 +59,7 @@ else
   fi
  fi
 fi
-printf "${COLOR=CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR=RESET}\n"
+printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
 script_slogan () {
  colors="10 9 8 7 6 5 4 3 2 1"
  t=339
@@ -102,9 +102,9 @@ fi
 #/time_exit
 time_exit () {
  (
-  local FPID=$(echo $! | grep -o -E '([0-9]{2,6})')
+  local FPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
   for TE in $(seq "$@" -1 0) ; do
-   local RPID=$(ps ax -o pid= | grep -o "$FPID")
+   local RPID=$(ps ax -o pid=|grep -o "$FPID")
    if [ -z "$RPID" ] ; then
     local TE=0
     break &>/dev/null
@@ -121,30 +121,25 @@ time_exit () {
 }
 #/sources
 cd ~/twm
-#sed -n 1,129 /remove sources to easyinstall.sh
+#sed -n 1,124 /remove sources to easyinstall.sh
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
-#sed -n 136,last /remove sources to easyinstall.sh
+#sed -n 131,194 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
- case $RUN in
- -cv)
+ if echo "$RUN"|grep -q -E '[-]cv' ; then
   cave_start
-  ;;
- -cl)
+ elif echo "$RUN"|grep -q -E '[-]cl' ; then
   twm_play
-  ;;
- -boot)
+ elif echo "$RUN"|grep -q -E '[-]boot' ; then
   twm_play
-  ;;
- *)
+ else
   twm_play
-  ;;
- esac
+ fi
 }
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
@@ -154,7 +149,7 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  num=6
  for i in `seq 6 -1 1` ; do
   i=$((i - 1))
-  if read -t1 ; then
+  if read -t 1 ; then
    >$HOME/twm/al_file
    >$HOME/twm/ur_file
    >$HOME/twm/fileAgent.txt
@@ -171,21 +166,21 @@ func_proxy
 messages_info () {
  printf " ##### mail #####\n" > $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | tee $TMP/info_file | sed -n '/[|]\ mp/,/\[arrow\]/p' | sed '1,1d;$d;6q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
  printf " ##### chat titans #####\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -n '/\(\»\)/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
  printf " ##### chat clan #####\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed -ne '/\[[^a-z]\]/,/\[chat\]/p' | sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- printf "${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file | sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')\n" >> $TMP/msg_file
+ printf "${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')\n" >> $TMP/msg_file
 }
 login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
