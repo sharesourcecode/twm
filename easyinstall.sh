@@ -195,7 +195,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   sleep 1s
  done
  if [ -f ~/twm/runmode_file ] ; then
-  local RUN=$(cat $HOME/twm/runmode_file)
+  RUN=$(cat $HOME/twm/runmode_file)
   if echo "$RUN"|grep -q -E '[-]cl' ; then
    printf " ${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
    sleep 5s
