@@ -165,20 +165,20 @@ coliseum_start () {
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 20
-   if grep -q -o -E '/coliseum/[?]quest_t[=]quest&quest_id[=]11&qz[=][a-z0-9]+' $TMP/SRC ; then
-    coliseum_fight
-    coliseum_fight
+   while grep -q -o -E '/coliseum/[?]quest_t[=]quest&quest_id[=]11&qz[=][a-z0-9]+' $TMP/SRC ; do
     coliseum_fight
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
     ) </dev/null &>/dev/null &
     time_exit 20
     local ENDQUEST=$(grep -o -E '/quest/end/11[?]r[=][A_z0-9]+' $TMP/SRC)
-    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-   fi
+    if [ ! -z $ENDQUEST ] ; then
+     (
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+     ) </dev/null &>/dev/null &
+     time_exit 20
+    fi
+   done
   elif echo "$RUN"|grep -q -E '[-]cl' ; then
    coliseum_fight
   fi
