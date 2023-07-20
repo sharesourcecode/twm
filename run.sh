@@ -21,6 +21,7 @@ twm_play () {
   coliseum_start
   career_func
   func_trade
+  clan_money
   messages_info
   func_crono
   ;;
@@ -112,6 +113,7 @@ twm_play () {
   coliseum_start
   career_func
   func_trade
+  clan_money
   messages_info
   func_crono
   ;;
@@ -331,6 +333,7 @@ twm_play () {
   coliseum_start
   career_func
   func_trade
+  clan_money
   messages_info
   func_crono
   sleep 300s
@@ -441,6 +444,7 @@ twm_play () {
   coliseum_start
   career_func
   func_trade
+  clan_money
   messages_info
   func_crono
   ;;
