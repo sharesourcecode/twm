@@ -95,15 +95,18 @@ cave_start () {
   if awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' ; then
    printf "\nYou can run ./twm/play.sh -cv\n"
   fi
+  #/quest
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 20
   local ENDQUEST=$(grep -o -E '/quest/end/2[?]r[=][A_z0-9]+' $TMP/SRC)
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 20
+  if [ ! -z $ENDQUEST ] ; then
+   (
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   ) </dev/null &>/dev/null &
+   time_exit 20
+  fi
   printf "cave (✔)\n"
   unset ACCESS1 ACCESS2 ACTION DOWN MEGA
  done
