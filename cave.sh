@@ -3,7 +3,7 @@ cave_start () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
- if grep -q -o -E '/cave/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+' $TMP/SRC || echo "$RUN"|grep -q -E '[-]cv' ; then
+ while grep -q -o -E '/cave/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+' $TMP/SRC || echo "$RUN"|grep -q -E '[-]cv' ; do
   printf "cave ...\n"
   clan_id
   if [ -n "$CLD" ] ; then
@@ -30,7 +30,7 @@ cave_start () {
    MEGA=$(cat $TMP/SRC|sed 's/src=/\n/g'|grep '/images/icon/silver.png'|grep "'s'"|tail -n 1|grep -o 'M')
   }
   condition_func
-  local num=5
+  local num=6
   local BREAK=$(( $(date +%s) + 120 ))
   until [ $num -eq 0 ] && awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' ; do
    if awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' && [ "$(date +%s)" -eq "$BREAK" ] ; then
@@ -106,5 +106,5 @@ cave_start () {
   time_exit 20
   printf "cave (✔)\n"
   unset ACCESS1 ACCESS2 ACTION DOWN MEGA
- fi
+ done
 }
