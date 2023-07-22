@@ -159,9 +159,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     local_count=1
    fi
    if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
-    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
+    printf "✅ ${BLACK_CYAN}Updated ${SERVER}$script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
-    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
+    printf "🔁 ${BLACK_GREEN}Updating ${SERVER}$script${COLOR_RESET}\n"
     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
    else
     printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
