@@ -151,7 +151,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
-   printf "Checking $((i+1))/$NUM_SCRIPTS ${script}\n"
+   printf "Checking $((i+1))/$NUM_SCRIPTS ${SERVER}$script\n"
    remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L|wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
