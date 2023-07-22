@@ -1,5 +1,5 @@
 #!/bin/bash
-#add 2
+#add 3
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
@@ -151,7 +151,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
-   printf "Checking $((i+1))/$NUM_SCRIPTS ${SERVER}$script\n"
+   printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
    remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O|wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
