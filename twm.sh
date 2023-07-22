@@ -35,8 +35,8 @@ if [ ! -z "$RUN" ] ; then
  :
 else
  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
- SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
- remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
+ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+ remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
   local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
  else
@@ -50,7 +50,7 @@ else
    exit 1
   else
    rm $HOME/twm/easyinstall.s*
-   curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+   curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
    rm $HOME/easyinstall.s*
    cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
    SYNC=1
@@ -122,14 +122,14 @@ time_exit () {
 }
 #/sources
 cd ~/twm
-#sed -n 1,124 /remove sources to easyinstall.sh
+#sed -n 1,125 /remove sources to easyinstall.sh
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
-#sed -n 131,194 /remove sources to easyinstall.sh
+#sed -n 132,195 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
