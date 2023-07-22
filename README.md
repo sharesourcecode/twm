@@ -103,16 +103,16 @@ pkg upgrade
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x easyinstall.sh
+chmod +x sourceinstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./easyinstall.sh
+./sourceinstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
