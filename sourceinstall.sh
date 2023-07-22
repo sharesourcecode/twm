@@ -52,9 +52,14 @@ script_slogan () {
  done
 }
 mkdir -p ~/twm ; cd ~/twm
+
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L|wc -c)
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
+
+#TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
+#SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+#remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
