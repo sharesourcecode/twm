@@ -1,6 +1,6 @@
 #/arena
 #http://furiadetitas.net/marathon/take/?r=41422587
-#teste2
+#teste3
 sageQuest_openchest () {
  echo "openChest ..."
  (
