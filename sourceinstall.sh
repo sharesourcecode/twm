@@ -54,11 +54,8 @@ script_slogan () {
 mkdir -p ~/twm ; cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
-
-#TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-#SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-#remote_count=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -147,12 +144,12 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   NUM_SCRIPTS=${#SCRIPTS[@]}
   cd ~/twm
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-  curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
+  curl ${SERVER}sourceinstall.sh -s -L -O
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O|wc -c)
+   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
    else
@@ -205,9 +202,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
  chmod +x $HOME/sourceinstall.sh
- curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L >$HOME/easyinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L >$HOME/easyinstall.sh
  chmod +x $HOME/easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
 fi #$(curl -s -L ...
