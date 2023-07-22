@@ -95,11 +95,11 @@ _[Vídeo Tutorial](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0
 * Para múltiplas opções (Y/I/N/O/D/Z) apenas pressione ENTER para prosseguir.
 
 ```bash
-pkg update -y
+pkg update -y ; pkg upgrade
 ```
 Também:
 ```bash
-pkg upgrade
+pkg install w3m termux-api procps coreutils ncurses-utils 
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
