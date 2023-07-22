@@ -1,3 +1,4 @@
+#teste
 members_allies () {
  cd $TMP
  echo "" >>allies.txt
