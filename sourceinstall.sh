@@ -1,5 +1,4 @@
 #!/bin/bash
-#add 4
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
@@ -27,6 +26,7 @@ script_slogan () {
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
+ version="Version: 1.0"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -147,7 +147,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   NUM_SCRIPTS=${#SCRIPTS[@]}
   cd ~/twm
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
+  curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
