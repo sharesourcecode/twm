@@ -66,6 +66,7 @@ script_slogan () {
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
+ collaborator="Hugoviegas3.0@gmail.com"
  version="Version: 1.0"
  for i in $colors ; do
   clear
@@ -87,7 +88,7 @@ script_slogan () {
   ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
   ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${i}m${author}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}\n${collaborator}${COLOR_RESET}\n"
   sleep 0.3s
  done
 }
@@ -122,14 +123,14 @@ time_exit () {
 }
 #/sources
 cd ~/twm
-#sed -n 1,125 /remove sources to easyinstall.sh
+#sed -n 1,126 /remove sources to easyinstall.sh
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
-#sed -n 132,195 /remove sources to easyinstall.sh
+#sed -n 133,196 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
