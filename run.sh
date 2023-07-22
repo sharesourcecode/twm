@@ -14,7 +14,7 @@ twm_play () {
  fi
  #/game time
  case $(date +%H:%M) in
- (00:00)
+ (00:05)
   arena_duel
   clanDungeon
   campaign_func
