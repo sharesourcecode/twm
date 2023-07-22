@@ -18,7 +18,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
-  coliseum_start
+  #coliseum_start
   career_func
   func_trade
   clan_money
