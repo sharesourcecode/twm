@@ -1,5 +1,5 @@
 #!/bin/bash
-#add 1
+#add 2
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
