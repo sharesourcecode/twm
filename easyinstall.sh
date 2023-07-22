@@ -147,7 +147,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L -O
   #curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '1,125p' >twm.sh
+  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '1,126p' >twm.sh
   #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '1,124p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
@@ -173,7 +173,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #   fi
    sleep 0.1s
   done
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '132,195p' >>twm.sh
+  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '133,196p' >>twm.sh
   #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh
   case $(uname -o) in
   (Android)
