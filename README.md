@@ -38,7 +38,7 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >Android(UserLAnd) e Iphone(iSH):
 ```bash
-curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
