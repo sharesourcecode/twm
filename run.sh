@@ -18,18 +18,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
-  #coliseum_start
-  career_func
-  func_trade
-  clan_money
-  messages_info
-  func_crono
-  ;;
-  (00:15)
-  arena_duel
-  clanDungeon
-  campaign_func
-  #coliseum_start
+  coliseum_start
   career_func
   func_trade
   clan_money
