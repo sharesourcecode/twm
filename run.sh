@@ -526,6 +526,7 @@ twm_play () {
  (23:50)
   arena_duel
   clanDungeon
+  func_trade
   campaign_func
   coliseum_start
   career_func
