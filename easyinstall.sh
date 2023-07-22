@@ -55,7 +55,7 @@ cd ~/
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 #SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L|wc -c)
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 #remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ] ; then
  local_count=$(wc -c < "easyinstall.sh")
