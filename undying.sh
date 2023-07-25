@@ -1,8 +1,8 @@
 undying_fight () {
  cd $TMP
-  #apply to fight
-  event=undying
-apply_event
+ #/apply to fight
+ event=undying
+ apply_event
 
  #/enterFight
  local LA=5 # hit interval
