@@ -53,11 +53,13 @@ script_slogan () {
  done
 }
 cd ~/
+#/final repository
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 #SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L|wc -c)
 #remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L|wc -c)
+#/test repository
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ] ; then
  local_count=$(wc -c < "easyinstall.sh")
 else
@@ -101,6 +103,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   if [ -e /bin/apt-cyg ] ; then
    :
   else
+   #/cygwin repository
    curl -s -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
    install apt-cyg /bin
   fi #ls /bin
@@ -143,12 +146,14 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh undying.sh"
   SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh"
   cd ~/twm
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/play.sh -s -L -O
+  #/final repository
   #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L -O
   #curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '1,126p' >twm.sh
   #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '1,124p' >twm.sh
+  #/test repository
+  curl ${SERVER}play.sh -s -L -O
+  curl ${SERVER}sourceinstall.sh -s -L -O
+  curl ${SERVER}twm.sh -s -L|sed -n '1,127p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
   for script in $SCRIPTS ; do
@@ -167,14 +172,14 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #    curl -s -L "$SERVER/$script" >> twm.sh
 #   else
 #    printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
-    curl https://raw.githubusercontent.com/sharesourcecode/twm/master/${script} -s -L >>twm.sh
-    #curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L >>twm.sh
+    curl ${SERVER}${script} -s -L >>twm.sh #test repository
+    #curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L >>twm.sh #final repository
     printf "\n#\n" >>twm.sh
 #   fi
    sleep 0.1s
   done
-  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twm.sh -s -L|sed -n '133,196p' >>twm.sh
-  #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh
+  curl ${SERVER}twm.sh -s -L|sed -n '134,197p' >>twm.sh #test repository
+  #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh #final repository
   case $(uname -o) in
   (Android)
    :
@@ -224,7 +229,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
  cd ~/
+ #/test repository
  curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L -O
+ #/codberg repository
  #curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L -O
  chmod +x easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun:${COLOR_RESET} ${GOLD_BLACK}./easyinstall.sh${COLOR_RESET}\n"
