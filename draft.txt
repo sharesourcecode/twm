@@ -1,0 +1,8 @@
+printf " ##### Titan #####\n" > $TMP/msg_file
+  
+  (w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" > source.html
+    grep -o "${URL}/images/icon/mana.png" source.html | grep -A 1 "${URL}/images/icon/mana.png" source.html | tail -n 1
+    echo $(grep -A 1 "${URL}/images/icon/mana.png" source.html | tail -n 1) >> $TMP/msg_file
+  ) </dev/null &>/dev/null &
+ time_exit 17
+ 

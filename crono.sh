@@ -56,6 +56,7 @@ func_sleep () {
   printf " No battles now, waiting 15s\n"
   sleep 15s ;;
  (*)
+  check_cave
   reset
   clear
   func_cat
