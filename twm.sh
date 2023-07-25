@@ -125,7 +125,7 @@ time_exit () {
 cd ~/twm
 #sed -n 1,126 /remove sources to easyinstall.sh
 #. clandmgfight.sh
-. requeriments.sh ; . loginlogoff.sh
+. requeriments.sh ; . loginlogoff.sh ; . play.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh

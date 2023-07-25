@@ -131,10 +131,10 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
   read -t 15
- fi #uname -o
+ fi 
  unset LS
- #twm dir
- curl ${SERVER}play.sh -s -L -O
+ 
+ #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
  rm -rf twm/*
