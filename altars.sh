@@ -1,5 +1,19 @@
+#https://furiadetitas.net/altars/enterFight/?r=
 altars_fight () {
  cd $TMP
+ #apply to fight
+(
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/altars/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+) </dev/null &>/dev/null &
+ time_exit 20
+ if grep -o -E '/altars/enterGame/[?]r[=][0-9]+' $TMP/SRC ; then
+APPLY=$(grep -o -E '/altars/enterGame/[?]r[=][0-9]+' $TMP/SRC|sed -n '1p')
+(
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+) </dev/null &>/dev/null &
+time_exit 20
+fi
+
  #/enterFight
  local LA=4 # interval attack
  echo "48" >HPER # % to heal
