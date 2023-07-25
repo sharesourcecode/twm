@@ -177,7 +177,7 @@ messages_info () {
     health= (grep -A 1 "${url}${health}" results.html | tail -n 1)
     printf {Mana: $health\n}
 
- printf " ##### mail #####\n" > $TMP/msg_file
+ printf " ##### mail #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
