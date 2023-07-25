@@ -124,14 +124,14 @@ time_exit () {
 }
 #/sources
 cd ~/twm
-#sed -n 1,126 /remove sources to easyinstall.sh
+#sed -n 1,127 /remove sources to easyinstall.sh
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh 
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
-#sed -n 133,196 /remove sources to easyinstall.sh
+#sed -n 134,197 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
