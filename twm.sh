@@ -167,7 +167,8 @@ fi
 requer_func
 func_proxy
 messages_info () {
- printf " ##### mail #####\n" > $TMP/msg_file
+  printf "---- Titans War Macro ${version} -----" > $TMP/msg_file
+ printf " ##### mail #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
