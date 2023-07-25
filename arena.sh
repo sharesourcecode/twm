@@ -111,16 +111,17 @@ arena_duel () {
  time_exit 17
  local BREAK=$(( $(date +%s) + 60 ))
  until grep -q -o 'lab/wizard' $TMP/SRC || [ $(date +%s) -gt "$BREAK" ] ; do
+  icon=$(grep -q -o -A 1 "/images/icon/race/0.png" $TMP/SRC|sed -n '1p')
   local ACCESS=$(grep -o -E '(/arena/attack/1/[^A-Za-z0-9]r[^A-Za-z0-9][0-9]+)' $TMP/SRC|sed -n '1p') #/arena/attack/1/1234567*/
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ACCESS}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo " ⚔ $ACCESS"
+  echo " ⚔ $icon"
   sleep 1s
  done
  arena_deleteEnd
- echo -e "arena (✔)\n"
+ echo -e "${GREEN_BLACK}arena (✔)\n${COLOR_RESET}\n"
 }
 arena_fullmana () {
  echo "energy arena ..."
@@ -138,5 +139,5 @@ arena_fullmana () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump "${URL}/arena/lastPlayer/?r=`cat ATK1`&fullmana=true" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n5|tail -n4
  ) </dev/null &>/dev/null &
  time_exit 17
- echo -e "energy arena (✔)\n"
+ echo -e "${GREEN_BLACK}energy arena (✔)${COLOR_RESET}\n"
 }

@@ -7,11 +7,6 @@ cave_start () {
   printf "cave ...\n"
   clan_id
   if [ -n "$CLD" ] ; then
-#   (
-#     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tail -n 0
-#   ) </dev/null &>/dev/null &
-#   time_exit 17
-#   printf "/clan/$CLD/quest/take/5\n"
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/clan/${CLD}/quest/help/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tail -n 0
    ) </dev/null &>/dev/null &
