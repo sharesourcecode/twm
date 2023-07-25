@@ -5,18 +5,8 @@
 
 king_fight () { 
  #apply to fight
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/king/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
- time_exit 20
- if grep -o -E '/king/enterGame/[?]r[=][0-9]+' $TMP/SRC ; then
-APPLY=$(grep -o -E '/king/enterGame/[?]r[=][0-9]+' $TMP/SRC)
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
-time_exit 20
-printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
-fi
+ event=king
+apply_event
 
  #/enterFight
  cd $TMP
@@ -130,6 +120,7 @@ fi
  done
  unset cl_access
  func_unset
+ apply_event
  printf "King (✔)\n"
  sleep 10s
  clear

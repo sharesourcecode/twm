@@ -1,18 +1,8 @@
 flagfight_fight () {
  cd $tmp_ram
  #apply to fight
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/flagfight/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
- time_exit 20
- if grep -o -E '/flagfight/enterGame/[?]r[=][0-9]+' $TMP/SRC ; then
-APPLY=$(grep -o -E '/flagfight/enterGame/[?]r[=][0-9]+' $TMP/SRC)
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
-time_exit 20
-printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
-fi
+ event=flagfight
+apply_event
 
  #/enterFight
  local LA=4 # interval attack
@@ -92,6 +82,7 @@ fi
  rm $src_ram $full_ram
  unset dir_ram tmp_ram src_ram full_ram ACCESS cf_access
  #/end
+ apply_event
  printf "flagfight(✔)\n"
  sleep 10s
  clear

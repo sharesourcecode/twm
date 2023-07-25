@@ -1,19 +1,8 @@
 #https://furiadetitas.net/altars/enterFight/?r=
 altars_fight () {
  cd $TMP
- #apply to fight
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/altars/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
- time_exit 20
- if grep -o -E '/altars/enterGame/[?]r[=][0-9]+' $TMP/SRC ; then
-APPLY=$(grep -o -E '/altars/enterGame/[?]r[=][0-9]+' $TMP/SRC)
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
-time_exit 20
-printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
-fi
+ event=altars
+ apply_event
 
  #/enterFight
  local LA=4 # interval attack
@@ -92,6 +81,7 @@ fi
  unset cf_access _random
  #/end
  func_unset
+ apply_event
  printf "Altars (✔)\n"
  sleep 10s
  clear
@@ -138,4 +128,5 @@ altars_start () {
   altars_fight
   ;;
  esac
+ 
 }

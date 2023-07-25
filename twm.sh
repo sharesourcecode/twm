@@ -67,7 +67,8 @@ script_slogan () {
  m=89
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
- version="Version: 2.1"
+ version="Version: 2.2"
+ #--------------------- version ------------------------#
  for i in $colors ; do
   clear
   t=$((t - 27))
