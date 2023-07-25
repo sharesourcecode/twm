@@ -22,6 +22,7 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -33,6 +34,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -43,6 +45,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -53,6 +56,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -63,6 +67,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -73,6 +78,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -83,16 +89,18 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
   ;;
- (03:30)
+ (03:[3-5][0-9])
   arena_duel
   clanDungeon
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -103,6 +111,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -113,6 +122,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -125,6 +135,7 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  cave_routine
   check_missions
   messages_info
   func_crono
@@ -135,6 +146,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  cave_routine
   check_missions
   messages_info
   func_crono
