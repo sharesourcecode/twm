@@ -129,7 +129,7 @@ cd ~/twm
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
-. trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
+. trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
 #sed -n 133,196 /remove sources to easyinstall.sh
 #/functions
 twm_start () {

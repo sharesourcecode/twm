@@ -27,6 +27,7 @@ for (( i=0 ; i<11 ; i++ )) ; do
     time_exit 20
     printf "${BLACK_YELLOW}Relic collected (✔)${COLOR_RESET}\n"
   fi
+done
 
   (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/reward/[?]r=[0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
@@ -39,6 +40,7 @@ for (( i=0 ; i<11 ; i++ )) ; do
     ) </dev/null &>/dev/null &
     time_exit 20
     printf "${BLACK_YELLOW}Collection collected (✔)${COLOR_RESET}\n"
-done
+  fi
+
 }
 
