@@ -166,6 +166,17 @@ fi
 requer_func
 func_proxy
 messages_info () {
+  printf " ##### Titan #####\n" > $TMP/msg_file
+    mana= "/images/icon/mana[.]png"
+    grep -o "${url}${mana}" results.html 
+    mana= (grep -A 1 "${url}${mana}{4}" results.html | tail -n 1)
+    printf {Mana: $mana\n}
+
+  health= "/images/icon/health[.]png"
+    grep -o "${url}${health}" results.html 
+    health= (grep -A 1 "${url}${health}" results.html | tail -n 1)
+    printf {Mana: $health\n}
+
  printf " ##### mail #####\n" > $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
