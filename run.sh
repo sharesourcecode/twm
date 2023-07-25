@@ -28,6 +28,7 @@ twm_play () {
   ;;
  (00:30)
   arena_duel
+  league
   clanDungeon
   campaign_func
   coliseum_start
