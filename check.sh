@@ -1,7 +1,7 @@
 check_missions () {
 for (( i=0 ; i<10 ; i++ )) ; do
   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/end/${i}[?]r=[0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
  time_exit 20
   if grep -o -E '/quest/end/${i}[?]r=[0-9]+' $TMP/SRC ; then
@@ -16,7 +16,7 @@ done
 
 for (( i=0 ; i<11 ; i++ )) ; do
   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/${i}/[?]r=[0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
  time_exit 20
   if grep -o -E '/relic/reward/${i}/[?]r=[0-9]+' $TMP/SRC ; then
@@ -29,7 +29,7 @@ for (( i=0 ; i<11 ; i++ )) ; do
   fi
 
   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/reward/element/[?]r=[0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/reward/[?]r=[0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
  time_exit 20
   if grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC ; then
