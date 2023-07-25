@@ -1,4 +1,8 @@
 #!/bin/bash
+: '
+The code used in this script is not compatible with the ISH app on the Iphone,
+so it should not be used as an example for other scripts.
+'
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
