@@ -57,6 +57,7 @@ func_sleep () {
   sleep 15s ;;
  (*)
   #check_cave
+  check_missions
   reset
   clear
   func_cat
