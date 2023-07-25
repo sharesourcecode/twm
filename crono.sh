@@ -66,3 +66,15 @@ func_sleep () {
 #  break &>/dev/null
  esac
 }
+standard_crono() {
+  arena_duel
+  extra=$0
+  career_func
+  cave_routine
+  func_trade
+  campaign_func
+  clanDungeon
+  check_missions
+  messages_info
+  func_crono
+}
