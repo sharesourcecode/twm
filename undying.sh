@@ -1,5 +1,19 @@
 undying_fight () {
  cd $TMP
+  #apply to fight
+(
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+) </dev/null &>/dev/null &
+ time_exit 20
+ if grep -o -E '/undying/enterGame/[?]r[=][0-9]+' $TMP/SRC ; then
+APPLY=$(grep -o -E '/undying/enterGame/[?]r[=][0-9]+' $TMP/SRC)
+(
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+) </dev/null &>/dev/null &
+time_exit 20
+printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
+fi
+
  #/enterFight
  local LA=5 # hit interval
  cf_access () {
