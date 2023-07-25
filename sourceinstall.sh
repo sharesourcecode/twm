@@ -134,7 +134,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  fi 
  unset LS
  
- #curl ${SERVER}play.sh -s -L -O
+ curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
  rm -rf twm/*
