@@ -143,8 +143,8 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
-#  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh undying.sh"
-  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh"
+#  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh undying.sh"
+  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh check.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh"
   cd ~/twm
   #/final repository
   #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
