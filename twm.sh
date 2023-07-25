@@ -167,18 +167,11 @@ requer_func
 func_proxy
 messages_info () {
   printf " ##### Titan #####\n" > $TMP/msg_file
+  
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" > source.html
+    grep -o "${URL}/images/icon/2hit[.]png" source.html | grep -A 1 "${URL}/images/icon/2hit[.]png" source.html | tail -n 1
+    echo $(grep -A 1 "${URL}/images/icon/2hit[.]png" source.html | tail -n 1)
 
-    (
-        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/images/icon/mana[.]png" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file |grep -o "${URL}/images/icon/mana[.]png" source.html
-    ) </dev/null &>/dev/null &
-    (
-        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/images/icon/mana[.]png" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file grep -A 1 "${URL}/images/icon/mana[.]png" source.html | tail -n 1
-        ) </dev/null &>/dev/null &
-    time_exit 17
-  #  (
-   #     w3m -cookie -o -A 1 http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/images/icon/health[.]png{1,4}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
-  #  ) </dev/null &>/dev/null &
- #   time_exit 17
  printf " ##### mail #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
