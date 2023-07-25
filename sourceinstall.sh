@@ -134,6 +134,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  fi #uname -o
  unset LS
  #twm dir
+ curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
  rm -rf twm/*
@@ -143,7 +144,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-  cd ~/twm
+  #cd ~/twm
   rm -rf twm/*.sh
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   curl ${SERVER}sourceinstall.sh -s -L -O
