@@ -62,15 +62,16 @@ career_func () {
    time_exit 17
    printf "/clan/$CLD/quest/deleteHelp/6\n"
   fi
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 20
-  local ENDQUEST=$(grep -o -E '/quest/end/16[?]r[=][A_z0-9]+' $TMP/SRC)
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 20
-  printf "${GREEN_BLACK}career (✔)${COLOR_RESET}\n"
- fi
+  
+    (
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    ) </dev/null &>/dev/null &
+    time_exit 20
+    local ENDQUEST=$(grep -o -E '/quest/end/16[?]r[=][A_z0-9]+' $TMP/SRC)
+    (
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    ) </dev/null &>/dev/null &
+    time_exit 20
+    printf "${GREEN_BLACK}career (✔)${COLOR_RESET}\n"
+ 
 }
