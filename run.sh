@@ -58,6 +58,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -76,6 +77,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -85,6 +87,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
