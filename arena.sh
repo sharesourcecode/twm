@@ -1,24 +1,6 @@
 #/arena
 #http://furiadetitas.net/marathon/take/?r=41422587
-sageQuest_openchest () {
- echo "openChest ..."
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source  "${URL}/quest" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 17
- local ACCESS=$(cat $TMP/SRC|sed 's/href=/\n/g'|grep 'quest/openChest'|head -n1|awk -F\' '{ print $2 }')
- local BREAK=$(( $(date +%s) + 15 ))
- while [ -n "$ACCESS" ] || [ $(date +%s) -lt "$BREAK" ] ; do
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ACCESS}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 17
-  echo $ACCESS
-  local ACCESS=$(cat $TMP/SRC|sed 's/href=/\n/g'|grep 'quest/openChest'|head -n1|awk -F\' '{ print $2 }')
-  sleep 1s
- done
- echo -e "openChest (✔)\n"
-}
+
 arena_fault () {
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source  "$URL/fault" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
@@ -134,7 +116,7 @@ arena_duel () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ACCESS}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
-  echo "$ACCESS"
+  echo " ⚔ $ACCESS"
   sleep 1s
  done
  arena_deleteEnd
