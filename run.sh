@@ -22,6 +22,7 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  check_missions
   messages_info
   func_crono
   ;;
@@ -31,6 +32,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -40,6 +42,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -49,6 +52,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -68,6 +72,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -97,6 +102,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -106,6 +112,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -117,15 +124,17 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  check_missions
   messages_info
   func_crono
   ;;
- (05:4[0-2])
+ (05:30)
   arena_duel
   clanDungeon
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -135,6 +144,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -144,6 +154,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -153,6 +164,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -162,6 +174,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -171,6 +184,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -180,6 +194,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -189,6 +204,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -203,6 +219,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -215,6 +232,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -223,6 +241,7 @@ twm_play () {
   if [ -n $CLD ] ; then
    flagfight_start
   fi
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -237,6 +256,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -251,6 +271,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -261,6 +282,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -270,6 +292,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -281,6 +304,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -290,6 +314,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -299,6 +324,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -312,6 +338,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -322,6 +349,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -337,6 +365,7 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -347,6 +376,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -358,6 +388,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -366,6 +397,7 @@ twm_play () {
   if [ -n $CLD ] ; then
    flagfight_start
   fi
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -378,6 +410,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -387,6 +420,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -396,6 +430,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -405,6 +440,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -414,6 +450,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -427,6 +464,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   sleep 300s
@@ -437,6 +475,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -448,6 +487,7 @@ twm_play () {
   career_func
   func_trade
   clan_money
+  check_missions
   messages_info
   func_crono
   ;;
@@ -494,6 +534,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -505,6 +546,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -514,6 +556,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
@@ -533,6 +576,7 @@ twm_play () {
   campaign_func
   coliseum_start
   career_func
+  check_missions
   messages_info
   func_crono
   ;;
