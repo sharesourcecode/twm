@@ -3,7 +3,9 @@
 #/cave/down/?r=54426358 #new search
 #/cave/attack/?r=42724370 #attack cave
 #/cave/runaway/?r=42724370 #runaway cave
-condition_func () {
+
+check_cave () {
+  condition_func () {
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/cave/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
@@ -15,7 +17,6 @@ condition_func () {
    MEGA=$(cat $TMP/SRC|sed 's/src=/\n/g'|grep '/images/icon/silver.png'|grep "'s'"|tail -n 1|grep -o 'M')
   }
   condition_func
-check_cave () {
   local num=6
   case $ACTION in
     (cavechancercavegatherrcavedownr)
