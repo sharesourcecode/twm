@@ -67,7 +67,7 @@ script_slogan () {
  m=89
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
- version="Version 2.4"
+ version="Version 2.5"
  #--------------------- version ------------------------#
  for i in $colors ; do
   clear
@@ -167,7 +167,7 @@ fi
 requer_func
 func_proxy
 messages_info () {
- printf "####   Titans War Macro ${version}   ####\n" > $TMP/msg_file
+ echo "\n ####   Titans War Macro ${version}   ####\n" > $TMP/msg_file
  printf " ##### mail #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
@@ -184,7 +184,7 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- printf "${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')\n" >> $TMP/msg_file
+ printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
