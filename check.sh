@@ -1,48 +1,52 @@
 check_missions () {
-  printf "Checking Missions...\n"
-  (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
+ printf "Checking Missions...\n"
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+ ) </dev/null &>/dev/null &
  time_exit 20
- for (( i=0 ; i<10 ; i++ )) ; do
+ #for (( i=0 ; i<10 ; i++ )) ; do
+ while [ $i -lt 10 ] ; do
   if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
-    click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC)
-    (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    printf "${GREEN_BLACK}Mission Completed (✔)${COLOR_RESET}\n"
+   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC)
+   (
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   ) </dev/null &>/dev/null &
+   time_exit 20
+   printf "${GREEN_BLACK}Mission Completed (✔)${COLOR_RESET}\n"
   fi
-done
+  i=$((i+1))
+ done
 
-  (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+ ) </dev/null &>/dev/null &
  time_exit 20
- for (( i=0 ; i<11 ; i++ )) ; do
+ #for (( i=0 ; i<11 ; i++ )) ; do
+ while [ $i -lt 10 ] ; do
   if grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC ; then
-    click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC)
-    (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    printf "${GREEN_BLACK}Relic collected (✔)${COLOR_RESET}\n"
+   click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC)
+   (
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   ) </dev/null &>/dev/null &
+   time_exit 20
+   printf "${GREEN_BLACK}Relic collected (✔)${COLOR_RESET}\n"
   fi
-done
+  i=$((i+1))
+ done
 
-  (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+ ) </dev/null &>/dev/null &
  time_exit 20
-  if grep -o -E "/collector/reward/element/[?]r=[0-9]+" $TMP/SRC ; then
-    click=$(grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC)
-    (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    printf "${GREEN_BLACK}Collection collected (✔)${COLOR_RESET}\n"
-  fi
-  printf "${GREEN_BLACK}Missions (✔)${COLOR_RESET}\n"
+ if grep -o -E "/collector/reward/element/[?]r=[0-9]+" $TMP/SRC ; then
+  click=$(grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC)
+  (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  ) </dev/null &>/dev/null &
+  time_exit 20
+  printf "${GREEN_BLACK}Collection collected (✔)${COLOR_RESET}\n"
+ fi
+ printf "${GREEN_BLACK}Missions (✔)${COLOR_RESET}\n"
 }
 
 sageQuest_openchest () {
@@ -66,18 +70,17 @@ sageQuest_openchest () {
 }
 
 apply_event () {
-   #apply to fight
-(
+ #apply to fight
+ (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/$event/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
+ ) </dev/null &>/dev/null &
  time_exit 20
  if grep -o -E "/$event/enterGame/[?]r[=][0-9]+" $TMP/SRC ; then
-APPLY=$(grep -o -E "/$event/enterGame/[?]r[=][0-9]+" $TMP/SRC)
-(
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-) </dev/null &>/dev/null &
-time_exit 20
-printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
-fi
-
+  APPLY=$(grep -o -E "/$event/enterGame/[?]r[=][0-9]+" $TMP/SRC)
+  (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  ) </dev/null &>/dev/null &
+  time_exit 20
+  printf "${BLACK_YELLOW}Applied for battle (✔)${COLOR_RESET}\n"
+ fi
 }
