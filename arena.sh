@@ -103,7 +103,7 @@ arena_deleteEnd () {
 arena_duel () {
 # arena_collFight
 # arena_fault
- clear
+# clear
  echo "arena ..."
  arena_takeHelp
  (
