@@ -31,8 +31,8 @@ script_slogan () {
  m=89
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
-  #Change this number for new version...
-  version="Version 2.6.8"
+  #Change this number for new version...........................................................
+  version="Version 2.6.9"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
