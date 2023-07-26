@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...
-  version="Version 2.6.21"
+  version="Version 2.6.3"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -157,9 +157,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
+   remote_count=$(curl ${SERVER}$script -s -L -O) #|wc -c)
    if [ -e ~/twm/$script ] ; then
-    local_count=$(wc -c < "$script")
+    local_count=$("~/twm/$script") #wc -c < 
    else
     local_count=1
    fi
