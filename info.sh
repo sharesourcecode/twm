@@ -4,6 +4,7 @@ The code used in this script is not compatible with the ISH app on the Iphone,
 so it should not be used as an example for other scripts.
 '
 #/Colors - font(formatting)_background
+colors() {
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
 BLACK_GREEN='\033[00;32m\033[01;07m'
@@ -20,10 +21,8 @@ PURPLEi_BLACK='\033[03;34m\033[02;03m'
 PURPLEis_BLACK='\033[03;34m\033[02;04m'
 WHITE_BLACK='\033[37m'
 WHITEb_BLACK='\033[01;38m\033[05;01m'
-if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
- printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
- exit 1
-fi
+}
+
 script_slogan () {
  colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
  t=339
@@ -32,7 +31,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.8.01"
+  version="Version 2.8.02"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
