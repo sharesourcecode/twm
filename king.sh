@@ -6,7 +6,7 @@
 king_fight () { 
  #apply to fight
  event=king
-apply_event
+  apply_event
 
  #/enterFight
  cd $TMP

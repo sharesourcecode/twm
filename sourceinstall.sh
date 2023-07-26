@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...
-  version="Version 2.6.2"
+  version="Version 2.6.21"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -163,9 +163,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
    else
     local_count=1
    fi
-   if [ -e ~/twm/$script ] && [ "$remote_count" -nt "$local_count" ] ; then
+   if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] && [ "$remote_count" -nt "$local_count" ]; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
-   elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
+   elif [ -e ~/twm/$script ] && [ "$remote_count" -nt "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
     rm -rf twm/$script
     curl ${SERVER}$script -s -L > $script
