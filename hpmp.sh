@@ -10,11 +10,7 @@ hpmp () {
  FIXMP=$(grep -o -E '[[:alpha:]]+: [0-9]{1,5}' $TMP/SRC|grep -m5 -o -E '[0-9]{1,5}'|sed -n '5p')
 
  #alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- #Go to any page
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 20
+ #Search from an existing source
  STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+)
 
  #Variable HP and MP
