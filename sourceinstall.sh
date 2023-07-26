@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...
-  version="Version 2.6.6"
+  version="Version 2.6"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -58,13 +58,10 @@ script_slogan () {
  done
 }
 mkdir -p ~/twm ; cd ~/twm
-#/final repository
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-#SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-#remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
-#/test repository
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -109,7 +106,6 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   if [ -e /bin/apt-cyg ] ; then
    :
   else
-   #/cygwin repository
    curl -q -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
    install apt-cyg /bin
   fi #ls /bin
@@ -146,7 +142,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
- #rm -rf twm/*.sh
+ rm -rf twm/*
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
@@ -154,7 +150,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh check.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
   #cd ~/twm
-  #rm -rf twm/*.sh
+  rm -rf twm/*.sh
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   curl ${SERVER}sourceinstall.sh -s -L -O
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
@@ -167,11 +163,10 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
    else
     local_count=1
    fi
-   if [ -e ~/twm/$script ] && [ "$remote_count" -nt "$local_count" ] ; then
+   if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
-    rm -rf twm/$script
     curl ${SERVER}$script -s -L > $script
    else
     printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
@@ -215,13 +210,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- cd ~/
- #/test repository
- curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L -O|tee $HOME/twm/sourceinstall.sh
- curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L -O
- #/codberg repository
- #curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L -O|tee $HOME/twm/sourceinstall.sh
- #curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L -O
- chmod +x $HOME/sourceinstall.sh ; chmod +x $HOME/easyinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ chmod +x $HOME/sourceinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L >$HOME/easyinstall.sh
+ chmod +x $HOME/easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
-fi #$(curl -s -L .
+fi #$(curl -s -L ...
