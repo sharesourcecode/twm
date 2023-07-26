@@ -58,13 +58,10 @@ script_slogan () {
  done
 }
 mkdir -p ~/twm ; cd ~/twm
-#/final repository
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-#SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-#remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
-#/test repository
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -109,7 +106,6 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   if [ -e /bin/apt-cyg ] ; then
    :
   else
-   #/cygwin repository
    curl -q -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
    install apt-cyg /bin
   fi #ls /bin
