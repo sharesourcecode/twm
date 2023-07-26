@@ -2,6 +2,7 @@
 . $HOME/info.sh
 colors
 script_slogan
+
 if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
  printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
@@ -13,7 +14,7 @@ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base6
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/' #link master
 
-: ' Compare the source local with the cloud
+: ' #Compare the source local with the cloud
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L|wc -c)
 #printf "$remote_count \n"
 if [ -e "sourceinstall.sh" ] ; then

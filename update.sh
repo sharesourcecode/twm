@@ -2,6 +2,8 @@
 clear
 BLACK_CYAN='\033[01;36m\033[01;07m'
 BLACK_GREEN='\033[00;32m\033[01;07m'
+GOLD_BLACK='\033[33m'
+CYAN_BLACK='\033[36m'
 COLOR_RESET='\033[00m'
 version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
@@ -18,17 +20,17 @@ version="Beta-Teste"
 version="backup"
 esac
 echo $version
-printf "${BLACK_CYAN} Upgrading...👉 Please wait...☕👴${COLOR_RESET}\n"
+printf "${CYAN_BLACK} Upgrading...👉 Please wait...☕👴${COLOR_RESET}\n"
 cd ~/
 rm -rf $HOME/sourceinstall.sh
 rm -rf $HOME/easyinstall.sh
 rm -rf $HOME/info.sh
 #sleep 0.5s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -L -O >$HOME/info.sh
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
 sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -L -O >$HOME/sourceinstall.sh
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -s -L -O >$HOME/sourceinstall.sh
 sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/easyinstall.sh -L -O >$HOME/easyinstall.sh
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/easyinstall.sh -s -L -O >$HOME/easyinstall.sh
 sleep 1s
 chmod +x $HOME/*.sh
 printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"
