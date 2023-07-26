@@ -13,48 +13,29 @@ career_func () {
    time_exit 17
    echo "/clan/${CLD}/quest/help/6"
   fi
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 17
-  echo '/career/'
-  local CAREER=$(grep -o -E '/career/(attack|take)/[?][r][=][0-9]+' $TMP/SRC|head -n 1)
-  local ATTACK=0
-  local BREAK=$(( $(date +%s) + 30 ))
-  until [ -z "$CAREER" ] || [ $(date +%s) -gt "$BREAK" ] ; do
-   case $CAREER in
-   (*attack*)
-    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${CAREER}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 17
-    echo " ⚔ $CAREER"
+
+(
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+ ) </dev/null &>/dev/null &
+ time_exit 20
+ if grep -q -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC ; then
+    #/'=\\\&apos
     local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
-    local ATTACK=$((ATTACK + 1))
-    ;;
-   (*take*)
-    if [ "$ATTACK" -gt 8 ] && [ "$ATTACK" -lt 13 ] ; then
-     (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${CAREER}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-     ) </dev/null &>/dev/null &
-     time_exit 17
-     echo " ⚔ $CAREER"
-    fi
-    if [ "$ATTACK" -gt 13 ] ; then
-     (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${CAREER}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-     ) </dev/null &>/dev/null &
-     time_exit 17
-     echo " ⚔ $CAREER"
-     (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${CAREER}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-     ) </dev/null &>/dev/null &
-     time_exit 17
-     echo " ⚔ $CAREER"
-    fi
-    ;;
-   esac
-  done
+    local BREAK=$(( $(date +%s) + 60 ))
+    while [ -n "$CAMPAIGN" ] && [ $(date +%s) -lt "$BREAK" ] ; do
+        case $CAMPAIGN in
+        (*attack*|*take*)
+            (
+            w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAREER" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+            ) </dev/null &>/dev/null &
+            time_exit 20
+            echo "$CAMPAIGN"
+            local CAMPAIGN=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
+            ;;
+        esac
+    done
+  fi
+
   if [ -n "$CLD" ] ; then
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/deleteHelp/6" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null

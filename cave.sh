@@ -119,7 +119,13 @@ echo "Cave..."
     ) </dev/null &>/dev/null &
     time_exit 20
     echo "$CAVE"
-    local CAVE=$(grep -o -E '/cave/runaway/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
+    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
+    (
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAVE" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+    ) </dev/null &>/dev/null &
+    time_exit 20
+    echo "$CAVE"
+    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
     ;;
     (*gather*|*down*|*runaway*) #attack removed
     (
