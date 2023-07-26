@@ -59,9 +59,9 @@ script_slogan () {
 }
 mkdir -p ~/twm ; cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/'
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/sourceinstall.sh -s -L|wc -c)
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -210,9 +210,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
  chmod +x $HOME/sourceinstall.sh
- curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/easyinstall.sh -s -L >$HOME/easyinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L >$HOME/easyinstall.sh
  chmod +x $HOME/easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
 fi #$(curl -s -L ...
