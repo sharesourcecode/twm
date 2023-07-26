@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.6.9.2"
+  version="Version 2.6.9.3"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -61,14 +61,14 @@ mkdir -p ~/twm ; cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L -O|wc -c)
-#printf "$remote_count \n"
-#if [ -e "sourceinstall.sh" ] ; then
- #local_count=$(wc -c < "sourceinstall.sh")
- #printf "$local_count \n"
-#else
- #local_count=1
-#fi
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L|wc -c)
+printf "$remote_count \n"
+if [ -e "sourceinstall.sh" ] ; then
+ local_count=$(wc -c < "sourceinstall.sh")
+ printf "$local_count \n"
+else
+ local_count=1
+fi
 #if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
  printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
@@ -140,32 +140,28 @@ remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-T
   read -t 15
  fi 
  unset LS
- 
- #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
- #rm -rf twm/*
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
+
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
-#  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh check.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-  #rm -rf twm/*.sh
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
+  #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   #curl ${SERVER}sourceinstall.sh -s -L -O
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
+  #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
+   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
    printf $remote_count
-   #if [ -e ~/twm/$script ] ; then
+   if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
     printf $local_count
-   #else
-    #local_count=1
-   #fi
+   else
+    local_count=1
+   fi
    if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
