@@ -20,7 +20,9 @@ echo $version
 printf "${BLACK_CYAN} Upgrading...👉 Please wait...☕👴${COLOR_RESET}\n"
 cd ~/
 rm -rf $HOME/sourceinstall.sh
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+#sleep 0.5s
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -L -O >$HOME/sourceinstall.sh
+sleep 2s
 chmod +x $HOME/sourceinstall.sh
 printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"
 ./sourceinstall.sh
