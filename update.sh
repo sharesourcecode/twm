@@ -24,11 +24,11 @@ rm -rf $HOME/easyinstall.sh
 rm -rf $HOME/info.sh
 #sleep 0.5s
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -L -O >$HOME/info.sh
-sleep 2s
+sleep 1s
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -L -O >$HOME/sourceinstall.sh
-sleep 2s
+sleep 1s
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/install.sh -L -O >$HOME/sourceinstall.sh
-sleep 2s
+sleep 1s
 chmod +x $HOME/*.sh
 printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"
 ./sourceinstall.sh
