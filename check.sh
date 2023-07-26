@@ -10,7 +10,8 @@ check_missions () {
    printf "${GREEN_BLACK}Chest opened (✔)${COLOR_RESET}\n"
   fi
 #collect quests
- while [ $i=0 -lt 10 ] ; do
+i=0
+ while [ $i -lt 10 ] ; do
   if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC)
    (
@@ -26,8 +27,8 @@ check_missions () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
- 
- while [ $i=0 -lt 11 ] ; do
+ i=0
+ while [ $i -lt 11 ] ; do
   if grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC)
    (
