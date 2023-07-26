@@ -1,5 +1,8 @@
 #!/bin/sh
-cd ~/
+. $HOME/info.sh
+colors
+script_slogan
+echo "" && echo "$yellow [$green+$red]$reset Installer script for TWM."
 #/final repository
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 #SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
