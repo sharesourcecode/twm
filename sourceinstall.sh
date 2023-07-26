@@ -157,9 +157,9 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L -O) #|wc -c)
+   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
    if [ -e ~/twm/$script ] ; then
-    local_count=$("~/twm/$script") #wc -c < 
+    local_count=$("~/twm/$script" wc -c < )
    else
     local_count=1
    fi
