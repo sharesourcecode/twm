@@ -67,7 +67,7 @@ script_slogan () {
  m=89
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
- version="Version 2.6"
+ version="Version 2.6.1"
  #--------------------- version ------------------------#
  for i in $colors ; do
   clear
@@ -185,6 +185,12 @@ messages_info () {
  time_exit 17
 # sed :a;N;s/\n//g;ta |
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
+ 
+ printf "Press 'Q' to Quit"
+ read QUIT
+if [ $QUIT = Q ] ; then
+ kill -9 $$
+fi
 }
 login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then

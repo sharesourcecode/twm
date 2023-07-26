@@ -420,7 +420,7 @@ twm_play () {
   arena_duel
   clanDungeon
   campaign_func
-  coliseum_start
+  #coliseum_start
   career_func
   cave_routine
   check_missions

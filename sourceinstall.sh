@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...
-  version="Version 2.6"
+  version="Version 2.6.1"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -142,7 +142,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
- rm -rf twm/*
+ #rm -rf twm/*.sh
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
@@ -163,10 +163,11 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
    else
     local_count=1
    fi
-   if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
+   if [ -e ~/twm/$script ] && [ "$remote_count" -nt "$local_count" ] ; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
+    rm -rf twm/$script
     curl ${SERVER}$script -s -L > $script
    else
     printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
