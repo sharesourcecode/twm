@@ -61,15 +61,15 @@ mkdir -p ~/twm ; cd ~/twm
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
-printf "$remote_count \n"
-if [ -e "sourceinstall.sh" ] ; then
- local_count=$(wc -c < "sourceinstall.sh")
- printf "$local_count \n"
-else
- local_count=1
-fi
-if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+remote_count=$(curl ${SERVER}sourceinstall.sh -L -O|wc -c)
+#printf "$remote_count \n"
+#if [ -e "sourceinstall.sh" ] ; then
+ #local_count=$(wc -c < "sourceinstall.sh")
+ #printf "$local_count \n"
+#else
+ #local_count=1
+#fi
+#if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
  printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
@@ -211,10 +211,10 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
    ~/twm/play.sh -boot
   fi
  fi #-f ~/twm/RUNMODE
-else #$(curl -s -L ...
- curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
- chmod +x $HOME/sourceinstall.sh
- curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/easyinstall.sh -s -L >$HOME/easyinstall.sh
- chmod +x $HOME/easyinstall.sh
- printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
-fi #$(curl -s -L ...
+#else #$(curl -s -L ...
+ #curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ #chmod +x $HOME/sourceinstall.sh
+ #curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Test/easyinstall.sh -s -L >$HOME/easyinstall.sh
+# chmod +x $HOME/easyinstall.sh
+ #printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
+#fi #$(curl -s -L ...
