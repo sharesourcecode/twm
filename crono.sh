@@ -56,8 +56,6 @@ func_sleep () {
   printf " No battles now, waiting 15s\n"
   sleep 15s ;;
  (*)
-  #check_cave
-  #check_missions
   reset
   clear
   func_cat
@@ -65,16 +63,4 @@ func_sleep () {
   sleep 30s ;;
 #  break &>/dev/null
  esac
-}
-standard_crono() {
-  arena_duel
-  
-  career_func
-  cave_routine
-  func_trade
-  campaign_func
-  clanDungeon
-  check_missions
-  messages_info
-  func_crono
 }

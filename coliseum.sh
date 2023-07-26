@@ -149,7 +149,7 @@ coliseum_fight () {
   #/end
   func_unset
   if awk -v smodplay="$RUN" -v rmodplay="-cl" 'BEGIN { exit !(smodplay != rmodplay) }' ; then printf "\nYou can run ./twm/play.sh -cl\n" ; fi
-   printf "${GREEN_BLACK}Coliseum (✔)${COLOR_RESET}\n"
+   printf "Coliseum (✔)\n"
  else
   printf "${WHITEb_BLACK}It was not possible to start the battle at this time.${COLOR_RESET}\n"
  fi

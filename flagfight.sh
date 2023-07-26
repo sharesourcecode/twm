@@ -1,9 +1,5 @@
 flagfight_fight () {
  cd $tmp_ram
- #apply to fight
- event=flagfight
-apply_event
-
  #/enterFight
  local LA=4 # interval attack
  local HPER=48 # % to heal
@@ -82,7 +78,6 @@ apply_event
  rm $src_ram $full_ram
  unset dir_ram tmp_ram src_ram full_ram ACCESS cf_access
  #/end
- apply_event
  printf "flagfight(✔)\n"
  sleep 10s
  clear

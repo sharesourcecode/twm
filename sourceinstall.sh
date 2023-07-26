@@ -31,6 +31,7 @@ script_slogan () {
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
+ collaborator="@_hviegas"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -51,7 +52,7 @@ script_slogan () {
     ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
         ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
   sleep 0.3
  done
 }

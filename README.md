@@ -36,33 +36,21 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
-```
->Iphone(iSH):
-```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
 
->Android(UserLAnd):
-```bash
-chmod +x sourceinstall.sh
-```
->Iphone(iSH):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copie e cole este comando para instalar o twm
 
->Android(UserLAnd):
-```bash
-./sourceinstall.sh
-```
->Iphone(iSH):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
 ./easyinstall.sh
 ```
@@ -107,24 +95,24 @@ _[Vídeo Tutorial](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0
 * Para múltiplas opções (Y/I/N/O/D/Z) apenas pressione ENTER para prosseguir.
 
 ```bash
-pkg update -y ; pkg upgrade
+pkg update -y
 ```
 Também:
 ```bash
-pkg install w3m termux-api procps coreutils ncurses-utils 
+pkg upgrade
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x easyinstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./sourceinstall.sh
+./easyinstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
@@ -278,7 +266,7 @@ https://link.mercadopago.com.br/titanswarmacro
 git clone https://github.com/sharesourcecode/twm.git
 ```
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>O código deve ser compatível principalmente com sh(#!/bin/sh). >Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
 >Após aprovado, será aplicado com os devidos créditos(inclusive no slogan) em https://gitea.com/Ueliton/twm.git para os usuários finais.

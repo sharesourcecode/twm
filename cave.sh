@@ -7,6 +7,11 @@ cave_start () {
   printf "cave ...\n"
   clan_id
   if [ -n "$CLD" ] ; then
+#   (
+#     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/take/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tail -n 0
+#   ) </dev/null &>/dev/null &
+#   time_exit 17
+#   printf "/clan/$CLD/quest/take/5\n"
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/clan/${CLD}/quest/help/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tail -n 0
    ) </dev/null &>/dev/null &
@@ -81,6 +86,11 @@ cave_start () {
    ) </dev/null &>/dev/null &
    time_exit 17
    printf "/clan/${CLD}/quest/deleteHelp/5\n"
+#   (
+#    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/quest/end/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | tail -n 0
+#   ) </dev/null &>/dev/null &
+#   time_exit 17
+#   printf "/clan/${CLD}/quest/end/5\n"
   fi
   if awk -v smodplay="$RUN" -v rmodplay="-cv" 'BEGIN { exit !(smodplay != rmodplay) }' ; then
    printf "\nYou can run ./twm/play.sh -cv\n"
@@ -100,43 +110,4 @@ cave_start () {
   printf "cave (✔)\n"
   unset ACCESS1 ACCESS2 ACTION DOWN MEGA
  done
-}
-cave_routine () {
-echo "Cave..."
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/cave/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 20
- if grep -q -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC ; then #attack removed
-  #/'=\\\&apos
-  local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
-  #local BREAK=$(( $(date +%s) + 60 ))
-  #while [ -n "$CAVE" ] && [ $(date +%s) -lt "$BREAK" ] ; do
-   case $CAVE in
-   (*runaway*) #attack removed
-    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAVE" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    echo "$CAVE"
-    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
-    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAVE" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    echo "$CAVE"
-    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
-    ;;
-    (*gather*|*down*|*runaway*) #attack removed
-    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAVE" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-    ) </dev/null &>/dev/null &
-    time_exit 20
-    echo "$CAVE"
-    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
-    ;;
-   esac
-  #done
-  fi
-  echo -e "${GREEN_BLACK}Cave (✔)${COLOR_RESET}\n"
 }

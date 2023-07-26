@@ -1,9 +1,5 @@
 undying_fight () {
  cd $TMP
- #/apply to fight
- event=undying
- apply_event
-
  #/enterFight
  local LA=5 # hit interval
  cf_access () {
@@ -43,7 +39,6 @@ undying_fight () {
  unset cf_access
  #/end
  func_unset
- apply_event
  printf "Undying (✔)\n"
  sleep 15s
  #/clear bag
@@ -60,7 +55,6 @@ undying_start () {
   while $(case $(date +%M) in (58) exit 1 ;; esac) ; do
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm:%Ss)"
    sleep 1s
-   clear
   done
   arena_takeHelp
   arena_fullmana

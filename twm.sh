@@ -35,8 +35,8 @@ if [ ! -z "$RUN" ] ; then
  :
 else
  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
- SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
- remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+ SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+ remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
   local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
  else
@@ -50,7 +50,7 @@ else
    exit 1
   else
    rm $HOME/twm/easyinstall.s*
-   curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+   curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
    rm $HOME/easyinstall.s*
    cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
    SYNC=1
@@ -66,9 +66,6 @@ script_slogan () {
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
- collaborator="@_hviegas"
- version="Version 2.6.2"
- #--------------------- version ------------------------#
  for i in $colors ; do
   clear
   t=$((t - 27))
@@ -89,7 +86,7 @@ script_slogan () {
   ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
   ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${i}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}${COLOR_RESET}\n"
   sleep 0.3s
  done
 }
@@ -124,14 +121,14 @@ time_exit () {
 }
 #/sources
 cd ~/twm
-#sed -n 1,127 /remove sources to easyinstall.sh
+#sed -n 1,124 /remove sources to easyinstall.sh
 #. clandmgfight.sh
-. requeriments.sh ; . loginlogoff.sh 
+. requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
-. trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
-#sed -n 134,197 /remove sources to easyinstall.sh
+. trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh
+#sed -n 131,194 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
@@ -167,8 +164,7 @@ fi
 requer_func
 func_proxy
 messages_info () {
- echo " ⚔️  Titans War Macro - ${version}  ⚔️ " > $TMP/msg_file
- printf " ##### mail #####\n" >> $TMP/msg_file
+ printf " ##### mail #####\n" > $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
@@ -184,7 +180,7 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
+ printf "${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')\n" >> $TMP/msg_file
 }
 login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then

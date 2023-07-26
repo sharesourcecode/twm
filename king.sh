@@ -2,15 +2,10 @@
 #/king/attack/?r=0
 #/king/attackrandom/?r=0
 #/king/?out_gate
-
-king_fight () { 
- #apply to fight
- event=king
-  apply_event
-
+king_fight () {
  #/enterFight
  cd $TMP
- local LA=4 # interval attack
+ local LA=3 # interval attack
  local HPER="38" # % to heal
  local RPER=5 # % to random
  cl_access () {
@@ -120,7 +115,6 @@ king_fight () {
  done
  unset cl_access
  func_unset
- apply_event
  printf "King (✔)\n"
  sleep 10s
  clear

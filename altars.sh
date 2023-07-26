@@ -1,9 +1,5 @@
-#https://furiadetitas.net/altars/enterFight/?r=
 altars_fight () {
  cd $TMP
- event=altars
- apply_event
-
  #/enterFight
  local LA=4 # interval attack
  echo "48" >HPER # % to heal
@@ -81,7 +77,6 @@ altars_fight () {
  unset cf_access _random
  #/end
  func_unset
- apply_event
  printf "Altars (✔)\n"
  sleep 10s
  clear
@@ -128,5 +123,4 @@ altars_start () {
   altars_fight
   ;;
  esac
- 
 }
