@@ -6,11 +6,14 @@ if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
  printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
  exit 1
 fi
-
+#create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
-TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
+
+#TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
-#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/' #link master
+
+: ' Compare the source local with the cloud
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L|wc -c)
 #printf "$remote_count \n"
 if [ -e "sourceinstall.sh" ] ; then
@@ -20,6 +23,8 @@ else
  local_count=1
 fi
 #if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+'
+
  printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
@@ -104,7 +109,7 @@ fi
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
+   remote_count=$(curl ${SERVER}$script -L|wc -c)
    #printf $remote_count
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
