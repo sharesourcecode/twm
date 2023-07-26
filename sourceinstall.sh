@@ -1,4 +1,5 @@
 #!/bin/bash
+REPO=$1
 : '
 The code used in this script is not compatible with the ISH app on the Iphone,
 so it should not be used as an example for other scripts.
@@ -30,9 +31,6 @@ script_slogan () {
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
- collaborator="@_hviegas"
-  #Change this number for new version...
-  version="Version 2.6.21"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -53,18 +51,21 @@ script_slogan () {
     ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
         ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${colors[i]}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${colors[i]}m${author}${COLOR_RESET}\n"
   sleep 0.3
  done
 }
 mkdir -p ~/twm ; cd ~/twm
-#/final repository
-TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-#SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
-#remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
-#/test repository
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+if echo "$REPO"|grep -q -E '[-]test' ; then
+ #/test repository
+ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+ remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+else
+ #/final repository
+ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
+ SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+ remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L|wc -c)
+fi
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
 else
@@ -140,29 +141,28 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
   read -t 15
- fi
+ fi #uname -o
  unset LS
-# curl ${SERVER}play.sh -s -L -O
+ #twm dir
  mkdir -p ~/twm
  cd ~/twm
-# rm -rf $HOME/twm/*.sh
+ rm -rf twm/*
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
-  SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
-#  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh check.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh)
+  SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-#  cd ~/twm
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-  curl ${SERVER}sourceinstall.sh -s -L -O
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
+  cd ~/twm
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS ${script}\n"
-   #/test repository
-   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
-   #/final repository
-#   remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L|wc -c)
+   if echo "$REPO"|grep -q -E '[-]test' ; then
+    #/test repository
+    remote_count=$(curl ${SERVER}$script -s -L|wc -c)
+   else
+    #/final repository
+    remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L|wc -c)
+   fi
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
    else
@@ -172,16 +172,22 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
-    #/test repository
-    curl ${SERVER}$script -s -L > $script
-    #/final repository
-#    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
+    if echo "$REPO"|grep -q -E '[-]test' ; then
+     #/test repository
+     curl ${SERVER}$script -s -L > $script
+    else 
+     #/final repository
+     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
+    fi 
    else
     printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
-    #/test repository
-    curl ${SERVER}$script -s -L -O
-    #/final repository
-#    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O
+    if echo "$REPO"|grep -q -E '[-]test' ; then
+     #/test repository
+     curl ${SERVER}$script -s -L -O
+    else 
+     #/final repository
+     curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O
+    fi
    fi
    sleep 0.1s
   done
@@ -220,13 +226,16 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   fi
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
- cd ~/
- #/test repository
- curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L -O|tee $HOME/twm/sourceinstall.sh
- curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L -O
- #/codberg repository
- #curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L -O|tee $HOME/twm/sourceinstall.sh
- #curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L -O
- chmod +x $HOME/sourceinstall.sh ; chmod +x $HOME/easyinstall.sh
+ if echo "$REPO"|grep -q -E '[-]test' ; then
+  #/test repository
+  curl ${SERVER}sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+  curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+ else 
+  #/final repository
+  curl https://codeberg.org/ueliton/auth/raw/branch/main/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+  curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L >$HOME/easyinstall.sh
+ fi
+ chmod +x $HOME/sourceinstall.sh
+ chmod +x $HOME/easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
-fi #$(curl -s -L .
+fi #$(curl -s -L ...
