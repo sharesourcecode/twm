@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.6.9.1"
+  version="Version 2.6.9.2"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -144,7 +144,7 @@ remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-T
  #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
- rm -rf twm/*
+ #rm -rf twm/*
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
@@ -160,12 +160,12 @@ remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-T
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
    remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
    printf $remote_count
-   if [ -e ~/twm/$script ] ; then
+   #if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
     printf $local_count
-   else
-    local_count=1
-   fi
+   #else
+    #local_count=1
+   #fi
    if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
