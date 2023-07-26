@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/info.sh
+. ~/info.sh
 colors
 script_slogan
 

@@ -1,7 +1,9 @@
 #!/bin/bash
+. /info.sh
+color
 RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
-. /info.sh
+
 script_ads () {
  if [ "$RUN" != '-boot' ] && [ -f "$HOME/twm/ads_file" ] && [ -s "$HOME/twm/ads_file" ] && [ "$(cat $HOME/twm/ads_file)" != "$(date +%d)" ] ; then
   if [ "$(cat $HOME/twm/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
@@ -14,6 +16,7 @@ script_ads () {
 }
 script_ads
 #/sync
+: ' comparing local package
 if [ ! -z "$RUN" ] ; then
  :
 else
@@ -42,7 +45,9 @@ else
   fi
  fi
 fi
+'
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
+. /info.sh
 script_slogan
 sleep 1s
 #/termux

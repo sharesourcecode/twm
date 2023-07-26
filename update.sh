@@ -20,7 +20,7 @@ version="Beta-Teste"
 version="backup"
 esac
 echo $version
-printf "${CYAN_BLACK} Upgrading...👉 Please wait...☕👴${COLOR_RESET}\n"
+printf "${CYAN_BLACK} 🔁Upgrading... Please wait...${COLOR_RESET}\n"
 cd ~/
 rm -rf $HOME/sourceinstall.sh
 rm -rf $HOME/easyinstall.sh
