@@ -142,25 +142,27 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   read -t 15
  fi
  unset LS
- #curl ${SERVER}play.sh -s -L -O
+# curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
- #rm -rf twm/*.sh
+# rm -rf $HOME/twm/*.sh
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
 #  SCRIPTS=(requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh check.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-  #cd ~/twm
-  #rm -rf twm/*.sh
+#  cd ~/twm
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
   curl ${SERVER}sourceinstall.sh -s -L -O
 #  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
-   printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
+   printf "Checking $((i+1))/$NUM_SCRIPTS ${script}\n"
+   #/test repository
+   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
+   #/final repository
+#   remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L|wc -c)
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
    else
@@ -170,15 +172,19 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
-    rm -rf twm/$script
+    #/test repository
     curl ${SERVER}$script -s -L > $script
+    #/final repository
+#    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L > $script
    else
     printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
+    #/test repository
     curl ${SERVER}$script -s -L -O
+    #/final repository
+#    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L -O
    fi
    sleep 0.1s
   done
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|tail -n 104 >>twm.sh
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
