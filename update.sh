@@ -2,9 +2,10 @@
 BLACK_CYAN='\033[01;36m\033[01;07m'
 BLACK_GREEN='\033[00;32m\033[01;07m'
 COLOR_RESET='\033[00m'
+version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
 printf "Select the version: "
-read -t 1 version
+read -t 5 version
 case $version in
 (1)
 version="master"
