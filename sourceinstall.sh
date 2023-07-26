@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...
-  version="Version 2.6.03"
+  version="Version 2.6.21"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -140,9 +140,8 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
   sleep 5s
   read -t 15
- fi 
+ fi
  unset LS
- 
  #curl ${SERVER}play.sh -s -L -O
  mkdir -p ~/twm
  cd ~/twm
@@ -161,13 +160,13 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
-   remote_count=$(curl ${SERVER}$script -s -L -O) #|wc -c)
+   remote_count=$(curl ${SERVER}$script -s -L -O|wc -c)
    if [ -e ~/twm/$script ] ; then
-    local_count=$("~/twm/$script") #wc -c < 
+    local_count=$(wc -c < "$script")
    else
     local_count=1
    fi
-   if [ -e ~/twm/$script ] && [ "$remote_count" -nt "$local_count" ] ; then
+   if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
     printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
    elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
     printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
