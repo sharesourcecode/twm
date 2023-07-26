@@ -1,6 +1,6 @@
 #!/bin/bash
-. /info.sh
-color
+. $HOME/info.sh
+colors
 RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
 
@@ -47,7 +47,7 @@ else
 fi
 '
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
-. /info.sh
+. $HOME/info.sh
 script_slogan
 sleep 1s
 #/termux
