@@ -140,7 +140,7 @@ twm_play () {
   messages_info
   func_crono
   ;;
- (05:30)
+ (05:[23][89])
   arena_duel
   clanDungeon
   campaign_func

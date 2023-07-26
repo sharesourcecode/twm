@@ -155,10 +155,10 @@ fi
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
    remote_count=$(curl ${SERVER}$script -s -L|wc -c)
-   printf $remote_count
+   #printf $remote_count
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
-    printf $local_count
+    #printf $local_count
    else
     local_count=1
    fi
