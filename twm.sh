@@ -1,7 +1,7 @@
 #!/bin/bash
 RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
-
+. /info.sh
 script_ads () {
  if [ "$RUN" != '-boot' ] && [ -f "$HOME/twm/ads_file" ] && [ -s "$HOME/twm/ads_file" ] && [ "$(cat $HOME/twm/ads_file)" != "$(date +%d)" ] ; then
   if [ "$(cat $HOME/twm/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then

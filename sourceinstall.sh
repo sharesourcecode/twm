@@ -1,4 +1,6 @@
 #!/bin/bash
+cd ~/
+. /info.sh
 colors
 if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
  printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
