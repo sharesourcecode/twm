@@ -11,7 +11,7 @@ hpmp () {
 
  #alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
  #Search from an existing source
- STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+)
+ STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+')
 
  #Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
