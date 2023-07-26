@@ -32,7 +32,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.6.9.3"
+  version="Version 2.6.9.4"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -62,14 +62,14 @@ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base6
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L|wc -c)
-printf "$remote_count \n"
+#printf "$remote_count \n"
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
- printf "$local_count \n"
+ #printf "$local_count \n"
 else
  local_count=1
 fi
-#if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
  printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
@@ -208,3 +208,10 @@ fi
    ~/twm/play.sh -boot
   fi
  fi #-f ~/twm/RUNMODE
+else #$(curl -s -L ...
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L >$HOME/twm/sourceinstall.sh
+ chmod +x $HOME/sourceinstall.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -s -L >$HOME/easyinstall.sh
+ chmod +x $HOME/easyinstall.sh
+ printf "${BLACK_YELLOW}Mistake! Try again later.\nRun './easyinstall.sh'${COLOR_RESET}\n"
+fi #$(curl -s -L ...
