@@ -15,7 +15,7 @@ case $version in
 version="master"
 ;;
 (2)
-version="Beta-Teste"
+version="beta1"
 ;;
 (3)
 version="backup"
