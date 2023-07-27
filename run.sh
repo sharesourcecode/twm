@@ -13,7 +13,8 @@ twm_play () {
   clan_id
  fi
  #/game time
- TIME=$(date +%H:%M)
+ TIME=$(date +%H):$(date +%M)
+ printf $TIME
  case $TIME in
  (*00:00*|*00:30*|*01:00*|*01:30*|*02:00*|*02:30*|*03:00*|*03:30*) #no events time with coliseum
   standard_crono
@@ -40,15 +41,15 @@ twm_play () {
   if [ -n $CLD ] ; then
    clancoliseum_start
   fi
-  sleep 300s
   standard_crono
+  #sleep 300s
   ;;
 # /Clan tournament 11:00:00 - 19:00:00
  (*10:5[5-9]*|*18:5[5-9]*)
   if [ -n $CLD ] ; then
    clanfight_start
   fi
-  sleep 300s
+  #sleep 300s
   standard_crono
   ;;
 # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
@@ -62,7 +63,7 @@ twm_play () {
   if [ -n $CLD ] ; then
    altars_start
   fi
-  sleep 300s
+  #sleep 300s
   standard_crono
   ;;
  

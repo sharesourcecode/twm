@@ -76,7 +76,6 @@ login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
  conf_allies
 fi
-func_cat
 messages_info
 while true ; do
  sleep 1s
