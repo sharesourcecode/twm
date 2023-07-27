@@ -7,7 +7,7 @@ CYAN_BLACK='\033[36m'
 COLOR_RESET='\033[00m'
 version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
-printf "Select the version: "
+printf "Select the version: \n"
 read -n 1 version
 case $version in
 (1)
