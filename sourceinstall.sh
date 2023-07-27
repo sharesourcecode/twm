@@ -11,12 +11,10 @@ fi
 mkdir -p ~/twm ; cd ~/twm
 
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/'
-#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/' #link master
 
-: ' #Compare the source local with the cloud
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/Beta-Teste/sourceinstall.sh -L|wc -c)
-#printf "$remote_count \n"
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master'
+#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
  local_count=$(wc -c < "sourceinstall.sh")
  #printf "$local_count \n"

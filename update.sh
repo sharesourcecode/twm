@@ -5,6 +5,7 @@ BLACK_GREEN='\033[00;32m\033[01;07m'
 GOLD_BLACK='\033[33m'
 CYAN_BLACK='\033[36m'
 COLOR_RESET='\033[00m'
+
 version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
 printf "Select the version: \n"
