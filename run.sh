@@ -36,14 +36,7 @@ twm_play () {
   standard_crono
   ;;
 # /Battle of banners 10:15:00 - 16:15:00
- '
- (10:1[0-4])
-  if [ -n $CLD ] ; then
-   flagfight_start
-  fi
-  sleep 300s
-  ;;
-  '
+
  (*10:2[8-9]*|*14:5[8-9]*|*) # /Clan coliseum 10:30:00 - 15:00:00
   if [ -n $CLD ] ; then
    clancoliseum_start
