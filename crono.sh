@@ -33,6 +33,11 @@ func_cat () {
  fi
  cat $TMP/msg_file
  printf "${WHITE_BLACK}"
+ local BREAK=$(( $(date +%s) + 10 ))
+  while  [ $(date +%s) -lt "$BREAK" ] ; do
+    read -p -t 30s "Enter a command: " cmd
+    $cmd
+  done
 }
 func_sleep () {
  case $(date +%d) in
