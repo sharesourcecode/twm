@@ -35,7 +35,7 @@ func_cat () {
  printf "${WHITE_BLACK}"
  #local BREAK=$(( $(date +%s) + 10 ))
   while  true ; do
-    read -t 5 -p "Enter a command: \n" cmd
+    read -t 5 -p "Enter a command: " cmd
     if [ "$cmd" = " " ]; then
         break
     fi
@@ -54,7 +54,7 @@ func_sleep () {
    reset
    clear
    func_cat
-   printf " No battles now, waiting 1m\n"
+   printf "\n No battles now, waiting 1m\n"
    sleep 55s ;;
   esac ;;
  esac
@@ -63,7 +63,7 @@ func_sleep () {
   reset
   clear
   func_cat
-  printf " No battles now, waiting 15s\n"
+  printf "\n No battles now, waiting 15s\n"
   sleep 10s ;;
  (*)
   #check_cave
@@ -71,7 +71,7 @@ func_sleep () {
   reset
   clear
   func_cat
-  printf " No battles now, waiting 30s\n"
+  printf "\n No battles now, waiting 30s\n"
   sleep 25s ;;
 #  break &>/dev/null
  esac
