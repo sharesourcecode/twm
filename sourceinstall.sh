@@ -11,7 +11,6 @@ fi
 mkdir -p ~/twm ; cd ~/twm
 
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
