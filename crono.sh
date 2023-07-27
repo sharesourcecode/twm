@@ -35,8 +35,9 @@ func_cat () {
  printf "${WHITE_BLACK}"
  local BREAK=$(( $(date +%s) + 10 ))
   while  [ $(date +%s) -lt "$BREAK" ] ; do
-    read -p "Enter a command: " cmd
+    read t- 15 -p "Enter a command: " cmd
     $cmd
+    break
   done
 }
 func_sleep () {
