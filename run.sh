@@ -354,7 +354,7 @@ twm_play () {
   sleep 300s
   ;;
 
- (21:[3-5][0-9]) # /Clan dmg  09:30:00 - 21:30:00
+ (21:30) # /Clan dmg  09:30:00 - 21:30:00
   #_clanmgfight
   standard_crono
   ;;

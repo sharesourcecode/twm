@@ -68,7 +68,6 @@ func_sleep () {
 }
 standard_crono() {
   arena_duel
-  
   career_func
   cave_routine
   func_trade

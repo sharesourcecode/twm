@@ -101,6 +101,7 @@ cave_start () {
   unset ACCESS1 ACCESS2 ACTION DOWN MEGA
  done
 }
+
 cave_routine () {
 echo "Cave..."
  (
@@ -109,17 +110,17 @@ echo "Cave..."
  time_exit 20
  if grep -q -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC ; then 
     #/'=\\\&apos
-    local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC)
-    local BREAK=$(( $(date +%s) + 60 ))
+    local CAVE=$(grep -o -E '/cave/(gather|down|runaway|attack)/[?]r[=][0-9]+' $TMP/SRC|sed -n '1p')
+    local BREAK=$(( $(date +%s) + 15 ))
     while [ -n "$CAVE" ] && [ $(date +%s) -lt "$BREAK" ] ; do
       case $CAVE in
-        (*gather*|*down*|*runaway*) #attack removed
+        (*gather*|*down*|*runaway*|*attack*)
           (
            w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAVE" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
           ) </dev/null &>/dev/null &
           time_exit 20
           echo "$CAVE"
-          local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC)
+          local CAVE=$(grep -o -E '/cave/(gather|down|runaway)/[?]r[=][0-9]+' $TMP/SRC|sed -n '1p')
         ;;
       esac
     done
