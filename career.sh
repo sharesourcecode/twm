@@ -30,7 +30,7 @@ career_func () {
               ) </dev/null &>/dev/null &
               time_exit 20
               echo "$CAREER"
-              local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
+              local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC|sed -n '1p')
               ;;
           esac
       done
