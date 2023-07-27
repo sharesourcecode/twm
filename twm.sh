@@ -15,37 +15,7 @@ script_ads () {
  fi
 }
 script_ads
-#/sync
-: ' comparing local package
-if [ ! -z "$RUN" ] ; then
- :
-else
- TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
- SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
- remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
- if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
-  local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
- else
-  local_count=1
- fi
- if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
-  :
- else
-  if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
-   printf "${WHITEb_BLACK}Network error! Please check your internet connection.${BLACK_RESET}\n"
-   exit 1
-  else
-   rm $HOME/twm/easyinstall.s*
-   curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
-   rm $HOME/easyinstall.s*
-   cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
-   SYNC=1
-   chmod +x $HOME/easyinstall.sh
-   . $HOME/easyinstall.sh
-  fi
- fi
-fi
-'
+
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
 . $HOME/info.sh
 script_slogan
@@ -111,3 +81,36 @@ while true ; do
  sleep 1s
  twm_start
 done
+
+#/sync
+: ' comparing local package
+if [ ! -z "$RUN" ] ; then
+ :
+else
+ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
+ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+ remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+ if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
+  local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
+ else
+  local_count=1
+ fi
+ '
+ #if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+  : '
+ else
+  if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
+   printf "${WHITEb_BLACK}Network error! Please check your internet connection.${BLACK_RESET}\n"
+   exit 1
+  else
+   rm $HOME/twm/easyinstall.s*
+   curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+   rm $HOME/easyinstall.s*
+   cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
+   SYNC=1
+   chmod +x $HOME/easyinstall.sh
+   . $HOME/easyinstall.sh
+  fi
+ fi
+fi
+'

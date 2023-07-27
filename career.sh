@@ -20,7 +20,7 @@ career_func () {
  time_exit 20
  if grep -q -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC ; then
     #/'=\\\&apos
-    local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
+    local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
     local BREAK=$(( $(date +%s) + 60 ))
     while [ -n "$CAMPAIGN" ] && [ $(date +%s) -lt "$BREAK" ] ; do
         case $CAMPAIGN in
@@ -30,7 +30,7 @@ career_func () {
             ) </dev/null &>/dev/null &
             time_exit 20
             echo "$CAMPAIGN"
-            local CAMPAIGN=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC|head -n 1)
+            local CAMPAIGN=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
             ;;
         esac
     done

@@ -13,7 +13,7 @@ check_missions () {
 i=0
  while [ $i -lt 10 ] ; do
   if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC)
+   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
@@ -30,7 +30,7 @@ i=0
  i=0
  while [ $i -lt 11 ] ; do
   if grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC)
+   click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
