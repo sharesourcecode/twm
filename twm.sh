@@ -75,7 +75,9 @@ func_proxy
 login_logoff
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
  conf_allies
+ clear
 fi
+
 func_cat
 messages_info
 while true ; do

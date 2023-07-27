@@ -35,8 +35,8 @@ func_cat () {
  printf "${WHITE_BLACK}"
  #local BREAK=$(( $(date +%s) + 10 ))
   while  true ; do
-    read -t 5 -p "Enter a command: " cmd
-    if [ "$cmd" = "" ]; then
+    read -t 5 -p "Enter a command: \n" cmd
+    if [ "$cmd" = " " ]; then
         break
     fi
     $cmd

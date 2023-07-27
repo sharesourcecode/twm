@@ -19,7 +19,7 @@ version="Beta-Teste"
 (3)
 version="backup"
 esac
-echo $version
+printf "/n $version"
 printf "${CYAN_BLACK} 🔁Upgrading... Please wait...${COLOR_RESET}\n"
 cd ~/
 rm -rf $HOME/sourceinstall.sh
