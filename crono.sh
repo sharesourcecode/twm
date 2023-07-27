@@ -53,8 +53,8 @@ func_sleep () {
    coliseum_start
    reset
    clear
-   printf " No battles now, waiting 1m\n"
    func_cat
+   printf " No battles now, waiting 1m\n"
    sleep 55s ;;
   esac ;;
  esac
@@ -62,16 +62,16 @@ func_sleep () {
  ([25][89])
   reset
   clear
-  printf " No battles now, waiting 15s\n"
   func_cat
+  printf " No battles now, waiting 15s\n"
   sleep 10s ;;
  (*)
   #check_cave
   #check_missions
   reset
   clear
-  printf " No battles now, waiting 30s\n"
   func_cat
+  printf " No battles now, waiting 30s\n"
   sleep 25s ;;
 #  break &>/dev/null
  esac

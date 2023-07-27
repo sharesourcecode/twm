@@ -70,7 +70,6 @@ twm_play () {
   #_clanmgfight
   standard_crono
   ;;
-
  (*)
   if echo "$RUN"|grep -q -E '[-]cl' ; then
    printf "Running in coliseum mode: $RUN\n"
