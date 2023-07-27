@@ -20,9 +20,6 @@ if [ -e "sourceinstall.sh" ] ; then
 else
  local_count=1
 fi
-'
-#if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
-
 
  printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
  #termux
