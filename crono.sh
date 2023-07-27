@@ -34,8 +34,14 @@ func_cat () {
  cat $TMP/msg_file
  printf "${WHITE_BLACK}"
  #local BREAK=$(( $(date +%s) + 10 ))
+  list () {
+   printf "\n"
+   grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' ~/twm/*.sh|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
+   read -t 5
+  }
   while  true ; do
-    read -t 5 -p "Enter a command: " cmd
+    printf "${WHITEb_BLACK}Enter a command or type 'list':${COLOR_RESET} \n"
+    read -t 5 cmd
     if [ "$cmd" = " " ]; then
         break
     fi
