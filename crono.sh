@@ -33,10 +33,14 @@ func_cat () {
  fi
  cat $TMP/msg_file
  printf "${WHITE_BLACK}"
- local BREAK=$(( $(date +%s) + 10 ))
-  while  [ $(date +%s) -lt "$BREAK" ] ; do
-    read t- 15 -p "Enter a command: " cmd
+ #local BREAK=$(( $(date +%s) + 10 ))
+  while  true ; do
+    read -t 5 -p "Enter a command: " cmd
+    if [ "$cmd" = "" ]; then
+        break
+    fi
     $cmd
+    sleep 0.5s
     break
   done
 }
@@ -51,7 +55,7 @@ func_sleep () {
    clear
    func_cat
    printf " No battles now, waiting 1m\n"
-   sleep 1m ;;
+   sleep 55s ;;
   esac ;;
  esac
  case $(date +%M) in
@@ -60,7 +64,7 @@ func_sleep () {
   clear
   func_cat
   printf " No battles now, waiting 15s\n"
-  sleep 15s ;;
+  sleep 10s ;;
  (*)
   #check_cave
   #check_missions
@@ -68,7 +72,7 @@ func_sleep () {
   clear
   func_cat
   printf " No battles now, waiting 30s\n"
-  sleep 30s ;;
+  sleep 25s ;;
 #  break &>/dev/null
  esac
 }
