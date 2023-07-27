@@ -14,63 +14,30 @@ twm_play () {
  fi
  #/game time
  case $(date +%H:%M) in
- (00:00)
-  arena_duel
-  clanDungeon
-  campaign_func
+ (*00:00*|*00:30*|*01:00*|*01:30*|*02:00*|*02:30*|*03:00*|*03:30*)
+  standard_crono
   coliseum_start
-  career_func
-  func_trade
-  clan_money
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
   ;;
+  (*04:00*|*04:30*|*05:00*|*05:30*|*06:00*|*06:30*|*07:00*|*08:30*|*09:00*)
+  standard_crono
+  ;;
+
+  : '
  (00:30)
-  arena_duel
-  league
-  clanDungeon
-  campaign_func
+  standard_crono
   coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
   ;;
  (01:00)
-  arena_duel
-  clanDungeon
-  campaign_func
+  standard_crono
   coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
   ;;
  (01:30)
-  arena_duel
-  clanDungeon
-  campaign_func
+  standard_crono
   coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
   ;;
  (02:00)
-  arena_duel
-  clanDungeon
-  campaign_func
+  standard_crono
   coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
   ;;
  (02:30)
   arena_duel
@@ -228,8 +195,9 @@ twm_play () {
   messages_info
   func_crono
   ;;
-# /Clan dmg  09:30:00 - 21:30:00
- (09:2[8-9])
+  '
+
+ (09:2[8-9]) #/Clan dmg  09:30:00 - 21:30:00
   if [ -n $CLD ] ; then
    :
    #_clanmgfight
@@ -560,18 +528,10 @@ twm_play () {
   func_crono
   sleep 300s
   ;;
-# /Clan dmg  09:30:00 - 21:30:00
- (21:2[5-9])
+
+ (21:[3-5][0-9]) # /Clan dmg  09:30:00 - 21:30:00
   #_clanmgfight
-  arena_fullmana
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  messages_info
-  func_crono
-  sleep 300s
+  standard_crono
   ;;
 # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
  (21:5[5-9])
