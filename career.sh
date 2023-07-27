@@ -22,15 +22,15 @@ career_func () {
     #/'=\\\&apos
     local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
     local BREAK=$(( $(date +%s) + 60 ))
-    while [ -n "$CAMPAIGN" ] && [ $(date +%s) -lt "$BREAK" ] ; do
-        case $CAMPAIGN in
+    while [ -n "$CAREER" ] && [ $(date +%s) -lt "$BREAK" ] ; do
+        case $CAREER in
         (*attack*|*take*)
             (
             w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAREER" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
             ) </dev/null &>/dev/null &
             time_exit 20
-            echo "$CAMPAIGN"
-            local CAMPAIGN=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
+            echo "$CAREER"
+            local CAREER=$(grep -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC)
             ;;
         esac
     done
