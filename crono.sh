@@ -86,4 +86,5 @@ standard_crono() {
   check_missions
   messages_info
   func_crono
+  func_sleep
 }
