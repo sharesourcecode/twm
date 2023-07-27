@@ -15,7 +15,7 @@ hpmp () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
- STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC)
+ STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC')
 
  #Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
