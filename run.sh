@@ -14,7 +14,7 @@ twm_play () {
  fi
  #/game time
  TIME=$(date +%H:%M)
-printf "$TIME"
+#printf "$TIME"
 noeventtime=('00:00' '00:30' '01:00' '01:30' '02:00' '02:30' '03:00' '03:30')
 eventtime=('04:00' '04:30' '05:00' '05:30' '06:00' '06:30' '07:00' '08:30' '09:00' '09:30' '11:30' '12:00' '13:00' '13:30' '14:30' '15:30' '17:00' '17:30' '18:00' '18:30' '19:30' '20:00' '20:30' '23:00' '23:30')
 case $TIME in
@@ -33,27 +33,27 @@ case $TIME in
         fi
         standard_crono
         ;;
-    (*09:5[5-9]*|*15:5[5-9]*|*21:5[5-9]*) # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
+    (09:5[5-9]|15:5[5-9]|21:5[5-9]) # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
         undying_start
         standard_crono
         ;;
-    (*10:2[8-9]*|*14:5[8-9]*) # /Clan coliseum 10:30:00 - 15:00:00
+    (10:2[8-9]|14:5[8-9]) # /Clan coliseum 10:30:00 - 15:00:00
         if [ -n $CLD ] ; then
             clancoliseum_start
         fi
         standard_crono
         ;;
-    (*10:5[5-9]*|*18:5[5-9]*) # /Clan tournament 11:00:00 - 19:00:00
+    (10:5[5-9]|18:5[5-9]) # /Clan tournament 11:00:00 - 19:00:00
         if [ -n $CLD ] ; then
             clanfight_start
         fi
         standard_crono
         ;;
-    (*12:2[5-9]*|*16:2[5-9]*|*22:2[5-9]*) # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
+    (12:2[5-9]|16:2[5-9]|22:2[5-9]) # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
         king_start
         standard_crono
         ;;
-    (*13:5[5-9]*|*20:5[5-9]*) # /Ancient Altars 14:00:00 - 21:00:00
+    (13:5[5-9]|20:5[5-9]) # /Ancient Altars 14:00:00 - 21:00:00
         if [ -n $CLD ] ; then
             altars_start
         fi

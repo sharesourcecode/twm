@@ -103,7 +103,7 @@ cave_start () {
 }
 
 cave_routine () {
-echo "Cave..."
+echo "Cave...\n"
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/cave/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
