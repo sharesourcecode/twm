@@ -38,4 +38,4 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/twminstall
 sleep 1s
 chmod +x $HOME/*.sh
 printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"
-./install.sh
+./twminstall.sh
