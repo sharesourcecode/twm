@@ -25,7 +25,7 @@ printf "${CYAN_BLACK} 🔁Upgrading... Please wait...${COLOR_RESET}\n"
 cd ~/
 rm -rf $HOME/sourceinstall.sh
 rm -rf $HOME/easyinstall.sh
-rm -rf $HOME/install.sh
+rm -rf $HOME/twminstall.sh
 rm -rf $HOME/info.sh
 #sleep 0.5s
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
@@ -34,7 +34,7 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinst
 sleep 1s
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/easyinstall.sh -s -L -O >$HOME/easyinstall.sh
 sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/install.sh -s -L -O >$HOME/easyinstall.sh
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/twminstall.sh -s -L -O >$HOME/easyinstall.sh
 sleep 1s
 chmod +x $HOME/*.sh
 printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"

@@ -14,12 +14,12 @@ mkdir -p ~/twm ; cd ~/twm
 
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
-remote_count=$(curl $SERVER'install.sh' -s -L | wc -c)
+remote_count=$(curl $SERVER'twminstall.sh' -s -L | wc -c)
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 #remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/install.sh -s -L|wc -c)
 
-if [ -e "install.sh" ] ; then
- local_count=$(wc -c < "install.sh")
+if [ -e "twminstall.sh" ] ; then
+ local_count=$(wc -c < "twminstall.sh")
  #printf "$local_count \n"
 else
  local_count=1
@@ -28,9 +28,9 @@ fi
 cd ~/
 #/stable
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}install.sh -s -L|wc -c)
-if [ -e "install.sh" ] ; then
- local_count=$(wc -c < "install.sh")
+remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
+if [ -e "twminstall.sh" ] ; then
+ local_count=$(wc -c < "twminstall.sh")
 else
  local_count=1
 fi
@@ -151,7 +151,7 @@ printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
   SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh hpmp.sh king.sh league.sh trade.sh undying.sh"
   
   curl ${SERVER}play.sh -s -L -O
-  curl ${SERVER}install.sh -s -L -O
+  curl ${SERVER}twminstall.sh -s -L -O
   curl ${SERVER}twm.sh -s -L|sed -n '1,33p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
