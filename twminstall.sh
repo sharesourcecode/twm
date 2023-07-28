@@ -137,9 +137,9 @@ sync_func () {
 sync_func_other () {
   SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
   
-  curl ${SERVER}play.sh -s -L -O
-  curl ${SERVER}twminstall.sh -s -L -O
-  curl ${SERVER}twm.sh -s -L|sed -n '1,33p' >twm.sh
+  #curl ${SERVER}play.sh -s -L -O
+  #curl ${SERVER}twminstall.sh -s -L -O
+  #curl ${SERVER}twm.sh -s -L|sed -n '1,33p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
   for script in $SCRIPTS ; do
@@ -150,7 +150,7 @@ sync_func_other () {
   printf "\n#\n" >>twm.sh
   sleep 0.1s
   done
-  curl ${SERVER}twm.sh -s -L|sed -n '40,87p' >>twm.sh
+  curl ${SERVER}twm.sh -s -L|sed -n '35,87p' >>twm.sh
   case $(uname -o) in
   (Android)
   :
