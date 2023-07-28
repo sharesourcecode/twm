@@ -22,7 +22,7 @@ func_crono () {
  if [ $MIN = 07 ] ; then MIN=7 ; fi
  if [ $MIN = 08 ] ; then MIN=8 ; fi
  if [ $MIN = 09 ] ; then MIN=9 ; fi
- #printf "\n $URL ⏰ $(date +%H):$(date +%M)\n"
+ printf "\n $URL ⏰ $(date +%H):$(date +%M)\n"
 }
 func_cat () {
  func_crono
