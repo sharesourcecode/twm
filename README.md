@@ -253,7 +253,7 @@ bash twm/play.sh -cl
 *Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
 
 As atualizações são exibidas nesta página:
-https://gitea.com/Ueliton/twm/commits/branch/master
+https://github.com/sharesourcecode/twm/commits/master
 
 Clique nelas para saber o que foi alterado.
 
