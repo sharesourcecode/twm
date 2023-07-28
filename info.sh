@@ -19,14 +19,14 @@ WHITEb_BLACK='\033[01;38m\033[05;01m'
 }
 
 script_slogan () {
- colors=("$10" "$9" "$8" "$7" "$6" "$5" "$4" "$3" "$2" "$1")
+ colors=("10" "9" "8" "7" "6" "5" "4" "3" "2" "1")
  t=339
  w=59
  m=89
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.10.05"
+  version="Version 2.10.06"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))

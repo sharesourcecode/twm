@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ ! -e "info.sh" ] ; then
+curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L -O >$HOME/info.sh
+chmod +x info.sh
+sleep 0.5s
+fi
 . ~/info.sh
 colors
 script_slogan
