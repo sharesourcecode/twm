@@ -250,10 +250,10 @@ bash twm/play.sh -cl
 `Para interroper (CTRL c)`
 
 
-*Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
+*Ocorrem atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima.
 
 As atualizações são exibidas nesta página:
-https://gitea.com/Ueliton/twm/commits/branch/master
+https://github.com/sharesourcecode/twm/commits/master
 
 Clique nelas para saber o que foi alterado.
 
@@ -278,7 +278,7 @@ https://link.mercadopago.com.br/titanswarmacro
 git clone https://github.com/sharesourcecode/twm.git
 ```
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>Se possível, o código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
->Após aprovado, será aplicado com os devidos créditos(inclusive no slogan) em https://gitea.com/Ueliton/twm.git para os usuários finais.
+>Após aprovado, será aplicado no branch master com os devidos créditos(inclusive no slogan).
