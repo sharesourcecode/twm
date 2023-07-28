@@ -19,7 +19,7 @@ check_missions () {
    time_exit 20
 #collect quests
 i=0
- while [ $i -lt 10 ] ; do
+ while [ $i -lt 15 ] ; do
   if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
    (

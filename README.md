@@ -38,7 +38,7 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >Android(UserLAnd):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 >Iphone(iSH):
 ```bash
@@ -49,7 +49,7 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh
 
 >Android(UserLAnd):
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >Iphone(iSH):
 ```bash
@@ -60,7 +60,7 @@ chmod +x easyinstall.sh
 
 >Android(UserLAnd):
 ```bash
-./sourceinstall.sh
+./twminstall.sh
 ```
 >Iphone(iSH):
 ```bash
@@ -115,16 +115,16 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./sourceinstall.sh
+./twminstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
@@ -158,18 +158,18 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >3 - Copie e cole este comando para instalar o twm:
 
 ```bash
-bash $HOME/sourceinstall.sh
+bash $HOME/twminstall.sh
 ```
 
 >4 - Para executar o twm:
@@ -215,18 +215,18 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >5 - Copie e cole este comando para instalar o twm:
 
 ```bash
-bash sourceinstall.sh
+bash twminstall.sh
 ```
 
 >6 - Comando para executar o twm:

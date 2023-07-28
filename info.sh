@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.10.14"
+  version="Version 2.10.15"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -55,7 +55,7 @@ script_slogan () {
 
 #message
 messages_info () {
- echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M) " > $TMP/msg_file
+ echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M):(date +%s) " > $TMP/msg_file
  printf " ##### mail #####\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
