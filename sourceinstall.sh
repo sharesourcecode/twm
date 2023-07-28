@@ -96,7 +96,6 @@ fi
  script_slogan
  printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
  sync_func () {
-
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
   #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
