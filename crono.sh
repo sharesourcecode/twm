@@ -22,7 +22,7 @@ func_crono () {
  if [ $MIN = 07 ] ; then MIN=7 ; fi
  if [ $MIN = 08 ] ; then MIN=8 ; fi
  if [ $MIN = 09 ] ; then MIN=9 ; fi
- printf "\n $URL ⏰ $(date +%H):$(date +%M)\n"
+ #printf "\n $URL ⏰ $(date +%H):$(date +%M)\n"
 }
 func_cat () {
  func_crono
@@ -45,6 +45,7 @@ func_cat () {
     if [ "$cmd" = " " ]; then
         break
     fi
+    printf "\n"
     $cmd
     sleep 0.5s
     break
@@ -60,8 +61,8 @@ func_sleep () {
    reset
    clear
    i=60
-   func_cat
    printf "\n No battles now, waiting 1m\n"
+   func_cat
    #sleep 55s 
    ;;
   esac ;;
@@ -70,9 +71,9 @@ func_sleep () {
  ([25][89])
   reset
   clear
-  i=15
-  func_cat
+  i=10
   printf "\n No battles now, waiting 15s\n"
+  func_cat
   #sleep 10s 
   ;;
  (*)
@@ -80,9 +81,9 @@ func_sleep () {
   #check_missions
   reset
   clear
-  i=30
-  func_cat
+  i=45
   printf "\n No battles now, waiting 30s\n"
+  func_cat
   #sleep 25s 
   ;;
 #  break &>/dev/null
