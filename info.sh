@@ -49,7 +49,7 @@ script_slogan () {
         ${COLOR_RESET}\n"
   # ⟩\\
   printf "\033[1;38;5;${colors[i]}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
-  sleep 0.3
+  sleep 0.1
  done
 }
 
