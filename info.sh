@@ -1,3 +1,4 @@
+#!/bin/bash
 #/Colors - font(formatting)_background
 colors() {
 BLACK_BLACK='\033[00;30m'
@@ -26,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
   #Change this number for new version...........................................................
-  version="Version 2.10.09"
+  version="Version 2.10.10"
  for (( i=0 ; i<${#colors[@]} ; i++ )) ; do
   clear
   t=$(($t - 27))
@@ -51,6 +52,7 @@ script_slogan () {
   sleep 0.3
  done
 }
+
 #message
 messages_info () {
  echo " ⚔️  Titans War Macro - ${version}  ⚔️ " > $TMP/msg_file
