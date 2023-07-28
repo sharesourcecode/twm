@@ -1,6 +1,6 @@
 #!/bin/sh
 
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
+curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L -O >$HOME/info.sh
 chmod +x info.sh
 sleep 0.5s
 . ~/info.sh
@@ -119,7 +119,6 @@ printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
  printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
 
  sync_func () {
-
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
