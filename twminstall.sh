@@ -200,4 +200,4 @@ if [ -f ~/twm/runmode_file ] ; then
   sleep 5s
   ~/twm/play.sh -boot
   fi
-#-f ~/twm/RUNMODE
+fi
