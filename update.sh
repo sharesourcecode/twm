@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 clear
 BLACK_CYAN='\033[01;36m\033[01;07m'
 BLACK_GREEN='\033[00;32m\033[01;07m'
@@ -9,16 +9,19 @@ COLOR_RESET='\033[00m'
 version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
 printf "Select the version: \n"
-read -n 1 version
+stty raw
+version=$(dd bs=1 count=1 2>/dev/null)
+stty -raw
 case $version in
-(1)
-version="master"
-;;
-(2)
-version="beta1"
-;;
-(3)
-version="backup"
+ (1)
+  version="master"
+ ;;
+ (2)
+  version="beta1"
+ ;;
+ (3)
+  version="backup"
+ ;;
 esac
 printf "\n $version"
 printf "${CYAN_BLACK} 🔁Upgrading... Please wait...${COLOR_RESET}\n"
