@@ -3,11 +3,6 @@ REPO=$1
 : '
 This script merges most of the functions in the twm.sh script with the exception of play.sh and sourceinstall.sh
 The Bash shebang is also converted to Bourn Shell(#!/bin/bash > #!/bin/sh).
-
-# Como o instalador vai executar o trecho abaixo em uma instalação do zero, onde o info.sh e as funções não existem?
-. $HOME/info.sh
-colors
-script_slogan
 '
 echo "" && echo "$yellow [$green+$red]$reset Installer script for TWM."
 

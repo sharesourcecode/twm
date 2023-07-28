@@ -1,28 +1,44 @@
-#!/bin/bash
+#!/bin/sh
+
+curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
+sleep 0.5s
 . ~/info.sh
 colors
 script_slogan
 
-if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
- printf "${WHITEb_BLACK}Network error! Please check your internet connection.${COLOR_RESET}\n"
- exit 1
-fi
+REPO=$1
+echo "" && echo "$yellow [$green+$red]$reset Installer script for TWM."
+
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
 TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
+remote_count=$(curl $SERVER'install.sh' -s -L | wc -c)
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
-if [ -e "sourceinstall.sh" ] ; then
- local_count=$(wc -c < "sourceinstall.sh")
+#remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/install.sh -s -L|wc -c)
+
+if [ -e "install.sh" ] ; then
+ local_count=$(wc -c < "install.sh")
  #printf "$local_count \n"
 else
  local_count=1
 fi
 
- printf "${BLACK_CYAN} Upgrading...\n👉 Please wait...☕👴${COLOR_RESET}\n"
- #termux
+cd ~/
+#/stable
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl ${SERVER}install.sh -s -L|wc -c)
+if [ -e "install.sh" ] ; then
+ local_count=$(wc -c < "install.sh")
+else
+ local_count=1
+fi
+if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+
+printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
+
+#termux
  if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
   termux-wake-lock
   sed -u -i '/nameserver/d' $PREFIX/etc/resolv.conf &>/dev/null
@@ -53,13 +69,15 @@ fi
    pkg install procps ncurses-utils -y
   fi
  fi #ls /data/...
- #cygwin
+
+ #/cygwin
  if uname|grep -q -i cygwin ; then
   LS="/usr/share/doc"
   if [ -e /bin/apt-cyg ] ; then
    :
   else
-   curl -q -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
+   #/cygwin repository
+   curl -s -L -O "http://raw.githubusercontent.com/sharesourcecode/apt-cyg/master/apt-cyg" &>/dev/null
    install apt-cyg /bin
   fi #ls /bin
   if [ -e "${LS}/w3m" ] ; then
@@ -83,33 +101,32 @@ fi
    apt-cyg install procps -y &>/dev/null
   fi
  fi #cygwin
+
  #linux
  if uname -o|grep -q -i GNU/Linux ; then
-  LS="/usr/share/doc"
+  LS='/usr/share/doc'
   printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
-  sleep 2s
-  read -t 15
- fi 
+  sleep 5s
+  #read -t 15
+ fi #uname -o
+
+#starting...
  unset LS
  mkdir -p ~/twm
  cd ~/twm
  script_slogan
- printf "${BLACK_CYAN}\n Wait for the scripts to download...☕👴${COLOR_RESET}\n"
+ printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
+
  sync_func () {
 
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-  #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-  #curl ${SERVER}sourceinstall.sh -s -L -O
-  #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
    remote_count=$(curl ${SERVER}$script -s -L|wc -c)
-   #printf $remote_count
    if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
-    #printf $local_count
    else
     local_count=1
    fi
@@ -129,7 +146,45 @@ fi
   find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
  }
- sync_func
+
+ sync_func_other () {
+  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh hpmp.sh king.sh league.sh trade.sh undying.sh"
+  
+  curl ${SERVER}play.sh -s -L -O
+  curl ${SERVER}install.sh -s -L -O
+  curl ${SERVER}twm.sh -s -L|sed -n '1,33p' >twm.sh
+  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
+  LEN=0
+  for script in $SCRIPTS ; do
+   LEN=$((LEN+1))
+   printf "Checking $LEN/$NUM_SCRIPTS $script\n"
+   printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
+   curl ${SERVER}$script -s -L >>twm.sh
+   printf "\n#\n" >>twm.sh
+   sleep 0.1s
+  done
+  curl ${SERVER}twm.sh -s -L|sed -n '40,87p' >>twm.sh
+  case $(uname -o) in
+  (Android)
+   :
+   ;;
+  (*)
+   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/twm.sh
+   ;;
+  esac
+  #DOS to Unix
+  find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
+  chmod +x ~/twm/*.sh &>/dev/null
+ }
+case $(uname -o) in
+  (Android)
+   sync_func
+   ;;
+  (*)
+   sync_func_other
+   ;;
+  esac
+
  script_slogan
  printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
  pidf=$(ps ax -o pid=,args=|grep 'twm/play.sh'|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
