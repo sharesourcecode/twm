@@ -27,16 +27,6 @@ else
 fi
 
 cd ~/
-#/stable
-'
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
-if [ -e "twminstall.sh" ] ; then
- local_count=$(wc -c < "twminstall.sh")
-else
- local_count=1
-fi
-'
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
 
 printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
