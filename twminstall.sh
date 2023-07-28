@@ -8,15 +8,13 @@ fi
 colors
 script_slogan
 
-REPO=$1
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
-TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
 remote_count=$(curl $SERVER'twminstall.sh' -s -L | wc -c)
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-#remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/install.sh -s -L|wc -c)
+#remote_count=$(curl $SERVER/twminstall.sh -s -L|wc -c)
 if [ -e "twminstall.sh" ] ; then
  local_count=$(wc -c < "twminstall.sh")
 else
@@ -106,11 +104,12 @@ script_slogan
 printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
 
 sync_func () {
-  SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
-  NUM_SCRIPTS=${#SCRIPTS[@]}
-  for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
-  script=${SCRIPTS[i]}
-  printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
+  SCRIPTS='allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh'
+  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
+  LEN=0
+  for script in $SCRIPTS ; do
+  LEN=$((LEN+1))
+  printf "Checking $LEN/$NUM_SCRIPTS $script\n"
   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
   if [ -e ~/twm/$script ] ; then
     local_count=$(wc -c < "$script")
@@ -128,7 +127,6 @@ sync_func () {
   fi
   sleep 0.1s
   done
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|tail -n 104 >>twm.sh
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
@@ -174,16 +172,16 @@ case $(uname -o) in
 
 script_slogan
 printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
-pidf=$(ps ax -o pid=,args=|grep 'twm/play.sh'|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
+pidf=$(ps ax -o pid=,args=|grep "sh.*twm/play.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
 until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args=|grep 'twm/play.sh'|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args=|grep "sh.*twm/play.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
   sleep 1s
 done
-pidf=$(ps ax -o pid=,args=|grep 'twm/twm.sh'|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
+pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
 until [ -z $pidf ] ; do
   kill -9 $pidf 2> /dev/null
-  pidf=$(ps ax -o pid=,args=|grep 'twm/twm.sh'|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
+  pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n1|grep -o -E '([0-9]{3,5})')
   sleep 1s
 done
 if [ -f ~/twm/runmode_file ] ; then
