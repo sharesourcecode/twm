@@ -135,7 +135,7 @@ sync_func () {
 }
 
 sync_func_other () {
-  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh hpmp.sh king.sh league.sh trade.sh undying.sh"
+  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
   
   curl ${SERVER}play.sh -s -L -O
   curl ${SERVER}twminstall.sh -s -L -O
