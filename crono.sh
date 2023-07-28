@@ -90,7 +90,7 @@ standard_crono () {
  func_trade
  campaign_func
  clanDungeon
- clan_money
+ #clan_money
  check_missions
  messages_info
  func_crono
