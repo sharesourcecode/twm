@@ -1,6 +1,7 @@
 #!/bin/sh
 
 curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
+chmod +x info.sh
 sleep 0.5s
 . ~/info.sh
 colors
