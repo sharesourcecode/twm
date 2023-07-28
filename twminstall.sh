@@ -9,8 +9,6 @@ colors
 script_slogan
 
 REPO=$1
-echo "" && echo "$yellow [$green+$red]$reset Installer script for TWM."
-
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
