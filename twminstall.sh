@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ ! -e "info.sh" ] ; then
 curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L -O >$HOME/info.sh
 chmod +x info.sh
@@ -19,7 +19,6 @@ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
 remote_count=$(curl $SERVER'twminstall.sh' -s -L | wc -c)
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 #remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/install.sh -s -L|wc -c)
-
 if [ -e "twminstall.sh" ] ; then
  local_count=$(wc -c < "twminstall.sh")
  #printf "$local_count \n"
@@ -29,6 +28,7 @@ fi
 
 cd ~/
 #/stable
+'
 SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
 if [ -e "twminstall.sh" ] ; then
@@ -36,6 +36,7 @@ if [ -e "twminstall.sh" ] ; then
 else
  local_count=1
 fi
+'
 if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
 
 printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
