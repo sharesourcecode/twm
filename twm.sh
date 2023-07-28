@@ -11,13 +11,12 @@ script_ads () {
    echo $(date +%d) >$HOME/twm/ads_file
   fi
  else
-   echo $(date +%d) >$HOME/twm/ads_file
+  echo $(date +%d) >$HOME/twm/ads_file
  fi
 }
 script_ads
 
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
-. $HOME/info.sh
 script_slogan
 sleep 1s
 #/termux
@@ -30,14 +29,14 @@ fi
 
 #/sources
 cd ~/twm
-#sed -n 1,127 /remove sources to easyinstall.sh
+#sed -n 1,33 /remove sources to easyinstall.sh
 #. clandmgfight.sh
-. requeriments.sh ; . loginlogoff.sh 
+. requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
-#sed -n 134,197 /remove sources to easyinstall.sh
+#sed -n 40,86 /remove sources to easyinstall.sh
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
@@ -90,7 +89,6 @@ done
 if [ ! -z "$RUN" ] ; then
  :
 else
- TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
  SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
  remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
@@ -98,9 +96,7 @@ else
  else
   local_count=1
  fi
- '
  #if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
-  : '
  else
   if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
    printf "${WHITEb_BLACK}Network error! Please check your internet connection.${BLACK_RESET}\n"
