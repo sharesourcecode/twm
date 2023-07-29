@@ -53,7 +53,6 @@ script_slogan () {
  done
 }
 
-#message
 messages_info () {
  echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M)" > $TMP/msg_file
  printf " ##### mail #####\n" >> $TMP/msg_file
@@ -75,7 +74,73 @@ messages_info () {
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 
-#/time_exit
+mini_read () {
+: ' Two head functions for Bourne Shell (ueliton@disroot.org 28/07/23)
+ usage;
+ mini_read -t 3 -n 3 myVar
+ -n nchars return after reading NCHARS characters rather than waiting for a newline.
+ -t time out and return failure if a complete line of input is not read within TIMEOUT seconds.
+'
+
+ while [ $# -gt 0 ] ; do
+  case "$1" in
+  -t)
+   MRTIME=$2 shift 2
+  ;;
+  -n)
+   MRCOUNT=$2 shift 2
+  ;;
+  *)
+   if [ $# -eq 1 ] ; then
+    MRVAR_NAME=$1
+    shift
+   else
+    echo "Invalid parameter: $1"
+    exit 1
+   fi
+  ;;
+  esac
+ done
+
+ MRLAST_ARG=${!#}
+ eval "MRVAR=\$$MRLAST_ARG"
+ eval "${MRVAR_NAME}=\$MRVAR"
+
+ back_ground () {
+  (
+   for MRLOOP in $(seq $MRTIME -1 0) ; do
+    MRPIDF=$(ps ax -o pid=,args=|grep "dd bs=1 count=$MRCOUNT"|grep -v 'grep'| head -n 1|grep -o -E '([0-9]{2,6})')
+    if [ -z "$MRPIDF" ] ; then
+     MRLOOP=0
+    elif [ "$MRLOOP" -eq 0 ] ; then
+     kill -s PIPE $MRPIDF 2> /dev/null
+     kill -15 $MRPIDF 2> /dev/null
+    fi
+    sleep 1s
+   done
+  )
+ }
+ back_ground </dev/null &>/dev/null &
+ MRFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
+
+ unset MRINPUT_READ
+ stty raw
+ MRINPUT_READ=$(dd bs=1 count=$MRCOUNT 2>/dev/null)
+ stty -raw
+ eval ${MRVAR_NAME}=$MRINPUT_READ
+
+ MRRPID=$(ps ax -o pid=|grep -o "$MRFPID")
+
+ if [ -z "$MRINPUT_READ" ] && [ ! -z "$MRRPID" ] ; then
+  kill -s PIPE $MRFPID </dev/null 2>/dev/null
+  kill -15 $MRFPID </dev/null 2>/dev/null
+  printf "\n"
+  exit 1
+ else
+  printf "\n"
+ fi
+}
+
 time_exit () {
  (
   local FPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
