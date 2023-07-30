@@ -1,7 +1,5 @@
 undying_fight () {
  cd $TMP
- #/apply to fight
- apply_event undying
 
  #/enterFight
  local LA=5 # hit interval
@@ -63,11 +61,14 @@ undying_start () {
   done
   arena_takeHelp
   arena_fullmana
-  #/undying/enterGame/?r=75053380
+  #/apply to fight
+  apply_event undying
+ : ' #/undying/enterGame/?r=75053380
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
   ) </dev/null &>/dev/null &
   time_exit 17
+'
   while $(case $(date +%M:%S) in (59:5[3-9]) exit 1 ;; esac) ; do
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm:%Ss)\n"
    sleep 5s
