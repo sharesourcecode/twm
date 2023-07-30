@@ -4,6 +4,7 @@ if [ ! -e "info.sh" ]; then
  chmod +x info.sh
  sleep 0.5s
 fi
+
 . ~/info.sh
 colors
 script_slogan
@@ -12,10 +13,12 @@ script_slogan
 mkdir -p ~/twm ; cd ~/twm
 
 if [ -z "$@" ]; then
- version="beta1"
+ version="master"
 else
+#./twminstall.sh beta1, or backup
  version="$@"
 fi
+
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
 if [ -e "twminstall.sh" ]; then
@@ -37,13 +40,13 @@ if [ -d /data/data/com.termux/files/usr/share/doc ]; then
  mkdir -p ~/.termux/boot
  echo "IyEvZGF0YS9kYXRhL2NvbS50ZXJtdXgvZmlsZXMvdXNyL2Jpbi9zaApiYXNoICRIT01FL3R3bS90d20uc2ggLWJvb3QK"|base64 -d >~/.termux/boot/play.sh 2>/dev/null
  chmod +x ~/.termux/boot/play.sh 2>/dev/null
- if whereis -b w3m </dev/null &>/dev/null; then
+ if whereis -b w3m >/dev/null 2>&1; then
   :
  else
   pkg install w3m -y
  fi
 
- if whereis -b coreutils </dev/null &>/dev/null; then
+ if whereis -b coreutils >/dev/null 2>&1; then
   :
  else
  pkg install coreutils ncurses-utils -y
