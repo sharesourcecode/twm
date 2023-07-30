@@ -68,4 +68,4 @@ for script in $SCRIPTS ; do
 done
 cp twminstall.sh "$HOME/easyinstall.sh"
 printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./twminstall.sh ...${COLOR_RESET}\n"
-./twminstall.sh
+./twminstall.sh $version

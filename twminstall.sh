@@ -1,5 +1,4 @@
 #!/bin/sh
-version='beta1'
 if [ ! -e "info.sh" ] ; then
  curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
@@ -12,6 +11,11 @@ script_slogan
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
+if [ -z "$@" ]; then
+ version="beta1"
+else
+ version="$@"
+fi
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
 if [ -e "twminstall.sh" ] ; then
@@ -92,12 +96,10 @@ if uname -o|grep -q -i GNU/Linux ; then
  LS='/usr/share/doc'
  printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
  sleep 5s
-# read -t 15
 fi #uname -o
 
 #starting...
 unset LS
-mkdir -p ~/twm
 cd ~/twm
 #script_slogan
 printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
@@ -106,18 +108,18 @@ sync_func () {
  SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
  LEN=0
- for script in $SCRIPTS ; do
+ for script in $SCRIPTS; do
   LEN=$((LEN+1))
   printf "Checking $LEN/$NUM_SCRIPTS $script\n"
   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
-  if [ -e ~/twm/$script ] ; then
+  if [ -e ~/twm/$script ]; then
    local_count=$(wc -c < "$script")
   else
    local_count=1
   fi
-  if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
+  if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ]; then
    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
-  elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
+  elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
    curl ${SERVER}$script -s -L > $script
   else
