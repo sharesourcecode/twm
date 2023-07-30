@@ -2,43 +2,70 @@
 clear
 BLACK_CYAN='\033[01;36m\033[01;07m'
 BLACK_GREEN='\033[00;32m\033[01;07m'
+BLACK_YELLOW='\033[00;33m\033[01;07m'
 GOLD_BLACK='\033[33m'
 CYAN_BLACK='\033[36m'
 COLOR_RESET='\033[00m'
 
-version="master"
 printf "Versions\n 1- Master\n 2- Beta1\n 3- Beta2\n"
-printf "Select the version: \n"
+printf "${CYAN_BLACK}Select the version:${COLOR_RESET} \n"
+
+#user input
+#stty -echo
 stty raw
-version=$(dd bs=1 count=1 2>/dev/null)
+VERSION=$(dd bs=1 count=1 2>/dev/null)
 stty -raw
-case $version in
+#stty echo
+
+case $VERSION in
  (1)
-  version="master"
+  VERSION="Master"
  ;;
  (2)
-  version="beta1"
+  VERSION="Beta 1"
  ;;
  (3)
-  version="backup"
+  VERSION="Backup"
  ;;
 esac
-printf "\n $version"
-printf "${CYAN_BLACK} 🔁Upgrading... Please wait...${COLOR_RESET}\n"
-cd ~/
-rm -rf $HOME/sourceinstall.sh
-rm -rf $HOME/easyinstall.sh
-rm -rf $HOME/twminstall.sh
-rm -rf $HOME/info.sh
-#sleep 0.5s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/info.sh -s -L -O >$HOME/info.sh
-sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/sourceinstall.sh -s -L -O >$HOME/sourceinstall.sh
-sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/easyinstall.sh -s -L -O >$HOME/easyinstall.sh
-sleep 1s
-curl https://raw.githubusercontent.com/sharesourcecode/twm/${version}/twminstall.sh -s -L -O >$HOME/easyinstall.sh
-sleep 1s
-chmod +x $HOME/*.sh
-printf "${BLACK_GREENN}✅ Updated... Starting${COLOR_RESET}\n"
+version=$(echo "$VERSION"|sed 's/[ \t]//g'|tr "[[:upper:]]" "[[:lower:]]")
+printf "\n${CYAN_BLACK}🔧 Preparing${COLOR_RESET} ${GOLD_BLACK}$VERSION${COLOR_RESET} ${CYAN_BLACK}repository source...${COLOR_RESET}\n"
+
+mkdir -p ~/twm
+cd ~/twm
+
+SCRIPTS="easyinstall.sh info.sh sourceinstall.sh twminstall.sh"
+rm -rf "$HOME/$SCRIPTS" $SCRIPTS 2>/dev/null
+
+SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/${version}/"
+
+NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
+LEN=0
+for script in $SCRIPTS ; do
+ LEN=$((LEN+1))
+ printf "Checking $LEN/$NUM_SCRIPTS $script\n"
+
+ remote_count=$(curl ${SERVER}$script -s -L|wc -c)
+
+ if [ -e ~/twm/$script ] ; then
+  local_count=$(wc -c < "$script")
+ else
+  local_count=1
+ fi
+
+ if [ -e ~/twm/$script ] && [ "$remote_count" -eq "$local_count" ] ; then
+  printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
+ elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ] ; then
+  printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
+  curl ${SERVER}$script -s -L > $script
+ else
+  printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
+  curl ${SERVER}$script -s -L -O
+ fi
+ chmod +x "$script"
+ cp $script "$HOME/$script" 2>/dev/null
+ sleep 0.1s
+done
+cp twminstall.sh "$HOME/easyinstall.sh"
+printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./twminstall.sh ...${COLOR_RESET}\n"
 ./twminstall.sh

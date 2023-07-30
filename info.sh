@@ -28,7 +28,7 @@ script_slogan () {
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
  version="Version 2.10.16"
- for i in $colors ; do
+ for i in $colors; do
   clear
   t=$((t - 27))
   w=$((w + 1))
@@ -55,17 +55,17 @@ script_slogan () {
 
 messages_info () {
  echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M)" > $TMP/msg_file
- printf " ##### mail #####\n" >> $TMP/msg_file
+ printf " ----- mail -----\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf " ##### chat titans #####\n" >> $TMP/msg_file
+ printf " ----- chat titans -----\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf " ##### chat clan #####\n" >> $TMP/msg_file
+ printf " ----- chat clan -----\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
@@ -75,14 +75,14 @@ messages_info () {
 }
 
 mini_read () {
-: ' Two head functions for Bourne Shell (ueliton@disroot.org 28/07/23)
- usage;
+: ' Two read functions for Bourne Shell
+ usage:
  mini_read -t 3 -n 3 myVar
  -n nchars return after reading NCHARS characters rather than waiting for a newline.
  -t time out and return failure if a complete line of input is not read within TIMEOUT seconds.
 '
 
- while [ $# -gt 0 ] ; do
+ while [ $# -gt 0 ]; do
   case "$1" in
   -t)
    MRTIME=$2 shift 2
@@ -91,7 +91,7 @@ mini_read () {
    MRCOUNT=$2 shift 2
   ;;
   *)
-   if [ $# -eq 1 ] ; then
+   if [ $# -eq 1 ]; then
     MRVAR_NAME=$1
     shift
    else
@@ -106,13 +106,13 @@ mini_read () {
  eval "MRVAR=\$$MRLAST_ARG"
  eval "${MRVAR_NAME}=\$MRVAR"
 
- back_ground () {
+ mrback_ground () {
   (
-   for MRLOOP in $(seq $MRTIME -1 0) ; do
+   for MRLOOP in $(seq $MRTIME -1 0); do
     MRPIDF=$(ps ax -o pid=,args=|grep "dd bs=1 count=$MRCOUNT"|grep -v 'grep'| head -n 1|grep -o -E '([0-9]{2,6})')
-    if [ -z "$MRPIDF" ] ; then
+    if [ -z "$MRPIDF" ]; then
      MRLOOP=0
-    elif [ "$MRLOOP" -eq 0 ] ; then
+    elif [ "$MRLOOP" -eq 0 ]; then
      kill -s PIPE $MRPIDF 2> /dev/null
      kill -15 $MRPIDF 2> /dev/null
     fi
@@ -120,7 +120,7 @@ mini_read () {
    done
   )
  }
- back_ground </dev/null &>/dev/null &
+ mrback_ground </dev/null &>/dev/null &
  MRFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
 
  unset MRINPUT_READ
@@ -131,7 +131,7 @@ mini_read () {
 
  MRRPID=$(ps ax -o pid=|grep -o "$MRFPID")
 
- if [ -z "$MRINPUT_READ" ] && [ ! -z "$MRRPID" ] ; then
+ if [ -z "$MRINPUT_READ" ] && [ ! -z "$MRRPID" ]; then
   kill -s PIPE $MRFPID </dev/null 2>/dev/null
   kill -15 $MRFPID </dev/null 2>/dev/null
   printf "\n"
@@ -143,17 +143,17 @@ mini_read () {
 
 time_exit () {
  (
-  local FPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
-  for TE in $(seq "$@" -1 0) ; do
-   local RPID=$(ps ax -o pid=|grep -o "$FPID")
-   if [ -z "$RPID" ] ; then
-    local TE=0
+  local TEFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
+  for TELOOP in $(seq "$@" -1 0); do
+   local TERPID=$(ps ax -o pid=|grep -o "$TEFPID")
+   if [ -z "$TERPID" ]; then
+    local TELOOP=0
     break &>/dev/null
-   elif [ "$TE" -lt 1 ] ; then
-    kill -s PIPE $FPID &>/dev/null
-    kill -15 $FPID &>/dev/null
+   elif [ "$TELOOP" -lt 1 ]; then
+    kill -s PIPE $TEFPID &>/dev/null
+    kill -15 $TEFPID &>/dev/null
     printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
-    local TE=0
+    local TELOOP=0
     break &>/dev/null
    fi
    sleep 1s

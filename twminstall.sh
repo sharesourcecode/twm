@@ -1,6 +1,7 @@
 #!/bin/sh
+version='beta1'
 if [ ! -e "info.sh" ] ; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L -O >$HOME/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
  sleep 0.5s
 fi
@@ -11,10 +12,8 @@ script_slogan
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
+SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
-#SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
-#remote_count=$(curl ${SERVER}twminstall.sh -s -L|wc -c)
 if [ -e "twminstall.sh" ] ; then
  local_count=$(wc -c < "twminstall.sh")
 else
@@ -100,7 +99,7 @@ fi #uname -o
 unset LS
 mkdir -p ~/twm
 cd ~/twm
-script_slogan
+#script_slogan
 printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
 
 sync_func () {
