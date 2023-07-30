@@ -1,8 +1,7 @@
 undying_fight () {
  cd $TMP
  #/apply to fight
- event=undying
- apply_event
+ apply_event undying
 
  #/enterFight
  local LA=5 # hit interval
@@ -43,7 +42,7 @@ undying_fight () {
  unset cf_access
  #/end
  func_unset
- apply_event
+ apply_event undying
  printf "Undying (✔)\n"
  sleep 15s
  #/clear bag
