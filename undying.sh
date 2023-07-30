@@ -5,10 +5,10 @@ undying_fight () {
  local LA=5 # hit interval
  cf_access () {
   #/undying/hit/?r=79583539
-  grep -o -E '/undying/(hit|mana)/[?][r][=][0-9]+' $TMP/src.html | sed -n 1p >HITMANA 2> /dev/null
-  if grep -q -o 'out_gate' $TMP/src.html ; then
+  grep -o -E '/undying/(hit|mana)/[?][r][=][0-9]+' $TMP/SRC | sed -n 1p >HITMANA 2> /dev/null
+  if grep -q -o 'out_gate' $TMP/SRC ; then
    printf "\n     🙇‍ "
-   w3m -dump -T text/html "$TMP/src.html" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[hit\],🗡️,;s,\[2hit\],⚔️,;s,\[rage\],⚰️,;s,\[bot\],🧟‍,;s,\[vs\]\ ,🆚\ 👹,;s,\[rip\],💀,g'
+   w3m -dump -T text/html "$TMP/SRC" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[hit\],🗡️,;s,\[2hit\],⚔️,;s,\[rage\],⚰️,;s,\[bot\],🧟‍,;s,\[vs\]\ ,🆚\ 👹,;s,\[rip\],💀,g'
   else
    echo 1 >BREAK_LOOP
    printf "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
@@ -23,14 +23,14 @@ undying_fight () {
   #/attack
   if awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
    date +%s >last_atk
   else
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
@@ -65,7 +65,7 @@ undying_start () {
   apply_event undying
  : ' #/undying/enterGame/?r=75053380
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
 '
@@ -75,28 +75,28 @@ undying_start () {
   done
   #/startGame
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
   #/undying/mana/?r=553
-  grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/src.html | head -n 1 >HITMANA 2> /dev/null
+  grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/SRC | head -n 1 >HITMANA 2> /dev/null
   >BREAK_LOOP
-  local BREAK=$(( $(date +%s) + 15 ))
+  local BREAK=$(( $(date +%s) + 11 ))
   until [ -s "BREAK_LOOP" ] || [ "$(date +%s)" -gt "$BREAK" ] ; do
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
    #/undying/mana/?r=553
-   grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/src.html | head -n 1 >HITMANA 2> /dev/null
-   if grep -q -o -E '/undying/(hit|mana)' $TMP/src.html ; then
+   grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/SRC | head -n 1 >HITMANA 2> /dev/null
+   if grep -q -o -E '/undying/(hit|mana)' $TMP/SRC ; then
     (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
     ) </dev/null &>/dev/null &
     time_exit 17
     echo "1" >BREAK_LOOP
     printf "\n     🙇‍ "
-    w3m -dump -T text/html "$TMP/src.html" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
+    w3m -dump -T text/html "$TMP/SRC" | head -n 18 | sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
    fi
    sleep 0.3s
   done
