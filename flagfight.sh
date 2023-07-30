@@ -95,10 +95,10 @@ flagfight_fight () {
  printf "flagfight(✔)\n"
  sleep 10s
 
-  #apply to fight
+ #apply to fight
  cd $TMP
  cp $src_ram SRC
- apply_event clancoliseum
+ apply_event flagfight
  cp SRC $src_ram
  cd $tmp_ram
  clear
