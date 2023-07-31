@@ -70,7 +70,7 @@ undying_start () {
     do
      sleep 2
    done
-if $NOWHP -lt
+#if $NOWHP -lt
    arena_takeHelp
    arena_fullmana
    #/apply to fight
