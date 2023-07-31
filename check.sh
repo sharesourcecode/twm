@@ -1,7 +1,7 @@
 check_missions () {
  printf "Checking Missions...\n"
  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest/" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
   )  </dev/null &>/dev/null &
   time_exit 20
  #open chests
