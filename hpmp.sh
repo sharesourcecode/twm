@@ -1,29 +1,32 @@
 hpmp () {
- #Go to /train page
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
- )  </dev/null &>/dev/null &
- time_exit 20
+ #/options: -fix or -now
 
- #Fixed HP and MP
- FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/SRC|sed 's/[()]//g')
- FIXMP=$(grep -m5 -o -E '[0-9]{1,5}'|sed -n '5p')
+ #/Go to /train page
+ if [ "$@" != '-fix' ] || [ -z "$@" ]; then
+  (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+  )  </dev/null &>/dev/null &
+  time_exit 20
+ fi
+ #/Fixed HP and MP.
+ #/Needs to run -fix at least once before
+ FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
+ FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
 
- #alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- #Go to any page
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 20
- STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC')
 
- #Variable HP and MP
+ #/$STATUS can be obtained from any SRC file
+ #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
+ local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC')
+
+ #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
  NOWMP=$(echo "$STATUS"|sed -n '2p')
 
- #Calculates percentage of HP and MP
+ #/Calculates percentage of HP and MP.
+ #/Needs to run -fix at least once before
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
-
+: ' e.g.
  printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n"
+'
 }
