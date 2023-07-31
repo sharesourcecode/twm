@@ -4,8 +4,6 @@
 #/king/?out_gate
 
 king_fight () {
- #apply to fight
- apply_event king
 
  #/enterFight
  cd $TMP
