@@ -59,7 +59,6 @@ sleep 2s
 
  for i in `seq 6 -1 1` ; do
   i=$((i - 1))
-  clear
   printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
   read -n 1 -t 1
   case $? in
@@ -105,7 +104,7 @@ while true ; do
  twm_start
 done
 fi
-'
+: '
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
  num=6
