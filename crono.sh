@@ -43,13 +43,21 @@ func_cat () {
   while  true ; do
     printf "${WHITEb_BLACK}Enter a command or type 'list':${COLOR_RESET} \n"
     read -t $i cmd
-    if [ "$cmd" = " " ]; then
-        break
-    fi
-    printf "\n"
-    $cmd
-    sleep 0.5s
-    break
+    case $cmd in
+      ("")
+      break
+      ;;
+      (list)
+      sleep 20s
+      break
+      ;;
+      (*)
+      printf "\n"
+      $cmd
+      sleep 0.5s
+      break
+    esac
+    
   done
 }
 func_sleep () {
