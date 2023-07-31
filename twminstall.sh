@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ ! -e "info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/info.sh -s -L >$HOME/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
  sleep 0.5s
 fi
@@ -13,7 +13,7 @@ script_slogan
 mkdir -p ~/twm ; cd ~/twm
 
 if [ -z "$@" ]; then
- version="backup"
+ version="master"
 else
 #./twminstall.sh beta1, or backup
  version="$@"
