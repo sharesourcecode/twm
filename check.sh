@@ -18,8 +18,11 @@ check_missions () {
   )  </dev/null &>/dev/null &
    time_exit 20
 #collect quests
-i=14
- until [ $i -lt 1 ] ; do
+MISSIONS= grep -o -E "/quest/end/" $TMP/SRC
+NUM_MISSIONS=${#MISSIONS[@]}
+for (( i=0 ; i<$NUM_MISSIONS ; i++ )) ; do
+   MISSIONS=${MISSIONS[i]}
+ #until [ $i -lt 1 ] ; do
   if grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
