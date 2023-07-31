@@ -53,58 +53,6 @@ twm_start () {
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
-: '
-if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
-printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
-sleep 2s
-
- for i in `seq 6 -1 1` ; do
-  i=$((i - 1))
-  printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
-  read -n 1 -t 1
-  case $? in
-    (r)
-    >$HOME/twm/al_file
-    >$HOME/twm/ur_file
-    >$HOME/twm/fileAgent.txt
-    unset UR
-    unset UA
-    unset AL
-    break &>/dev/null
-    requer_func
-    func_proxy
-    login_logoff
-    conf_allies
-    clear
-    ;;
-    (*)
-    login_logoff
-    func_cat
-    messages_info
-    while true ; do
-      sleep 1s
-      twm_start
-    done
-    exit $?
-  esac
- done
-elif
-  #done
-  requer_func
-  func_proxy
-  login_logoff
-  if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
-   conf_allies
-   clear
-  fi
-  func_cat
-  messages_info
-  while true ; do
-   sleep 1s
-   twm_start
-  done
-fi
-'
 
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
