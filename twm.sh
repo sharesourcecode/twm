@@ -84,14 +84,14 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
   printf " Hit${GOLD_BLACK} [Enter]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
  done
 else
-requer_func
-func_proxy
-login_logoff
-if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
- conf_allies
- clear
+  requer_func
+  func_proxy
+  login_logoff
+  if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+  conf_allies
+  clear
+  fi
 fi
-
 : '
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
