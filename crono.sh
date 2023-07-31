@@ -33,6 +33,23 @@ func_cat () {
  fi
  cat $TMP/msg_file
  printf "${WHITE_BLACK}"
+ #local BREAK=$(( $(date +%s) + 10 ))
+  list () {
+   printf "\n"
+   grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' ~/twm/*.sh|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
+   read -t 5
+  }
+  while  true ; do
+    printf "${WHITEb_BLACK}Enter a command or type 'list':${COLOR_RESET} \n"
+    read -t $i cmd
+    if [ "$cmd" = " " ]; then
+        break
+    fi
+    printf "\n"
+    $cmd
+    sleep 0.5s
+    break
+  done
 }
 func_sleep () {
  case $(date +%d) in
@@ -43,24 +60,44 @@ func_sleep () {
    coliseum_start
    reset
    clear
+   i=60
+   printf "\n No battles now, waiting 1m\n"
    func_cat
-   printf " No battles now, waiting 1m\n"
-   sleep 1m ;;
+   #sleep 55s 
+   ;;
   esac ;;
  esac
  case $(date +%M) in
  ([25][89])
   reset
   clear
+  i=10
+  printf "\n No battles now, waiting 15s\n"
   func_cat
-  printf " No battles now, waiting 15s\n"
-  sleep 15s ;;
+  #sleep 10s 
+  ;;
  (*)
+  #check_cave
+  #check_missions
   reset
   clear
+  i=45
+  printf "\n No battles now, waiting 30s\n"
   func_cat
-  printf " No battles now, waiting 30s\n"
-  sleep 30s ;;
+  #sleep 25s 
+  ;;
 #  break &>/dev/null
  esac
+}
+standard_crono() {
+  arena_duel
+  career_func
+  cave_routine
+  func_trade
+  campaign_func
+  clanDungeon
+  check_missions
+  messages_info
+  func_crono
+  func_sleep
 }

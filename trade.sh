@@ -15,7 +15,7 @@ func_trade () {
   time_exit 17
   local ACCESS=$(grep -o -E '/trade/exchange/silver/[0-9]+[?]r[=][0-9]+' $TMP/SRC|head -n 1)
  done
- printf "trade (✔)\n"
+ printf "${GREEN_BLACK}trade (✔)${COLOR_RESET}\n"
 }
 clan_money () {
  clan_id

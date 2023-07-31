@@ -128,9 +128,4 @@ conf_allies () {
    printf "\n Time exceeded!\n"
   fi ;;
  esac
- echo "iLLLLLLLLLLLLLL" >>allies.txt
- sort -u allies.txt -o allies.txt
- echo "iLLLLLLLLLLLLLLLLLLL" >>callies.txt
- sort -u callies.txt -o callies.txt
- unset ts IDN LEADPU alCLA AL NPG
 }

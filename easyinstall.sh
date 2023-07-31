@@ -3,7 +3,9 @@ REPO=$1
 : '
 This script merges most of the functions in the twm.sh script with the exception of play.sh and sourceinstall.sh
 The Bash shebang is also converted to Bourn Shell(#!/bin/bash > #!/bin/sh).
-' 
+'
+echo "" && echo "$yellow [$green+$red]$reset Installer script for TWM."
+
 #/Colors - font(formatting)_background
 BLACK_BLACK='\033[00;30m'
 BLACK_CYAN='\033[01;36m\033[01;07m'
@@ -57,16 +59,9 @@ script_slogan () {
  done
 }
 cd ~/
-if echo "$REPO"|grep -q -E '[-]test' ; then
- #/test repository
- SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
- remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
-else
- #/final repository
- TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
- SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
- remote_count=$(curl -H "Authorization: token $TWMKEY" ${SERVER}easyinstall.sh -s -L|wc -c)
-fi
+#/stable
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ] ; then
  local_count=$(wc -c < "easyinstall.sh")
 else
@@ -152,40 +147,20 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  sync_func () {
   SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh"
   cd ~/twm
-  if echo "$REPO"|grep -q -E '[-]test' ; then
-   #/test repository
-   curl ${SERVER}play.sh -s -L -O
-   curl ${SERVER}sourceinstall.sh -s -L -O
-   curl ${SERVER}twm.sh -s -L|sed -n '1,124p' >twm.sh
-  else
-   #/final repository
-   curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-   curl -H "Authorization: token $TWMKEY" ${SERVER}sourceinstall.sh -s -L -O
-   curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '1,124p' >twm.sh
-  fi
+  curl ${SERVER}play.sh -s -L -O
+  curl ${SERVER}sourceinstall.sh -s -L -O
+  curl ${SERVER}twm.sh -s -L|sed -n '1,33p' >twm.sh
   NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
   LEN=0
   for script in $SCRIPTS ; do
    LEN=$((LEN+1))
    printf "Checking $LEN/$NUM_SCRIPTS $script\n"
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
-   if echo "$REPO"|grep -q -E '[-]test' ; then
-    #/test repository
-    curl ${SERVER}$script -s -L >>twm.sh
-   else
-    #/final repository
-    curl -H "Authorization: token $TWMKEY" ${SERVER}$script -s -L >>twm.sh
-   fi
-    printf "\n#\n" >>twm.sh
+   curl ${SERVER}$script -s -L >>twm.sh
+   printf "\n#\n" >>twm.sh
    sleep 0.1s
   done
-  if echo "$REPO"|grep -q -E '[-]test' ; then
-   #/test repository
-   curl ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh
-  else
-   #/final repository
-   curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|sed -n '131,194p' >>twm.sh
-  fi
+  curl ${SERVER}twm.sh -s -L|sed -n '40,87p' >>twm.sh
   case $(uname -o) in
   (Android)
    :
@@ -235,13 +210,7 @@ if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == l
  fi #-f ~/twm/RUNMODE
 else #$(curl -s -L ...
  cd ~/
- if echo "$REPO"|grep -q -E '[-]test' ; then
-  #/test repository
-  curl ${SERVER}easyinstall.sh -s -L -O
- else
-  #/final repository
-  curl https://codeberg.org/ueliton/auth/raw/branch/main/easyinstall.sh -s -L -O
- fi
+ curl ${SERVER}/easyinstall.sh -s -L -O
  chmod +x easyinstall.sh
  printf "${BLACK_YELLOW}Mistake! Try again later.\nRun:${COLOR_RESET} ${GOLD_BLACK}./easyinstall.sh${COLOR_RESET}\n"
 fi #$(curl -s -L ...

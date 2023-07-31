@@ -36,35 +36,23 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
-```
->Iphone(iSH):
-```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
 
->Android(UserLAnd):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
-chmod +x sourceinstall.sh
-```
->Iphone(iSH):
-```bash
-chmod +x easyinstall.sh
+chmod +x twminstall.sh
 ```
 
 >5 - Copie e cole este comando para instalar o twm
 
->Android(UserLAnd):
+>Android(UserLAnd) e Iphone(iSH):
 ```bash
-./sourceinstall.sh
-```
->Iphone(iSH):
-```bash
-./easyinstall.sh
+./twminstall.sh
 ```
 
 >6 - Para executar o twm
@@ -115,16 +103,16 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./sourceinstall.sh
+./twminstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
@@ -158,18 +146,18 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >3 - Copie e cole este comando para instalar o twm:
 
 ```bash
-bash $HOME/sourceinstall.sh
+bash $HOME/twminstall.sh
 ```
 
 >4 - Para executar o twm:
@@ -215,18 +203,18 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/master/twminstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
 
 ```bash
-chmod +x sourceinstall.sh
+chmod +x twminstall.sh
 ```
 >5 - Copie e cole este comando para instalar o twm:
 
 ```bash
-bash sourceinstall.sh
+bash twminstall.sh
 ```
 
 >6 - Comando para executar o twm:
@@ -250,7 +238,7 @@ bash twm/play.sh -cl
 `Para interroper (CTRL c)`
 
 
-*Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
+*Ocorrem atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima.
 
 As atualizações são exibidas nesta página:
 https://github.com/sharesourcecode/twm/commits/master
@@ -273,7 +261,12 @@ https://link.mercadopago.com.br/titanswarmacro
 
 >Envie o email de sua conta no GitHub e nome, ou apelido para ueliton@disroot.org
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>As contribuições serão aplicadas neste repositório:
+```bash
+git clone https://github.com/sharesourcecode/twm.git
+```
+
+>Se possível, o código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
->Após aprovado, será aplicado no master com os devidos créditos(inclusive no slogan) para os usuários finais.
+>Após aprovado, será aplicado no branch master com os devidos créditos(inclusive no slogan).
