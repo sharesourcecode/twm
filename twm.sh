@@ -30,14 +30,14 @@ fi
 
 #/sources
 cd ~/twm
-#sed -n 1,127 /remove sources to easyinstall.sh
+#/twm.sh before sources <<
 #. clandmgfight.sh
-. requeriments.sh ; . loginlogoff.sh 
+. requeriments.sh ; . loginlogoff.sh
 . flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
-#sed -n 134,197 /remove sources to easyinstall.sh
+#/twm.sh after sources >>
 #/functions
 twm_start () {
  if echo "$RUN"|grep -q -E '[-]cv' ; then
