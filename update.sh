@@ -65,9 +65,9 @@ for script in $SCRIPTS; do
  fi
 
  chmod +x "$script"
- cp $script "$HOME/$script" 2>/dev/null
  sleep 0.1s
 done
+cp easyinstall.sh "$HOME/easyinstall.sh" 2>/dev/null
 
 printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./easyinstall.sh $version ...${COLOR_RESET}\n"
 sleep 3s

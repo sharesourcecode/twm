@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/info.sh
+. ~/twm/info.sh
 colors
 RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
@@ -17,7 +17,7 @@ script_ads () {
 script_ads
 
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
-. $HOME/info.sh
+#. ~/twm/info.sh
 script_slogan
 sleep 1s
 #/termux
@@ -91,7 +91,7 @@ if [ ! -z "$RUN" ] ; then
  :
 else
  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
- SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/backup/'
+ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
  remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
  if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
   local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
