@@ -63,7 +63,7 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
   read -t 3 cmd
   case $cmd in
   (*)
-   #requer_func
+   requer_func
    #func_proxy
    login_logoff
    if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
