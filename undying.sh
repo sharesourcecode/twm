@@ -60,21 +60,26 @@ undying_fight () {
 
 undying_start () {
  cd $TMP
- apply_event undying
- hpmp
+
 
  case $(date +%H:%M) in
   (09:5[5-9]|15:5[5-9]|21:5[5-9])
+   hpmp -fix
+   apply_event undying
+
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)"
    until $(case $(date +%M) in (55|56|57|58|59) exit 1 ;; esac) ;
     do
      sleep 2
    done
-#if $NOWHP -lt
-   arena_takeHelp
-   arena_fullmana
-   #/apply to fight
-   
+
+   hpmp -now
+   #/hp20%+, mp60%+
+   if [ "$HPPER" -gt 20 ] && [ "$MHPPER" -gt 60 ]; then
+    arena_takeHelp
+    arena_fullmana
+   fi
+
 : ' #/undying/enterGame/?r=75053380
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
