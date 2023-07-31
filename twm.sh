@@ -86,17 +86,17 @@ sleep 2s
     done
     exit $?
   esac
-done
+ done
 elif
-#done
-requer_func
-func_proxy
-login_logoff
-if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
- conf_allies
- clear
+  #done
+  requer_func
+  func_proxy
+  login_logoff
+  if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+   conf_allies
+   clear
+  fi
 fi
-
 func_cat
 messages_info
 while true ; do
