@@ -26,7 +26,7 @@ hpmp () {
  #/Needs to run -fix at least once before
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
-: ' e.g.
+ #/e.g.
  printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n"
-'
+
 }
