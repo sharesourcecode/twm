@@ -55,12 +55,20 @@ func_unset () {
 }
 
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
- printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
+local check=5
+printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
+  until [ "$check" -lt 1 ] ; do
+   clear
+   printf " Hit${GOLD_BLACK} [ENTER]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} 3s${COLOR_RESET}\n"
+   local check=$((check - 1))
+    read -t1 && >$HOME/twm/al_file ; >$HOME/twm/ur_file ; $HOME/twm/fileAgent.txt ; unset UR ; unset UA ; unset AL && break
+  done
+ : '
  num=6
  while true ; do
   printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} 3s${COLOR_RESET}\n"
   cmd=1
-  read -t 3 cmd
+  read -t3 cmd
   case $cmd in
   (*)
    requer_func
@@ -84,6 +92,7 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
    break
   esac
  done
+ '
 else
   requer_func
   func_proxy
@@ -93,6 +102,8 @@ else
   clear
   fi
 fi
+
+###
 : '
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
