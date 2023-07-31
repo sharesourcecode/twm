@@ -132,6 +132,7 @@ sync_func () {
    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
   elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
+   rm -rf $HOME/twm/$script
    curl ${SERVER}$script -s -L > $script
   else
    printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
