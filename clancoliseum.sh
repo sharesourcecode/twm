@@ -1,9 +1,4 @@
 clancoliseum_fight () {
- #apply to fight
- cd $TMP
- cp $src_ram SRC
- apply_event clancoliseum
- cp SRC $src_ram
  cd $tmp_ram
 
  #/enterFight
@@ -25,7 +20,7 @@ clancoliseum_fight () {
 
   if grep -q -o '/dodge/' $src_ram; then
    printf "\n     🙇‍ "
-   w3m -dump -T text/html "$src_ram"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
+   w3m -dump -T text/html "$src_ram"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\],\🔴,g;s,\[1\],\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
   else
    echo 1 >BREAK_LOOP
    printf "${BLACK_YELLOW}Battle's over.${COLOR_RESET}\n"
@@ -108,14 +103,24 @@ clancoliseum_start () {
 
  case $(date +%H:%M) in
   (10:2[5-9]|14:5[5-9])
+: ' #apply to fight
+   ${TMP}=$tmp_ram
+   cp $src_ram SRC
+   apply_event clancoliseum
+   cp SRC $src_ram
+   cd $tmp_ram
+'
+   #/FULL hp
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$full_ram
    ) </dev/null &>/dev/null &
    time_exit 17
+   #/clancoliseum/?close=reward
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/?close=reward" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
+   #/clancoliseum/enterFight
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
@@ -124,19 +129,20 @@ clancoliseum_start () {
 
    case $(date +%H:%M) in
     (10:2[5-9])
-     while $(case $(date +%M:%S) in (29:[3-5][0-9]) exit 1 ;; esac); do
-      sleep 3
+     while [ $(date +%M) -gt "24" ] && [ $(date +%M) -lt "30" ]; do
+      sleep 3s
      done
     ;;
     (14:5[5-9])
-     while $(case $(date +%M:%S) in (59:[3-5][0-9]) exit 1 ;; esac); do
-      sleep 3
+     while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "54" ]; do
+      sleep 3s
      done
     ;;
    esac
 
+   #/clancoliseum/
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/enterFight" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/clancoliseum/" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    printf "\nClanColiseum\n$URL\n"
@@ -145,10 +151,11 @@ clancoliseum_start () {
    #/wait
    printf " 😴 Waiting...\n"
 
-   local BREAK=$(( $(date +%s) + 30 ))
+   local BREAK=$(( $(date +%s) + 11 ))
 
    until grep -q -o 'clancoliseum/dodge/' $src_ram || [ "$(date +%s)" -gt "$BREAK" ]; do
     printf " 💤	...\n${ACCESS}\n"
+    #/clancoliseum/
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clancoliseum/" -o user_agent="$(shuf -n1 userAgent.txt)" >$src_ram
     ) </dev/null &>/dev/null &
