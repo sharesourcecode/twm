@@ -22,7 +22,7 @@ login_logoff () {
  sed -i 's/^[ \t]*//;s/[ \t]*$//' $TMP/acc_file
  ACC=$(cat $TMP/acc_file)
  if [ -n "$ACC" ] && [ -n "$URL" ] ; then
-  local check=5
+  local check=4
   until [ "$check" -lt 1 ] ; do
    clear
    printf "Please wait...\n"
