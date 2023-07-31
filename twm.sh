@@ -58,10 +58,11 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
  num=6
  while true ; do
-  printf " Hit${GOLD_BLACK} [Enter]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} 5s${COLOR_RESET}\n"
-  read -t 5
-  case $? in
-  ("")
+  printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} 5s${COLOR_RESET}\n"
+  cmd=1
+  read -t 5 cmd
+  case $cmd in
+  (*)
    requer_func
    func_proxy
    login_logoff
