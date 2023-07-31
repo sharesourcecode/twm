@@ -1,9 +1,6 @@
 #https://furiadetitas.net/altars/enterFight/?r=
 altars_fight () {
  cd $TMP
- event=altars
- apply_event
-
  #/enterFight
  local LA=4 # interval attack
  echo "48" >HPER # % to heal
@@ -87,6 +84,7 @@ altars_fight () {
  clear
 }
 altars_start () {
+  apply_event altars
  case $(date +%H:%M) in
  (13:5[5-9]|20:5[5-9])
   (
