@@ -1,16 +1,16 @@
 check_missions () {
  printf "Checking Missions...\n"
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 20
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest/" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+  )  </dev/null &>/dev/null &
+  time_exit 20
  #open chests
-  if grep -o -E "/quest/openChest/(1|2)/[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r=[0-9]+" $TMP/SRC)
+  if grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC)
    (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
- time_exit 20
+ time_exit 17
    printf "${GREEN_BLACK}Chest opened (✔)${COLOR_RESET}\n"
   fi
   (
@@ -18,17 +18,17 @@ check_missions () {
   )  </dev/null &>/dev/null &
    time_exit 20
 #collect quests
-i=0
- while [ $i -lt 15 ] ; do
-  if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
+i=14
+ until [ "$i" -lt 1 ] ; do
+  if grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 20
-   printf "${GREEN_BLACK}Mission Completed (✔)${COLOR_RESET}\n"
+   check=$((check - 1))
+   printf "${GREEN_BLACK}Mission $i Completed (✔)${COLOR_RESET}\n"
   fi
-  i=$((i+1))
  done
 #collect rewards
  (
@@ -37,8 +37,8 @@ i=0
  time_exit 20
  i=0
  while [ $i -lt 11 ] ; do
-  if grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
+  if grep -o -E "/relic/reward/${i}/[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/relic/reward/${i}/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
