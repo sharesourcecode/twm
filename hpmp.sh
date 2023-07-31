@@ -2,7 +2,7 @@ hpmp () {
  #Go to /train page
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
- ) &
+ )  </dev/null &>/dev/null &
  time_exit 20
 
  #Fixed HP and MP

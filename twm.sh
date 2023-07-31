@@ -33,7 +33,7 @@ cd ~/twm
 #/twm.sh before sources <<
 #. clandmgfight.sh
 . requeriments.sh ; . loginlogoff.sh
-. flagfight.sh ; . clanid.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
+. flagfight.sh ; . clanid.sh ; . hpmp.sh ; . crono.sh ; . arena.sh ; . coliseum.sh
 . campaign.sh ; . run.sh ; . altars.sh ; . clanfight.sh
 . clancoliseum.sh ; . king.sh ; . undying.sh ; . clandungeon.sh
 . trade.sh ; . career.sh ; . cave.sh ; . allies.sh ; . svproxy.sh ; . check.sh
@@ -54,6 +54,57 @@ func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
+printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
+sleep 2s
+i=5
+#while $i -gt 0 ; do
+ clear
+ printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
+ read -t 5 -n 1 st
+ case $st in
+  (r)
+   >$HOME/twm/al_file
+   >$HOME/twm/ur_file
+   >$HOME/twm/fileAgent.txt
+   unset UR
+   unset UA
+   unset AL
+   break &>/dev/null
+   requer_func
+   func_proxy
+   login_logoff
+   conf_allies
+   clear
+   ;;
+  (*)
+   login_logoff
+   func_cat
+   messages_info
+   while true ; do
+    sleep 1s
+    twm_start
+   done
+   exit $?
+  esac
+elif
+#done
+requer_func
+func_proxy
+login_logoff
+if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+ conf_allies
+ clear
+fi
+
+func_cat
+messages_info
+while true ; do
+ sleep 1s
+ twm_start
+done
+fi
+'
+if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
  num=6
  for i in `seq 6 -1 1` ; do
@@ -70,20 +121,9 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
   printf " Hit${GOLD_BLACK} [Enter]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
  done
 fi
-requer_func
-func_proxy
-login_logoff
-if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
- conf_allies
- clear
-fi
+'
 
-func_cat
-messages_info
-while true ; do
- sleep 1s
- twm_start
-done
+
 
 #/sync
 : ' comparing local package
