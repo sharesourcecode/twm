@@ -71,9 +71,20 @@ if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
   printf " Hit${GOLD_BLACK} [Enter]${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
  done
 fi
+requer_func
+func_proxy
+login_logoff
+if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+ conf_allies
+ clear
+fi
 
-
-
+func_cat
+messages_info
+while true ; do
+ sleep 1s
+ twm_start
+done
 
 #/sync
 : ' comparing local package
