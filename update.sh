@@ -35,7 +35,7 @@ printf "\n${CYAN_BLACK}🔧 Preparing${COLOR_RESET} ${GOLD_BLACK}$VERSION${COLOR
 mkdir -p ~/twm
 cd ~/twm
 
-SCRIPTS="easyinstall.sh info.sh sourceinstall.sh twminstall.sh"
+SCRIPTS="info.sh easyinstall.sh"
 rm -rf "$HOME/$SCRIPTS" $SCRIPTS 2>/dev/null
 
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/${version}/"
@@ -69,7 +69,6 @@ for script in $SCRIPTS; do
  sleep 0.1s
 done
 
-cp twminstall.sh "$HOME/easyinstall.sh"
-printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./twminstall.sh $version ...${COLOR_RESET}\n"
+printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./easyinstall.sh $version ...${COLOR_RESET}\n"
 sleep 3s
-./twminstall.sh $version
+./easyinstall.sh $version
