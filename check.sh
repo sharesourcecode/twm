@@ -1,4 +1,5 @@
 check_missions () {
+  #https://furiadetitas.net/quest/openChest/2/?r=13772863
  printf "Checking Missions...\n"
  (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
@@ -6,9 +7,9 @@ check_missions () {
   time_exit 20
  #open chests
   if grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
+   #click=$(grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/openChest/(1|2)/[?]r[=][0-9]+" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 17
    printf "${GREEN_BLACK}Chest opened (✔)${COLOR_RESET}\n"
@@ -29,7 +30,7 @@ for (( i=0 ; i<$NUM_MISSIONS ; i++ )) ; do
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 20
-   check=$((check - 1))
+   #check=$((check - 1))
    printf "${GREEN_BLACK}Mission $i Completed (✔)${COLOR_RESET}\n"
   fi
  done
