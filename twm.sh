@@ -96,14 +96,14 @@ elif
    conf_allies
    clear
   fi
+  func_cat
+  messages_info
+  while true ; do
+   sleep 1s
+   twm_start
+  done
 fi
-func_cat
-messages_info
-while true ; do
- sleep 1s
- twm_start
-done
-fi
+
 : '
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
