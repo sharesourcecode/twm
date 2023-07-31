@@ -82,7 +82,7 @@ undying_start () {
 '
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
 
-   while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; then
+   while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s
    done
 
