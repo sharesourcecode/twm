@@ -104,7 +104,7 @@ arena_duel () {
 # arena_collFight
 # arena_fault
 # clear
- printf "arena ..."
+ printf "arena ...\n"
  arena_takeHelp
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
@@ -125,7 +125,7 @@ arena_duel () {
  echo -e "${GREEN_BLACK}arena (✔)${COLOR_RESET}\n"
 }
 arena_fullmana () {
- echo "energy arena ..."
+ echo "energy arena ...\n"
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source ${URL}/arena/quit -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed "s/href='/\n/g"|grep 'attack/1'|head -n1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >ARENA
  ) </dev/null &>/dev/null &

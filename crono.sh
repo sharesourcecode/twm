@@ -41,13 +41,22 @@ func_cat () {
   }
   while  true ; do
     printf "${WHITEb_BLACK}Enter a command or type 'list':${COLOR_RESET} \n"
-    read -t 5 cmd
-    if [ "$cmd" = " " ]; then
-        break
-    fi
-    $cmd
-    sleep 0.5s
-    break
+    read -t $i cmd
+    case $cmd in
+      ("")
+      break
+      ;;
+      (list)
+      sleep 20s
+      break
+      ;;
+      (*)
+      printf "\n"
+      $cmd
+      sleep 0.5s
+      break
+    esac
+    
   done
 }
 func_sleep () {
@@ -59,26 +68,32 @@ func_sleep () {
    coliseum_start
    reset
    clear
-   func_cat
+   i=60
    printf "\n No battles now, waiting 1m\n"
-   sleep 55s ;;
+   func_cat
+   #sleep 55s 
+   ;;
   esac ;;
  esac
  case $(date +%M) in
  ([25][89])
   reset
   clear
-  func_cat
+  i=10
   printf "\n No battles now, waiting 15s\n"
-  sleep 10s ;;
+  func_cat
+  #sleep 10s 
+  ;;
  (*)
   #check_cave
   #check_missions
   reset
   clear
-  func_cat
+  i=45
   printf "\n No battles now, waiting 30s\n"
-  sleep 25s ;;
+  func_cat
+  #sleep 25s 
+  ;;
 #  break &>/dev/null
  esac
 }

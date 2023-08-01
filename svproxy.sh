@@ -10,6 +10,6 @@ func_proxy () {
    PROXY="http://148.251.244.27:80"
   fi
  fi
- printf "${BLACK_GRAY} Server: ${URL}|${PROXY} ${COLOR_RESET}\n"
+ #printf "${BLACK_GRAY} Server: ${URL}|${PROXY} ${COLOR_RESET}\n"
  unset UR SVPROXY
 }

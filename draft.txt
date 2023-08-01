@@ -67,178 +67,55 @@ printf "${BLACK_YELLOW}Cave Done (✔)${COLOR_RESET}\n"
  https://furiadetitas.net/quest/end/9?r=67964471
 
 
- 
-  : '
- (00:30)
-  standard_crono
-  coliseum_start
-  ;;
- (01:00)
-  standard_crono
-  coliseum_start
-  ;;
- (01:30)
-  standard_crono
-  coliseum_start
-  ;;
- (02:00)
-  standard_crono
-  coliseum_start
-  ;;
- (02:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
+ : '
+if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
+printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
+sleep 2s
+
+ for i in `seq 6 -1 1` ; do
+  i=$((i - 1))
+  printf " Hit${GOLD_BLACK} ['r']${COLOR_RESET} to${GOLD_BLACK} reconfigure${GREEN_BLACK} ${i}s${COLOR_RESET}\n"
+  read -n 1 -t 1
+  case $? in
+    (r)
+    >$HOME/twm/al_file
+    >$HOME/twm/ur_file
+    >$HOME/twm/fileAgent.txt
+    unset UR
+    unset UA
+    unset AL
+    break &>/dev/null
+    requer_func
+    func_proxy
+    login_logoff
+    conf_allies
+    clear
+    ;;
+    (*)
+    login_logoff
+    func_cat
+    messages_info
+    while true ; do
+      sleep 1s
+      twm_start
+    done
+    exit $?
+  esac
+ done
+elif
+  #done
+  requer_func
+  func_proxy
+  login_logoff
+  if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+   conf_allies
+   clear
+  fi
+  func_cat
   messages_info
-  func_crono
-  ;;
- (03:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (03:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (04:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (04:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (05:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  func_trade
-  clan_money
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (05:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (06:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (06:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (07:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (07:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (08:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (08:30)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
- (09:00)
-  arena_duel
-  clanDungeon
-  campaign_func
-  coliseum_start
-  career_func
-  cave_routine
-  check_missions
-  messages_info
-  func_crono
-  ;;
-  '
+  while true ; do
+   sleep 1s
+   twm_start
+  done
+fi
+'

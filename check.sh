@@ -1,12 +1,17 @@
 check_missions () {
  printf "Checking Missions...\n"
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
+  )  </dev/null &>/dev/null &
+  time_exit 17
+ #open chests
+  if grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
+   
+   (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/$click" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
- #open chests
-  if grep -o -E "/quest/openChest/(1|2)/[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r=[0-9]+" $TMP/SRC)
    printf "${GREEN_BLACK}Chest opened (✔)${COLOR_RESET}\n"
   fi
   (
@@ -15,9 +20,9 @@ check_missions () {
    time_exit 20
 #collect quests
 i=0
- while [ $i -lt 10 ] ; do
-  if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
+ while [ $i -lt 15 ] ; do
+  if grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
@@ -33,8 +38,8 @@ i=0
  time_exit 20
  i=0
  while [ $i -lt 11 ] ; do
-  if grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC ; then
-   click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC| sed -n '1p')
+  if grep -o -E "/relic/reward/${i}/[?]r[=][0-9]+" $TMP/SRC ; then
+   click=$(grep -o -E "/relic/reward/${i}/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
