@@ -24,28 +24,33 @@ case $TIME in
         ;;
     (09:5[5-9]|15:5[5-9]|21:5[5-9]) # /Valley of the Immortals 10:00:00 - 16:00:00 - 22:00:00
         undying_start
+        apply_event undying
         standard_crono
         ;;
     (10:2[8-9]|14:5[8-9]) # /Clan coliseum 10:30:00 - 15:00:00
         if [ -n $CLD ] ; then
             clancoliseum_start
         fi
+        apply_event clancoliseum
         standard_crono
         ;;
     (10:5[5-9]|18:5[5-9]) # /Clan tournament 11:00:00 - 19:00:00
         if [ -n $CLD ] ; then
             clanfight_start
         fi
+        apply_event clanfight_start
         standard_crono
         ;;
     (12:2[5-9]|16:2[5-9]|22:2[5-9]) # /King of the Immortals 12:30:00 - 16:30:00 - 22:30:00
         king_start
+        apply_event king_start
         standard_crono
         ;;
     (13:5[5-9]|20:5[5-9]) # /Ancient Altars 14:00:00 - 21:00:00
         if [ -n $CLD ] ; then
             altars_start
         fi
+        apply_event altars_start
         standard_crono
         ;;
     (21:30) # /Clan dmg  09:30:00 - 21:30:00
