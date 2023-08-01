@@ -25,7 +25,7 @@ fi
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ]; then
- local_count=$(wc -c < "easyinstall.sh")
+ local_count=$(wc -c <"easyinstall.sh")
 else
  local_count=1
 fi
@@ -165,26 +165,22 @@ sync_func_other () {
  done
  curl ${SERVER}twm.sh -s -L|sed -n '40,120p' >>twm.sh
 
- case $(uname -o) in
-  (Android)
-   :
-  ;;
-  (*)
-   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/twm.sh
-  ;;
- esac
+ APP=$(uname -a|grep -o '-ish')
+ if [ "$SHELL" = "/bin/bash" ] && [ "$APP" = '-ish' ]; then
+  sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
+ fi
+
  #DOS to Unix
  find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
  chmod +x ~/twm/*.sh &>/dev/null
 }
-case $(uname -o) in
- (Android)
-  sync_func
- ;;
- (*)
+
+#/merge
+if [ "$@" = "m" ]; then
   sync_func_other
- ;;
-esac
+else
+  sync_func
+fi
 
 script_slogan
 printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
