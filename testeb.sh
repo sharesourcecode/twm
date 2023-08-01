@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 . testea.sh
 func
