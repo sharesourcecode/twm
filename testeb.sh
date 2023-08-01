@@ -1,3 +1,3 @@
 #!/bin/sh
-. nomedoprimeiroscript
+. testea.sh
 func
