@@ -172,13 +172,12 @@ requer_func () {
    printf "Set up User-Agent[1 to 2]: \n"
    read -n 1 UA
   fi
-  TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L | base64 -d)
-  SERVER='https://gitea.com/api/v1/repos/Ueliton/twm/raw/master/'
+  SERVER='curl https://raw.githubusercontent.com/sharesourcecode/twm/master/'
   case $UA in
   (0)
    clear ; echo "0" >$HOME/twm/fileAgent.txt
    if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ] ; then
-    curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
+    curl ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
    fi
    ;;
   (1)
@@ -189,12 +188,12 @@ requer_func () {
    echo "$UA" >$TMP/userAgent.txt
    if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ] ; then
     printf " ...\n"
-    curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
+    curl ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
    fi
    ;;
   (2)
    printf " ...\n${BLACK_PINK}"
-   curl -H "Authorization: token $TWMKEY" ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
+   curl ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
    echo "0" >$HOME/twm/fileAgent.txt
    printf "Automatic User Agent selected\n${COLOR_RESET}"
    ;;
