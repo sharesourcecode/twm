@@ -4,8 +4,6 @@
 #/king/?out_gate
 
 king_fight () {
- #apply to fight
- apply_event king
 
  #/enterFight
  cd $TMP
@@ -127,6 +125,8 @@ king_fight () {
 king_start () {
  case $(date +%H:%M) in
  (12:2[5-9]|16:2[5-9]|22:2[5-9])
+  #apply to fight
+  apply_event king
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$TMP/FULL
   ) </dev/null &>/dev/null &
