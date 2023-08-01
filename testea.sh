@@ -1,6 +1,6 @@
 #!/bin/sh
 func () { 
     echo oi
-    read -t 4 -n1 -s cmd
+    read -t 10 -n1 -s cmd
     printf "$cmd"
     }
