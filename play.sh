@@ -1,6 +1,6 @@
 #!/bin/sh
 (
- RUN=$0
+ RUN=$1
  echo "$RUN" > $HOME/twm/runmode_file
  while true ; do
   pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
