@@ -27,6 +27,7 @@ case $VERSION in
  (3)
   VERSION="Backup"
  ;;
+
 esac
 version=$(echo "$VERSION"|sed 's/[ \t]//g'|tr "[[:upper:]]" "[[:lower:]]")
 

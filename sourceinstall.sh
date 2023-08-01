@@ -15,8 +15,8 @@ fi
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
 
-TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
-SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/beta1/'
+
+SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 #SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
 remote_count=$(curl https://raw.githubusercontent.com/sharesourcecode/twm/master/sourceinstall.sh -s -L|wc -c)
 if [ -e "sourceinstall.sh" ] ; then
@@ -103,9 +103,6 @@ fi
  sync_func () {
   SCRIPTS=(allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh hpmp.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh)
   NUM_SCRIPTS=${#SCRIPTS[@]}
-  #curl -H "Authorization: token $TWMKEY" ${SERVER}play.sh -s -L -O
-  #curl ${SERVER}sourceinstall.sh -s -L -O
-  #curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|head -n 128 >twm.sh
   for (( i=0 ; i<$NUM_SCRIPTS ; i++ )) ; do
    script=${SCRIPTS[i]}
    printf "Checking $((i+1))/$NUM_SCRIPTS $script\n"
@@ -128,7 +125,6 @@ fi
    fi
    sleep 0.1s
   done
-#  curl -H "Authorization: token $TWMKEY" ${SERVER}twm.sh -s -L|tail -n 104 >>twm.sh
   #DOS to Unix
   find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
   chmod +x ~/twm/*.sh &>/dev/null
