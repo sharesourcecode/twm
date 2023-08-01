@@ -199,11 +199,11 @@ until [ -z $tipidf ]; do
  sleep 1s
 done
 if [ -f ~/twm/runmode_file ]; then
- if awk '{if ($0 == "-cl") print $0}' ~/twm/runmode_file; then
+ if awk -v arg="-cl" -v file="$(cat ~/twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
   ~/twm/play.sh -cl
- elif awk '{if ($0 == "-cv") print $0}' ~/twm/runmode_file; then
+ elif awk -v arg="-cv" -v file="$(cat ~/twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
   ~/twm/play.sh -cv
