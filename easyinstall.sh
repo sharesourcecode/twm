@@ -111,8 +111,6 @@ if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
  sleep 5s
 #/UserLAnd Terminal
 elif [ "$SHELL" != "/bin/ash" ] && [ "$APPISH" != '-ish' ] && uname -m|grep -q -E '(aarch64|armhf|armv7|mips64)' && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
- sudo apk update
- sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata
  LS='/usr/share/doc'
  printf "${BLACK_CYAN}Install the necessary packages for Alpine on app UserLAnd(Android):${COLOR_RESET}\n apk update\n sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata\n\n"
  sleep 5s
