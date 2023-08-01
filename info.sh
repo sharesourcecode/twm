@@ -53,6 +53,26 @@ script_slogan () {
  done
 }
 
+time_exit () {
+ (
+  local TEFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
+  for TELOOP in $(seq "$@" -1 0); do
+   local TERPID=$(ps ax -o pid=|grep -o "$TEFPID")
+   if [ -z "$TERPID" ]; then
+    local TELOOP=0
+    break &>/dev/null
+   elif [ "$TELOOP" -lt 1 ]; then
+    kill -s PIPE $TEFPID &>/dev/null
+    kill -15 $TEFPID &>/dev/null
+    printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
+    local TELOOP=0
+    break &>/dev/null
+   fi
+   sleep 1s
+  done
+ )
+}
+
 messages_info () {
  echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
  printf " -------- MAIL --------\n" >> $TMP/msg_file
@@ -74,89 +94,35 @@ messages_info () {
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 
-mini_read () {
-: ' Two read functions for Bourne Shell
- usage:
- mini_read -t 3 -n 3 myVar
- -n nchars return after reading NCHARS characters rather than waiting for a newline.
- -t time out and return failure if a complete line of input is not read within TIMEOUT seconds.
-'
+hpmp () {
+ #/options: -fix or -now
 
- while [ $# -gt 0 ]; do
-  case "$1" in
-  -t)
-   MRTIME=$2 shift 2
-  ;;
-  -n)
-   MRCOUNT=$2 shift 2
-  ;;
-  *)
-   if [ $# -eq 1 ]; then
-    MRVAR_NAME=$1
-    shift
-   else
-    echo "Invalid parameter: $1"
-    exit 1
-   fi
-  ;;
-  esac
- done
-
- MRLAST_ARG=${!#}
- eval "MRVAR=\$$MRLAST_ARG"
- eval "${MRVAR_NAME}=\$MRVAR"
-
- mrback_ground () {
+ #/Go to /train page
+ if [ "$@" != '-fix' ] || [ -z "$@" ]; then
   (
-   for MRLOOP in $(seq $MRTIME -1 0); do
-    MRPIDF=$(ps ax -o pid=,args=|grep "dd bs=1 count=$MRCOUNT"|grep -v 'grep'| head -n 1|grep -o -E '([0-9]{2,6})')
-    if [ -z "$MRPIDF" ]; then
-     MRLOOP=0
-    elif [ "$MRLOOP" -eq 0 ]; then
-     kill -s PIPE $MRPIDF 2> /dev/null
-     kill -15 $MRPIDF 2> /dev/null
-    fi
-    sleep 1s
-   done
-  )
- }
- mrback_ground </dev/null &>/dev/null &
- MRFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
-
- unset MRINPUT_READ
- stty raw
- MRINPUT_READ=$(dd bs=1 count=$MRCOUNT 2>/dev/null)
- stty -raw
- eval ${MRVAR_NAME}=$MRINPUT_READ
-
- MRRPID=$(ps ax -o pid=|grep -o "$MRFPID")
-
- if [ -z "$MRINPUT_READ" ] && [ ! -z "$MRRPID" ]; then
-  kill -s PIPE $MRFPID </dev/null 2>/dev/null
-  kill -15 $MRFPID </dev/null 2>/dev/null
-  printf "\n"
-  exit 1
- else
-  printf "\n"
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+  )  </dev/null &>/dev/null &
+  time_exit 20
  fi
+ #/Fixed HP and MP.
+ #/Needs to run -fix at least once before
+ FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
+ FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
+
+
+ #/$STATUS can be obtained from any SRC file
+ #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
+ local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC')
+
+ #/Variable HP and MP
+ NOWHP=$(echo "$STATUS"|sed -n '1p')
+ NOWMP=$(echo "$STATUS"|sed -n '2p')
+
+ #/Calculates percentage of HP and MP.
+ #/Needs to run -fix at least once before
+ HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
+ MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
+ #/e.g.
+ printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n"
 }
 
-time_exit () {
- (
-  local TEFPID=$(echo "$!"|grep -o -E '([0-9]{2,6})')
-  for TELOOP in $(seq "$@" -1 0); do
-   local TERPID=$(ps ax -o pid=|grep -o "$TEFPID")
-   if [ -z "$TERPID" ]; then
-    local TELOOP=0
-    break &>/dev/null
-   elif [ "$TELOOP" -lt 1 ]; then
-    kill -s PIPE $TEFPID &>/dev/null
-    kill -15 $TEFPID &>/dev/null
-    printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
-    local TELOOP=0
-    break &>/dev/null
-   fi
-   sleep 1s
-  done
- )
-}
