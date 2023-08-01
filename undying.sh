@@ -60,11 +60,9 @@ undying_fight () {
 
 undying_start () {
  cd $TMP
-
-
  case $(date +%H:%M) in
   (09:5[5-9]|15:5[5-9]|21:5[5-9])
-   hpmp -fix
+   #hpmp -fix
    apply_event undying
 
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)"
