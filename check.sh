@@ -1,5 +1,4 @@
 check_missions () {
-  #https://furiadetitas.net/quest/openChest/2/?r=13772863
  printf "Checking Missions...\n"
  (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/quest" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
@@ -8,7 +7,7 @@ check_missions () {
  #open chests
   if grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/quest/openChest/(1|2)/[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
-   printf "${URL}$click"
+   
    (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/$click" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  ) </dev/null &>/dev/null &
@@ -24,7 +23,6 @@ i=0
  while [ $i -lt 15 ] ; do
   if grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC ; then
    click=$(grep -o -E "/quest/end/${i}[?]r[=][0-9]+" $TMP/SRC| sed -n '1p')
-   printf $click
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
