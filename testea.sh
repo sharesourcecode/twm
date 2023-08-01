@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 func () { 
     echo oi
+    read -t 4 -n1 -s cmd
+    $cmd
     }
