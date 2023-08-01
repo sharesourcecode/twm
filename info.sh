@@ -98,7 +98,7 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" != '-fix' ] || [ -z "$@" ]; then
+ if [ "$1" != '-fix' ] ; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
@@ -112,7 +112,7 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+ $TMP/SRC')
+ local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+ $TMP/SRC')
 
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
