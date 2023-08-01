@@ -92,65 +92,65 @@ requer_func () {
  UR="$(cat $HOME/twm/ur_file)"
  case $UR in
   (1|s_en)
-   URL=$(echo "dGl3YXIubmV0" | base64 -d)
+   URL=$(echo "dGl3YXIubmV0"|base64 -d)
    TMP="$HOME/twm/.1"
    export TZ="Europe/London" ; ALLIES="_WORK"
   ;;
   (2|ru)
-   URL=$(echo "dGl3YXIucnU=" | base64 -d)
+   URL=$(echo "dGl3YXIucnU="|base64 -d)
    echo "2" >$HOME/twm/ur_file
    TMP="$HOME/twm/.2"
    export TZ="Europe/Moscow" ; ALLIES="_WORK"
   ;;
   (3|pl)
-   URL=$(echo "dGl3YXIucGw=" | base64 -d)
+   URL=$(echo "dGl3YXIucGw="|base64 -d)
    echo "3" >$HOME/twm/ur_file
    TMP="$HOME/twm/.3"
    export TZ="Europe/Warsaw" ; ALLIES="_WORK"
   ;;
   (4)
-   URL=$(echo "dGl0YW5lbi5tb2Jp" | base64 -d)
+   URL=$(echo "dGl0YW5lbi5tb2Jp"|base64 -d)
    echo "4" >$HOME/twm/ur_file
    TMP="$HOME/twm/.4"
    export TZ="Europe/Berlin" ; ALLIES="_WORK"
   ;;
   (5)
-   URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA==" | base64 -d)
+   URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA=="|base64 -d)
    echo "5" >$HOME/twm/ur_file
    TMP="$HOME/twm/.5"
    export TZ="America/Cancun" ; ALLIES="_WORK"
   ;;
   (6|fu)
-   URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA==" | base64 -d)
+   URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA=="|base64 -d)
    echo "6" >$HOME/twm/ur_file
    TMP="$HOME/twm/.6"
    export TZ="America/Bahia" ; ALLIES="_WORK"
   ;;
   (7)
-   URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0" | base64 -d)
+   URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0"|base64 -d)
    echo "7" >$HOME/twm/ur_file
    TMP="$HOME/twm/.7"
    export TZ="Europe/Rome" ; ALLIES="_WORK"
   ;;
   (8|fr)
-   URL=$(echo "dGl3YXIuZnI=" | base64 -d)
+   URL=$(echo "dGl3YXIuZnI="|base64 -d)
    echo "8" >$HOME/twm/ur_file
    TMP="$HOME/twm/.8"
    export TZ="Europe/Paris" ; ALLIES="_WORK"
   ;;
   (9|ro)
-   URL=$(echo "dGl3YXIucm8=" | base64 -d)
+   URL=$(echo "dGl3YXIucm8="|base64 -d)
    echo "9" >$HOME/twm/ur_file
    TMP="$HOME/twm/.9"
    export TZ="Europe/Bucharest" ; ALLIES="_WORK"
   ;;
   (10|s_cn)
-   URL=$(echo "Y24udGl3YXIubmV0" | base64 -d)
+   URL=$(echo "Y24udGl3YXIubmV0"|base64 -d)
    TMP="$HOME/twm/.10"
    export TZ="Asia/Shanghai" ; ALLIES="_WORK"
   ;;
   (11|s_id)
-   URL=$(echo "dGl3YXItaWQubmV0" | base64 -d)
+   URL=$(echo "dGl3YXItaWQubmV0"|base64 -d)
    TMP="$HOME/twm/.11"
    export TZ="Asia/Jakarta" ; ALLIES="_WORK"
   ;;
