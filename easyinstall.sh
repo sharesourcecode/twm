@@ -166,7 +166,7 @@ sync_func_other () {
  curl ${SERVER}twm.sh -s -L|sed -n '40,120p' >>twm.sh
 
  APP=$(uname -a|grep -o '-ish')
- if [ "$SHELL" = "/bin/bash" ] && [ "$APP" = '-ish' ]; then
+ if [ "$SHELL" = "/bin/ash" ] && [ "$APP" = '-ish' ]; then
   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
  fi
 
