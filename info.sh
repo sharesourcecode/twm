@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.10.16"
+ version="Version 2.11"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -74,20 +74,20 @@ time_exit () {
 }
 
 messages_info () {
- echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M)" > $TMP/msg_file
- printf " ----- mail -----\n" >> $TMP/msg_file
+ echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
+ printf " -------- MAIL --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf " ----- chat titans -----\n" >> $TMP/msg_file
+ printf " -------- CHAT TITANS --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- printf " ----- chat clan -----\n" >> $TMP/msg_file
+ printf " -------- CHAT CLAN --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴,g;s,\[1\]\ ,\🔵,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
@@ -98,7 +98,7 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$1" != '-fix' ] ; then
+ if [ "$@" != '-fix' ] || [ -z "$@" ]; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
@@ -125,3 +125,4 @@ hpmp () {
  #/e.g.
  printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n"
 }
+
