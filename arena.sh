@@ -1,5 +1,9 @@
 #/arena
 #http://furiadetitas.net/marathon/take/?r=41422587
+#https://furiadetitas.net/clan/157/quest/take/5/?r=44747294
+#https://furiadetitas.net/clan/157/quest/help/3/?r=44747294
+#https://furiadetitas.net/clan/157/quest/end/3/?r=29775033
+#https://furiadetitas.net/clan/157/quest/deleteHelp/4/?r=29775033
 
 arena_fault () {
  (
