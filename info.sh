@@ -28,6 +28,7 @@ script_slogan () {
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
  version="Version 2.11.11"
+
  for i in $colors; do
   clear
   t=$((t - 27))

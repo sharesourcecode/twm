@@ -67,15 +67,17 @@ undying_start () {
      sleep 2
    done
 
-
-   #hpmp -now
+: '
+   hpmp -now
    #/hp20%+, mp60%+
-
-   #if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
-
-    #arena_takeHelp
-    #arena_fullmana
-   #fi
+'
+  # if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
+: '
+    arena_takeHelp
+    arena_fullmana
+   fi
+'
+   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s
