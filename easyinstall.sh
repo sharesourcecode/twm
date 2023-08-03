@@ -2,12 +2,12 @@
 if [ -z "$@" ]; then
  version="master"
 else
-#./twminstall.sh beta1, or backup
+#./easyinstall.sh beta1, or backup
  version="$@"
 fi
 
 if [ ! -e "info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/$version/info.sh -s -L >$HOME/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
  sleep 0.5s
 fi
