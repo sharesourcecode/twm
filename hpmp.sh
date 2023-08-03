@@ -17,8 +17,9 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]'|grep -o -E '[0-9]+' $TMP/SRC)
- local STATUS=$(grep -o -E '[0-9]+.*[0-9]+' {$URL} | sed -n '1p')
+ #<span class="bl rght nwr"><img src="/images/icon/health.png" alt="hp"> <span class="white">3806</span> | <img src="/images/icon/mana.png" alt="mp"> 1540</span>
+ local STATUSH=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\' $TMP/SRC |grep -o -E '[0-9]+') #|(.*)mp(.*)[0-9]{1,6}[<][/span]
+ local STATUSM=$(grep -o -E '|(.*)mp(.*)[0-9]{1,6}[<](.*)span' $TMP/SRC |grep -o -E '[0-9]+') 
  printf "status {$STATUS}"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
