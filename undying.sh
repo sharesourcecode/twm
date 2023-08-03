@@ -75,7 +75,7 @@ undying_start () {
 
    hpmp -now
    #/hp20%+, mp60%+
-   if [ "$HPPER" -gt 20 ] && [ "$MHPPER" -gt 60 ]; then
+   if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
     arena_takeHelp
     arena_fullmana
    fi
