@@ -17,9 +17,7 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- STATUS=$(curl -s ${URL} | grep -o -E '<span class="bl rght nwr"><img src="/images/icon/health.png" alt="hp"> <span class="white">[0-9]+</span> \| <img src="/images/icon/mana.png" alt="mp"> [0-9]+</span>' | sed -n 's/.*hp"> <span class="white">\([0-9]\+\)<\/span> \| <img src="\/images\/icon\/mana.png" alt="mp"> \([0-9]\+\)<\/span>.*/HP: \1, MP: \2/p')
-
- #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]'|grep -o -E '[0-9]+' $TMP/SRC)
+ local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]' $TMP/SRC|sed '1p')
  printf "status {$STATUS}"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
