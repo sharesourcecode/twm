@@ -13,8 +13,8 @@ hpmp () {
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
 
- FIXMP=$(grep -o -E -A1 ': ' $TMP/TRAIN|sed -n 's/[0-9]\p')
-  printf "\nTeste : $FIXMP"
+ FIXMP=$(grep -o -E -A1 '\: \' $TMP/TRAIN) #|sed -n '[0-9]/p')
+  printf "\nTeste : $FIXMP \n"
   : '
   FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '2p')
   printf "\nTeste : $FIXMP"
@@ -36,18 +36,18 @@ hpmp () {
   printf "\nTeste : $FIXMP"
   FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '11p')
   printf "\nTeste : $FIXMP"
-'
+    '
 
-printf "max hp: {$FIXHP} max mp {$FIXMP}"
+ printf "max hp: {$FIXHP} max mp {$FIXMP}"
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
  local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span'|grep -o -E '[0-9]+' $TMP/SRC)
-#printf "status {$STATUS}"
+ #printf "status {$STATUS}"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
  NOWMP=$(echo "$STATUS"|sed -n '2p')
-printf "Actual Hp {$NOWHP} actual mp {$NOWMP}"
+ printf "Actual Hp {$NOWHP} actual mp {$NOWMP}"
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
