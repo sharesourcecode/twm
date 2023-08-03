@@ -17,7 +17,7 @@ members_allies () {
  printf "${BLACK_CYAN}\nAllies for Coliseum and King of the Immortals:\n${COLOR_RESET}\n"
  cat allies.txt
  printf "${BLACK_CYAN}Wait to continue.  👈${COLOR_RESET}\n"
- sleep 5
+ sleep 2
 }
 id_allies () {
  printf "${BLACK_CYAN}Looking for allies on friends list${COLOR_RESET}\n"

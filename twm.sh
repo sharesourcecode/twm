@@ -74,6 +74,9 @@ fi
 requer_func
 func_proxy
 login_logoff
+if [ -f "$HOME/twm/al_file" ] && [ -s "$HOME/twm/al_file" ] ; then
+  ALLIES=$(cat $HOME/twm/al_file)
+fi
 if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
  conf_allies
  clear
