@@ -67,22 +67,15 @@ undying_start () {
      sleep 2
    done
 
-: '
-   hpmp -now
+
+   #hpmp -now
    #/hp20%+, mp60%+
 
-   if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
+   #if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
 
-    arena_takeHelp
-    arena_fullmana
-   fi
-
- #/undying/enterGame/?r=75053380
-   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-   ) </dev/null &>/dev/null &
-   time_exit 17
-'
+    #arena_takeHelp
+    #arena_fullmana
+   #fi
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s
