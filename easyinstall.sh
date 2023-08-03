@@ -7,7 +7,7 @@ else
 fi
 
 if [ ! -e "info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/$version/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
  sleep 0.5s
 fi
