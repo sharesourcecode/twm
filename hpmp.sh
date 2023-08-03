@@ -17,10 +17,10 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- string=$(curl -s ${URL} | grep -o -E '<span class="bl rght nwr"><img src="/images/icon/health.png" alt="hp"> <span class="white">[0-9]+</span> \| <img src="/images/icon/mana.png" alt="mp"> [0-9]+</span>' | sed -n 's/.*hp"> <span class="white">\([0-9]\+\)<\/span> \| <img src="\/images\/icon\/mana.png" alt="mp"> \([0-9]\+\)<\/span>.*/HP: \1, MP: \2/p')
+ STATUS=$(curl -s ${URL} | grep -o -E '<span class="bl rght nwr"><img src="/images/icon/health.png" alt="hp"> <span class="white">[0-9]+</span> \| <img src="/images/icon/mana.png" alt="mp"> [0-9]+</span>' | sed -n 's/.*hp"> <span class="white">\([0-9]\+\)<\/span> \| <img src="\/images\/icon\/mana.png" alt="mp"> \([0-9]\+\)<\/span>.*/HP: \1, MP: \2/p')
 
  #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]'|grep -o -E '[0-9]+' $TMP/SRC)
- #printf "status {$STATUS}"
+ printf "status {$STATUS}"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
  NOWMP=$(echo "$STATUS"|sed -n '2p')
@@ -30,6 +30,6 @@ hpmp () {
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #/e.g.
- printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n"
-
+ printf "hp $NOWHP - ${HPPER}% [-] mp $NOWMP - ${MPPER}%\n"
+sleep 10s
 }
