@@ -20,7 +20,7 @@ hpmp () {
  string=$(curl -s ${URL} | grep -o -E '<span class="bl rght nwr"><img src="/images/icon/health.png" alt="hp"> <span class="white">[0-9]+</span> \| <img src="/images/icon/mana.png" alt="mp"> [0-9]+</span>' | sed -n 's/.*hp"> <span class="white">\([0-9]\+\)<\/span> \| <img src="\/images\/icon\/mana.png" alt="mp"> \([0-9]\+\)<\/span>.*/HP: \1, MP: \2/p')
 
  #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]'|grep -o -E '[0-9]+' $TMP/SRC)
- printf "status {$STATUS}"
+ #printf "status {$STATUS}"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
  NOWMP=$(echo "$STATUS"|sed -n '2p')
