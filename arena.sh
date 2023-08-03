@@ -131,7 +131,6 @@ arena_duel () {
  ) </dev/null &>/dev/null &
  time_exit 17
  printf "/inv/bag/sellAll/1/\n"
-}
  arena_deleteEnd
  echo -e "${GREEN_BLACK}arena (✔)${COLOR_RESET}\n"
 }
