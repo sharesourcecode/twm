@@ -54,9 +54,11 @@ undying_fight () {
 
 undying_start () {
  cd $TMP
+
+
  case $(date +%H:%M) in
   (09:5[5-9]|15:5[5-9]|21:5[5-9])
-   #hpmp -fix
+   hpmp -fix
    apply_event undying
 
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)"
@@ -68,7 +70,9 @@ undying_start () {
 : '
    hpmp -now
    #/hp20%+, mp60%+
-   #if [ "$HPPER" -gt 20 ] && [ "$MHPPER" -gt 60 ]; then
+
+   if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
+
     arena_takeHelp
     arena_fullmana
    fi
