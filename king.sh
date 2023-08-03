@@ -132,7 +132,7 @@ king_start () {
   ) </dev/null &>/dev/null &
   time_exit 17
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/enterGame" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
   printf "King of the Immortals will be started...\n"

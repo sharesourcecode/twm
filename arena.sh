@@ -1,5 +1,9 @@
 #/arena
 #http://furiadetitas.net/marathon/take/?r=41422587
+#https://furiadetitas.net/clan/157/quest/take/5/?r=44747294
+#https://furiadetitas.net/clan/157/quest/help/3/?r=44747294
+#https://furiadetitas.net/clan/157/quest/end/3/?r=29775033
+#https://furiadetitas.net/clan/157/quest/deleteHelp/4/?r=29775033
 
 arena_fault () {
  (
@@ -121,6 +125,12 @@ arena_duel () {
   echo " ⚔ $ACCESS"
   sleep 1s
  done
+ #/clear bag
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/inv/bag/sellAll/1/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+ ) </dev/null &>/dev/null &
+ time_exit 17
+ printf "/inv/bag/sellAll/1/\n"
  arena_deleteEnd
  echo -e "${GREEN_BLACK}arena (✔)${COLOR_RESET}\n"
 }
