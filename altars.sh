@@ -96,10 +96,12 @@ altars_start () {
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/?close=reward" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
   ) </dev/null &>/dev/null &
   time_exit 17
+  : '
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/enterFight" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/src.html
   ) </dev/null &>/dev/null &
   time_exit 17
+  '
   printf "Ancient Altars will be started...\n"
   until $(case $(date +%M) in (55|56|57|58|59) exit 1 ;; esac) ;
   do
