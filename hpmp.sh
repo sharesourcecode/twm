@@ -12,7 +12,7 @@ hpmp () {
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
- FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
+ FIXMP=$(grep -m5 -o -E '\([0-9]{1,5}\)' $TMP/TRAIN|sed -n '5p')
 
 printf "max hp: {$FIXHP} max mp {$FIXMP}"
 
