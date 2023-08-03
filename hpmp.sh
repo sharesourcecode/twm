@@ -13,8 +13,9 @@ hpmp () {
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
 
- FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '1p')
+ FIXMP=$(grep -o -E -A1 ': ' $TMP/TRAIN|sed -n 's/[0-9]\p')
   printf "\nTeste : $FIXMP"
+  : '
   FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '2p')
   printf "\nTeste : $FIXMP"
   FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '3p')
@@ -35,7 +36,7 @@ hpmp () {
   printf "\nTeste : $FIXMP"
   FIXMP=$(grep -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '11p')
   printf "\nTeste : $FIXMP"
-
+'
 
 printf "max hp: {$FIXHP} max mp {$FIXMP}"
 
