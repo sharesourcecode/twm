@@ -30,5 +30,4 @@ hpmp () {
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #/e.g.
  printf "hp $NOWHP - ${HPPER}% [-] mp $NOWMP - ${MPPER}%\n"
-sleep 10s
 }
