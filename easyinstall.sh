@@ -176,11 +176,6 @@ sync_func_other () {
  done
  curl ${SERVER}twm.sh -s -L|sed -n '40,120p' >>twm.sh
 
- APPISH=$(uname -a|grep -o '-ish')
- if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
-  sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
- fi
-
  #DOS to Unix
  find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
  chmod +x ~/twm/*.sh &>/dev/null
@@ -191,6 +186,10 @@ if [ "$@" = "m" ]; then
   sync_func_other
 else
   sync_func
+fi
+APPISH=$(uname -a|grep -o '-ish')
+if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
+ sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
 fi
 
 script_slogan
