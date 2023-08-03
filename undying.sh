@@ -50,14 +50,6 @@ undying_fight () {
  sleep 15s
  apply_event undying
 
- #/clear bag
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/inv/bag/sellAll/1/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
- ) </dev/null &>/dev/null &
- time_exit 17
- printf "/inv/bag/sellAll/1/\n"
-}
-
 undying_start () {
  cd $TMP
  case $(date +%H:%M) in
@@ -66,25 +58,25 @@ undying_start () {
    apply_event undying
 
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)"
-   until $(case $(date +%M) in (55|56|57|58|59) exit 1 ;; esac) ;
+   until $(case $(date +%M) in (5[5-9]) exit 1 ;; esac) ;
     do
      sleep 2
    done
 
+: '
    hpmp -now
    #/hp20%+, mp60%+
-   if [ "$HPPER" -gt 20 ] && [ "$MHPPER" -gt 60 ]; then
+   #if [ "$HPPER" -gt 20 ] && [ "$MHPPER" -gt 60 ]; then
     arena_takeHelp
     arena_fullmana
    fi
 
-: ' #/undying/enterGame/?r=75053380
+ #/undying/enterGame/?r=75053380
    (
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
 '
-   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s
@@ -126,7 +118,7 @@ undying_start () {
    done
 
    arena_fullmana
-   arena_deleteEnd
+   #arena_deleteEnd
    undying_fight
   ;;
  esac
