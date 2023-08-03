@@ -12,12 +12,30 @@ hpmp () {
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
- i=1
-for i in {0..10}
-do
-  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n "{$i}p")
-  printf "Teste {$i}: $FIXMP"
-done
+
+ FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '1p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '2p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '3p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '4p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '6p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '7p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '8p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '9p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '10p')
+  printf "Teste : $FIXMP"
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '11p')
+  printf "Teste : $FIXMP"
+
 
 printf "max hp: {$FIXHP} max mp {$FIXMP}"
 
