@@ -72,5 +72,5 @@ done
 
 #cp easyinstall.sh "$HOME/easyinstall.sh"
 printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./easyinstall.sh $version ...${COLOR_RESET}\n"
-sleep 3s
+sleep 2s
 ./easyinstall.sh $version

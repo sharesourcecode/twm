@@ -37,17 +37,13 @@ func_cat () {
   list () {
    printf "\n"
    grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' ~/twm/*.sh|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
-   read -t 5
+   read -t 10
   }
   while  true ; do
     printf "${WHITEb_BLACK}Enter a command or type 'list':${COLOR_RESET} \n"
     read -t $i cmd
     case $cmd in
       ("")
-      break
-      ;;
-      (list)
-      sleep 20s
       break
       ;;
       (*)
