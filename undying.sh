@@ -50,6 +50,8 @@ undying_fight () {
  sleep 15s
  apply_event undying
 
+}
+
 undying_start () {
  cd $TMP
  case $(date +%H:%M) in
