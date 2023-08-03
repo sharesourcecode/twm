@@ -114,7 +114,7 @@ cd ~/twm
 printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
 
 sync_func () {
- SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh hpmp.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
+ SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
  LEN=0
  for script in $SCRIPTS; do

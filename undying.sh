@@ -78,12 +78,6 @@ undying_start () {
     arena_fullmana
    fi
 
-: ' #/undying/enterGame/?r=75053380
-   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/enterGame/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
-   ) </dev/null &>/dev/null &
-   time_exit 17
-'
    printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
