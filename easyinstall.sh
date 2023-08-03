@@ -5,20 +5,19 @@ if [ ! -e "info.sh" ]; then
  sleep 0.5s
 fi
 
-if [ -z "$@" ]; then
- version="master"
-else
-#./easyinstall.sh beta1, or backup
- version="$@"
-fi
-
-
 . ~/info.sh
 colors
 script_slogan
 
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
+
+if [ -z "$@" ]; then
+ version="master"
+else
+#./easyinstall.sh beta1, or backup
+ version="$@"
+fi
 
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
