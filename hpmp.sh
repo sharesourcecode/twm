@@ -2,17 +2,22 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" != '-fix' ] || [ -z "$@" ]; then
+# if [ "$@" != '-fix' ] || [ -z "$@" ]; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
   time_exit 20
- fi
+ #fi
  echo "passei"
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
- FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
+ i=1
+for i in {0..10}
+do
+  FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n "{$i}p")
+  printf "Teste {$i}: $FIXMP"
+done
 
 printf "max hp: {$FIXHP} max mp {$FIXMP}"
 
