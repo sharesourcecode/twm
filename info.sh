@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.08"
+ version="Version 2.11.09"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -123,6 +123,6 @@ hpmp () {
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #/e.g.
- printf "hp $NOWHP - ${HPPER}% \[|] mp $NOWMP - ${MPPER}%\n\n"
+ printf "hp $NOWHP - ${HPPER}% \[-] mp $NOWMP - ${MPPER}%\n\n"
 }
 

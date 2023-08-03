@@ -1,6 +1,13 @@
 #!/bin/sh
+if [ -z "$@" ]; then
+ version="master"
+else
+#./twminstall.sh beta1, or backup
+ version="$@"
+fi
+
 if [ ! -e "info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/$version/info.sh -s -L >$HOME/info.sh
  chmod +x info.sh
  sleep 0.5s
 fi
@@ -11,13 +18,6 @@ script_slogan
 
 #create fold twm if does not exist
 mkdir -p ~/twm ; cd ~/twm
-
-if [ -z "$@" ]; then
- version="master"
-else
-#./twminstall.sh beta1, or backup
- version="$@"
-fi
 
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
@@ -114,7 +114,7 @@ cd ~/twm
 printf "${BLACK_CYAN}\n ⌛ Wait downloading scripts...${COLOR_RESET}\n"
 
 sync_func () {
- SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh hpmp.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
+ SCRIPTS="allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh check.sh clancoliseum.sh clandungeon.sh clanfight.sh clanid.sh coliseum.sh crono.sh flagfight.sh king.sh league.sh loginlogoff.sh play.sh requeriments.sh run.sh svproxy.sh trade.sh twm.sh undying.sh"
  NUM_SCRIPTS=$(echo $SCRIPTS|wc -w)
  LEN=0
  for script in $SCRIPTS; do
