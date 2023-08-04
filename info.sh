@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.15"
+ version="Version 2.11.16"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -76,7 +76,7 @@ link() {
      (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" $2
   )  </dev/null &>/dev/null &
-  time_exit 17
+  time_exit 20
 }
 
 hpmp () {
@@ -111,7 +111,10 @@ printf $NOWMP
 messages_info () {
  echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
  printf " -------- MAIL --------\n" >> $TMP/msg_file
- link mail "|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file"
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
+ ) </dev/null &>/dev/null &
+ time_exit 17
  printf " -------- CHAT TITANS --------\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
