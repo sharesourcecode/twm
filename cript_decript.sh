@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cript_decript () {
  local CD_CRIPT="€,,,,,…,,,,,,,,,,,,‘,’,“,”,•,–,—,,,,,,,,, ,ก,ข,ฃ,ค,ฅ,ฆ,ง,จ,ฉ,ช,ซ,ฌ,ญ,ฎ,ฏ,ฐ,ฑ,ฒ,ณ,ด,ต,ถ,ท,ภ,ม,ย,ร,ฤ,ล,ฦ,ว,ศ,ษ,ส,ห,ฬ,อ,ฮ,ฯ,ะ,ั,า,ำ,ิ,ี,ึ,ื,ุ,ู,ฺ,Û,Ü,Ý,Þ,฿,เ,แ,โ,ใ,ไ,ๅ,ๆ,็,่,้,๊,๋,์,ํ,๎,๏,๐,๑,๒,๓,๔,๕,๖,๗,€,,,,,…,,,,,,,,,,,,‘,’,“,”,•,–,—,,,,,,,,, ,ก,ข,ฃ,ค,ฅ,ฆ,ง,จ,ฉ,ช,ซ,ฌ,ญ,ฎ,ฏ,ฐ,ฑ,ฒ,ณ,ด,ต,ถ,ท,ภ,ม,ย,ร,ฤ,ล,ฦ,ว,ศ,ษ,ส,ห,ฬ,อ,ฮ,ฯ,ะ,ั,า,ำ,ิ,ี,ึ,ื,ุ,ู,ฺ,Û,Ü,Ý,Þ,฿,เ,แ,โ,ใ,ไ,ๅ,ๆ,็,่,้,๊,๋,์,ํ,๎,๏,๐,๑,๒,๓,๔,๕,๖,๗"
  local CD_DECRIPT="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9, ,ะ,ะ‘,ะ’,ะ“,ะ”,ะ•,ะ,ะ–,ะ—,ะ,ะ,ะ,ะ,ะ,ะ,ะ,ะ,ะ ,ะก,ะข,ะฃ,ะค,ะฅ,ะฆ,ะง,ะจ,ะฉ,ะช,ะซ,ะฌ,ะญ,ะฎ,ะฏ,ะฐ,ะฑ,ะฒ,ะณ,ะด,ะต,ั‘,ะถ,ะท,ะธ,ะน,ะบ,ะป,ะผ,ะฝ,ะพ,ะฟ,ั€,ั,ั,ั,ั,ั…,ั,ั,ั,ั,ั,ั,ั,ั,ั,ั"
@@ -7,31 +7,46 @@ cript_decript () {
 
  cd_count () {
   #position
-  local CD_ORDER=""
-  for ((cd_i=1; cd_i<=$1; cd_i++)); do
-   local CD_ADD="${cd_i}"
+  CD_ORDER=""
+  for cd_i in $(seq 1 $C_COUNT); do
+   CD_ADD="$cd_i"
    if [ -n "$CD_ORDER" ]; then
-    local CD_ORDER="${CD_ORDER},${CD_ADD}"
+    CD_ORDER="$CD_ORDER,$CD_ADD"
    else
-    local CD_ORDER="${CD_ADD}"
+    CD_ORDER="$CD_ADD"
    fi
   done
-  case $1 in
-   $D_COUNT)
-    D_KEY=$(echo "$CD_ORDER"|tr ',' '\n'|shuf|head -n "$D_COUNT"|tr '\n' ','|sed 's/,$//')
-   ;;
-   $C_COUNT)
-    C_KEY=$(echo "$CD_ORDER"|tr ',' '\n'|shuf|tr '\n' ','|sed 's/,$//')
-   ;;
-  esac
-  echo $D_KEY
+
+#  echo "$CD_ORDER"
+
+  local C_KEY=$(echo "$CD_ORDER"|tr ',' '\n'|shuf|head -n "$D_COUNT"|tr '\n' ','|sed 's/,$//')
   echo $C_KEY
-  echo $D_KEY|awk -F "," '{print NF}'
-  echo $C_KEY|awk -F "," '{print NF}'
+  echo ""
+  C_LKEY=$(echo "$C_KEY"|awk -F "," '{print NF}')
  }
- cd_count $C_COUNT
+ cd_count
+
+ # Atribuir os valores separados por vรญrgula em $C_COUNT a variรกveis separadas
+# set -- $(echo "$C_COUNT" | tr ',' ' ')
+
+ # Criar uma variรกvel vazia para armazenar a quarta variรกvel com a substituiรงรฃo dos elementos
+ CD_FINAL=""
+
+ # Iterar sobre as variรกveis atribuรญdas pelo comando "set" e adicionar os elementos correspondentes de $CD_CRIPT ร  variรกvel CD_FINAL
+ for i in $(seq 1 $C_LKEY); do
+  # Adicionar o elemento ร  variรกvel CD_FINAL
+  if [ -n "$CD_FINAL" ]; then
+   CD_FINAL=${CD_FINAL}$(echo "$CD_CRIPT"|cut -d',' -f"$i")
+  else
+   CD_FINAL=$(echo "$CD_CRIPT"|cut -d',' -f"$i")
+  fi
+ done
+
+ echo "$CD_FINAL"
+
 }
 cript_decript
+
 #echo "$DECRIPT"|sed 's/,//g'
 #echo "$DECRIPT"|awk -F "," '{print $1}'
 #echo "$DECRIPT"|awk -F "," '{print $129}'
