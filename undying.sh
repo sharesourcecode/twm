@@ -68,14 +68,14 @@ undying_start () {
    done
 
 
-   #hpmp -now
+   hpmp
    #/hp20%+, mp60%+
 
    #if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then
-
-    #arena_takeHelp
-    #arena_fullmana
-   #fi
+   if (( $(echo "$HPPER > 30" | bc -l) )); then
+    arena_takeHelp
+    arena_fullmana
+   fi
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s

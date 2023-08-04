@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.27"
+ version="Version 2.11.28"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -83,7 +83,7 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" = '-fix' ]; then
+ if "$@" = '-fix' ; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
@@ -93,27 +93,23 @@ hpmp () {
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
  #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/TRAIN|grep -o -E '[0-9]+')
- #printf "$STATUS\n\n"
 
-# Filtrar somente as linhas que contêm a <div> desejada usando o comando grep
-local STATUS=$(grep -o -E "<img src='/images/icon/health.png' alt='hp'/> <span class='white'>[0-9]+</span> \| <img src='/images/icon/mana.png' alt='mp'/> [0-9]+</span>" $TMP/SRC)
+ local STATUS=$(grep -o -E "alt='hp'/> <span class='white'>[0-9]+</span> \| <img src='/images/icon/mana.png' alt='mp'/> [0-9]+</span>" $TMP/SRC)
 
-# Extrair os números usando o comando sed
-NOWHP=$(echo "$STATUS" | sed -n "s/.*<span class='white'>\([0-9]\+\)<\/span>.*/\1/p")
-NOWMP=$(echo "$STATUS" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp'\/> \([0-9]\+\)<\/span>.*/\1/p")
+ # Extrair os números usando o comando sed
+ NOWHP=$(echo "$STATUS" | sed -n "s/.*<span class='white'>\([0-9]\+\)<\/span>.*/\1/p")
+ NOWMP=$(echo "$STATUS" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp'\/> \([0-9]\+\)<\/span>.*/\1/p")
 
 #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
  FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p')
  #printf "$FIXHP e $FIXMP\n"
- #/Variable HP and MP
  
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
-
-HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
-MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
+ HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
+ MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
 
  #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
@@ -141,7 +137,7 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- hpmp
+ #hpmp
  echo -e "\n hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
