@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.19"
+ version="Version 2.11.20"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -93,12 +93,12 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+')
- printf "$STATUS"
+ local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]' $TMP/SRC|grep -o -E '[0-9]+')
+ printf "$STATUS\n\n"
  #/Variable HP and MP
  NOWHP=$(echo "$STATUS"|sed -n '1p')
  NOWMP=$(echo "$STATUS"|sed -n '2p')
- printf "$NOWMP"
+ printf "$NOWMP\n"
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
@@ -126,7 +126,7 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- printf "hp $NOWHP - ${HPPER}% \| mp $NOWMP\n\n" >> $TMP/msg_file
+ printf "hp $NOWHP - ${HPPER}%  mp $NOWMP\n\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 
