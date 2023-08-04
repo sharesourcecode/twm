@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.29"
+ version="Version 2.11.30"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -123,22 +123,23 @@ messages_info () {
  echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
  printf " -------- MAIL --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p' #|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
  printf " -------- CHAT TITANS --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p' #|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
  printf " -------- CHAT CLAN --------\n" >> $TMP/msg_file
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p' #|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
+ sed '$d;4q;s,\[0\],\🔸 ,g;s,\[1\]\ ,\🔹 ,g' >> $TMP/msg_file
  #hpmp
- echo -e "\n hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
+ echo -e "HP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 
