@@ -105,11 +105,11 @@ hpmp () {
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
  FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p')
  #printf "$FIXHP e $FIXMP\n"
- 
+
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
- MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.2f", nowhp / fixhp * 100 }')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.2f", nowmp / fixmp * 100 }')
 
  #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
