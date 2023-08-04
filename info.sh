@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.10.16"
+ version="Version 2.11.32"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -72,56 +72,76 @@ time_exit () {
   done
  )
 }
-
-messages_info () {
- echo " ⚔️  Titans War Macro - ${version} - ⏰ $(date +%H):$(date +%M)" > $TMP/msg_file
- printf " ----- mail -----\n" >> $TMP/msg_file
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
- ) </dev/null &>/dev/null &
- time_exit 17
- printf " ----- chat titans -----\n" >> $TMP/msg_file
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
- ) </dev/null &>/dev/null &
- time_exit 17
- printf " ----- chat clan -----\n" >> $TMP/msg_file
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
- ) </dev/null &>/dev/null &
- time_exit 17
-# sed :a;N;s/\n//g;ta |
- printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
+link() {
+     (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" $2
+  )  </dev/null &>/dev/null &
+  time_exit 20
 }
 
 hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$1" != '-fix' ] ; then
+ if [ "$@" != '-fix' ] || [ -z "$@" ] ; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
   time_exit 20
  fi
- #/Fixed HP and MP.
- #/Needs to run -fix at least once before
- FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
- FIXMP=$(grep -m5 -o -E '[0-9]{1,5}' $TMP/TRAIN|sed -n '5p')
-
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/SRC|grep -o -E '[0-9]+')
+ #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/TRAIN|grep -o -E '[0-9]+')
 
- #/Variable HP and MP
- NOWHP=$(echo "$STATUS"|sed -n '1p')
- NOWMP=$(echo "$STATUS"|sed -n '2p')
+ local STATUS=$(grep -o -E "alt='hp'/> <span class='white'>[0-9]+</span> \| <img src='/images/icon/mana.png' alt='mp'/> [0-9]+</span>" $TMP/SRC)
+
+ # Extrair os números usando o comando sed
+ NOWHP=$(echo "$STATUS" | sed -n "s/.*<span class='white'>\([0-9]\+\)<\/span>.*/\1/p")
+ NOWMP=$(echo "$STATUS" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp'\/> \([0-9]\+\)<\/span>.*/\1/p")
+
+#/Fixed HP and MP.
+ #/Needs to run -fix at least once before
+ FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
+ FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p')
+ #printf "$FIXHP e $FIXMP\n"
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
- MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.2f", nowhp / fixhp * 100 }')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.2f", nowmp / fixmp * 100 }')
+
+ #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
+ #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
+ #printf "$HPPER e $MPPER \n"
  #/e.g.
- printf %b "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n\n"
+ #echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
+ #sleep 5s
 }
+
+messages_info () {
+ echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
+ printf " -------- MAIL --------\n" >> $TMP/msg_file
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
+ ) </dev/null &>/dev/null &
+ time_exit 17
+ printf " -------- CHAT TITANS --------\n" >> $TMP/msg_file
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
+ ) </dev/null &>/dev/null &
+ time_exit 17
+ printf " -------- CHAT CLAN --------\n" >> $TMP/msg_file
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
+ ) </dev/null &>/dev/null &
+ time_exit 17
+# sed :a;N;s/\n//g;ta |
+ sed -i -e 's/\[0\]/🔸/g' -e 's/\[1\]/🔹/g' msg_file >> $TMP/msg_file
+ #hpmp
+ echo -e "HP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
+ printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
+}
+
+
+
