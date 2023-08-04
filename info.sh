@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.26"
+ version="Version 2.11.27"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -83,7 +83,7 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" != '-fix' ] || [ -z "$@" ]; then
+ if [ "$@" = '-fix' ]; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
@@ -119,8 +119,8 @@ MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
  #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #printf "$HPPER e $MPPER \n"
  #/e.g.
- echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
- sleep 5s
+ #echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
+ #sleep 5s
 }
 
 messages_info () {
@@ -141,7 +141,8 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- printf "\n hp $NOWHP - ${HPPER}[%] | mp $NOWMP - ${MPPER}[%]\n" >> $TMP/msg_file
+ hpmp
+ echo -e "\n hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
 

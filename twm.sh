@@ -83,6 +83,7 @@ if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
 fi
 
 func_cat
+hpmp -fix
 messages_info
 while true ; do
  sleep 1s
