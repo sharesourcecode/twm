@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.23"
+ version="Version 2.11.24"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -92,8 +92,21 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]' $TMP/SRC|grep -o -E '[0-9]+')
+ #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/TRAIN|grep -o -E '[0-9]+')
  #printf "$STATUS\n\n"
+
+# Filtrar somente as linhas que contêm a <div> desejada usando o comando grep
+conteudo_div=$(grep -o -E "<img src='/images/icon/health.png' alt='hp'/> <span class='white'>[0-9]+</span> \| <img src='/images/icon/mana.png' alt='mp'/> [0-9]+</span>" $TMP/SRC)
+
+# Extrair os números usando o comando sed
+hp=$(echo "$conteudo_div" | sed -n "s/.*<span class='white'>\([0-9]\+\)<\/span>.*/\1/p")
+mp=$(echo "$conteudo_div" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp'\/> \([0-9]\+\)<\/span>.*/\1/p")
+
+# Imprimir os números encontrados
+echo "Pontos de vida: $hp"
+echo "Pontos de mana: $mp"
+
+
 
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
