@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.14"
+ version="Version 2.11.15"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -74,9 +74,9 @@ time_exit () {
 }
 link() {
      (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$@" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" $2
   )  </dev/null &>/dev/null &
-  time_exit 20
+  time_exit 17
 }
 
 hpmp () {
@@ -84,7 +84,7 @@ hpmp () {
 
  #/Go to /train page
  if [ "$@" != '-fix' ] || [ -z "$@" ]; then
-  link train
+  link train '>$TMP/TRAIN'
  fi
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
@@ -104,17 +104,14 @@ printf $NOWMP
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #/e.g.
- printf "hp $NOWHP - ${HPPER}% [-] mp $NOWMP - ${MPPER}%\n\n"
+ printf "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%\n\n"
  sleep 3s
 }
 
 messages_info () {
  echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
  printf " -------- MAIL --------\n" >> $TMP/msg_file
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
- ) </dev/null &>/dev/null &
- time_exit 17
+ link mail "|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file"
  printf " -------- CHAT TITANS --------\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q;s,\[0\],\🔴 ,g;s,\[1\]\ ,\🔵 ,g' >> $TMP/msg_file
