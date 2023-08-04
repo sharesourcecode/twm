@@ -7,13 +7,13 @@ cript_decript () {
 
  cd_count () {
   #position
-  CD_ORDER=""
+  local CD_ORDER=""
   for cd_i in $(seq 1 $C_COUNT); do
-   CD_ADD="$cd_i"
+   local CD_ADD="$cd_i"
    if [ -n "$CD_ORDER" ]; then
-    CD_ORDER="$CD_ORDER,$CD_ADD"
+    local CD_ORDER="$CD_ORDER,$CD_ADD"
    else
-    CD_ORDER="$CD_ADD"
+    local CD_ORDER="$CD_ADD"
    fi
   done
 
@@ -26,23 +26,18 @@ cript_decript () {
  }
  cd_count
 
- # Atribuir os valores separados por vírgula em $C_COUNT a variáveis separadas
-# set -- $(echo "$C_COUNT" | tr ',' ' ')
+ local CD_SECRET=""
 
- # Criar uma variável vazia para armazenar a quarta variável com a substituição dos elementos
- CD_FINAL=""
-
- # Iterar sobre as variáveis atribuídas pelo comando "set" e adicionar os elementos correspondentes de $CD_CRIPT à variável CD_FINAL
  for i in $(seq 1 $C_LKEY); do
-  # Adicionar o elemento à variável CD_FINAL
-  if [ -n "$CD_FINAL" ]; then
-   CD_FINAL=${CD_FINAL}$(echo "$CD_CRIPT"|cut -d',' -f"$i")
+  if [ -n "$CD_SECRET" ]; then
+   local CD_SECRET="${CD_SECRET},$(echo $CD_CRIPT|cut -d',' -f$i)"
   else
-   CD_FINAL=$(echo "$CD_CRIPT"|cut -d',' -f"$i")
+   local CD_SECRET="$(echo $CD_CRIPT|cut -d',' -f$i)"
   fi
  done
-
- echo "$CD_FINAL"
+ echo "$CD_DECRIPT"|awk -F "," '{print NF}'
+ echo ""
+ echo "$CD_SECRET"|awk -F "," '{print NF}'
 
 }
 cript_decript
