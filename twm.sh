@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/info.sh
+. ~/twm/info.sh
 colors
 RUN=$(cat $HOME/twm/runmode_file)
 cd $HOME/twm
@@ -17,7 +17,7 @@ script_ads () {
 script_ads
 
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
-. $HOME/info.sh
+. ~/info.sh
 script_slogan
 sleep 1s
 #/termux

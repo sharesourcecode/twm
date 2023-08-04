@@ -1,16 +1,19 @@
 #!/bin/sh
-if [ ! -e "info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/info.sh
- chmod +x info.sh
+#create fold twm if does not exist
+mkdir -p ~/twm
+
+if [ ! -e "~/twm/info.sh" ]; then
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/beta1/info.sh -s -L >$HOME/twm/info.sh
+ chmod +x ~/twm/info.sh
  sleep 0.5s
 fi
 
-. ~/info.sh
+. ~/twm/info.sh
 colors
 script_slogan
 
-#create fold twm if does not exist
-mkdir -p ~/twm ; cd ~/twm
+#access dir
+cd ~/twm
 
 if [ -z "$@" ]; then
  version="master"
