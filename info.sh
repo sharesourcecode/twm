@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.30"
+ version="Version 2.11.31"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -137,7 +137,7 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
 # sed :a;N;s/\n//g;ta |
- sed '$d;4q;s,\[0\],\🔸 ,g;s,\[1\]\ ,\🔹 ,g' >> $TMP/msg_file
+ sed -i '$d;4q;s,\[0\],\🔸 ,g;s,\[1\]\ ,\🔹 ,g' >> $TMP/msg_file
  #hpmp
  echo -e "HP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
