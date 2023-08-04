@@ -67,7 +67,7 @@ undying_start () {
    hpmp -fix
    apply_event undying
 
-   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)"
+   printf "\nValley of the Immortals will be started...\n$(date +%Hh:%Mm)"
    until $(case $(date +%M) in (55|56|57|58|59) exit 1 ;; esac) ;
     do
      sleep 2
@@ -86,7 +86,7 @@ undying_start () {
    ) </dev/null &>/dev/null &
    time_exit 17
 '
-   printf "Valley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
+   printf "\nValley of the Immortals will be started...\n$(date +%Hh:%Mm)\n"
 
    while awk -v minute="$(date +%M)" 'BEGIN { exit !(minute != 00) }' && [ $(date +%M) -gt "57" ]; do
     sleep 5s
