@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.28"
+ version="Version 2.11.29"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -83,7 +83,7 @@ hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if "$@" = '-fix' ; then
+ if [ "$@" != '-fix' ] || [ -z "$@" ] ; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &

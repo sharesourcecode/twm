@@ -68,7 +68,7 @@ undying_start () {
    done
 
 
-   hpmp
+   hpmp -now
    #/hp20%+, mp60%+
 
    #if awk -v hpper="$HPPER" 'BEGIN { exit !(hpper > 20) }' && awk -v mpper="$MPPER" 'BEGIN { exit !(mpper > 60) }'; then

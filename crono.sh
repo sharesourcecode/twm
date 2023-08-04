@@ -101,7 +101,7 @@ standard_crono() {
   campaign_func
   clanDungeon
   check_missions
-  hpmp
+  hpmp -now
   messages_info
   func_crono
   func_sleep
