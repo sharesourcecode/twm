@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.25"
+ version="Version 2.11.26"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -111,11 +111,15 @@ NOWMP=$(echo "$STATUS" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp
  
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
- MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
+
+HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
+MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
+
+ #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
+ #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #printf "$HPPER e $MPPER \n"
  #/e.g.
- printf "hp $NOWHP - ${HPPER} | mp $NOWMP - ${MPPER}\n"
+ echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
  sleep 5s
 }
 
