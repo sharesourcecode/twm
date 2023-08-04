@@ -53,7 +53,7 @@ login_logoff () {
    local prompt="Password: "
    local charcount=0
 
-   while IFS= read -p "$prompt" -r -s -n 1 char; do
+   while read -p "$prompt" -r -s -n 1 char; do
 
     #/NULL - @ - accept password
     if [ "$char" = $'\0' ] || [ "$char" = $'\400' ]; then
