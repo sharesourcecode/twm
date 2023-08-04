@@ -27,7 +27,7 @@ script_slogan () {
  author="ueliton@disroot.org 2019 - 2023"
  collaborator="@_hviegas"
  #Change this number for new version...........................................................
- version="Version 2.11.21"
+ version="Version 2.11.22"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -84,8 +84,12 @@ hpmp () {
 
  #/Go to /train page
  #if [ "$@" != '-fix' ] || [ -z "$@" ]; then
-  link train '>$TMP/TRAIN'
+  (
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
+  )  </dev/null &>/dev/null &
+  time_exit 20
  #fi
+ local STATUS=$( $TMP/TRAIN |sed -n '/<div class="head  cntr">/,/<\/div>/p' | grep -o -E '[0-9]+')
  #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
@@ -93,7 +97,7 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- local STATUS=$(sed -n '/<div class="head  cntr">/,/<\/div>/p' | grep -o -E '[0-9]+')
+ 
  #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/span]' $TMP/SRC|grep -o -E '[0-9]+')
  printf "$STATUS\n\n"
  #/Variable HP and MP
@@ -105,7 +109,7 @@ hpmp () {
  HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
  MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
  #/e.g.
- printf "hp $NOWHP - ${HPPER} | mp $NOWMP - ${MPPER}%\n\n"
+ printf "hp $NOWHP - ${HPPER} | mp $NOWMP - ${MPPER}\n\n"
  sleep 3s
 }
 
