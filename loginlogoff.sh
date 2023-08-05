@@ -31,7 +31,12 @@ login_logoff () {
    clear
    printf "Please wait...\n"
    printf "[Wait to $ACC... (${check}s) - ENTER to other account] \n"
-   local check=$((check - 1)) ; read -t1 && ACC="" && break
+   local check=$((check - 1))
+   if read -t 1; then
+    ACC=""
+    unset FIXHP FIXMP STATUS NOWHP NOWMP HPPER MPPER
+    break
+   fi
   done
 
  fi
