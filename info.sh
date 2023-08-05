@@ -92,30 +92,24 @@ hpmp () {
 
  #/$STATUS can be obtained from any SRC file
  #/alt='hp'/> <span class='white'>19044</span> | <img src='/images/icon/mana.png' alt='mp'/> 1980</
- #local STATUS=$(grep -o -E 'hp(.*)[0-9]{1,6}(.*)\|(.*)mp(.*)[0-9]{1,6}[<][/]span' $TMP/TRAIN|grep -o -E '[0-9]+')
 
  local STATUS=$(grep -o -E "alt='hp'/> <span class='white'>[0-9]+</span> \| <img src='/images/icon/mana.png' alt='mp'/> [0-9]+</span>" $TMP/SRC)
 
- # Extrair os números usando o comando sed
  NOWHP=$(echo "$STATUS" | sed -n "s/.*<span class='white'>\([0-9]\+\)<\/span>.*/\1/p")
  NOWMP=$(echo "$STATUS" | sed -n "s/.*<img src='\/images\/icon\/mana.png' alt='mp'\/> \([0-9]\+\)<\/span>.*/\1/p")
 
-#/Fixed HP and MP.
+ #/Fixed HP and MP.
  #/Needs to run -fix at least once before
  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
  FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p')
- #printf "$FIXHP e $FIXMP\n"
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
- MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.2f", nowhp / fixhp * 100 }')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.2f", nowmp / fixmp * 100 }')
 
- #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
- #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
- #printf "$HPPER e $MPPER \n"
  #/e.g.
- #echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
+ #printf %b "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
  #sleep 5s
 }
 
