@@ -104,7 +104,7 @@ if uname|grep -q -i "cygwin"; then
 fi
 
 #/ish Iphone
-APPISH=$(uname -a|grep -o '-ish')
+APPISH=$(uname -a|grep -o "\-ish")
 if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
  LS='/usr/share/doc'
  printf "${BLACK_CYAN}Install the necessary packages for Alpine on app ISh(Iphone):${COLOR_RESET}\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\n"
@@ -187,7 +187,7 @@ if [ "$@" = "m" ]; then
 else
   sync_func
 fi
-APPISH=$(uname -a|grep -o '-ish')
+APPISH=$(uname -a|grep -o "\-ish")
 if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
  sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
 fi
