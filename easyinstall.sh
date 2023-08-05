@@ -16,7 +16,7 @@ script_slogan
 cd ~/twm
 
 if [ -z "$@" ]; then
- version="master"
+ version="beta1"
 else
 #./easyinstall.sh beta1, or backup
  version="$@"
@@ -25,7 +25,7 @@ fi
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ]; then
- local_count=$(wc -c < "easyinstall.sh")
+ local_count=$(wc -c <"easyinstall.sh")
 else
  local_count=1
 fi
@@ -52,7 +52,7 @@ if [ -d /data/data/com.termux/files/usr/share/doc ]; then
  if whereis -b coreutils >/dev/null 2>&1; then
   :
  else
- pkg install coreutils ncurses-utils -y
+  pkg install coreutils ncurses-utils -y
  fi
 
  if [ -e "${LS}/termux-api" ]; then
@@ -103,10 +103,21 @@ if uname|grep -q -i "cygwin"; then
  fi
 fi
 
-#linux
-if uname -o|grep -q -i "GNU/Linux"; then
+#/ish Iphone
+APPISH=$(uname -a|grep -o "\-ish")
+if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
  LS='/usr/share/doc'
- printf "Install the necessary packages for Alpine on Iphone(ISh), or android(UserLAnd):\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\nInstall required packages for Linux or Windows WSL:\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
+ printf "${BLACK_CYAN}Install the necessary packages for Alpine on app ISh(Iphone):${COLOR_RESET}\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\n"
+ sleep 5s
+#/UserLAnd Terminal
+elif [ "$SHELL" != "/bin/ash" ] && [ "$APPISH" != '-ish' ] && uname -m|grep -q -E '(aarch64|armhf|armv7|mips64)' && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
+ LS='/usr/share/doc'
+ printf "${BLACK_CYAN}Install the necessary packages for Alpine on app UserLAnd(Android):${COLOR_RESET}\n apk update\n sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata\n\n"
+ sleep 5s
+#/other linux
+elif [ "$SHELL" != "/bin/ash" ] && [ "$APPISH" != '-ish' ] && uname -m|grep -q -E "(ppc64le|riscv64|s390x|x86|x86_64)" && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
+ LS='/usr/share/doc'
+ printf "${BLACK_CYAN}Install required packages for Linux or Windows WSL:${COLOR_RESET}\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
  sleep 5s
 fi
 
@@ -135,7 +146,6 @@ sync_func () {
    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
   elif [ -e ~/twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
-   rm -rf $HOME/twm/$script
    curl ${SERVER}$script -s -L > $script
   else
    printf "🔽 ${BLACK_YELLOW}Downloading $script${COLOR_RESET}\n"
@@ -166,26 +176,21 @@ sync_func_other () {
  done
  curl ${SERVER}twm.sh -s -L|sed -n '40,120p' >>twm.sh
 
- case $(uname -o) in
-  (Android)
-   :
-  ;;
-  (*)
-   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/twm.sh
-  ;;
- esac
  #DOS to Unix
  find ~/twm -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
  chmod +x ~/twm/*.sh &>/dev/null
 }
-case $(uname -o) in
- (Android)
-  sync_func
- ;;
- (*)
+
+#/merge
+if [ "$@" = "m" ]; then
   sync_func_other
- ;;
-esac
+else
+  sync_func
+fi
+APPISH=$(uname -a|grep -o "\-ish")
+if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
+ sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/twm/*.sh
+fi
 
 script_slogan
 printf "✅ ${BLACK_CYAN}Updated scripts!${COLOR_RESET}\n To execute run command: ${GOLD_BLACK}./twm/play.sh${COLOR_RESET}\n       For coliseum run: ${GOLD_BLACK}./twm/play.sh -cl${COLOR_RESET}\n           For cave run: ${GOLD_BLACK}./twm/play.sh -cv${COLOR_RESET}\n"
