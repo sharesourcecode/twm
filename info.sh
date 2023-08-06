@@ -105,8 +105,8 @@ hpmp () {
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf nowhp / fixhp * 100 }')
- MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf nowmp / fixmp * 100 }')
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.5f", nowhp / fixhp * 100 }')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.5f", nowmp / fixmp * 100 }')
 
  #/e.g.
  #printf %b "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
