@@ -105,8 +105,8 @@ hpmp () {
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.2f", nowhp / fixhp * 100 }')
- MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.2f", nowmp / fixmp * 100 }')
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf nowhp / fixhp * 100 }')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf nowmp / fixmp * 100 }')
 
  #/e.g.
  #printf %b "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
@@ -134,7 +134,7 @@ messages_info () {
  sed -i -e 's/\[0\]/🔸/g' -e 's/\[1\]/🔹/g' msg_file >> $TMP/msg_file
  #hpmp
  if [ ! -z "$NOWHP" ]; then
-  printf %b "HP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
+  printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n" >> $TMP/msg_file
  fi
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
