@@ -105,12 +105,11 @@ hpmp () {
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.5f", nowhp / fixhp * 100 }')
- MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.5f", nowmp / fixmp * 100 }')
+ HPPER=$(awk 'BEGIN { printf "%.5f", '"$NOWHP"' / '"$FIXHP"' * 100 }')
+ MPPER=$(awk 'BEGIN { printf "%.5f", '"$NOWMP"' / '"$FIXMP"' * 100 }')
 
  #/e.g.
- #printf %b "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
- #sleep 5s
+ #/printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n"
 }
 
 messages_info () {
