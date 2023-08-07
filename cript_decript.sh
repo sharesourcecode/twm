@@ -9,7 +9,6 @@ cript_decript () {
 
  #/Run mode
  ArgPipe="$@"
-
  #/Temporary file
  if [ -d "/dev/shm" ] ; then
   local dir_ram="/dev/shm/"
@@ -19,14 +18,15 @@ cript_decript () {
  local cript_file=$(mktemp -p $dir_ram data.XXXXXX)
 
  #/Input for decryption
- if [ "$ArgPipe" = '-d' ]; then
+ if [ "$ArgPipe" = '_decript' ]; then
   local SelectedPositions=$(cat cript_file|awk -F':' '{print $2}'|base64 -d)
+  echo $SelectedPositions ; sleep 5s
   local ReceiverPipe=$(cat cript_file|awk -F':' '{print $1}')
-
+  echo $ReceiverPipe ; sleep 5s
  #/Input for encryption
  else
-  while read ReceiverPipe; do
-   :
+  while read ReceiverData; do
+   local ReceiverPipe=$(printf "$ReceiverData"|base64 -w 0)
   done
  fi
 
@@ -54,7 +54,7 @@ cript_decript () {
  }
 
  #/Run function just to encrypt
- if [ "$ArgPipe" != '-d' ]; then
+ if [ "$ArgPipe" != '_decript' ]; then
   ElementsPosition
   printf "\nGenerating random encryption key..."
  else
@@ -76,7 +76,7 @@ cript_decript () {
   printf "."
  done
 
- if [ "$ArgPipe" != '-d' ]; then
+ if [ "$ArgPipe" != '_decript' ]; then
   printf "\nKey generated ✓\n"
   printf "Encrypting..."
  else
@@ -92,7 +92,7 @@ cript_decript () {
  for ReferencePosition in $(seq 1 $AllDecript); do
   local OpenChars=$(echo "$DecriptChars"|awk -F',' '{print $'"$ReferencePosition"'}')
   local ClosedChars=$(echo "$RandomChars"|awk -F',' '{print $'"$ReferencePosition"'}')
-  if [ "$ArgPipe" = '-d' ]; then
+  if [ "$ArgPipe" = '_decript' ]; then
    sed -i 's/'"\o$ClosedChars"'/'"$OpenChars"'/g' $cript_file
   else
    sed -i 's/'"$OpenChars"'/'"\o$ClosedChars"'/g' $cript_file
@@ -101,14 +101,14 @@ cript_decript () {
  done
 
  #/Stores the key
- if [ "$ArgPipe" != '-d' ]; then
+ if [ "$ArgPipe" != '_decript' ]; then
   printf ":$(echo "$SelectedPositions"|base64 -w 0)" >>$cript_file
   cat $cript_file >cript_file
  fi
 
- cat $cript_file
+ cat "$cript_file"
 
  unset CriptChars DecriptChars RandomChars ReferencePosition
 
 }
-echo "ueliton@disroot.org"|cript_decript "$@"
+printf "$1\n"|cript_decript "$@"
