@@ -16,7 +16,7 @@ check_missions () {
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
  )  </dev/null &>/dev/null &
- 7time_exit 20
+ time_exit 20
  #collect quests
  i=0
  while [ $i -lt 15 ]; do
