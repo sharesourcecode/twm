@@ -18,17 +18,18 @@ cript_decript () {
  local cript_file=$(mktemp -p $dir_ram data.XXXXXX)
 
  #/Input for decryption
- if [ "$ArgPipe" = '_decript' ]; then
-  local SelectedPositions=$(cat cript_file|awk -F':' '{print $2}'|base64 -d)
-  echo $SelectedPositions ; sleep 5s
+ if [ "$ArgPipe" = '-d' ]; then
+  local RandomChars=$(cat cript_file|awk -F':' '{print $2}'|base64 -d)
   local ReceiverPipe=$(cat cript_file|awk -F':' '{print $1}')
-  echo $ReceiverPipe ; sleep 5s
  #/Input for encryption
  else
   while read ReceiverData; do
-   local ReceiverPipe=$(printf "$ReceiverData"|base64 -w 0)
+   local ReceiverPipe=$(printf "$ReceiverData\n"|base64 -w 0)
   done
  fi
+
+ #/test input
+ echo $ReceiverPipe
 
  #/Builds $PositionOrder with the total
  #\positions of elements in $CriptChars
@@ -53,30 +54,29 @@ cript_decript () {
   printf "\nRandom factor with ${AllCript} characters ✓\n"
  }
 
- #/Run function just to encrypt
- if [ "$ArgPipe" != '_decript' ]; then
+ #/Run just to encrypt
+ if [ "$ArgPipe" != '-d' ]; then
   ElementsPosition
   printf "\nGenerating random encryption key..."
- else
-  printf "\nRebuilding key for decryption..."
+
+  #/Constructs $RandomChars with substitute
+  #\characters for $DecriptChars based on some
+  #\random positions of selected elements
+  #\referring to $CriptChars in $SelectedPositions
+  local RandomChars=""
+  for ReferencePosition in $(seq 1 $AllDecript); do
+   local OriginalPosition=$(echo "$SelectedPositions"|cut -d',' -f"$ReferencePosition")
+   if [ -n "$RandomChars" ]; then
+    local RandomChars=${RandomChars},$(printf "$CriptChars"|cut -d',' -f"$OriginalPosition")
+   else
+    local RandomChars=$(printf "$CriptChars"|cut -d',' -f"$OriginalPosition")
+   fi
+   printf "."
+  done
+
  fi
 
- #/Constructs $RandomChars with substitute
- #\characters for $DecriptChars based on some
- #\random positions of selected elements
- #\referring to $CriptChars in $SelectedPositions
- local RandomChars=""
- for ReferencePosition in $(seq 1 $AllDecript); do
-  local OriginalPosition=$(echo "$SelectedPositions"|cut -d',' -f"$ReferencePosition")
-  if [ -n "$RandomChars" ]; then
-   local RandomChars=${RandomChars},$(printf "$CriptChars"|cut -d',' -f"$OriginalPosition")
-  else
-   local RandomChars=$(printf "$CriptChars"|cut -d',' -f"$OriginalPosition")
-  fi
-  printf "."
- done
-
- if [ "$ArgPipe" != '_decript' ]; then
+ if [ "$ArgPipe" != '-d' ]; then
   printf "\nKey generated ✓\n"
   printf "Encrypting..."
  else
@@ -86,13 +86,13 @@ cript_decript () {
 
  #/Sensitive data will be worked into a
  #\temporary file with a random name.
- printf "$ReceiverPipe" >$cript_file
+ printf "$ReceiverPipe\n" >$cript_file
 
  #/Encrypt or decrypt data
  for ReferencePosition in $(seq 1 $AllDecript); do
   local OpenChars=$(echo "$DecriptChars"|awk -F',' '{print $'"$ReferencePosition"'}')
   local ClosedChars=$(echo "$RandomChars"|awk -F',' '{print $'"$ReferencePosition"'}')
-  if [ "$ArgPipe" = '_decript' ]; then
+  if [ "$ArgPipe" = '-d' ]; then
    sed -i 's/'"\o$ClosedChars"'/'"$OpenChars"'/g' $cript_file
   else
    sed -i 's/'"$OpenChars"'/'"\o$ClosedChars"'/g' $cript_file
@@ -101,14 +101,16 @@ cript_decript () {
  done
 
  #/Stores the key
- if [ "$ArgPipe" != '_decript' ]; then
-  printf ":$(echo "$SelectedPositions"|base64 -w 0)" >>$cript_file
+ if [ "$ArgPipe" != '-d' ]; then
+  printf ":$(echo "$RandomChars"|base64 -w 0)" >>$cript_file
   cat $cript_file >cript_file
+  cat "$cript_file"
+ else
+  cat "$cript_file"|base64 -d
  fi
 
- cat "$cript_file"
 
  unset CriptChars DecriptChars RandomChars ReferencePosition
 
 }
-printf "$1\n"|cript_decript "$@"
+printf %b "$1\n"|cript_decript "$1"
