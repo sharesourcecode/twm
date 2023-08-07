@@ -24,10 +24,8 @@ script_slogan () {
  t=339
  w=59
  m=89
- author="ueliton@disroot.org 2019 - 2023"
- collaborator="@_hviegas"
- #Change this number for new version...........................................................
- version="Version 2.11.32"
+ author="author:\nueliton@disroot.org 2019 - 2023"
+ collaborator="collaborator:\n           @_hviegas"
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -48,7 +46,7 @@ script_slogan () {
   ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
   ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${i}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}\n\033[02m${collaborator}\n${version}${COLOR_RESET}\n"
   sleep 0.3s
  done
 }
