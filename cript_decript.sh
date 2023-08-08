@@ -16,7 +16,6 @@ cript_decript () {
  else
   dir_ram="$PREFIX/tmp/"
  fi
-  cript_file=$(mktemp -p $dir_ram data.XXXXXX)
 
  #/Input for decryption
  if [ "$ArgPipe" = '-d' ]; then
@@ -92,6 +91,7 @@ cript_decript () {
 
  #/Sensitive data will be worked into a
  #\temporary file with a random name.
+ mkdir -p $dir_ram
  cript_file=$(mktemp -p $dir_ram data.XXXXXX)
  printf "$ReceiverPipe\n" >$cript_file
 
@@ -111,14 +111,16 @@ cript_decript () {
 
  #/Stores the key
  if [ "$ArgPipe" != '-d' ]; then
-  printf %b ":$(echo $RandomChars | base64 -w 0)" >>$cript_file
+  printf %b ":$(echo "$RandomChars"|base64 -w 0)" >>$cript_file
   cat $cript_file >cript_file
   echo ""
   cat "$cript_file"|awk -F':' '{print $1}'
   echo " 👆😎👍 Your password is securely saved. 🔐"
  else
+  mkdir -p $dir_ram
   cookie=$(mktemp -p $dir_ram data.XXXXXX)
   cat "$cript_file"|base64 -d|sed 's/,//g' >$cookie
+  echo ""
  fi
 
 
