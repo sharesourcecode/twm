@@ -11,5 +11,5 @@ func_proxy () {
   fi
  fi
  printf "${BLACK_GRAY} Server: ${URL}|${PROXY} ${COLOR_RESET}\n"
- unset UR SVPROXY
+ unset SVPROXY
 }
