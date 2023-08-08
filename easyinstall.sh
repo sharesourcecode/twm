@@ -182,7 +182,7 @@ sync_func_other () {
 }
 
 #/merge
-if [ "$@" = "m" ]; then
+if echo "$@"|grep -q 'merge'; then
   sync_func_other
 else
   sync_func
