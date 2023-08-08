@@ -28,12 +28,12 @@ requer_func () {
   read -n 1 UR
   echo $UR
   if [ "$UR" = $'\0' ]; then
-   echo "s_en" >$HOME/twm/ur_file
+   echo "1" >$HOME/twm/ur_file
   elif [ $UR = 0 ]; then
 #   LANG=zh-CN.UTF-8
-   echo "s_cn" >$HOME/twm/ur_file
+   echo "10" >$HOME/twm/ur_file
   elif [ $UR = 1 ]; then
-   echo "s_id" >$HOME/twm/ur_file
+   echo "11" >$HOME/twm/ur_file
   elif [ "$UR" = $'\177' ]; then
    menu_one
   elif [ $UR = c ] || [ $UR = C ]; then
