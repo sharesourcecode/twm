@@ -4,6 +4,7 @@ coliseum_fight () {
  else
   local dir_ram="$PREFIX/tmp/"
  fi
+ mkdir -p $dir_ram
  local src_ram=$(mktemp -p $dir_ram data.XXXXXX)
  local full_ram=$(mktemp -p $dir_ram data.XXXXXX)
  local tmp_ram=$(mktemp -d -t twmdir.XXXXXX)
