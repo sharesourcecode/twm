@@ -93,6 +93,7 @@ requer_func () {
  case $UR in
   (1|s_en)
    URL=$(echo "dGl3YXIubmV0"|base64 -d)
+   echo "1" >$HOME/twm/ur_file
    TMP="$HOME/twm/.1"
    export TZ="Europe/London" ; ALLIES="_WORK"
   ;;
@@ -146,11 +147,13 @@ requer_func () {
   ;;
   (10|s_cn)
    URL=$(echo "Y24udGl3YXIubmV0"|base64 -d)
+   echo "10" >$HOME/twm/ur_file
    TMP="$HOME/twm/.10"
    export TZ="Asia/Shanghai" ; ALLIES="_WORK"
   ;;
   (11|s_id)
    URL=$(echo "dGl3YXItaWQubmV0"|base64 -d)
+   echo "11" >$HOME/twm/ur_file
    TMP="$HOME/twm/.11"
    export TZ="Asia/Jakarta" ; ALLIES="_WORK"
   ;;
