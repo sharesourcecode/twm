@@ -70,18 +70,19 @@ time_exit () {
   done
  )
 }
-link() {
-     (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" $2
-  )  </dev/null &>/dev/null &
-  time_exit 20
+
+link () {
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" >$2
+ )  </dev/null &>/dev/null &
+ time_exit 20
 }
 
 hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" = '-fix' ]; then
+ if echo "$@"|grep -q '\-fix'; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
@@ -93,8 +94,8 @@ hpmp () {
  fi
 
  #/$NOW/HP|MP can be obtained from any SRC file
- NOWHP=$(grep -o -E "<img src='/images/icon/health.png' alt='hp'/> <span class='white'>[ ]?[0-9]{1,6}[ ]?</span> \| <img src='/images/icon/mana.png' alt='mp'/>" $TMP/SRC|tr -c -d "[[:digit:]]")
- NOWMP=$(grep -o -E "</span> \| <img src='/images/icon/mana.png' alt='mp'/>[ ]?[0-9]{1,6}[ ]?</span><div class='clr'></div></div>" $TMP/SRC|tr -c -d "[[:digit:]]")
+ NOWHP=$(grep -o -E "<img src[=]'/images/icon/health.png' alt[=]'hp'/> <span class[=]'white'>[ ]?[0-9]{1,7}[ ]?</span> \| <img src[=]'/images/icon/mana.png' alt[=]'mp'/>" $TMP/SRC|tr -c -d "[[:digit:]]")
+ NOWMP=$(grep -o -E "</span> \| <img src='/images/icon/mana.png' alt='mp'/>[ ]?[0-9]{1,7}[ ]?</span><div class='clr'></div></div>" $TMP/SRC|tr -c -d "[[:digit:]]")
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
@@ -123,9 +124,12 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
  sed -i 's/\[0\]/🔸/g;s/\[1\]/🔹/g' msg_file >> $TMP/msg_file
- if [ ! -z "$NOWHP" ]; then
-  printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n" >> $TMP/msg_file
+ if [ ! -e "~/twm/.${UR}/TRAIN" ]; then
+  hpmp -fix
  fi
+# elif [ ! -z "$NOWMP" ]; then
+ printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n" >> $TMP/msg_file
+# fi
 # sed :a;N;s/\n//g;ta |
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
