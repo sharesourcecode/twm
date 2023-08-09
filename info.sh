@@ -107,7 +107,7 @@ hpmp () {
 }
 
 messages_info () {
- echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
+ echo " ⚔️ - Titans War Macro - ⚔️ " > $TMP/msg_file
  printf " -------- MAIL --------\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
@@ -123,16 +123,11 @@ messages_info () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
- sed -i 's/\[0\]/🔸/g;s/\[1\]/🔹/g' msg_file >> $TMP/msg_file
+ sed -i 's/\[0\]/🔴/g;s/\[0-off\]/⭕/g;s/\[1\]/🔵/g;s/\[1-off\]/🔘/g' msg_file >> $TMP/msg_file
  if [ ! -e "~/twm/.${UR}/TRAIN" ]; then
   hpmp -fix
  fi
-# elif [ ! -z "$NOWMP" ]; then
- printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n" >> $TMP/msg_file
-# fi
+ printf %b "\033[02mHP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%${COLOR_RESET}\n" >> $TMP/msg_file
 # sed :a;N;s/\n//g;ta |
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
-
-
-
