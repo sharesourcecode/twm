@@ -37,11 +37,7 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd):
-```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
-```
->Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
