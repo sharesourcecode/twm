@@ -2,7 +2,8 @@
 Scripts macros para titanswar.net em todos os servidores.
 
 Se pretende colaborar no código acesse:
-👉 https://tinyurl.com/c0l4b0r4d0r 👍
+
+👉 https://tinyurl.com/c0lab0rad0r
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
@@ -36,23 +37,27 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
+```
+>Iphone(iSH):
+```bash
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copie e cole este comando para instalar o twm
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
-./twminstall.sh
+./easyinstall.sh
 ```
 
 >6 - Para executar o twm
@@ -103,7 +108,7 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
@@ -112,7 +117,7 @@ chmod +x easyinstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./twminstall.sh
+./easyinstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
@@ -146,7 +151,7 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
@@ -203,7 +208,7 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
@@ -238,7 +243,7 @@ bash twm/play.sh -cl
 `Para interroper (CTRL c)`
 
 
-*Ocorrem atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima.
+*Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
 
 As atualizações são exibidas nesta página:
 https://github.com/sharesourcecode/twm/commits/master
@@ -261,8 +266,7 @@ https://link.mercadopago.com.br/titanswarmacro
 
 >Envie o email de sua conta no GitHub e nome, ou apelido para ueliton@disroot.org
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>O código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
 >Após aprovado, será aplicado no master com os devidos créditos(inclusive no slogan) para os usuários finais.
-
