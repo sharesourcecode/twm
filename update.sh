@@ -27,6 +27,7 @@ case $VERSION in
  (3)
   VERSION="Backup"
  ;;
+
 esac
 version=$(echo "$VERSION"|sed 's/[ \t]//g'|tr "[[:upper:]]" "[[:lower:]]")
 
@@ -35,7 +36,7 @@ printf "\n${CYAN_BLACK}🔧 Preparing${COLOR_RESET} ${GOLD_BLACK}$VERSION${COLOR
 mkdir -p ~/twm
 cd ~/twm
 
-SCRIPTS="info.sh easyinstall.sh"
+SCRIPTS="easyinstall.sh info.sh"
 rm -rf "$HOME/$SCRIPTS" $SCRIPTS 2>/dev/null
 
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/${version}/"
@@ -65,10 +66,11 @@ for script in $SCRIPTS; do
  fi
 
  chmod +x "$script"
+ cp $script "$HOME/$script" 2>/dev/null
  sleep 0.1s
 done
-cp easyinstall.sh "$HOME/easyinstall.sh" 2>/dev/null
 
+#cp easyinstall.sh "$HOME/easyinstall.sh"
 printf "\n${BLACK_GREEN}✅ Updated repository source${COLOR_RESET}\n\n${BLACK_CYAN}Starting ./easyinstall.sh $version ...${COLOR_RESET}\n"
-sleep 3s
+sleep 2s
 ./easyinstall.sh $version

@@ -2,7 +2,8 @@
 Scripts macros para titanswar.net em todos os servidores.
 
 Se pretende colaborar no código acesse:
-👉https://tinyurl.com/c0lab0rad0r👍
+
+👉 https://tinyurl.com/c0lab0rad0r
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
@@ -36,21 +37,25 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd):
+```bash
+curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
+```
+>Iphone(iSH):
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copie e cole este comando para instalar o twm
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
 ./easyinstall.sh
 ```
@@ -238,10 +243,10 @@ bash twm/play.sh -cl
 `Para interroper (CTRL c)`
 
 
-*Ocorrem atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima.
+*Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
 
 As atualizações são exibidas nesta página:
-https://github.com/sharesourcecode/twm/commits/backup
+https://github.com/sharesourcecode/twm/commits/master
 
 Clique nelas para saber o que foi alterado.
 
@@ -261,12 +266,7 @@ https://link.mercadopago.com.br/titanswarmacro
 
 >Envie o email de sua conta no GitHub e nome, ou apelido para ueliton@disroot.org
 
->As contribuições serão aplicadas neste repositório:
-```bash
-git clone https://github.com/sharesourcecode/twm.git
-```
-
->Se possível, o código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>O código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
->Após aprovado, será aplicado no branch master com os devidos créditos(inclusive no slogan).
+>Após aprovado, será aplicado no master com os devidos créditos(inclusive no slogan) para os usuários finais.
