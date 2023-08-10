@@ -125,14 +125,12 @@ king_fight () {
 king_start () {
  case $(date +%H:%M) in
  (12:2[5-9]|16:2[5-9]|22:2[5-9])
-  #apply to fight
-  apply_event king
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$TMP/FULL
   ) </dev/null &>/dev/null &
   time_exit 17
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/king/enterGame" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
   printf "King of the Immortals will be started...\n"

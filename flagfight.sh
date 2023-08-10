@@ -1,9 +1,4 @@
 flagfight_fight () {
- #apply to fight
- cd $TMP
- cp $src_ram SRC
- apply_event flagfight
- cp SRC $src_ram
  cd $tmp_ram
 
  #/enterFight

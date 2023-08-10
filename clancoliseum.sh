@@ -103,9 +103,7 @@ clancoliseum_start () {
 
  case $(date +%H:%M) in
   (10:2[5-9]|14:5[5-9])
-  #apply to fight
-  apply_event clancoliseum
-: ' 
+: ' #apply to fight
    ${TMP}=$tmp_ram
    cp $src_ram SRC
    apply_event clancoliseum
