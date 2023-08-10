@@ -2,7 +2,7 @@
 Scripts macros para titanswar.net em todos os servidores.
 
 Se pretende colaborar no código acesse:
-👉 https://tinyurl.com/c0l4b0r4d0r 👍
+👉 [https://tinyurl.com/c0l4b0r4d0r](https://tinyurl.com/c0lab0rad0r) 👍
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
