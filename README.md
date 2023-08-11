@@ -80,7 +80,7 @@ Modo de prioridade coliseu no Android(UserLAnd) e Iphone(iSH):
 * Para desinstalar scripts em ambos sistemas:
 
 ```bash
-rm -rf $HOME/twm
+rm -rf twm/
 ```
 
 ***Alternativa para Android 7 ou superior***
@@ -133,7 +133,7 @@ Modo de prioridade Coliseum:
 * Para desinstalar scripts:
 
 ```bash
-rm -rf $HOME/twm
+rm -rf twm/
 ```
 * Remover atalho do Termux boot:
 
@@ -164,19 +164,19 @@ bash $HOME/easyinstall.sh
 >4 - Para executar o twm:
 
 ```bash
-bash $HOME/twm/play.sh
+bash twm//play.sh
 ```
 
 Executar em modo caverna:
 
 ```bash
-bash $HOME/twm/play.sh -cv
+bash twm//play.sh -cv
 ```
 
 Modo de prioridade coliseu:
 
 ```bash
-bash $HOME/twm/play.sh -cl
+bash twm//play.sh -cl
 ```
 
 `Para interroper (CTRL c) ou feche o programa Cygwin`

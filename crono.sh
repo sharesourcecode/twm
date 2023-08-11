@@ -40,7 +40,7 @@ func_cat () {
 
  list () {
   printf "\n"
-  grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' ~/twm/*.sh|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
+  grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' twm//*.sh|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
   read -t 5
  }
 
