@@ -99,9 +99,8 @@ hpmp () {
 
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(awk 'BEGIN { printf "%.5f", '"$NOWHP"' / '"$FIXHP"' * 100 }')
- MPPER=$(awk 'BEGIN { printf "%.5f", '"$NOWMP"' / '"$FIXMP"' * 100 }')
-
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.3f", nowhp / fixhp * 100 }'|awk '{printf "%.2f\n", $1}')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.3f", nowmp / fixmp * 100 }'|awk '{printf "%.2f\n", $1}')
  #/e.g.
  #/printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n"
 }
@@ -128,7 +127,7 @@ messages_info () {
  if [ ! -e "~/twm/.${UR}/TRAIN" ] || find "$TRAIN" -mmin +30 >/dev/null 2>&1; then
   hpmp -fix
  fi
- printf %b "\033[02mHP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%${COLOR_RESET}\n" >> $TMP/msg_file
+ printf %b "\033[02mHP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%${COLOR_RESET}\n" >> $TMP/msg_file
 # sed :a;N;s/\n//g;ta |
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
