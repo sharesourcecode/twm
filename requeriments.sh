@@ -28,12 +28,12 @@ requer_func () {
   read -n 1 UR
   echo $UR
   if [ "$UR" = $'\0' ]; then
-   echo "1" >twm/ur_file
+   echo "1" >twm/tmp/ur_file
   elif [ $UR = 0 ]; then
 #   LANG=zh-CN.UTF-8
-   echo "10" >twm/ur_file
+   echo "10" >twm/tmp/ur_file
   elif [ $UR = 1 ]; then
-   echo "11" >twm/ur_file
+   echo "11" >twm/tmp/ur_file
   elif [ "$UR" = $'\177' ]; then
    menu_one
   elif [ $UR = c ] || [ $UR = C ]; then
@@ -55,21 +55,21 @@ requer_func () {
   if [ $UR = 1 ]; then
    menu_two
   elif [ $UR = 2 ]; then
-   echo "2" >twm/ur_file
+   echo "2" >twm/tmp/ur_file
   elif [ $UR = 3 ]; then
-   echo "3" >twm/ur_file
+   echo "3" >twm/tmp/ur_file
   elif [ $UR = 4 ]; then
-   echo "4" >twm/ur_file
+   echo "4" >twm/tmp/ur_file
   elif [ $UR = 5 ]; then
-   echo "5" >twm/ur_file
+   echo "5" >twm/tmp/ur_file
   elif [ $UR = 6 ]; then
-   echo "6" >twm/ur_file
+   echo "6" >twm/tmp/ur_file
   elif [ $UR = 7 ]; then
-   echo "7" >twm/ur_file
+   echo "7" >twm/tmp/ur_file
   elif [ $UR = 8 ]; then
-   echo "8" >twm/ur_file
+   echo "8" >twm/tmp/ur_file
   elif [ $UR = 9 ]; then
-   echo "9" >twm/ur_file
+   echo "9" >twm/tmp/ur_file
   elif [ "$UR" = $'\177' ]; then
    menu_one
   elif [ $UR = c ] || [ $UR = C ]; then
@@ -84,77 +84,77 @@ requer_func () {
    invalid_one
   fi
  }
- if [ -f twm/ur_file ] && [ -s twm/ur_file ]; then
-  UR="$(cat twm/ur_file)"
+ if [ -f twm/tmp/ur_file ] && [ -s twm/tmp/ur_file ]; then
+  UR="$(cat twm/tmp/ur_file)"
  else
   menu_one
  fi
- UR="$(cat twm/ur_file)"
+ UR="$(cat twm/tmp/ur_file)"
  case $UR in
   (1|s_en)
    URL=$(echo "dGl3YXIubmV0"|base64 -d)
-   echo "1" >twm/ur_file
-   TMP="twm//.1"
+   echo "1" >twm/tmp/ur_file
+   TMP="twm/tmp/.1"
    export TZ="Europe/London" ; ALLIES="_WORK"
   ;;
   (2|ru)
    URL=$(echo "dGl3YXIucnU="|base64 -d)
-   echo "2" >twm/ur_file
-   TMP="twm//.2"
+   echo "2" >twm/tmp/ur_file
+   TMP="twm/tmp/.2"
    export TZ="Europe/Moscow" ; ALLIES="_WORK"
   ;;
   (3|pl)
    URL=$(echo "dGl3YXIucGw="|base64 -d)
-   echo "3" >twm/ur_file
-   TMP="twm//.3"
+   echo "3" >twm/tmp/ur_file
+   TMP="twm/tmp/.3"
    export TZ="Europe/Warsaw" ; ALLIES="_WORK"
   ;;
   (4)
    URL=$(echo "dGl0YW5lbi5tb2Jp"|base64 -d)
-   echo "4" >twm/ur_file
-   TMP="twm//.4"
+   echo "4" >twm/tmp/ur_file
+   TMP="twm/tmp/.4"
    export TZ="Europe/Berlin" ; ALLIES="_WORK"
   ;;
   (5)
    URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA=="|base64 -d)
-   echo "5" >twm/ur_file
-   TMP="twm//.5"
+   echo "5" >twm/tmp/ur_file
+   TMP="twm/tmp/.5"
    export TZ="America/Cancun" ; ALLIES="_WORK"
   ;;
   (6|fu)
    URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA=="|base64 -d)
-   echo "6" >twm/ur_file
-   TMP="twm//.6"
+   echo "6" >twm/tmp/ur_file
+   TMP="twm/tmp/.6"
    export TZ="America/Bahia" ; ALLIES="_WORK"
   ;;
   (7)
    URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0"|base64 -d)
-   echo "7" >twm/ur_file
-   TMP="twm//.7"
+   echo "7" >twm/tmp/ur_file
+   TMP="twm/tmp/.7"
    export TZ="Europe/Rome" ; ALLIES="_WORK"
   ;;
   (8|fr)
    URL=$(echo "dGl3YXIuZnI="|base64 -d)
-   echo "8" >twm/ur_file
-   TMP="twm//.8"
+   echo "8" >twm/tmp/ur_file
+   TMP="twm/tmp/.8"
    export TZ="Europe/Paris" ; ALLIES="_WORK"
   ;;
   (9|ro)
    URL=$(echo "dGl3YXIucm8="|base64 -d)
-   echo "9" >twm/ur_file
-   TMP="twm//.9"
+   echo "9" >twm/tmp/ur_file
+   TMP="twm/tmp/.9"
    export TZ="Europe/Bucharest" ; ALLIES="_WORK"
   ;;
   (10|s_cn)
    URL=$(echo "Y24udGl3YXIubmV0"|base64 -d)
-   echo "10" >twm/ur_file
-   TMP="twm//.10"
+   echo "10" >twm/tmp/ur_file
+   TMP="twm/tmp/.10"
    export TZ="Asia/Shanghai" ; ALLIES="_WORK"
   ;;
   (11|s_id)
    URL=$(echo "dGl3YXItaWQubmV0"|base64 -d)
-   echo "11" >twm/ur_file
-   TMP="twm//.11"
+   echo "11" >twm/tmp/ur_file
+   TMP="twm/tmp/.11"
    export TZ="Asia/Jakarta" ; ALLIES="_WORK"
   ;;
   (*)

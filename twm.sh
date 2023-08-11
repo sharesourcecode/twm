@@ -53,14 +53,14 @@ twm_start () {
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
-if [ -f "twm/ur_file" ] && [ -s "twm/ur_file" ] ; then
+if [ -f "twm/tmp/ur_file" ] && [ -s "twm/tmp/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
  num=6
  for i in `seq 6 -1 1` ; do
   i=$((i - 1))
   if read -t 1 ; then
    >twm/al_file
-   >twm/ur_file
+   >twm/tmp/ur_file
    >twm/fileAgent.txt
    unset UR
    unset UA
