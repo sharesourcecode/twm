@@ -30,7 +30,7 @@ else
  local_count=1
 fi
 
-cd ~/
+cd ..
 printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
 
 #termux
@@ -136,15 +136,15 @@ sync_func () {
   printf "Checking $LEN/$NUM_SCRIPTS $script\n"
   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
 
-  if [ -e twm/$script ]; then
+  if [ -e $script ]; then
    local_count=$(wc -c < "$script")
   else
    local_count=1
   fi
 
-  if [ -e twm/$script ] && [ "$remote_count" -eq "$local_count" ]; then
+  if [ -e $script ] && [ "$remote_count" -eq "$local_count" ]; then
    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
-  elif [ -e twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
+  elif [ -e $script ] && [ "$remote_count" -ne "$local_count" ]; then
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
    curl ${SERVER}$script -s -L > $script
   else
@@ -153,12 +153,15 @@ sync_func () {
   fi
   sleep 0.1s
  done
+ cd ..
+ 
  #DOS to Unix
  find twm/ -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
  chmod +x twm/*.sh &>/dev/null
 }
 
 sync_func_other () {
+ cd twm/
  SCRIPTS="requeriments.sh svproxy.sh loginlogoff.sh crono.sh check.sh run.sh clanid.sh allies.sh altars.sh arena.sh campaign.sh career.sh cave.sh clancoliseum.sh clandungeon.sh clanfight.sh coliseum.sh flagfight.sh king.sh league.sh trade.sh undying.sh"
  curl ${SERVER}play.sh -s -L -O
  curl ${SERVER}info.sh -s -L >twm.sh
@@ -175,6 +178,7 @@ sync_func_other () {
   sleep 0.1s
  done
  curl ${SERVER}twm.sh -s -L|sed -n '40,120p' >>twm.sh
+ cd ..
 
  #DOS to Unix
  find twm/ -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
@@ -206,12 +210,14 @@ until [ -z $tipidf ]; do
  tipidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
  sleep 1s
 done
-if [ -f twm/runmode_file ]; then
- if awk -v arg="-cl" -v file="$(cat twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+
+mkdir -p twm/tmp/
+if [ -f twm/tmp/runmode_file ]; then
+ if awk -v arg="-cl" -v file="$(cat twm/tmp/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
   twm/play.sh -cl
- elif awk -v arg="-cv" -v file="$(cat twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+ elif awk -v arg="-cv" -v file="$(cat twm/tmp/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
   twm/play.sh -cv

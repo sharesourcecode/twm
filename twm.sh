@@ -1,7 +1,7 @@
 #!/bin/bash
 . twm/info.sh
 colors
-RUN=$(cat twm/runmode_file)
+RUN=$(cat twm/tmp/runmode_file)
 cd twm/
 
 script_ads () {

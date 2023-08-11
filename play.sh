@@ -1,7 +1,7 @@
 #!/bin/sh
 (
  RUN=$1
- echo "$RUN" >twm/runmode_file
+ echo "$RUN" >twm/tmp/runmode_file
  while true; do
   pidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
   until [ -z "${pidf}" ]; do
@@ -15,9 +15,9 @@
    elif echo "$RUN"|grep -q -E '[-]cv'; then
     chmod +x twm/twm.sh ; twm/twm.sh -cv
    elif echo "$RUN"|grep -q -E '[-]boot'; then
-    echo '-boot' >twm/runmode_file ; chmod +x twm/twm.sh ; twm/twm.sh -boot
+    echo '-boot' >twm/tmp/runmode_file ; chmod +x twm/twm.sh ; twm/twm.sh -boot
    else
-    echo '-boot' >twm/runmode_file ; chmod +x twm/twm.sh ; twm/twm.sh -boot
+    echo '-boot' >twm/tmp/runmode_file ; chmod +x twm/twm.sh ; twm/twm.sh -boot
    fi
   }
   run_mode
