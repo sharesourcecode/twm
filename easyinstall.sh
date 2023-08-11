@@ -3,7 +3,7 @@
 mkdir -p ~/twm
 
 if [ ! -e "~/twm/info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/info.sh -s -L >$HOME/twm/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/info.sh -s -L >$HOME/twm/info.sh
  chmod +x ~/twm/info.sh
  sleep 0.5s
 fi
@@ -16,7 +16,7 @@ script_slogan
 cd ~/twm
 
 if [ -z "$@" ]; then
- version="backup"
+ version="master"
 else
 #./easyinstall.sh beta1, or backup
  version="$@"
