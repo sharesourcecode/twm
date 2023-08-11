@@ -164,19 +164,19 @@ bash $HOME/easyinstall.sh
 >4 - Para executar o twm:
 
 ```bash
-bash twm//play.sh
+bash twm/play.sh
 ```
 
 Executar em modo caverna:
 
 ```bash
-bash twm//play.sh -cv
+bash twm/play.sh -cv
 ```
 
 Modo de prioridade coliseu:
 
 ```bash
-bash twm//play.sh -cl
+bash twm/play.sh -cl
 ```
 
 `Para interroper (CTRL c) ou feche o programa Cygwin`

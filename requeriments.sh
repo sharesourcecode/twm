@@ -28,12 +28,12 @@ requer_func () {
   read -n 1 UR
   echo $UR
   if [ "$UR" = $'\0' ]; then
-   echo "1" >twm//ur_file
+   echo "1" >twm/ur_file
   elif [ $UR = 0 ]; then
 #   LANG=zh-CN.UTF-8
-   echo "10" >twm//ur_file
+   echo "10" >twm/ur_file
   elif [ $UR = 1 ]; then
-   echo "11" >twm//ur_file
+   echo "11" >twm/ur_file
   elif [ "$UR" = $'\177' ]; then
    menu_one
   elif [ $UR = c ] || [ $UR = C ]; then
@@ -55,21 +55,21 @@ requer_func () {
   if [ $UR = 1 ]; then
    menu_two
   elif [ $UR = 2 ]; then
-   echo "2" >twm//ur_file
+   echo "2" >twm/ur_file
   elif [ $UR = 3 ]; then
-   echo "3" >twm//ur_file
+   echo "3" >twm/ur_file
   elif [ $UR = 4 ]; then
-   echo "4" >twm//ur_file
+   echo "4" >twm/ur_file
   elif [ $UR = 5 ]; then
-   echo "5" >twm//ur_file
+   echo "5" >twm/ur_file
   elif [ $UR = 6 ]; then
-   echo "6" >twm//ur_file
+   echo "6" >twm/ur_file
   elif [ $UR = 7 ]; then
-   echo "7" >twm//ur_file
+   echo "7" >twm/ur_file
   elif [ $UR = 8 ]; then
-   echo "8" >twm//ur_file
+   echo "8" >twm/ur_file
   elif [ $UR = 9 ]; then
-   echo "9" >twm//ur_file
+   echo "9" >twm/ur_file
   elif [ "$UR" = $'\177' ]; then
    menu_one
   elif [ $UR = c ] || [ $UR = C ]; then
@@ -84,76 +84,76 @@ requer_func () {
    invalid_one
   fi
  }
- if [ -f twm//ur_file ] && [ -s twm//ur_file ]; then
-  UR="$(cat twm//ur_file)"
+ if [ -f twm/ur_file ] && [ -s twm/ur_file ]; then
+  UR="$(cat twm/ur_file)"
  else
   menu_one
  fi
- UR="$(cat twm//ur_file)"
+ UR="$(cat twm/ur_file)"
  case $UR in
   (1|s_en)
    URL=$(echo "dGl3YXIubmV0"|base64 -d)
-   echo "1" >twm//ur_file
+   echo "1" >twm/ur_file
    TMP="twm//.1"
    export TZ="Europe/London" ; ALLIES="_WORK"
   ;;
   (2|ru)
    URL=$(echo "dGl3YXIucnU="|base64 -d)
-   echo "2" >twm//ur_file
+   echo "2" >twm/ur_file
    TMP="twm//.2"
    export TZ="Europe/Moscow" ; ALLIES="_WORK"
   ;;
   (3|pl)
    URL=$(echo "dGl3YXIucGw="|base64 -d)
-   echo "3" >twm//ur_file
+   echo "3" >twm/ur_file
    TMP="twm//.3"
    export TZ="Europe/Warsaw" ; ALLIES="_WORK"
   ;;
   (4)
    URL=$(echo "dGl0YW5lbi5tb2Jp"|base64 -d)
-   echo "4" >twm//ur_file
+   echo "4" >twm/ur_file
    TMP="twm//.4"
    export TZ="Europe/Berlin" ; ALLIES="_WORK"
   ;;
   (5)
    URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA=="|base64 -d)
-   echo "5" >twm//ur_file
+   echo "5" >twm/ur_file
    TMP="twm//.5"
    export TZ="America/Cancun" ; ALLIES="_WORK"
   ;;
   (6|fu)
    URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA=="|base64 -d)
-   echo "6" >twm//ur_file
+   echo "6" >twm/ur_file
    TMP="twm//.6"
    export TZ="America/Bahia" ; ALLIES="_WORK"
   ;;
   (7)
    URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0"|base64 -d)
-   echo "7" >twm//ur_file
+   echo "7" >twm/ur_file
    TMP="twm//.7"
    export TZ="Europe/Rome" ; ALLIES="_WORK"
   ;;
   (8|fr)
    URL=$(echo "dGl3YXIuZnI="|base64 -d)
-   echo "8" >twm//ur_file
+   echo "8" >twm/ur_file
    TMP="twm//.8"
    export TZ="Europe/Paris" ; ALLIES="_WORK"
   ;;
   (9|ro)
    URL=$(echo "dGl3YXIucm8="|base64 -d)
-   echo "9" >twm//ur_file
+   echo "9" >twm/ur_file
    TMP="twm//.9"
    export TZ="Europe/Bucharest" ; ALLIES="_WORK"
   ;;
   (10|s_cn)
    URL=$(echo "Y24udGl3YXIubmV0"|base64 -d)
-   echo "10" >twm//ur_file
+   echo "10" >twm/ur_file
    TMP="twm//.10"
    export TZ="Asia/Shanghai" ; ALLIES="_WORK"
   ;;
   (11|s_id)
    URL=$(echo "dGl3YXItaWQubmV0"|base64 -d)
-   echo "11" >twm//ur_file
+   echo "11" >twm/ur_file
    TMP="twm//.11"
    export TZ="Asia/Jakarta" ; ALLIES="_WORK"
   ;;
@@ -181,8 +181,8 @@ requer_func () {
   cd $TMP
   clear
   printf "${BLACK_CYAN} Simulate your real or random device. \033[00m\n1)${BLACK_CYAN} Manual \033[00m\n2)${BLACK_CYAN} Automatic \033[00m\n"
-  if [ -f twm//fileAgent.txt ] && [ -s twm//fileAgent.txt ]; then
-   UA=$(cat twm//fileAgent.txt)
+  if [ -f twm/fileAgent.txt ] && [ -s twm/fileAgent.txt ]; then
+   UA=$(cat twm/fileAgent.txt)
   else
    printf "Set up User-Agent[1 to 2]: \n"
    read -n 1 UA
@@ -190,13 +190,13 @@ requer_func () {
   SERVER='curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/'
   case $UA in
    (0)
-    clear ; echo "0" >twm//fileAgent.txt
+    clear ; echo "0" >twm/fileAgent.txt
     if [ ! -e $TMP/userAgent.txt ] || [ -z $UA ]; then
      curl ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
     fi
    ;;
    (1)
-    clear ; echo "0" >twm//fileAgent.txt
+    clear ; echo "0" >twm/fileAgent.txt
     xdg-open $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8="|base64 -d) &>/dev/null
     printf "Copy and paste your User Agent here and tip ENTER: \n"
     read -n 300 UA
@@ -209,7 +209,7 @@ requer_func () {
    (2)
     printf " ...\n${BLACK_PINK}"
     curl ${SERVER}userAgent.txt -s -L >$TMP/userAgent.txt
-    echo "0" >twm//fileAgent.txt
+    echo "0" >twm/fileAgent.txt
     printf "Automatic User Agent selected\n${COLOR_RESET}"
    ;;
    (*)

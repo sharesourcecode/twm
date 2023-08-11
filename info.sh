@@ -124,8 +124,8 @@ messages_info () {
  ) </dev/null &>/dev/null &
  time_exit 17
  sed -i 's/\[0\]/🔴/g;s/\[0-off\]/⭕/g;s/\[1\]/🔵/g;s/\[1-off\]/🔘/g' msg_file >> $TMP/msg_file
- local TRAIN="twm//.${UR}/TRAIN"
- if [ ! -e "twm//.${UR}/TRAIN" ] || find "$TRAIN" -mmin +30 >/dev/null 2>&1; then
+ local TRAIN="twm/.${UR}/TRAIN"
+ if [ ! -e "twm/.${UR}/TRAIN" ] || find "$TRAIN" -mmin +30 >/dev/null 2>&1; then
   hpmp -fix
  fi
  printf %b "\033[02mHP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%${COLOR_RESET}\n" >> $TMP/msg_file

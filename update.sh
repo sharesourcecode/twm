@@ -49,15 +49,15 @@ for script in $SCRIPTS; do
 
  remote_count=$(curl ${SERVER}$script -s -L|wc -c)
 
- if [ -e twm//$script ]; then
+ if [ -e twm/$script ]; then
   local_count=$(wc -c < "$script")
  else
   local_count=1
  fi
 
- if [ -e twm//$script ] && [ "$remote_count" -eq "$local_count" ]; then
+ if [ -e twm/$script ] && [ "$remote_count" -eq "$local_count" ]; then
   printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
- elif [ -e twm//$script ] && [ "$remote_count" -ne "$local_count" ]; then
+ elif [ -e twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
   printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
   curl ${SERVER}$script -s -L > $script
  else

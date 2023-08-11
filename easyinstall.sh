@@ -2,13 +2,13 @@
 #create fold twm if does not exist
 mkdir -p twm/
 
-if [ ! -e "twm//info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/info.sh -s -L >twm//info.sh
- chmod +x twm//info.sh
+if [ ! -e "twm/info.sh" ]; then
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/backup/info.sh -s -L >twm/info.sh
+ chmod +x twm/info.sh
  sleep 0.5s
 fi
 
-. twm//info.sh
+. twm/info.sh
 colors
 script_slogan
 
@@ -136,15 +136,15 @@ sync_func () {
   printf "Checking $LEN/$NUM_SCRIPTS $script\n"
   remote_count=$(curl ${SERVER}$script -s -L|wc -c)
 
-  if [ -e twm//$script ]; then
+  if [ -e twm/$script ]; then
    local_count=$(wc -c < "$script")
   else
    local_count=1
   fi
 
-  if [ -e twm//$script ] && [ "$remote_count" -eq "$local_count" ]; then
+  if [ -e twm/$script ] && [ "$remote_count" -eq "$local_count" ]; then
    printf "✅ ${BLACK_CYAN}Updated $script${COLOR_RESET}\n"
-  elif [ -e twm//$script ] && [ "$remote_count" -ne "$local_count" ]; then
+  elif [ -e twm/$script ] && [ "$remote_count" -ne "$local_count" ]; then
    printf "🔁 ${BLACK_GREEN}Updating $script${COLOR_RESET}\n"
    curl ${SERVER}$script -s -L > $script
   else
@@ -155,7 +155,7 @@ sync_func () {
  done
  #DOS to Unix
  find twm/ -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
- chmod +x twm//*.sh &>/dev/null
+ chmod +x twm/*.sh &>/dev/null
 }
 
 sync_func_other () {
@@ -178,7 +178,7 @@ sync_func_other () {
 
  #DOS to Unix
  find twm/ -type f -name '*.sh' -print0|xargs -0 sed -i 's/\r$//' 2>/dev/null
- chmod +x twm//*.sh &>/dev/null
+ chmod +x twm/*.sh &>/dev/null
 }
 
 #/merge
@@ -189,7 +189,7 @@ else
 fi
 APPISH=$(uname -a|grep -o "\-ish")
 if [ "$SHELL" = "/bin/ash" ] && [ "$APPISH" = '-ish' ]; then
- sed -i 's,#!/bin/bash,#!/bin/sh,g' twm//*.sh
+ sed -i 's,#!/bin/bash,#!/bin/sh,g' twm/*.sh
 fi
 
 script_slogan
@@ -206,18 +206,18 @@ until [ -z $tipidf ]; do
  tipidf=$(ps ax -o pid=,args=|grep "sh.*twm/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
  sleep 1s
 done
-if [ -f twm//runmode_file ]; then
- if awk -v arg="-cl" -v file="$(cat twm//runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+if [ -f twm/runmode_file ]; then
+ if awk -v arg="-cl" -v file="$(cat twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
-  twm//play.sh -cl
- elif awk -v arg="-cv" -v file="$(cat twm//runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+  twm/play.sh -cl
+ elif awk -v arg="-cv" -v file="$(cat twm/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
-  twm//play.sh -cv
+  twm/play.sh -cv
  else
   printf "${BLACK_GREEN}Automatically restarting in 5s after update...${COLOR_RESET}\n"
   sleep 5s
-  twm//play.sh -boot
+  twm/play.sh -boot
  fi
 fi
