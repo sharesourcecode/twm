@@ -3,7 +3,7 @@
 mkdir -p ~/twm
 
 if [ ! -e "~/twm/info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/twm/master/info.sh -s -L >$HOME/twm/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/info.sh -s -L >$HOME/twm/info.sh
  chmod +x ~/twm/info.sh
  sleep 0.5s
 fi
@@ -22,7 +22,7 @@ else
  version="$@"
 fi
 
-SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
+SERVER="https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ]; then
  local_count=$(wc -c <"easyinstall.sh")
@@ -37,7 +37,7 @@ printf "${BLACK_CYAN} Installing TWM...\n⌛ Please wait...⌛${COLOR_RESET}\n"
 if [ -d /data/data/com.termux/files/usr/share/doc ]; then
  termux-wake-lock
  sed -u -i '/nameserver/d' $PREFIX/etc/resolv.conf &>/dev/null
- printf "nameserver 94.140.14.15\nnameserver 94.140.15.16" >$PREFIX/etc/resolv.conf
+ printf "nameserver 114.114.114.114\nnameserver 8.8.8.8" >$PREFIX/etc/resolv.conf
  LS="/data/data/com.termux/files/usr/share/doc"
  rm -rf ~/.termux/boot/play.sh 2>/dev/null
  mkdir -p ~/.termux/boot
