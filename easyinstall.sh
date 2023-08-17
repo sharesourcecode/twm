@@ -3,7 +3,7 @@
 mkdir -p ~/twm
 
 if [ ! -e "~/twm/info.sh" ]; then
- curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/info.sh -s -L >$HOME/twm/info.sh
+ curl https://raw.githubusercontent.com/sharesourcecode/twm/master/info.sh -s -L >$HOME/twm/info.sh
  chmod +x ~/twm/info.sh
  sleep 0.5s
 fi
@@ -22,7 +22,7 @@ else
  version="$@"
 fi
 
-SERVER="https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/$version/"
+SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/$version/"
 remote_count=$(curl ${SERVER}easyinstall.sh -s -L|wc -c)
 if [ -e "easyinstall.sh" ]; then
  local_count=$(wc -c <"easyinstall.sh")
