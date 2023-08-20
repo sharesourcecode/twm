@@ -1,9 +1,6 @@
 # TWM(Titans War Macro)
 Scripts macros para titanswar.net em todos os servidores.
 
-Se pretende colaborar no código acesse:
-
-👉 https://tinyurl.com/c0lab0rad0r
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
@@ -39,7 +36,7 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >Android(UserLAnd) and Iphone(iSH):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
@@ -85,7 +82,7 @@ rm -rf $HOME/twm
 
 ***Alternativa para Android 7 ou superior***
 
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0a02b406733c)
+[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
 
 >1 - Abra o app Termux(https://f-droid.org/repo/com.termux_118.apk) no Android e digite ou cole os comandos abaixo para atualizar os pacotes.
 
@@ -104,7 +101,7 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
@@ -147,7 +144,7 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
@@ -204,7 +201,7 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
