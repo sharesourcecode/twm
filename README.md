@@ -6,7 +6,7 @@ Scripts macros para titanswar.net em todos os servidores.
 
 ***Recomendado para qualquer Android e Iphone***
 
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/videos/embed/22c53a1b-ec82-4f3f-a640-ed54862da523)
+[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/5i2ELTdjbnhgAV2zMVACgM?start=13s&stop=17m10s&autoplay=1)
 
 >1 - No Android abra o app UserLAnd(https://f-droid.org/repo/tech.ula_2927098.apk), instale o Alpine com SSH e entre com a senha que foi criada.
 >  - No Iphone abra o app iSH(https://ish.app/).
