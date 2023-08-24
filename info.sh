@@ -24,10 +24,12 @@ script_slogan () {
  t=339
  w=59
  m=89
- author="ueliton@disroot.org 2019 - 2023"
- collaborator="@_hviegas"
- #Change this number for new version...........................................................
- version="Version 2.11.32"
+
+ author="author:\nueliton@disroot.org 2019 - 2023"
+ collaborator="collaborator:\n           @_hviegas"
+  #Change this number for new version...........................................................
+ version="Version 2.12"
+
  for i in $colors; do
   clear
   t=$((t - 27))
@@ -48,7 +50,7 @@ script_slogan () {
   ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝
   ${COLOR_RESET}\n"
   # ⟩\\
-  printf "\033[1;38;5;${i}m${author}\n${collaborator}\n${version}${COLOR_RESET}\n"
+  printf "\033[1;38;5;${i}m${author}\n\033[02m${collaborator}\n${version}${COLOR_RESET}\n"
   sleep 0.3s
  done
 }
@@ -72,22 +74,27 @@ time_exit () {
   done
  )
 }
-link() {
-     (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" $2
-  )  </dev/null &>/dev/null &
-  time_exit 20
+
+link () {
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/$1" -o user_agent="$(shuf -n1 userAgent.txt)" >$2
+ )  </dev/null &>/dev/null &
+ time_exit 20
 }
 
 hpmp () {
  #/options: -fix or -now
 
  #/Go to /train page
- if [ "$@" != '-fix' ] || [ -z "$@" ] ; then
+ if echo "$@"|grep -q '\-fix'; then
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN
   )  </dev/null &>/dev/null &
   time_exit 20
+  #/Fixed HP and MP.
+  #/Needs to run -fix at least once before
+  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN|sed 's/[()]//g')
+  FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p')
  fi
 
  #/$STATUS can be obtained from any SRC file
@@ -108,19 +115,16 @@ hpmp () {
  
  #/Calculates percentage of HP and MP.
  #/Needs to run -fix at least once before
- HPPER=$(echo "scale=2; $NOWHP / $FIXHP * 100" | bc)
- MPPER=$(echo "scale=2; $NOWMP / $FIXMP * 100" | bc)
 
- #HPPER=$(awk -v fixhp="$FIXHP" -v nowhp="$NOWHP" 'BEGIN { printf "%.0f", fixhp * nowhp / 100 }')
- #MPPER=$(awk -v fixmp="$FIXMP" -v nowmp="$NOWMP" 'BEGIN { printf "%.0f", fixmp * nowmp / 100 }')
- #printf "$HPPER e $MPPER \n"
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.3f", nowhp / fixhp * 100 }'|awk '{printf "%.2f\n", $1}')
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.3f", nowmp / fixmp * 100 }'|awk '{printf "%.2f\n", $1}')
  #/e.g.
- #echo "hp $NOWHP - ${HPPER}% | mp $NOWMP - ${MPPER}%"
- #sleep 5s
+ #/printf %b "HP ❤️ $NOWHP - $(printf "%.2f" "${HPPER}")% | MP Ⓜ️ $NOWMP - $(printf "%.2f" "${MPPER}")%\n"
 }
 
 messages_info () {
- echo " ⚔️ - Titans War Macro - ${version} ⚔️ " > $TMP/msg_file
+ echo " ⚔️ - Titans War Macro - ⚔️ " > $TMP/msg_file
+
  printf " -------- MAIL --------\n" >> $TMP/msg_file
  (
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file
@@ -136,12 +140,14 @@ messages_info () {
   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file
  ) </dev/null &>/dev/null &
  time_exit 17
+
+ sed -i 's/\[0\]/🔴/g;s/\[0-off\]/⭕/g;s/\[1\]/🔵/g;s/\[1-off\]/🔘/g' msg_file >> $TMP/msg_file
+ local TRAIN="~/twm/.${UR}/TRAIN"
+ if [ ! -e "~/twm/.${UR}/TRAIN" ] || find "$TRAIN" -mmin +30 >/dev/null 2>&1; then
+  hpmp -fix
+ fi
+ printf %b "\033[02mHP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%${COLOR_RESET}\n" >> $TMP/msg_file
 # sed :a;N;s/\n//g;ta |
- sed -i -e 's/\[0\]/🔸/g' -e 's/\[1\]/🔹/g' msg_file >> $TMP/msg_file
- #hpmp
- printf %b "HP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%\n" >> $TMP/msg_file
  printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file
 }
-
-
 

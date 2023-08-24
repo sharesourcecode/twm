@@ -17,7 +17,9 @@ script_ads () {
 script_ads
 
 printf "${BLACK_CYAN}\n Starting...\n👉 Please wait...☕👴${COLOR_RESET}\n"
-. ~/twm/info.sh
+
+#. ~/twm/info.sh
+
 script_slogan
 sleep 1s
 #/termux
@@ -53,11 +55,10 @@ twm_start () {
 func_unset () {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP TRAIN
 }
-
 if [ -f "$HOME/twm/ur_file" ] && [ -s "$HOME/twm/ur_file" ] ; then
  printf "${GREEN_BLACK} Starting with last settings used.${COLOR_RESET}\n"
  num=6
- for i in `seq 4 -1 1` ; do
+ for i in `seq 6 -1 1` ; do
   i=$((i - 1))
   if read -t 1 ; then
    >$HOME/twm/al_file
@@ -89,3 +90,36 @@ while true ; do
  sleep 1s
  twm_start
 done
+
+#/sync
+: ' comparing local package
+if [ ! -z "$RUN" ] ; then
+ :
+else
+ TWMKEY=$(curl https://codeberg.org/ueliton/auth/raw/branch/main/auth -s -L|base64 -d)
+ SERVER='https://raw.githubusercontent.com/sharesourcecode/twm/master/'
+ remote_count=$(curl ${SERVER}sourceinstall.sh -s -L|wc -c)
+ if [ -e "$HOME/twm/sourceinstall.sh" ] ; then
+  local_count=$(wc -c < "$HOME/twm/sourceinstall.sh")
+ else
+  local_count=1
+ fi
+ '
+ #if awk -v remote="$remote_count" -v local="$local_count" 'BEGIN {if (remote == local) exit 0; else exit 1}' ; then
+  : '
+ else
+  if ! curl -s --head --request GET titanswar.net|grep "200 OK" > /dev/null ; then
+   printf "${WHITEb_BLACK}Network error! Please check your internet connection.${BLACK_RESET}\n"
+   exit 1
+  else
+   rm $HOME/twm/easyinstall.s*
+   curl ${SERVER}easyinstall.sh -s -L >$HOME/twm/easyinstall.sh
+   rm $HOME/easyinstall.s*
+   cp $HOME/twm/easyinstall.sh $HOME/easyinstall.sh
+   SYNC=1
+   chmod +x $HOME/easyinstall.sh
+   . $HOME/easyinstall.sh
+  fi
+ fi
+fi
+'

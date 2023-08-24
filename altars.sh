@@ -1,6 +1,9 @@
 #https://furiadetitas.net/altars/enterFight/?r=
 altars_fight () {
  cd $TMP
+ event=altars
+ apply_event
+
  #/enterFight
  local LA=4 # interval attack
  echo "48" >HPER # % to heal
@@ -84,10 +87,8 @@ altars_fight () {
  clear
 }
 altars_start () {
-  
  case $(date +%H:%M) in
  (13:5[5-9]|20:5[5-9])
-  apply_event altars
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | grep -o -E '\(([0-9]+)\)' | sed 's/[()]//g' >$TMP/FULL
   ) </dev/null &>/dev/null &

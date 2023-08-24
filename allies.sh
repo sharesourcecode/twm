@@ -83,7 +83,7 @@ clan_allies () {
 conf_allies () {
  cd $TMP
  clear
- printf "${BLACK_CYAN}\nThe script will consider users on your friends list and \nClan as allies.\nLeader/Deputy on friend list will add \nClan allies.\n${COLOR_RESET}\n1) Add/Update alliances(All Battles)\n\n2) Add/Update just Herois alliances(Coliseum/King of immortals)\n\n3) Add/Update just Clan alliances(Altars,Clan Coliseum and Clan Fight)\n\n4) Do nothing\n"
+ printf "${BLACK_CYAN}\nThe script will consider users on your friends list and \nClan as allies.\nLeader/Deputy on friend list will add \nClan allies.\n${COLOR_RESET}\n1) Add/Update alliances(All Battles)🏳️👨‍🏴‍👩‍🏳️👧‍🏴‍👦🏳️\n\n2) 👫 Add/Update just Herois alliances(Coliseum/King of immortals)\n\n3) 🏴🏳️ Add/Update just Clan alliances(Altars,Clan Coliseum and Clan Fight)\n\n4) 🚶Do nothing\n"
  if [ -f "$HOME/twm/al_file" ] && [ -s "$HOME/twm/al_file" ] ; then
   AL=$(cat $HOME/twm/al_file)
  else
@@ -96,7 +96,7 @@ conf_allies () {
   id_allies ; clan_allies ;
   members_allies ; ALD=1 ;
   echo "1" >$HOME/twm/al_file ;
-  printf "Alliances on all battles active\n" ;;
+  printf "🏳️👨‍🏴‍👩‍🏳️👧‍🏴‍👦🏳️Alliances on all battles active\n" ;;
  #/Opção 2: Ativa alianças apenas em Herois (chama as funções AlliesID e Members, verifica se o arquivo callies.txt existe e, se existir, o esvazia, define a variável ALD como 1, armazena o valor "2" no arquivo al_file e exibe uma mensagem de confirmação)
  (2)
   id_allies ; members_allies ;
@@ -104,7 +104,7 @@ conf_allies () {
    >$TMP/callies.txt
   fi
   ALD=1 ; echo "2" >$HOME/twm/al_file ;
-  printf "Just Herois alliances now.\n" ;;
+  printf "👫 Just Herois alliances now.\n" ;;
  #/Opção 3: Ativa alianças apenas no Clan (chama as funções AlliesID, ClanAlliesID e verifica se o arquivo allies.txt existe e, se existir, o esvazia, desfaz a definição da variável ALD, armazena o valor "3" no arquivo al_file e exibe uma mensagem de confirmação)
  (3)
   id_allies ; clan_allies ;
@@ -112,10 +112,10 @@ conf_allies () {
    >$TMP/allies.txt
   fi
   unset ALD ; echo "3" >$HOME/twm/al_file ;
-  printf "Just Clan alliances now.\n" ;;
+  printf "🏴🏳️ Just Clan alliances now.\n" ;;
  #/Opção 4: Não faz nada (exibe uma mensagem de confirmação e adiciona linhas vazias nos arquivos allies.txt e callies.txt, caso existam)
  (4)
-  printf "Nothing changed.\n" ; ALD=1 ;
+  printf "🚶Nothing changed.\n" ; ALD=1 ;
   echo "4" >$HOME/twm/al_file ;
   >>allies.txt ; >>callies.txt ;;
  #/Nenhuma opção válida selecionada

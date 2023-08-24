@@ -1,14 +1,12 @@
 # TWM(Titans War Macro)
 Scripts macros para titanswar.net em todos os servidores.
 
-Se pretende colaborar no código acesse:
-👉 https://tinyurl.com/c0l4b0r4d0r 👍
 
 **Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
 
 ***Recomendado para qualquer Android e Iphone***
 
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/videos/embed/22c53a1b-ec82-4f3f-a640-ed54862da523)
+[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/5i2ELTdjbnhgAV2zMVACgM?start=13s&stop=17m10s&autoplay=1)
 
 >1 - No Android abra o app UserLAnd(https://f-droid.org/repo/tech.ula_2927098.apk), instale o Alpine com SSH e entre com a senha que foi criada.
 >  - No Iphone abra o app iSH(https://ish.app/).
@@ -36,23 +34,23 @@ apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-c
 
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copie e cole este comando para instalar o twm
 
->Android(UserLAnd) e Iphone(iSH):
+>Android(UserLAnd) and Iphone(iSH):
 ```bash
-./twminstall.sh
+./easyinstall.sh
 ```
 
 >6 - Para executar o twm
@@ -84,7 +82,7 @@ rm -rf $HOME/twm
 
 ***Alternativa para Android 7 ou superior***
 
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/videos/embed/53422137-b802-465e-ad49-0a02b406733c)
+[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
 
 >1 - Abra o app Termux(https://f-droid.org/repo/com.termux_118.apk) no Android e digite ou cole os comandos abaixo para atualizar os pacotes.
 
@@ -103,7 +101,7 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 >3 - Dê permissão de execução para o instalador:
 
@@ -112,7 +110,7 @@ chmod +x easyinstall.sh
 ```
 >4 - Copie e cole este comando para instalar o twm:
 ```bash
-./twminstall.sh
+./easyinstall.sh
 ```
 >5 - Para executar o twm:
 ```bash
@@ -146,7 +144,7 @@ rm -rf $HOME/.termux/boot/play.sh
 >1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >2 - Dê permissão de execução para o instalador:
@@ -203,7 +201,7 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/master/easyinstall.sh -L -O
+curl https://raw.githubusercontent.com/sharesourcecode/TitansWarMacro/master/easyinstall.sh -L -O
 ```
 
 >4 - Dê permissão de execução para o instalador:
@@ -238,7 +236,7 @@ bash twm/play.sh -cl
 `Para interroper (CTRL c)`
 
 
-*Ocorrem atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima.
+*Faço atualizações e correções periódicas, caso queira manter os scripts atualizados em seu dispositivo reexecute as instruções acima a partir da segunda etapa.
 
 As atualizações são exibidas nesta página:
 https://github.com/sharesourcecode/twm/commits/master
@@ -261,8 +259,7 @@ https://link.mercadopago.com.br/titanswarmacro
 
 >Envie o email de sua conta no GitHub e nome, ou apelido para ueliton@disroot.org
 
->O código deve ser compatível principalmente com sh(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
+>O código deve ser compatível principalmente com Bourn Shell(#!/bin/sh). Recomenda-se testar no Termux e e UserLAnd, no caso do Iphone use o app iSH.
 >Em caso de dúvidas: https://www.perplexity.ai/ 😉
 
 >Após aprovado, será aplicado no master com os devidos créditos(inclusive no slogan) para os usuários finais.
-

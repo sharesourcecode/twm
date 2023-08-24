@@ -7,7 +7,6 @@
 #/clanfight/?out_gate
 clanfight_fight () {
  cd $TMP
- apply_event clanfight
  #/enterFight
  local LA=4 # interval attack
  local HPER=48 # % to heal
