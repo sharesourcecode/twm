@@ -1,0 +1,73 @@
+# $HOME/$twm_dir/online.lib
+# Copyright (c) 2019-2024 Ueliton Alves Dos Santos
+# Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
+# Estatistica de servidor
+online () {
+ reset
+ SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)")
+ NPG=$(echo $SRC | sed 's/href=/\n/g' | grep 'online/all/' | head -n6 | tail -n1 | cut -d\' -f2 | cut -d\/ -f4)
+ echo "$NPG Pages"
+
+ _search () {
+  echo 'Searching...'
+  DATE1=$(date +%H:%M:%S)
+  >k
+
+  for num in `seq $NPG -1 6` ; do
+   w3m -dump "${URL}/online/all/${num}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >>k
+   grep '<< < 1 ' k && >k
+  done
+
+  w3m -dump "${URL}/online/all/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  grep ' 4 5 ' k || >k
+  w3m -dump "${URL}/online/all/4" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  grep ' 3 4 ' k || >k
+  w3m -dump "${URL}/online/all/3" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  grep ' 2 3 ' k || >k
+  w3m -dump "${URL}/online/all/2" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  grep ' 1 2 ' k || >k
+  w3m -dump "${URL}/online/all/1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  grep ' 1 ' k || >k
+  grep '-' k >all.txt
+  reset
+  sed -i "/Overmobile/d" all.txt
+  sed -i "/Onlinehp/d" all.txt
+  sed -i "/,/d" all.txt
+  sed -i "/\<</d" all.txt
+  sed -i "/\ |/d" all.txt
+  sed -i "/\[user/d" all.txt
+  sed -i "/\[arrow/d" all.txt
+  sed -i "/\ feed/d" all.txt
+  sed -i "/\:/d" all.txt
+  sed -i "/\!/d" all.txt
+  sed -i "/\+/d" all.txt
+  sort -u all.txt -o all.txt
+  cat all.txt|sed "s, ,~,g"|sed "s,',_,g"  >w
+  cat w >y ; sed -i "/_/d" y
+  echo ""
+  echo -e "Started ${DATE1} - Finished `date +%H:%M:%S` `date +%d\/%m\/%Y`"
+  echo ""
+  echo -e "Total pages online: ${NPG}"
+  echo -e "Total players: `cat w|grep '~-~'|wc -l`"
+  STOPED=`cat w|grep "_~"|wc -l`
+  ACTIVE=`cat y|wc -l`
+  echo -e "Active players: ${ACTIVE} - Inactive players: ${STOPED}"
+  echo ""
+  STOPED0=`cat w|grep "\[0]"|grep "_~"|wc -l`
+  ACTIVE0=`cat y|grep "\[0]"|wc -l`
+  echo -e "Active Asura: ${ACTIVE0} - Inactive Asuras: ${STOPED0}"
+  STOPED1=`cat w|grep "\[1]"|grep "_~"|wc -l`
+  ACTIVE1=`cat y|grep "\[1]"|wc -l`
+  echo -e "Boreas active: ${ACTIVE1} - Boreas inactive: ${STOPED1}"
+  echo ""
+  echo -e "Warriors: `cat k|grep ' Guerreiro'|wc -l`"
+  echo -e "In settings: `cat k|grep ' Configura'|wc -l`"
+  echo -e "In the Forums: `cat k|grep 'Fórum'|wc -l`"
+  echo -e "In chats: `cat y|grep '~Conversar'|wc -l`"
+  echo -e "In the mail: `cat w|grep 'correio'|wc -l`"
+  rm k w y
+  sleep 30s
+ }
+ _search
+}
