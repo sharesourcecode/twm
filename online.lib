@@ -5,7 +5,7 @@
 # Estatistica de servidor
 online () {
  reset
- SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)")
+ SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)")
  NPG=$(echo $SRC | sed 's/href=/\n/g' | grep 'online/all/' | head -n6 | tail -n1 | cut -d\' -f2 | cut -d\/ -f4)
  echo "$NPG Pages"
 
@@ -15,19 +15,19 @@ online () {
   >k
 
   for num in `seq $NPG -1 6` ; do
-   w3m -dump "${URL}/online/all/${num}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >>k
+   w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >>k
    grep '<< < 1 ' k && >k
   done
 
-  w3m -dump "${URL}/online/all/5" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  w3m -dump "${URL}/online/all/5" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
   grep ' 4 5 ' k || >k
-  w3m -dump "${URL}/online/all/4" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  w3m -dump "${URL}/online/all/4" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
   grep ' 3 4 ' k || >k
-  w3m -dump "${URL}/online/all/3" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  w3m -dump "${URL}/online/all/3" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
   grep ' 2 3 ' k || >k
-  w3m -dump "${URL}/online/all/2" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  w3m -dump "${URL}/online/all/2" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
   grep ' 1 2 ' k || >k
-  w3m -dump "${URL}/online/all/1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
+  w3m -dump "${URL}/online/all/1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
   grep ' 1 ' k || >k
   grep '-' k >all.txt
   reset

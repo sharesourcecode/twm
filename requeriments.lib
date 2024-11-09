@@ -274,9 +274,16 @@ requer_func () {
 		(0)
 			clear
 			echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
+
 # If no user agent file exists, write a default one
 			if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
 				cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+			else
+# Count the total number of user agents available in the file
+				total_agents=$(wc -l < $TMP/userAgent.txt)
+
+# Generate a random line number between 1 and the total number of agents
+				random_agent=$((RANDOM % total_agents + 1))
 			fi
 			;;
 		(1)
@@ -291,12 +298,26 @@ requer_func () {
 			if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
 				printf " ...\n"
 				cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+			else
+# Count the total number of user agents available in the file
+				total_agents=$(wc -l < $TMP/userAgent.txt)
+
+# Generate a random line number between 1 and the total number of agents
+				random_agent=$((RANDOM % total_agents + 1))
 			fi
 			;;
 		(2)
 			printf " ...\n${BLACK_PINK}"
 			cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
 			echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
+
+			if [ -e "$TMP/userAgent.txt" ]; then
+# Count the total number of user agents available in the file
+				total_agents=$(wc -l < $TMP/userAgent.txt)
+
+# Generate a random line number between 1 and the total number of agents
+				random_agent=$((RANDOM % total_agents + 1))
+			fi
 			printf "$(G_T "Automatic User Agent selected")\n${COLOR_RESET}"
 			sleep 2s
 			;;
@@ -319,8 +340,8 @@ requer_func () {
 	if [ ! -e "$TMP/userAgent.txt" ] || [ $(cat "$TMP/userAgent.txt" | wc -c) -lt 10 ] || [ $(cat "$TMP/userAgent.txt" | wc -c) -gt 65 ]; then
 		user_agent # Call function to set up user agent if conditions are met.
 	else
-# Display a random user agent from the existing list.
-		printf "${BLACK_PINK}\n$(G_T "User-Agent"): $(shuf -n 1 "$TMP/userAgent.txt")\n${COLOR_RESET}\n"
+# Print the user agent located at the randomly generated line number
+		printf "${BLACK_PINK}\n$(G_T "User-Agent"): $(sed -n "${random_agent}p" $TMP/userAgent.txt)\n${COLOR_RESET}\n"
 	fi
 
 # Convert DOS line endings to Unix format in the user agent file (if necessary)

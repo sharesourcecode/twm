@@ -6,14 +6,14 @@ login_logoff () {
  if [ -f "$TMP/cript_file" ]; then
   cat $TMP/cript_file|base64 -d >$TMP/cookie_file
   chmod 600 $TMP/cookie_file
-  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
   printf "$(G_T "Setting session cookie")...\n"
-  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
   printf "$(G_T "Session configured").\n"
   rm $TMP/cookie_file &>/dev/null
  fi
 
- w3m -cookie -o http_proxy=$PROXY -dump "$URL/user" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
+ w3m -cookie -o http_proxy=$PROXY -dump "$URL/user" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
 
  printf "$(G_T "Checking if user matches")...\n"
  sed -i 's/^[ \t]*//;s/[ \t]*$//' $TMP/acc_file
@@ -43,7 +43,7 @@ login_logoff () {
 
   log_in () {
    #/logoff
-   w3m -cookie -o http_proxy=$PROXY -dump "$URL/?exit" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+   w3m -cookie -o http_proxy=$PROXY -dump "$URL/?exit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
    printf "${BLACK_YELLOW}$(G_T "In case of error will repeat")${COLOR_RESET}\n"
    printf "$(G_T "Username"): "
    read username
@@ -95,9 +95,9 @@ login_logoff () {
 
    #/login2x
    unset username password
-   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
    printf "$(G_T "Setting session cookie")...\n"
-   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" &>/dev/null
+   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
    printf "$(G_T "Session configured").\n"
    rm $TMP/cookie_file &>/dev/null
   }
@@ -105,7 +105,7 @@ login_logoff () {
 
   clear
   printf "$(G_T "Please wait")...\n"
-  w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
+  w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
   printf "$(G_T "Checking if user matches")...\n"
   ACC=$(< $TMP/acc_file)
 
