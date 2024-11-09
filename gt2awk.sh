@@ -4,7 +4,9 @@
 
 # bourn shell
 # Function to translate a string
-content=$(cat "$HOME/TitansWarMacro-master/LANGUAGE.po")
+
+twm_dir="twm-master"
+content=$(cat "$HOME/$twm_dir/LANGUAGE.po")
 gettext () {
     # Use awk to extract the appropriate translation based on the LANGUAGE variable
     translation=$(echo "$content" | awk -v lang="$LANGUAGE" -F'|' '

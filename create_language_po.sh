@@ -1,9 +1,11 @@
 #!/bin/bash
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-SCRIPT=$HOME/TitansWarMacro-master/${1}
+
+twm_dir="twm-master"
+SCRIPT=$HOME/$twm_dir/${1}
 TRANSLATE="$2"
-cd $HOME/TitansWarMacro-master
+cd $HOME/$twm_dir
 # Script Name: create_language_po.sh
 # This script facilitates the creation of a .po file for translations using the Disroot API.
 
@@ -30,7 +32,7 @@ reset; clear  # Clear the terminal screen
 #> TEXTS
 
 # Process each file pattern
-#for pattern in "$HOME/TitansWarMacro-master/allies.lib"; do
+#for pattern in "$HOME/$twm_dir/allies.lib"; do
 #    extract_lines "$pattern" >> TEXTS
 #done
 
@@ -72,11 +74,11 @@ if [ -z "$TRANSLATE" ]; then
 fi
 
 
-if grep -q -o -F "|$TRANSLATE|" "$HOME/TitansWarMacro-master/LANGUAGE.po"; then
+if grep -q -o -F "|$TRANSLATE|" "$HOME/$twm_dir/LANGUAGE.po"; then
 	echo 'This term is already translated'
 	exit 0
 fi
-#echo 'de Deutsch|en English|es Español|fr Français|hi hindi|id Indonesian|it Italiano|pl Polski|pt Português|ro Română|ru Русский|sr Srpski|zh 中文' > $HOME/TitansWarMacro-master/LANGUAGE.po
+#echo 'de Deutsch|en English|es Español|fr Français|hi hindi|id Indonesian|it Italiano|pl Polski|pt Português|ro Română|ru Русский|sr Srpski|zh 中文' > $HOME/$twm_dir/LANGUAGE.po
 
 # List of target languages for translation
 TARGET="de en es fr hi id it pl pt ro ru sr zh"
@@ -117,7 +119,7 @@ TARGET="de en es fr hi id it pl pt ro ru sr zh"
         esac
     done
 
-    echo "$T" | sed 's/^|//' >> ~/TitansWarMacro-master/LANGUAGE.po
+    echo "$T" | sed 's/^|//' >> ~/$twm_dir/LANGUAGE.po
 #done < TEXTS
 
 # Remove duplicate lines directly from TEXTS
