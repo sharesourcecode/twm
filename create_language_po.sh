@@ -52,7 +52,7 @@ if [ -z "$SCRIPT" ]; then
 fi
 
 
-if ! grep -q -o -E '\$?[\(|\`]G_T [\"|'"\'"'].*[\"|'"\'"'][\)|\`]' $SCRIPT; then
+if ! grep -q -o -E '\$\(G_T ["'\''"]([^"'\''"]*?)["'\''"]\)' $SCRIPT; then
 	echo '** Function structure different from $(G_T "..."), or not existing. Please add the structures **'
 	echo 'Opening the nano in 10 seconds...'
         read -t 10 var
@@ -61,7 +61,7 @@ if ! grep -q -o -E '\$?[\(|\`]G_T [\"|'"\'"'].*[\"|'"\'"'][\)|\`]' $SCRIPT; then
 	exit 1
 fi
 
-grep -o -E '\$?[\(|\`]G_T [\"|'"\'"'].*[\"|'"\'"'][\)|\`]' $SCRIPT | sed 's/\$(G_T "//g; s/")//g' >TEXT
+grep -o -E '\$\(G_T ["'\''"]([^"'\''"]*?)["'\''"]\)' $SCRIPT | sed 's/\$\(G_T \(["'\'']\)\(.*\)\(["'\'']\)\)/\3/' >TEXT
 
 # Remove duplicate lines directly from TEXTS
 awk '!seen[$0]++' TEXT > TEMP && mv TEMP TEXT
