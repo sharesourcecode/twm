@@ -17,13 +17,12 @@ UAGT='Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP
 
 # Remote LANGUAGE.po
 content=$(curl -H "$UAGT" -s -L "$SERVER/LANGUAGE.po")
+G_T() { if [ -z "$LANGUAGE" ];then LANGUAGE=2;fi;translation=$(echo "$content" | awk -v lang="$LANGUAGE" -F'|' 'NR==1 {for (i=1; i<=NF; i++) {if ($i ~ /en/) { idx_en = i; } else if ($i ~ /de/) { idx_de = i; } else if ($i ~ /es/) { idx_es = i; } else if ($i ~ /fr/) { idx_fr = i; } else if ($i ~ /hi/) { idx_hi = i; } else if ($i ~ /id/) { idx_id = i; } else if ($i ~ /it/) { idx_it = i; } else if ($i ~ /pl/) { idx_pl = i; } else if ($i ~ /pt/) { idx_pt = i; } else if ($i ~ /ro/) { idx_ro = i; } else if ($i ~ /ru/) { idx_ru = i; } else if ($i ~ /sr/) { idx_sr = i; } else if ($i ~ /zh/) { idx_zh = i; }}} NR > 1 {if ($idx_en == "'"$1"'") { if (lang == 1) print (idx_de ? $idx_de : $1); else if (lang == 2) print (idx_en ? $idx_en : $1); else if (lang == 3) print (idx_es ? $idx_es : $1); else if (lang == 4) print (idx_fr ? $idx_fr : $1); else if (lang == 5) print (idx_hi ? $idx_hi : $1); else if (lang == 6) print (idx_id ? $idx_id : $1); else if (lang == 7) print (idx_it ? $idx_it : $1); else if (lang == 8) print (idx_pl ? $idx_pl : $1); else if (lang == 9) print (idx_pt ? $idx_pt : $1); else if (lang == 10) print (idx_ro ? $idx_ro : $1); else if (lang == 11) print (idx_ru ? $idx_ru : $1); else if (lang == 12) print (idx_sr ? $idx_sr : $1); else if (lang == 13) print (idx_zh ? $idx_zh : $1);}}');echo "${translation:-$1}" | awk 'NF';};
 
-# Remote info.lib
-INFOLIB=$(curl -H "$UAGT" -s -L "$SERVER/info.lib") && \
-eval "$INFOLIB" && \
-unset INFOLIB
-
+colors() { BLACK_BLACK='\033[00;30m';BLACK_CYAN='\033[01;36m\033[01;07m';BLACK_GREEN='\033[00;32m\033[01;07m';BLACK_GRAY='\033[01;30m\033[01;07m';BLACK_PINK='\033[01;35m\033[01;07m';BLACK_RED='\033[01;31m\033[01;07m';BLACK_YELLOW='\033[00;33m\033[01;07m';CYAN_BLACK='\033[36m';CYAN_CYAN='\033[01;36m\033[08;07m';COLOR_RESET='\033[00m';GOLD_BLACK='\033[33m';GREEN_BLACK='\033[32m';PURPLEi_BLACK='\033[03;34m\033[02;03m';PURPLEis_BLACK='\033[03;34m\033[02;04m';WHITE_BLACK='\033[37m';WHITEb_BLACK='\033[01;38m\033[05;01m';};
 colors
+
+script_slogan() { colors="10 9 8 7 6 5 4 3 2 1";t="339";w="59";m="89";author="$(G_T "author"):\nueliton@disroot.org 2019 — 2024";collaborator="$(G_T "collaborator"):\n	@_hviegas";for i in $colors; do clear;t=$((t - 27));w=$((w + 1));m=$((m - 2));printf "\033[1;38;5;${t}m  ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗\n  ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣\n  ${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║\n  ${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m\n       ╔╦═╦╗╔══╗╔══╗\n       ║║║║║║╔╗║║╚╝╣\n       ║║║║║║╔╗║║║╗║\n       ╚═╩═╝╚╝╚╝╚╝╚╝\033[1;38;5;${m}m\n  ╔═╦═╗╔══╗╔══╗╔══╗╔══╗\n  ║║║║║║╔╗║║╔═╝║╚╝╣║╔╗║\n  ║║║║║║╔╗║║╚═╗║║╗║║╚╝║\n  ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝\n  ${COLOR_RESET}\n\n\033[1;38;5;${i}m${author}\n\033[02m${collaborator}\n${COLOR_RESET}\n";sleep "0.2";done;};
 script_slogan
 
 cd ~/
