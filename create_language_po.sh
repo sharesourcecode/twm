@@ -61,7 +61,8 @@ if ! grep -q -o -E '\$\(G_T ["'\''"]([^"'\''"]*?)["'\''"]\)' $SCRIPT; then
 	exit 1
 fi
 
-grep -o -E '\$\(G_T ["'\''"]([^"'\''"]*?)["'\''"]\)' $SCRIPT | sed 's/\$\(G_T \(["'\'']\)\(.*\)\(["'\'']\)\)/\3/' >TEXT
+grep -o -E '\$\(G_T ["'\''"]([^"'\''"]*?)["'\''"]\)' $SCRIPT | sed 's/\$(G_T "//g; s/")//g' >TEXT
+#sed 's/\$\(G_T \(["'\'']\)\(.*\)\(["'\'']\)\)/\3/' >TEXT
 
 # Remove duplicate lines directly from TEXTS
 awk '!seen[$0]++' TEXT > TEMP && mv TEMP TEXT
