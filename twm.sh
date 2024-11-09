@@ -94,6 +94,10 @@ fi
 
 func_cat
 messages_info
+
+#User-agent testing. Use Q to close:
+#w3m $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"
+
 while true ; do
  sleep 1s
  twm_start
