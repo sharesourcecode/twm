@@ -20,7 +20,7 @@ content=$(curl -H "$UAGT" -s -L "$SERVER/LANGUAGE.po")
 
 G_T() {
  if [ -z "$LANGUAGE" ]; then
-  LANGUAGE='2'
+  local LANGUAGE='2'
  fi
 
  local TRANSLATE=$(echo "$1" | sed 's/\[/\\[/g;s/\]/\\]/g')
