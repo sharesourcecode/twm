@@ -19,6 +19,10 @@ UAGT='Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP
 content=$(curl -H "$UAGT" -s -L "$SERVER/LANGUAGE.po")
 
 G_T() {
+ if [ -z "$LANGUAGE" ]; then
+  LANGUAGE='2'
+ fi
+
  local TRANSLATE=$(echo "$1" | sed 's/\[/\\[/g;s/\]/\\]/g')
  echo "$content" | sed -n '/|'"$TRANSLATE"'|/p' | awk -v lang="$LANGUAGE" -F'|' '{ print $lang }'
 }
