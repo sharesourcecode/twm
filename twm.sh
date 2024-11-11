@@ -27,9 +27,9 @@ RUN=$(cat $HOME/$twm_dir/runmode_file)
 cd $HOME/$twm_dir
 
 script_ads () {
- if [ "$RUN" != '-boot' ] && [ -f "$HOME/$twm_dir/ads_file" ] && [ -s "$HOME/$twm_dir/ads_file" ] && [ "$(cat $HOME/$twm_dir/ads_file)" != "$(date +%d)" ] ; then
+ if [ -f "$HOME/$twm_dir/ads_file" ] && [ -s "$HOME/$twm_dir/ads_file" ] && [ "$(cat $HOME/$twm_dir/ads_file)" != "$(date +%d)" ]; then
   if [ "$(cat $HOME/$twm_dir/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
-   xdg-open "https://masto.pt/invite/XzjEurkb" #xdg-open "https://apps.disroot.org/search?q=Shell+Script&category_general=on&language=pt-BR&time_range=&safesearch=1&theme=beetroot"
+   xdg-open "https://whatsapp.com/channel/0029VavlaLN6rsQwoG51M11h"
    echo $(date +%d) >$HOME/$twm_dir/ads_file
   fi
  else
