@@ -27,13 +27,14 @@ RUN=$(cat $HOME/$twm_dir/runmode_file)
 cd $HOME/$twm_dir
 
 script_ads () {
- if [ -f "$HOME/$twm_dir/ads_file" ] && [ -s "$HOME/$twm_dir/ads_file" ] && [ "$(cat $HOME/$twm_dir/ads_file)" != "$(date +%d)" ]; then
+ if [ -e "$HOME/$twm_dir/ads_file" ]; then
   if [ "$(cat $HOME/$twm_dir/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
-   xdg-open "https://whatsapp.com/channel/0029VavlaLN6rsQwoG51M11h"
+   xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
    echo $(date +%d) >$HOME/$twm_dir/ads_file
   fi
  else
-   echo $(date +%d) >$HOME/$twm_dir/ads_file
+  xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
+  echo $(date +%d) >$HOME/$twm_dir/ads_file
  fi
 }
 script_ads
