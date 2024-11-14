@@ -17,13 +17,18 @@ LANGUAGE="2";content=$(curl -H "${UAGT}" -s -L "${SERVER}/LANGUAGE.po")
 #LIBS=$(curl -H ${UAGT} -s -L ${SERVER}/info.lib; curl -H ${UAGT} -s -L ${SERVER}requeriments.lib; curl -H ${UAGT} -s -L ${SERVER}loginlogoff.lib; curl -H ${UAGT} -s -L ${SERVER}online.lib; curl -H ${UAGT} -s -L ${SERVER}flagfight.lib; curl -H ${UAGT} -s -L ${SERVER}clanid.lib; curl -H ${UAGT} -s -L ${SERVER}crono.lib; curl -H ${UAGT} -s -L ${SERVER}arena.lib; curl -H ${UAGT} -s -L ${SERVER}coliseum.lib; curl -H ${UAGT} -s -L ${SERVER}campaign.lib; curl -H ${UAGT} -s -L ${SERVER}run.lib; curl -H ${UAGT} -s -L ${SERVER}altars.lib; curl -H ${UAGT} -s -L ${SERVER}clanfight.lib; curl -H ${UAGT} -s -L ${SERVER}clancoliseum.lib; curl -H ${UAGT} -s -L ${SERVER}king.lib; curl -H ${UAGT} -s -L ${SERVER}undying.lib; curl -H ${UAGT} -s -L ${SERVER}clandungeon.lib; curl -H ${UAGT} -s -L ${SERVER}trade.lib; curl -H ${UAGT} -s -L ${SERVER}career.lib; curl -H ${UAGT} -s -L ${SERVER}cave.lib; curl -H ${UAGT} -s -L ${SERVER}allies.lib; curl -H ${UAGT} -s -L ${SERVER}svproxy.lib; curl -H ${UAGT} -s -L ${SERVER}check.lib)
 
 printf "\n• Loading local software libraries...\n- - - - -	Please wait	- - - - -\n"
-LIBS=$(cat $HOME/$twm_dir/info.lib; cat $HOME/$twm_dir/requeriments.lib; cat $HOME/$twm_dir/loginlogoff.lib; cat $HOME/$twm_dir/online.lib; cat $HOME/$twm_dir/flagfight.lib; cat $HOME/$twm_dir/clanid.lib; cat $HOME/$twm_dir/crono.lib; cat $HOME/$twm_dir/arena.lib; cat $HOME/$twm_dir/coliseum.lib; cat $HOME/$twm_dir/campaign.lib; cat $HOME/$twm_dir/run.lib; cat $HOME/$twm_dir/altars.lib; cat $HOME/$twm_dir/clanfight.lib; cat $HOME/$twm_dir/clancoliseum.lib; cat $HOME/$twm_dir/king.lib; cat $HOME/$twm_dir/undying.lib; cat $HOME/$twm_dir/clandungeon.lib; cat $HOME/$twm_dir/trade.lib; cat $HOME/$twm_dir/career.lib; cat $HOME/$twm_dir/cave.lib; cat $HOME/$twm_dir/allies.lib; cat $HOME/$twm_dir/svproxy.lib; cat $HOME/$twm_dir/check.lib) && \
+LOADLIBS="info.lib requeriments.lib loginlogoff.lib online.lib flagfight.lib clanid.lib crono.lib arena.lib coliseum.lib campaign.lib run.lib altars.lib clanfight.lib clancoliseum.lib king.lib undying.lib clandungeon.lib trade.lib career.lib cave.lib allies.lib svproxy.lib check.lib"
 
-eval "$LIBS" && \
-unset LIBS UAGT SERVER
+for lib in $LOADLIBS; do
+  lib_content=`echo "$(< $HOME/$twm_dir/$lib)"` && \
+  eval "$lib_content" && \
+  unset lib lib_content
+done
+
+unset UAGT SERVER LOADLIBS
 
 colors
-RUN=$(cat $HOME/$twm_dir/runmode_file)
+RUN=`echo "$(< $HOME/$twm_dir/runmode_file)"`
 cd $HOME/$twm_dir
 
 script_ads () {
