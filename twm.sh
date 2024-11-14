@@ -4,6 +4,7 @@
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 twm_dir="twm-master"
+cd $HOME/$twm_dir
 
 SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/"
 #SERVER="https://codeberg.org/ueliton/TitansWarMacro/raw/branch/master/"
@@ -29,56 +30,63 @@ unset UAGT SERVER LOADLIBS
 
 colors
 RUN=`< "$HOME/$twm_dir/runmode_file"`
-cd $HOME/$twm_dir
 
-script_ads () {
+script_ads() {
+
  if [ -e "$HOME/$twm_dir/ads_file" ]; then
-  if [ `< "$HOME/$twm_dir/ads_file"` != "$(date +%d)" ] ; then
+
+  if [ `< "$HOME/$twm_dir/ads_file"` != "$(date +%d)" ]; then
    xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
    echo $(date +%d) >$HOME/$twm_dir/ads_file
   fi
+
  else
   xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
   echo $(date +%d) >$HOME/$twm_dir/ads_file
  fi
+
 }
+
 script_ads
 
 printf "${BLACK_CYAN}\n $(G_T "Starting")...\n👉 $(G_T "Please wait")...☕👴${COLOR_RESET}\n"
-#. $HOME/$twm_dir/info.lib
 script_slogan
 sleep 1s
+
 #/termux
-if [ -d /data/data/com.termux/files/usr/share/doc ] ; then
+if [ -d /data/data/com.termux/files/usr/share/doc ]; then
  termux-wake-lock
  LS='/data/data/com.termux/files/usr/share/doc'
 else
  LS='/usr/share/doc'
 fi
 
-cd $HOME/$twm_dir
+twm_start() {
 
-#/functions
-twm_start () {
- if echo "$RUN"|grep -q -E '[-]cv' ; then
+ if echo "$RUN"|grep -q -E '[-]cv'; then
   cave_start
- elif echo "$RUN"|grep -q -E '[-]cl' ; then
+ elif echo "$RUN"|grep -q -E '[-]cl'; then
   twm_play
- elif echo "$RUN"|grep -q -E '[-]boot' ; then
+ elif echo "$RUN"|grep -q -E '[-]boot'; then
   twm_play
  else
   twm_play
  fi
+
 }
-func_unset () {
+
+func_unset() {
  unset HP1 HP2 YOU USER CLAN ENTER ENTER ATK ATKRND DODGE HEAL BEXIT OUTGATE LEAVEFIGHT WDRED HLHP
 }
-if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ] ; then
+
+if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
  printf "${GREEN_BLACK} $(G_T "Starting with last settings used").${COLOR_RESET}\n"
  num=6
- for i in `seq 6 -1 1` ; do
+
+ for i in `seq 6 -1 1`; do
   i=$((i - 1))
-  if read -t "0.5" ; then
+
+  if read -t "0.5"; then
    >$HOME/$twm_dir/al_file
    >$HOME/$twm_dir/ur_file
    >$HOME/$twm_dir/fileAgent.txt
@@ -87,13 +95,21 @@ if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ] ; then
    unset AL
    break &>/dev/null
   fi
+
   printf "$(G_T "Hit")${GOLD_BLACK} [Enter]${COLOR_RESET} $(G_T "to")${GOLD_BLACK} $(G_T "reconfigure")${GREEN_BLACK} ${i}$(G_T "s")${COLOR_RESET}\n"
  done
+
 fi
+
 requer_func
 func_proxy
+
+#User-agent testing. Use Q to close:
+#w3m $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"
+
 login_logoff
-if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ] ; then
+
+if [ -n "$ALLIES" ] && [ "$RUN" != "-cv" ]; then
  conf_allies
  clear
 fi
@@ -101,10 +117,7 @@ fi
 func_cat
 messages_info
 
-#User-agent testing. Use Q to close:
-#w3m $(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d) -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"
-
-while true ; do
+while true; do
  sleep 1s
  twm_start
 done

@@ -283,11 +283,10 @@ requer_func() {
 
 # If no user agent file exists, write a default one
     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-     cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
     else
 # Count the total number of user agents available in the file
      total_agents=`wc -l < "$TMP/userAgent.txt"`
-
 # Generate a random line number between 1 and the total number of agents
      random_agent=$((RANDOM % $total_agents + 1))
     fi
@@ -303,7 +302,7 @@ requer_func() {
 # If no valid user agent is provided, write a default one
     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
      printf " ...\n"
-     cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
     else
 # Count the total number of user agents available in the file
      total_agents=`wc -l < "$TMP/userAgent.txt"`
@@ -314,7 +313,7 @@ requer_func() {
    ;;
    (2)
     printf " ...\n${BLACK_PINK}"
-    cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
     echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
 
     if [ -e "$TMP/userAgent.txt" ]; then
