@@ -24,12 +24,12 @@ G_T() {
  fi
 
  local TRANSLATE=$(echo "$1" | sed 's/\[/\\[/g;s/\]/\\]/g;s/:/\:/g')
- local GETTEXT=$(echo "$content" | sed -n '/|'"$TRANSLATE"'|/p' | awk -v lang="$LANGUAGE" -F'|' '{ print $lang }')
+ local TEXT=$(echo "$content" | sed -n '/|'"$TRANSLATE"'|/p' | awk -F'|' '{print $'$LANGUAGE'}')
 
- if [ -z "$GETTEXT" ]; then
+ if [ -z "$TEXT" ]; then
   echo "$1"
  else
-  echo "$GETTEXT"
+  echo "$TEXT"
  fi
 }
 
