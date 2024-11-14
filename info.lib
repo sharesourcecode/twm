@@ -22,6 +22,7 @@ colors() {
 };
 
 G_T() {
+
  if [ -z "$LANGUAGE" ]; then
   local LANGUAGE='2'
  fi
@@ -34,6 +35,7 @@ G_T() {
  else
   echo "$TEXT"
  fi
+
 }
 
 script_slogan() {
@@ -54,6 +56,7 @@ script_slogan() {
   \033[1;38;5;${i}m${author}\n\033[02m${collaborator}\n${COLOR_RESET}\n";
   sleep "0.2";
  done;
+
 };
 
 # Function to manage a timeout for a background process
@@ -68,6 +71,7 @@ time_exit() {
   while [ $TIMEOUT -gt 0 ]; do
    # Check if the process is still running
    ps -p $FPID > /dev/null 2>&1
+
    if [ $? -ne 0 ]; then
     # Process has finished, exit the loop
     break &>/dev/null
@@ -85,11 +89,14 @@ time_exit() {
    kill -15 $FPID > /dev/null 2>&1
    printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
   fi
+
  ) # End of subshell grouping
 }
 
 hpmp() {
+
  if echo "$@" | grep -q '\-fix'; then
+
   (
    w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN;
   )  </dev/null &>/dev/null
