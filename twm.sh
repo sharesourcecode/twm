@@ -20,7 +20,7 @@ printf "\n• Loading local software libraries...\n- - - - -	Please wait	- - - -
 LOADLIBS="info.lib requeriments.lib loginlogoff.lib online.lib flagfight.lib clanid.lib crono.lib arena.lib coliseum.lib campaign.lib run.lib altars.lib clanfight.lib clancoliseum.lib king.lib undying.lib clandungeon.lib trade.lib career.lib cave.lib allies.lib svproxy.lib check.lib"
 
 for lib in $LOADLIBS; do
-  lib_content=`echo "$(< $HOME/$twm_dir/$lib)"` && \
+  lib_content=`< "$HOME/$twm_dir/$lib"` && \
   eval "$lib_content" && \
   unset lib lib_content
 done
@@ -28,12 +28,12 @@ done
 unset UAGT SERVER LOADLIBS
 
 colors
-RUN=`echo "$(< $HOME/$twm_dir/runmode_file)"`
+RUN=`< "$HOME/$twm_dir/runmode_file"`
 cd $HOME/$twm_dir
 
 script_ads () {
  if [ -e "$HOME/$twm_dir/ads_file" ]; then
-  if [ "$(cat $HOME/$twm_dir/ads_file 2> /dev/null)" != "$(date +%d)" ] ; then
+  if [ `< "$HOME/$twm_dir/ads_file"` != "$(date +%d)" ] ; then
    xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
    echo $(date +%d) >$HOME/$twm_dir/ads_file
   fi

@@ -209,7 +209,7 @@ else
 fi
 
 # Update local easyinstall.sh
-cat $HOME/$twm_dir/easyinstall.sh > $HOME/easyinstall.sh
+`< "$HOME/$twm_dir/easyinstall.sh"` > $HOME/easyinstall.sh
 
 tipidf=$(ps ax -o pid=,args=|grep "sh.*titanswarmacro/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
 until [ -z $tipidf ]; do
@@ -227,11 +227,11 @@ done
 
 if [ -f $HOME/$twm_dir/runmode_file ]; then
 
- if awk -v arg="-cl" -v file="$(cat $HOME/$twm_dir/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+ if awk -v arg="-cl" -v file=`< "$HOME/$twm_dir/runmode_file"` 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}$(G_T "Automatically restarting in 5s after update")...${COLOR_RESET}\n"
   sleep 5s
   $HOME/$twm_dir/play.sh -cl
- elif awk -v arg="-cv" -v file="$(cat $HOME/$twm_dir/runmode_file)" 'BEGIN { exit !(arg == file) }'; then
+ elif awk -v arg="-cv" -v file=`< "$HOME/$twm_dir/runmode_file"` 'BEGIN { exit !(arg == file) }'; then
   printf "${BLACK_GREEN}$(G_T "Automatically restarting in 5s after update")...${COLOR_RESET}\n"
   sleep 5s
   $HOME/$twm_dir/play.sh -cv
