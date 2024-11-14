@@ -129,12 +129,12 @@ requer_func() {
 
 # Check if ur_file exists and is not empty; if so, read from it; otherwise, show the first menu.
  if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
-  UR="$(cat "$HOME/$twm_dir/ur_file")"
+  UR=`< "$HOME/$twm_dir/ur_file"`
  else
   menu_one
  fi
 
- UR="$(cat "$HOME/$twm_dir/ur_file")"
+ UR=`< "$HOME/$twm_dir/ur_file"`
 
 # Set URL and TMP variables based on user selection from ur_file.
  case $UR in
@@ -269,7 +269,7 @@ requer_func() {
 
 # Check if a user agent file exists and is not empty
   if [ -f "$HOME/$twm_dir/fileAgent.txt" ] && [ -s "$HOME/$twm_dir/fileAgent.txt" ]; then
-   UA=$(cat "$HOME/$twm_dir/fileAgent.txt") # Read existing user agent
+   UA=`< "$HOME/$twm_dir/fileAgent.txt"` # Read existing user agent
   else
    printf "$(G_T "Set up User-Agent [1 to 2]"): \n"
    read -n 1 UA # Read user input for user agent selection
@@ -283,7 +283,7 @@ requer_func() {
 
 # If no user agent file exists, write a default one
     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-     cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+     `< "$HOME/$twm_dir/userAgent.txt"` >"$TMP/userAgent.txt"
     else
 # Count the total number of user agents available in the file
      total_agents=$(wc -l < $TMP/userAgent.txt)
@@ -303,7 +303,7 @@ requer_func() {
 # If no valid user agent is provided, write a default one
     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
      printf " ...\n"
-     cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+     `< "$HOME/$twm_dir/userAgent.txt"` >"$TMP/userAgent.txt"
     else
 # Count the total number of user agents available in the file
      total_agents=$(wc -l < $TMP/userAgent.txt)
@@ -314,7 +314,7 @@ requer_func() {
    ;;
    (2)
     printf " ...\n${BLACK_PINK}"
-    cat $HOME/$twm_dir/userAgent.txt >"$TMP/userAgent.txt"
+    `< "$HOME/$twm_dir/userAgent.txt"` >"$TMP/userAgent.txt"
     echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
 
     if [ -e "$TMP/userAgent.txt" ]; then
@@ -343,7 +343,7 @@ requer_func() {
  }
 
 # Check if the user agent file is missing or has an invalid size; if so, prompt for a new one.
- if [ ! -e "$TMP/userAgent.txt" ] || [ $(cat "$TMP/userAgent.txt" | wc -c) -lt 10 ] || [ $(cat "$TMP/userAgent.txt" | wc -c) -gt 65 ]; then
+ if [ ! -e "$TMP/userAgent.txt" ] || [ `wc -c < $TMP/userAgent.txt` -lt 10 ] || [ `wc -c < $TMP/userAgent.txt` -gt 65 ]; then
   user_agent # Call function to set up user agent if conditions are met.
  else
 # Print the user agent located at the randomly generated line number
