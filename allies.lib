@@ -23,9 +23,9 @@ members_allies() {
   sort -u allies.txt -o allies.txt
  fi
 
- printf "${BLACK_CYAN}\n$(G_T "Allies for Coliseum and King of the Immortals"):\n${COLOR_RESET}\n"
- printf "${GOLD_BLACK}\n`< allies.txt`\n${COLOR_RESET}"
- printf "${BLACK_CYAN}$(G_T "Wait to continue.")  👈${COLOR_RESET}\n"
+ printf "\n${BLACK_CYAN}$(G_T "Allies for Coliseum and King of the Immortals"):\n${COLOR_RESET}\n"
+ printf "\n${GOLD_BLACK}$(< allies.txt)${COLOR_RESET}\n"
+ printf "\n${BLACK_CYAN}$(G_T "Wait to continue.")  👈${COLOR_RESET}\n"
  sleep 5
 }
 
@@ -39,10 +39,7 @@ id_allies() {
  ) </dev/null &>/dev/null &
  time_exit 17
 
-#  NPG=$(c_at $TMP/SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
   NPG=$(grep -o -E '/mail/friends/([[:digit:]]{0,4})[^[:alnum:]]{4}62[^[:alnum:]]{3}62[^[:alnum:]]' < $TMP/SRC | sed 's/\/mail\/friends\/\([[:digit:]]\{0,4\}\).*/\1/')
-#  NPG=$(cat $TMP/SRC | grep -o -E '/mail/friends/([[:digit:]]{0,4})[^[:alnum:]]{4}62[^[:alnum:]]{3}62[^[:alnum:]]' | sed 's/\/mail\/friends\/\([[:digit:]]\{0,4\}\).*/\1/')
-
   >tmp.txt
 
   if [ -z "$NPG" ]; then
@@ -76,7 +73,7 @@ clan_allies() {
  if [ -n "$CLD" ]; then
   cd $TMP
   echo "" >callies.txt
-  cut -d/ -f3 < tmp.txt >ids.txt
+  cut -d/ -f3 tmp.txt > ids.txt
   printf "${BLACK_CYAN}\n$(G_T "Clan allies by Leader, deputy on friends list")\n${COLOR_RESET}\n"
   Lnl=`wc -l < ids.txt`; nl='1'; ts='0'
 

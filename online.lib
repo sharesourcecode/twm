@@ -43,7 +43,8 @@ online () {
   sed -i "/\!/d" all.txt
   sed -i "/\+/d" all.txt
   sort -u all.txt -o all.txt
-  cat all.txt|sed "s, ,~,g"|sed "s,',_,g"  >w
+  sed "s, ,~,g;s,',_,g" all.txt > w
+#  cat all.txt|sed "s, ,~,g"|sed "s,',_,g"  >w
   cat w >y ; sed -i "/_/d" y
   echo ""
   echo -e "Started ${DATE1} - Finished `date +%H:%M:%S` `date +%d\/%m\/%Y`"
