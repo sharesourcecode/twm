@@ -2,14 +2,10 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-requer_func() {
-# Clear the terminal screen
- clear
-
 # Function to display server options (in multiple languages)
- options_one() {
-  clear
-  printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs online \033[00m
+options_one() {
+ clear
+ printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs online \033[00m
 	 2)${BLACK_CYAN} Deutsch: Krieg der Titanen online \033[00m
 	 3)${BLACK_CYAN} Español: Guerra de Titanes online \033[00m
 	 4)${BLACK_CYAN} Français: Combat des Titans online \033[00m
@@ -24,11 +20,11 @@ requer_func() {
 	13)${BLACK_CYAN} English, Global: Titan's War online \033[00m
 	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
 	" | sed 's/\t//g'
- }
+}
 
- options_two() {
-  clear
-  printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs ${BLACK_GREEN}[ENTER]\033[00m
+options_two() {
+ clear
+ printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs ${BLACK_GREEN}[ENTER]\033[00m
 	 2)${CYAN_CYAN} Deutsch: Krieg der Titanen online \033[00m
 	 3)${CYAN_CYAN} Español: Guerra de Titanes online \033[00m
 	 4)${CYAN_CYAN} Français: Combat des Titans online \033[00m
@@ -43,89 +39,198 @@ requer_func() {
 	${BLACK_RED}1\033[00m${BLACK_GREEN}3\033[00m)${BLACK_CYAN} English, Global: Titan's War online \033[00m
 	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
 	" | sed 's/\t//g'
- }
+}
 
 # Function to handle invalid input for the first menu
- invalid_one() {
-  options_one
-  printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
-  sleep 0.2s
-  menu_one
- }
+invalid_one() {
+ options_one
+ printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
+ sleep 0.2s
+ menu_one
+}
 
 # Function to handle invalid input for the second menu
- invalid_two () {
-  clear
-  options_two
-  printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
-  sleep 0.2s
-  menu_two
- }
+invalid_two() {
+ clear
+ options_two
+ printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
+ sleep 0.2s
+ menu_two
+}
 
 # Function for the second menu of options
- menu_two () {
-  options_two
-  printf "$(G_T "Select number Server [1 to 11]"): 1\n"  # Default selection shown to user
-  read -n 1 UR # Read user input without waiting for Enter
+menu_two() {
+ options_two
+ printf "$(G_T "Select number Server [1 to 11]"): 1\n"  # Default selection shown to user
+ read -n 1 UR # Read user input without waiting for Enter
 
 # Process user input for server selection
-  if [ "$UR" = $'\0' ]; then
-   echo "1" >"$HOME/$twm_dir/ur_file"  # Defaults to server 1(Brazilian) if Enter is pressed
-  elif [ "$UR" = '0' ]; then
-   echo "10" >"$HOME/$twm_dir/ur_file"  # Select Russian server if '(1)0' is pressed
-  elif [ "$UR" = '1' ]; then
-   echo "11" >"$HOME/$twm_dir/ur_file"  # Select Croatian server if '(1)1' is pressed
-  elif [ "$UR" = '2' ]; then
-   echo "12" >"$HOME/$twm_dir/ur_file"  # Select Chinese server if '(1)2' is pressed
-  elif [ "$UR" = '3' ]; then
-   echo "13" >"$HOME/$twm_dir/ur_file"  # Select English server if '(1)3' is pressed
-  elif [ "$UR" = $'\177' ]; then
-   menu_one # Go back to the first menu if Backspace is pressed
-  elif [ "$UR" = 'c' ] || [ "$UR" = 'C' ]; then
+ if [ "$UR" = $'\0' ]; then
+  echo "1" >"$HOME/$twm_dir/ur_file"  # Defaults to server 1(Brazilian) if Enter is pressed
+ elif [ "$UR" = '0' ]; then
+  echo "10" >"$HOME/$twm_dir/ur_file"  # Select Russian server if '(1)0' is pressed
+ elif [ "$UR" = '1' ]; then
+  echo "11" >"$HOME/$twm_dir/ur_file"  # Select Croatian server if '(1)1' is pressed
+ elif [ "$UR" = '2' ]; then
+  echo "12" >"$HOME/$twm_dir/ur_file"  # Select Chinese server if '(1)2' is pressed
+ elif [ "$UR" = '3' ]; then
+  echo "13" >"$HOME/$twm_dir/ur_file"  # Select English server if '(1)3' is pressed
+ elif [ "$UR" = $'\177' ]; then
+  menu_one # Go back to the first menu if Backspace is pressed
+ elif [ "$UR" = 'c' ] || [ "$UR" = 'C' ]; then
 # Kill any running play.sh script if 'c' is pressed and exit the script
+  pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+
+  until [ -z "$pidf" ]; do
+   kill -9 "$pidf" 2> /dev/null
    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
-   until [ -z "$pidf" ]; do
-    kill -9 "$pidf" 2> /dev/null
-    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
-    sleep 1s
-   done
-   kill -9 $$ 2> /dev/null # Terminate the current script process
-  else
-   invalid_two # Handle invalid input by calling the invalid function for menu two
-  fi
- }
+   sleep 1s
+  done
+
+  kill -9 $$ 2> /dev/null # Terminate the current script process
+ else
+  invalid_two # Handle invalid input by calling the invalid function for menu two
+ fi
+
+}
 
 # Function for the first menu of options
- menu_one () {
-  options_one
-  printf "$(G_T "Select number Server [1 to 11]"): \n"
-  read -n 1 UR
+menu_one() {
+ options_one
+ printf "$(G_T "Select number Server [1 to 11]"): \n"
+ read -n 1 UR
 
 # Process user input for server selection in the first menu
-  case "$UR" in
-   '1')
-    menu_two
-   ;; # Go to second menu if '1' is selected
-   '2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')
-    echo "$UR" >"$HOME/$twm_dir/ur_file"
-   ;;
-   $'\177')
-    menu_one
-   ;; # Go back if Backspace is pressed
-   'c'|'C') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
-    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-    until [ -z "$pidf" ]; do
-     kill -9 "$pidf" 2> /dev/null
-     pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-     sleep 1s
-    done
-    kill -9 $$ 2> /dev/null
-   ;;
-   *)
-    invalid_one
-   ;; # Handle invalid input by calling the invalid function for menu one
-  esac
- }
+ case "$UR" in
+  '1')
+   menu_two
+  ;; # Go to second menu if '1' is selected
+
+  '2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')
+   echo "$UR" >"$HOME/$twm_dir/ur_file"
+  ;;
+
+  $'\177')
+   menu_one
+  ;; # Go back if Backspace is pressed
+
+  'c'|'C') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
+   pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+
+   until [ -z "$pidf" ]; do
+    kill -9 "$pidf" 2> /dev/null
+    pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+    sleep 1s
+   done
+
+   kill -9 $$ 2> /dev/null
+  ;;
+
+  *)
+   invalid_one
+  ;; # Handle invalid input by calling the invalid function for menu one
+ esac
+
+}
+
+# Function to handle user agent selection and setup
+user_agent() {
+ cd "$TMP" || exit 1
+ clear
+
+# Display options for user agent selection
+ printf "${BLACK_CYAN} $(G_T "Simulate your real or random device"). \033[00m
+	1)${BLACK_CYAN} $(G_T "Manual") \033[00m
+	2)${BLACK_CYAN} $(G_T "Automatic") \033[00m
+	" | sed 's/\t//g'
+
+# Check if a user agent file exists and is not empty
+ if [ -f "$HOME/$twm_dir/fileAgent.txt" ] && [ -s "$HOME/$twm_dir/fileAgent.txt" ]; then
+  UA=`< "$HOME/$twm_dir/fileAgent.txt"` # Read existing user agent
+ else
+  printf "$(G_T "Set up User-Agent [1 to 2]"): \n"
+  read -n 1 UA # Read user input for user agent selection
+ fi
+
+# Handle user agent selection based on input
+ case $UA in
+  (0)
+   clear
+   echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
+
+# If no user agent file exists, write a default one
+   if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
+    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+   else
+# Count the total number of user agents available in the file
+    total_agents=`wc -l < "$TMP/userAgent.txt"`
+# Generate a random line number between 1 and the total number of agents
+    random_agent=$((RANDOM % $total_agents + 1))
+   fi
+
+  ;;
+
+  (1)
+   clear
+   echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
+   xdg-open "$(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d)" &>/dev/null  # Open URL for manual entry
+   printf "$(G_T "Copy and paste your User Agent here and press ENTER"): \n"
+
+   read UA # Read user input for custom user agent
+
+   echo "$UA" >"$TMP/userAgent.txt" # Save the custom user agent
+
+# If no valid user agent is provided, write a default one
+   if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
+    printf " ...\n"
+    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+   else
+# Count the total number of user agents available in the file
+    total_agents=`wc -l < "$TMP/userAgent.txt"`
+
+# Generate a random line number between 1 and the total number of agents
+    random_agent=$((RANDOM % $total_agents + 1))
+   fi
+
+  ;;
+
+  (2)
+   printf " ...\n${BLACK_PINK}"
+   echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+   echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
+
+   if [ -e "$TMP/userAgent.txt" ]; then
+# Count the total number of user agents available in the file
+    total_agents=`wc -l < "$TMP/userAgent.txt"`
+
+# Generate a random line number between 1 and the total number of agents
+    random_agent=$((RANDOM % $total_agents + 1))
+   fi
+
+   printf "$(G_T "Automatic User Agent selected")\n${COLOR_RESET}"
+   sleep 2s
+  ;;
+
+  (*)
+   clear # Clear the screen for invalid input handling
+
+   if [ -n "$UA" ]; then
+    printf "\n $(G_T "Invalid option"): $(echo "$UA")\n"
+    kill -9 $$ # Terminate the script on invalid input
+   else
+    printf "\n $(G_T "Time exceeded")!\n"
+   fi
+
+  ;;
+ esac
+
+ unset UA # Clear the UA variable after use
+
+}
+
+requer_func() {
+# Clear the terminal screen
+ clear
 
 # Check if ur_file exists and is not empty; if so, read from it; otherwise, show the first menu.
  if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
@@ -145,6 +250,7 @@ requer_func() {
 # America/Bahia -03 GMT/BRT
    export TZ="BRT+3"; ALLIES="_WORK"
   ;;
+
   (2|de)
    URL=$(echo "dGl0YW5lbi5tb2Jp"|base64 -d)
    echo "2" >"$HOME/$twm_dir/ur_file"
@@ -152,6 +258,7 @@ requer_func() {
 # Europe/Berlin +01
    export TZ="CET-1"; ALLIES="_WORK"
   ;;
+
   (3|es)
    URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA=="|base64 -d)
    echo "3" >"$HOME/$twm_dir/ur_file"
@@ -159,6 +266,7 @@ requer_func() {
 # America/Cancun -05
    export TZ="EST+5"; ALLIES="_WORK"
   ;;
+
   (4|fr)
    URL=$(echo "dGl3YXIuZnI="|base64 -d)
    echo "4" >"$HOME/$twm_dir/ur_file"
@@ -166,6 +274,7 @@ requer_func() {
 # Europe/Paris +01
    export TZ="CET-1"; ALLIES="_WORK"
   ;;
+
   (5|hi)
    URL=$(echo "aW4udGl3YXIubmV0"|base64 -d)
    echo "5" >"$HOME/$twm_dir/ur_file"
@@ -173,6 +282,7 @@ requer_func() {
 # Asia/Kolkata +05:30
    export TZ="IST-5:30"; ALLIES="_WORK"
   ;;
+
   (6|id)
    URL=$(echo "dGl3YXItaWQubmV0"|base64 -d)
    echo "6" >"$HOME/$twm_dir/ur_file"
@@ -180,6 +290,7 @@ requer_func() {
 # Asia/Jakarta +07
    export TZ="WIB-7"; ALLIES="_WORK"
   ;;
+
   (7|it)
    URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0"|base64 -d)
    echo "7" >"$HOME/$twm_dir/ur_file"
@@ -187,6 +298,7 @@ requer_func() {
 # Europe/Rome +01
    export TZ="CET-1"; ALLIES="_WORK"
   ;;
+
   (8|pl)
    URL=$(echo "dGl3YXIucGw="|base64 -d)
    echo "8" >"$HOME/$twm_dir/ur_file"
@@ -194,6 +306,7 @@ requer_func() {
 # Europe/Warsaw +01
    export TZ="CET-1"; ALLIES="_WORK"
   ;;
+
   (9|ro)
    URL=$(echo "dGl3YXIucm8="|base64 -d)
    echo "9" >"$HOME/$twm_dir/ur_file"
@@ -201,6 +314,7 @@ requer_func() {
 # Europe/Bucharest +02
    export TZ="EET-2"; ALLIES="_WORK"
   ;;
+
   (10|ru)
    URL=$(echo "dGl3YXIucnU="|base64 -d)
    echo "10" >"$HOME/$twm_dir/ur_file"
@@ -208,6 +322,7 @@ requer_func() {
 # Europe/Moscow +03
    export TZ="MSK-3"; ALLIES="_WORK"
   ;;
+
   (11|sr)
    URL=$(echo "cnMudGl3YXIubmV0"|base64 -d)
    echo "11" >"$HOME/$twm_dir/ur_file"
@@ -215,6 +330,7 @@ requer_func() {
 # Europe/Belgrade +01
    export TZ="CET-1"; ALLIES="_WORK"
   ;;
+
   (12|zh)
    URL=$(echo "Y24udGl3YXIubmV0"|base64 -d)
    echo "12" >"$HOME/$twm_dir/ur_file"
@@ -222,20 +338,24 @@ requer_func() {
 # Asia/Shanghai +08
    export TZ="CST-8"; ALLIES="_WORK"
   ;;
+
   (13|en)
    URL=$(echo "dGl3YXIubmV0"|base64 -d)
    echo "13" >"$HOME/$twm_dir/ur_file"
    TMP="$HOME/$twm_dir/.13"
 # Europe/London +00
    export TZ="GMT"; ALLIES="_WORK"
+
   (*)
    clear
+
    if [ -n "$UR" ]; then
     printf "\n $(G_T "Invalid option"): $(echo "$UR")\n"
     kill -9 $$
    else
     printf "\n $(G_T "Time exceeded")!\n"
    fi
+
   ;;
  esac
 
@@ -255,91 +375,6 @@ requer_func() {
 # Reset and clear the terminal screen
  reset
  clear
-
-# Function to handle user agent selection and setup
- user_agent() {
-  cd "$TMP" || exit 1
-  clear
-
-# Display options for user agent selection
-  printf "${BLACK_CYAN} $(G_T "Simulate your real or random device"). \033[00m
-	1)${BLACK_CYAN} $(G_T "Manual") \033[00m
-	2)${BLACK_CYAN} $(G_T "Automatic") \033[00m
-	" | sed 's/\t//g'
-
-# Check if a user agent file exists and is not empty
-  if [ -f "$HOME/$twm_dir/fileAgent.txt" ] && [ -s "$HOME/$twm_dir/fileAgent.txt" ]; then
-   UA=`< "$HOME/$twm_dir/fileAgent.txt"` # Read existing user agent
-  else
-   printf "$(G_T "Set up User-Agent [1 to 2]"): \n"
-   read -n 1 UA # Read user input for user agent selection
-  fi
-
-# Handle user agent selection based on input
-  case $UA in
-   (0)
-    clear
-    echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
-
-# If no user agent file exists, write a default one
-    if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
-    else
-# Count the total number of user agents available in the file
-     total_agents=`wc -l < "$TMP/userAgent.txt"`
-# Generate a random line number between 1 and the total number of agents
-     random_agent=$((RANDOM % $total_agents + 1))
-    fi
-   ;;
-   (1)
-    clear
-    echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
-    xdg-open "$(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d)" &>/dev/null  # Open URL for manual entry
-    printf "$(G_T "Copy and paste your User Agent here and press ENTER"): \n"
-    read UA # Read user input for custom user agent
-    echo "$UA" >"$TMP/userAgent.txt" # Save the custom user agent
-
-# If no valid user agent is provided, write a default one
-    if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-     printf " ...\n"
-     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
-    else
-# Count the total number of user agents available in the file
-     total_agents=`wc -l < "$TMP/userAgent.txt"`
-
-# Generate a random line number between 1 and the total number of agents
-     random_agent=$((RANDOM % $total_agents + 1))
-    fi
-   ;;
-   (2)
-    printf " ...\n${BLACK_PINK}"
-    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
-    echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
-
-    if [ -e "$TMP/userAgent.txt" ]; then
-# Count the total number of user agents available in the file
-     total_agents=`wc -l < "$TMP/userAgent.txt"`
-
-# Generate a random line number between 1 and the total number of agents
-     random_agent=$((RANDOM % $total_agents + 1))
-    fi
-    printf "$(G_T "Automatic User Agent selected")\n${COLOR_RESET}"
-    sleep 2s
-   ;;
-   (*)
-    clear # Clear the screen for invalid input handling
-    if [ -n "$UA" ]; then
-     printf "\n $(G_T "Invalid option"): $(echo "$UA")\n"
-     kill -9 $$ # Terminate the script on invalid input
-    else
-     printf "\n $(G_T "Time exceeded")!\n"
-    fi
-   ;;
-  esac
-
-  unset UA # Clear the UA variable after use
-
- }
 
 # Check if the user agent file is missing or has an invalid size; if so, prompt for a new one.
  if [ ! -e "$TMP/userAgent.txt" ] || [ `wc -c < $TMP/userAgent.txt` -lt 10 ] || [ `wc -c < $TMP/userAgent.txt` -gt 65 ]; then
