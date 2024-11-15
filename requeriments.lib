@@ -137,7 +137,7 @@ random_ua() {
 # Count the total number of user agents available in the file
     total_agents=`wc -l < "$TMP/userAgent.txt"`
 # Generate a random line number between 1 and the total number of agents
-    random_agent=$((RANDOM % $total_agents + 1))# Function to handle user agent selection and setup
+    random_agent=$((RANDOM % $total_agents + 1)) # Function to handle user agent selection and setup
 }
 
 user_agent() {
