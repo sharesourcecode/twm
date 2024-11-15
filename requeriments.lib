@@ -133,7 +133,13 @@ menu_one() {
 
 }
 
-# Function to handle user agent selection and setup
+random_ua() {
+# Count the total number of user agents available in the file
+    total_agents=`wc -l < "$TMP/userAgent.txt"`
+# Generate a random line number between 1 and the total number of agents
+    random_agent=$((RANDOM % $total_agents + 1))# Function to handle user agent selection and setup
+}
+
 user_agent() {
  cd "$TMP" || exit 1
  clear
@@ -162,10 +168,7 @@ user_agent() {
    if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
    else
-# Count the total number of user agents available in the file
-    total_agents=`wc -l < "$TMP/userAgent.txt"`
-# Generate a random line number between 1 and the total number of agents
-    random_agent=$((RANDOM % $total_agents + 1))
+    random_ua
    fi
 
   ;;
@@ -185,11 +188,7 @@ user_agent() {
     printf " ...\n"
     echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
    else
-# Count the total number of user agents available in the file
-    total_agents=`wc -l < "$TMP/userAgent.txt"`
-
-# Generate a random line number between 1 and the total number of agents
-    random_agent=$((RANDOM % $total_agents + 1))
+    random_ua
    fi
 
   ;;
@@ -200,11 +199,7 @@ user_agent() {
    echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
 
    if [ -e "$TMP/userAgent.txt" ]; then
-# Count the total number of user agents available in the file
-    total_agents=`wc -l < "$TMP/userAgent.txt"`
-
-# Generate a random line number between 1 and the total number of agents
-    random_agent=$((RANDOM % $total_agents + 1))
+    random_ua
    fi
 
    printf "$(G_T "Automatic User Agent selected")\n${COLOR_RESET}"
