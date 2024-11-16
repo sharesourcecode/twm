@@ -3,9 +3,11 @@
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 # Function to display server options (in multiple languages)
-options_one() {
- clear
- printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs online \033[00m
+options() {
+ case $1 in
+  's1')
+   clear
+   printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs online \033[00m
 	 2)${BLACK_CYAN} Deutsch: Krieg der Titanen online \033[00m
 	 3)${BLACK_CYAN} Español: Guerra de Titanes online \033[00m
 	 4)${BLACK_CYAN} Français: Combat des Titans online \033[00m
@@ -20,11 +22,10 @@ options_one() {
 	13)${BLACK_CYAN} English, Global: Titan's War online \033[00m
 	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
 	" | sed 's/\t//g'
-}
-
-options_two() {
- clear
- printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs ${BLACK_GREEN}[ENTER]\033[00m
+  ;;
+  's2')
+   clear
+   printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs ${BLACK_GREEN}[ENTER]\033[00m
 	 2)${CYAN_CYAN} Deutsch: Krieg der Titanen online \033[00m
 	 3)${CYAN_CYAN} Español: Guerra de Titanes online \033[00m
 	 4)${CYAN_CYAN} Français: Combat des Titans online \033[00m
@@ -39,102 +40,245 @@ options_two() {
 	${BLACK_RED}1\033[00m${BLACK_GREEN}3\033[00m)${BLACK_CYAN} English, Global: Titan's War online \033[00m
 	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
 	" | sed 's/\t//g'
-}
-
-# Function to handle invalid input for the first menu
-invalid_one() {
- options_one
- printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
- sleep 0.2s
- menu_one
-}
-
-# Function to handle invalid input for the second menu
-invalid_two() {
- clear
- options_two
- printf "$(G_T "Select number Server [1 to 11]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
- sleep 0.2s
- menu_two
-}
-
-# Function for the second menu of options
-menu_two() {
- options_two
- printf "$(G_T "Select number Server [1 to 11]"): 1\n"  # Default selection shown to user
- read -n 1 UR # Read user input without waiting for Enter
-
-# Process user input for server selection
- if [ "$UR" = $'\0' ]; then
-  echo "1" >"$HOME/$twm_dir/ur_file"  # Defaults to server 1(Brazilian) if Enter is pressed
- elif [ "$UR" = '0' ]; then
-  echo "10" >"$HOME/$twm_dir/ur_file"  # Select Russian server if '(1)0' is pressed
- elif [ "$UR" = '1' ]; then
-  echo "11" >"$HOME/$twm_dir/ur_file"  # Select Croatian server if '(1)1' is pressed
- elif [ "$UR" = '2' ]; then
-  echo "12" >"$HOME/$twm_dir/ur_file"  # Select Chinese server if '(1)2' is pressed
- elif [ "$UR" = '3' ]; then
-  echo "13" >"$HOME/$twm_dir/ur_file"  # Select English server if '(1)3' is pressed
- elif [ "$UR" = $'\177' ]; then
-  menu_one # Go back to the first menu if Backspace is pressed
- elif $(case "$UR" in
-   'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取')
-    exit 0
-   ;;
-  esac); then
-# Kill any running play.sh script if 'c' is pressed and exit the script
-  pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
-
-  until [ -z "$pidf" ]; do
-   kill -9 "$pidf" 2> /dev/null
-   pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
-   sleep 1s
-  done
-
-  kill -9 $$ 2> /dev/null # Terminate the current script process
- else
-  invalid_two # Handle invalid input by calling the invalid function for menu two
- fi
-
-}
-
-# Function for the first menu of options
-menu_one() {
- options_one
- printf "$(G_T "Select number Server [1 to 11]"): \n"
- read -n 1 UR
-
-# Process user input for server selection in the first menu
- case "$UR" in
-  '1')
-   menu_two
-  ;; # Go to second menu if '1' is selected
-
-  '2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')
-   echo "$UR" >"$HOME/$twm_dir/ur_file"
   ;;
-
-  $'\177')
-   menu_one
-  ;; # Go back if Backspace is pressed
-
-  'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
-   pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-
-   until [ -z "$pidf" ]; do
-    kill -9 "$pidf" 2> /dev/null
-    pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-    sleep 1s
-   done
-
-   kill -9 $$ 2> /dev/null
+  'l1')
+   clear
+   printf " 1)${BLACK_CYAN} Deutsch \033[00m
+	 2)${BLACK_CYAN} English \033[00m
+	 3)${BLACK_CYAN} Español \033[00m
+	 4)${BLACK_CYAN} Français \033[00m
+	 5)${BLACK_CYAN} Hindi \033[00m
+	 6)${BLACK_CYAN} Indonesian \033[00m
+	 7)${BLACK_CYAN} Italiano \033[00m
+	 8)${BLACK_CYAN} Polski \033[00m
+	 9)${BLACK_CYAN} Português \033[00m
+	10)${BLACK_CYAN} Română \033[00m
+	11)${BLACK_CYAN} Русский \033[00m
+	12)${BLACK_CYAN} Srpski \033[00m
+	13)${BLACK_CYAN} 中文 \033[00m
+	 $(G_T "C")${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g'
   ;;
-
-  *)
-   invalid_one
-  ;; # Handle invalid input by calling the invalid function for menu one
+  'l2')
+   clear
+   printf " 1)${BLACK_CYAN} Deutsch ${BLACK_GREEN}[ENTER]\033[00m
+	 2)${CYAN_CYAN} English \033[00m
+	 3)${CYAN_CYAN} Español \033[00m
+	 4)${CYAN_CYAN} Français \033[00m
+	 5)${CYAN_CYAN} Hindi \033[00m
+	 6)${CYAN_CYAN} Indonesian \033[00m
+	 7)${CYAN_CYAN} Italiano \033[00m
+	 8)${CYAN_CYAN} Polski \033[00m
+	 9)${CYAN_CYAN} Português \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}0\033[00m)${BLACK_CYAN} Română \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}1\033[00m)${BLACK_CYAN} Русский \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}2\033[00m)${BLACK_CYAN} Srpski \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}3\033[00m)${BLACK_CYAN} 中文 \033[00m
+	 $(G_T "C")${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g'
+  ;;
  esac
 
+}
+
+invalid() {
+ case $1 in
+# Handle invalid input for the first menu server
+  's1')
+   options s1
+   printf "$(G_T "Select number Server [1 to 13]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
+   sleep 0.2s
+   menu s1
+  ;;
+# Handle invalid input for the second menu server
+  's2')
+   clear
+   options s2
+   printf "$(G_T "Select number Server [0 to 3]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
+   sleep 0.2s
+   menu s2
+  ;;
+# Handle invalid input for the first lang menu
+  'l1')
+   options l1
+   printf "$(G_T "Select language number [1 to 13]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
+   sleep 0.2s
+   menu l1
+  ;;
+# Handle invalid input for the second lang menu
+  'l2')
+   clear
+   options l2
+   printf "$(G_T "Select language number [0 to 3]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
+   sleep 0.2s
+   menu l2
+  ;;
+ esac
+}
+
+menu() {
+ case $1 in
+  'l2')
+# The second lang menu of options
+   options l2
+   printf "$(G_T "Select language number [0 to 3]"): 1\n"  # Default selection shown to user
+   read -n 1 LANG # Read user input without waiting for Enter
+
+# Process user input for lang selection
+   if [ "$LANG" = $'\0' ]; then
+    echo "1" >"$HOME/$twm_dir/lang_file"
+    LANGUAGE='1'
+   elif [ "$LANG" = '0' ]; then
+    echo "10" >"$HOME/$twm_dir/lang_file"  # Select Russian server if '(1)0' is pressed
+    LANGUAGE='10'
+   elif [ "$LANG" = '1' ]; then
+    echo "11" >"$HOME/$twm_dir/lang_file"  # Select Croatian server if '(1)1' is pressed
+    LANGUAGE='11'
+   elif [ "$LANG" = '2' ]; then
+    echo "12" >"$HOME/$twm_dir/lang_file"  # Select Chinese server if '(1)2' is pressed
+    LANGUAGE='12'
+   elif [ "$LANG" = '3' ]; then
+    echo "13" >"$HOME/$twm_dir/lang_file"  # Select English server if '(1)3' is pressed
+    LANGUAGE='13'
+   elif [ "$LANG" = $'\177' ]; then
+# Go back to the first lang menu if Backspace is pressed
+    menu l1
+   elif $(case "$LANG" in
+    'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取')
+     exit 0
+    ;;
+   esac); then
+# Kill any running play.sh script if 'c' is pressed and exit the script
+    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+
+    until [ -z "$pidf" ]; do
+     kill -9 "$pidf" 2> /dev/null
+     pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+     sleep 1s
+    done
+
+    kill -9 $$ 2> /dev/null # Terminate the current script process
+   else
+    invalid l2 # Handle invalid input by calling the invalid function for lang menu two
+   fi
+  ;;
+# First lang menu of options
+  'l1')
+   options l1
+   printf "$(G_T "Select language number [1 to 13]"): \n"
+   read -n 1 LANG
+
+# Process user input for server selection in the first menu
+   case "$LANG" in
+    '1')
+     menu l2
+    ;; # Go to second lang menu if '1' is selected
+
+    '2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')
+     echo "$LANG" >"$HOME/$twm_dir/lang_file"
+     LANGUAGE="$LANG"
+    ;;
+    ($'\177')
+# Go back if Backspace is pressed
+     menu l1
+    ;;
+
+# If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
+    'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取')
+     pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+
+     until [ -z "$pidf" ]; do
+      kill -9 "$pidf" 2> /dev/null
+      pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+      sleep 1s
+     done
+
+     kill -9 $$ 2> /dev/null
+    ;;
+
+    *)
+     invalid l1
+    ;; # Handle invalid input by calling the invalid function for lang menu one
+   esac
+  ;;
+
+  's2')
+   options s2
+   printf "$(G_T "Select number Server [0 to 3]"): 1\n"  # Default selection shown to user
+   read -n 1 UR # Read user input without waiting for Enter
+
+# Process user input for server selection
+   if [ "$UR" = $'\0' ]; then
+    echo "1" >"$HOME/$twm_dir/ur_file"  # Defaults to server 1(Brazilian) if Enter is pressed
+   elif [ "$UR" = '0' ]; then
+    echo "10" >"$HOME/$twm_dir/ur_file"  # Select Russian server if '(1)0' is pressed
+   elif [ "$UR" = '1' ]; then
+    echo "11" >"$HOME/$twm_dir/ur_file"  # Select Croatian server if '(1)1' is pressed
+   elif [ "$UR" = '2' ]; then
+    echo "12" >"$HOME/$twm_dir/ur_file"  # Select Chinese server if '(1)2' is pressed
+   elif [ "$UR" = '3' ]; then
+    echo "13" >"$HOME/$twm_dir/ur_file"  # Select English server if '(1)3' is pressed
+   elif [ "$UR" = $'\177' ]; then
+# Go back to the first menu if Backspace is pressed
+    menu s1
+   elif $(case "$UR" in
+    'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取')
+     exit 0
+    ;;
+   esac); then
+# Kill any running play.sh script if 'c' is pressed and exit the script
+    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+
+    until [ -z "$pidf" ]; do
+     kill -9 "$pidf" 2> /dev/null
+     pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+     sleep 1s
+    done
+
+    kill -9 $$ 2> /dev/null # Terminate the current script process
+   else
+    invalid s2 # Handle invalid input by calling the invalid function for menu server two
+   fi
+  ;;
+# First menu of options
+  's1')
+   options s1
+   printf "$(G_T "Select number Server [1 to 13]"): \n"
+   read -n 1 UR
+
+# Process user input for server selection in the first menu
+   case "$UR" in
+    '1')
+     menu s2
+    ;; # Go to second menu if '1' is selected
+
+    '2'|'3'|'4'|'5'|'6'|'7'|'8'|'9')
+     echo "$UR" >"$HOME/$twm_dir/ur_file"
+    ;;
+
+    $'\177')
+# Go back if Backspace is pressed
+     menu s1
+    ;;
+
+    'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
+     pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+
+     until [ -z "$pidf" ]; do
+      kill -9 "$pidf" 2> /dev/null
+      pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+      sleep 1s
+     done
+
+     kill -9 $$ 2> /dev/null
+    ;;
+
+    *)
+     invalid s1
+    ;; # Handle invalid input by calling the invalid function for menu one
+   esac
+  ;;
+ esac
 }
 
 random_ua() {
@@ -224,7 +368,6 @@ user_agent() {
  esac
 
  unset UA # Clear the UA variable after use
-
 }
 
 requer_func() {
@@ -232,10 +375,18 @@ requer_func() {
  clear
 
 # Check if ur_file exists and is not empty; if so, read from it; otherwise, show the first menu.
+ if [ -f "$HOME/$twm_dir/lang_file" ] && [ -s "$HOME/$twm_dir/lang_file" ]; then
+  LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+ else
+  menu l1
+ fi
+
+ LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+
  if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
   UR=`< "$HOME/$twm_dir/ur_file"`
  else
-  menu_one
+  menu s1
  fi
 
  UR=`< "$HOME/$twm_dir/ur_file"`
