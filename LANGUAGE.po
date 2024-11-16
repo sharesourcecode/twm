@@ -47,8 +47,8 @@ Verfasser|author|autor|auteur|लेखक|pengarang|autore|autor|autor|autor|а
 Kollaborateur|collaborator|colaborador|collaborateur|सहयोगी|kolaborator|collaboratore|współpracownik|colaborador|colaborator|сотрудник|сарадник|合作者
 Titans War Makro|Titans War Macro|Macro de Guerra de Titanes|Macro Guerre des Titans|टाइटन्स युद्ध मैक्रो|Makro Perang Titans|Macro Guerra dei Titani|Wojna Tytanów Makro|Titãs Guerra Macro|Titans War Macro|Война титанов Макрос|Титани Рат Макро|泰坦战争宏
 POST|MAIL|CORREO|COURRIER|डाक|POS|POSTA|POCZTA|CORREIO|POȘTĂ|ПОЧТА|ПОШТА|邮件
-CHAT-TITANEN|CHAT TITANS|TITANES DEL CHAT|CHAT TITANS|चैट टाइटन्स|OTIL TITAN|TITANI DELLA CHAT|TYTANI CZATU|TITÃS DO BATE-PAPO|TITANI DE CHAT|ТИТАНЫ ЧАТА|ЋАСКАЊЕ ТИТАНС|聊天泰坦
-CLAN-KATZE|CHAT CLAN|CAN CAT|CHAT CLAN|कबीले कैट|KUCING KLAN|GATTO CLAN|KLAN KOT|GATO DO CLÃ|CLAN CAT|КЛАНОВАЯ КОШКА|КЛАН МАЧКА|部落猫
+CHAT-TITANEN|CHAT TITANS|TITANES DEL CHAT|CHAT TITANS|चैट टाइटन्स|OTIL TITAN|TITANI DELLA CHAT|TYTANI CZATU|BATE-PAPO TITÃS|TITANI DE CHAT|ТИТАНЫ ЧАТА|ЋАСКАЊЕ ТИТАНС|聊天泰坦
+CLAN-KATZE|CHAT CLAN|CAN CAT|CHAT CLAN|कबीले कैट|KUCING KLAN|GATTO CLAN|KLAN KOT|CLÃ BATE-PAPO|CLAN CHAT|КЛАНОВАЯ КОШКА|КЛАН МАЧКА|部落猫
 Anlassen|Starting|Incipiente|Démarrage|शुरूआत|Mulai|Avviamento|Początkowy|Começo|Incepand|Пусковой|Почетни|开始
 Beginnend mit den zuletzt verwendeten Einstellungen|Starting with last settings used|Empezando por los últimos ajustes utilizados|En commençant par les derniers paramètres utilisés|उपयोग की गई अंतिम सेटिंग्स से शुरू करना|Dimulai dengan pengaturan terakhir yang digunakan|A partire dalle ultime impostazioni utilizzate|Zaczynając od ostatnio używanych ustawień|Começando com as últimas configurações usadas|Începând cu ultimele setări utilizate|Начиная с последних использованных настроек|Почевши од последњих коришћених подешавања|从上次使用的设置开始
 Schlagen|Hit|Golpe|Frapper|मारना|Pukul|Colpire|Uderzyć|Bater|Lovi|Ударить|Ударио|打
@@ -59,11 +59,30 @@ s|s|s|s|से|d|s|s|s|s|сек|сек|秒
 m|m|m|m|मि|m|m|m|m|m|мин|мин|分
 Ungültiger UR-Wert|Invalid UR value|Valor de UR no válido|Valeur UR non valide|अमान्य यूआर मूल्य|Nilai UR tidak valid|Valore UR non valido|Nieprawidłowa wartość UR|Valor de UR inválido|Valoare UR nevalidă|Неверное значение UR|Неважећа УР вредност|无效的 UR 值
 Server|Server|Servidor|Serveur|सर्वर|Peladen|Server|Serwer|Servidor|Server|Сервер|Сервер|服务器
-Höhle|caverna|cueva|grotte|गुहा|gua|grotta|jaskinia|caverna|peșteră|пещера|Пежину|洞穴
-Höhle|Caverna|Cueva|Grotte|गुहा|Gua|Grotta|Jaskinia|Caverna|Peșteră|Пещера|Пежину|洞穴
+Höhle|cave|cueva|grotte|गुहा|gua|grotta|jaskinia|caverna|peșteră|пещера|Пежину|洞穴
+Höhle|Cave|Cueva|Grotte|गुहा|Gua|Grotta|Jaskinia|Caverna|Peșteră|Пещера|Пежину|洞穴
 Die Schlacht ist vorbei|Battle is over|La batalla ha terminado|La bataille est terminée|लड़ाई खत्म हो गई है|Pertempuran telah berakhir|La battaglia è finita|Bitwa jest skończona|A batalha acabou|Bătălia s-a terminat|Битва окончена|Битка је завршена|战斗结束
 Sporthalle|Coliseum|Coliseo|Colisée|कोलोसियम|Coliseum|Colosseo|Koloseum|Coliseu|Colosseum|Колизея|Колосеуму|体育馆
 Eingebend|Entering|Entrar|Entrer|दर्ज|Memasuki|Entrante|Wejście|Entrar|Introducerea|Вхождение|Улази|进入
 Warten|Waiting|Espera|Attente|प्रतीक्षारत|Menunggu|Attesa|Czekanie|Espera|Așteptare|Ожидание|Иека|等待
 Es war nicht möglich, die Schlacht in diesem Moment zu beginnen|It was not possible to start the battle at this moment|No fue posible comenzar la batalla en este momento|Il n’était pas possible de commencer la bataille à ce moment-là|इस समय लड़ाई शुरू करना संभव नहीं था|Tidak mungkin untuk memulai pertempuran pada saat ini|Non è stato possibile iniziare la battaglia in questo momento|W tym momencie nie można było rozpocząć bitwy|Não foi possível iniciar a batalha neste momento|Nu a fost posibil să înceapă bătălia în acest moment|Начать бой в этот момент не удалось|У овом тренутку није било могуће започети битку|此时无法开始战斗
 Kampf- oder Eventzeit|Battle or event time|Tiempo de batalla o evento|Durée de la bataille ou de l’événement|लड़ाई या घटना का समय|Waktu pertempuran atau acara|Tempo di battaglia o evento|Czas bitwy lub wydarzenia|Hora da batalha ou evento|Timpul de luptă sau eveniment|Время боя или события|Време битке или догађаја|战斗或活动时间
+Geben Sie einen Befehl ein, oder geben Sie|Enter a command or type|Escriba un comando o escriba|Entrez une commande ou un type|कोई आदेश दर्ज करें या लिखें|Masukkan perintah atau ketik|Immettere un comando o digitare|Wprowadzanie polecenia lub tekstu|Insira um comando ou digite|Introduceți o comandă sau tastați|Введите команду или введите|Унесите команду или тип|输入命令或类型
+Altare|Altars|Altares|Autels|वेदियों|Altar|Altari|Ołtarze|Altares|Altare|Алтари|Олтари|祭坛
+Uralte Altäre werden in Betrieb genommen...|Ancient Altars will be started...|Se iniciarán Altares Antiguos...|Ancient Altars va commencer...|प्राचीन वेदियों की शुरुआत की जाएगी...|Altar Kuno akan dimulai ...|Antichi Altari saranno iniziati...|Starożytne ołtarze zostaną uruchomione...|Altares Antigos serão iniciados...|Altarele antice vor fi începute...|Древние алтари будут начаты...|Древни олтари ће бити покренути ...|古老的祭坛将开始......
+Der Riss|fault|La grieta|La fissure|दरार|Retakan|La crepa|Pęknięcie|A fenda|Fisura|Трещина|Пукотина|裂缝
+Kollisionskampf|collfight|Collfight|Collfight|कॉलफाइट|pertarungan|collfight|Walka kolizyjna|Briga|Luptă de colaborare|коллфайт|оргазам|合作
+Arena|arena|arena|arène|अखाड़ा|stadion|arena|arena|arena|arenă|арена|Арену|竞技场
+Energie-Arena|energy arena|Arena de la energía|Arène de l’énergie|ऊर्जा क्षेत्र|arena energi|Arena energetica|Arena energetyczna|Arena de Energia|Arena energetică|Энергетическая арена|енергетска арена|能源竞技场
+1 Angriff|1 Attack|1 Ataque|1 Attaque|1 हमला|1 Serangan|1 Attacco|1 Atak|1 Ataque|1 Atac|1 Атака|1 Напад|1 攻击
+Voller Angriff|Full Attack|Ataque completo|Attaque complète|पूर्ण हमला|Serangan Penuh|Attacco completo|Pełny atak|Ataque Completo|Atac complet|Полная атака|Пун напад|全力攻击
+Feldzug...|Campaign...|Campaña...|Campagne...|अभियान।।।|Kampanye...|Campagna...|Kampania...|Campanha...|Campanie...|Кампания...|Кампању...|运动。。。
+Feldzug|Campaign|Campaña|Campagne|अभियान|Kampanye|Campagna|Kampania|Campanha|Campanie|Кампания|Кампању|运动
+Karriere|career|carrera|carrière|जीविका|karier|carriera|kariera|carreira|carieră|карьера|каријера|生涯
+Kolosseum des Clans|Clan Coliseum|Coliseo del Clan|Clan Colisée|कबीले कोलिज़ीयम|Kolisem Klan|Clan Colosseo|Koloseum klanu|Coliseu do Clã|Coliseumul Clanului|Клановый Колизей|Клан Колосеум|氏族斗兽场
+Das Clan-Kolosseum wird gestartet|Clan coliseum will be started|Se iniciará el coliseo del clan|Le Colisée du Clan va commencer|कबीले कोलिज़ीयम शुरू किया जाएगा|Koliseum klan akan dimulai|Il Colosseo del Clan sarà iniziato|Zostanie uruchomione Koloseum Klanu|O coliseu do clã será iniciado|Va începe Clan Coliseum|Будет запущен Клановый Колизей|Клан колосеум ће бити покренут|氏族斗兽场将启动
+Überprüfung des Clan-Dungeons|Checking Clan Dungeon|Revisando la mazmorra del clan|Vérification du donjon du clan|क्लैन डंजन की जांच कर रहे हैं|Memeriksa Penjara Bawah Tanah Klan|Controllo del dungeon del clan|Sprawdzanie lochów klanu|Verificando a masmorra do clã|Verificarea temniței clanului|Проверка кланового подземелья|Провера Цлан Дунгеон|检查部落地牢
+Clan-Dungeon|Clan Dungeon|Mazmorra del clan|Donjon du clan|कबीले कालकोठरी|Ruang Bawah Tanah Klan|Clan Dungeon|Loch klanowy|Calabouço do Clã|Temnița clanului|Клановое подземелье|Клан Дунгеон|氏族地牢
+ClanKampf|ClanFight|Pelea de clanes|Combat de clans|क्लैनफाइट|Pertarungan Klan|Lotta tra clan|Walka klanów|Luta de clãs|Luptă între clanuri|Клановый бой|Српско-хрватски|部落战斗
+Das Clan-Turnier wird gestartet|Clan tournament will be started|Se iniciará el torneo de clanes|Le tournoi de clan sera lancé|क्लैन टूर्नामेंट शुरू होगा|Turnamen klan akan dimulai|Il torneo del clan inizierà|Rozpocznie się turniej klanowy|O torneio de clãs será iniciado|Turneul de clan va fi început|Начнется клановый турнир|Клански турнир ће бити покренут|部落锦标赛将开始
+Clan-Kämpfe|Clan fight|Lucha de clanes|Combat de clan|कबीले की लड़ाई|Pertarungan klan|Lotta tra clan|Walka klanów|Luta de clãs|Lupta de clan|Клановая борьба|Клан борба|部落战
