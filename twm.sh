@@ -12,7 +12,7 @@ SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/
 UAGT='Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124'
 
 # LANGUAGE.po
-LANGUAGE="2";content=$(curl -H "${UAGT}" -s -L "${SERVER}/LANGUAGE.po")
+content=$(curl -H "${UAGT}" -s -L "${SERVER}/LANGUAGE.po")
 
 #printf "\n• Loading remote software libraries...\n- - - - -	Please wait	- - - - -\n"
 #LIBS=$(curl -H ${UAGT} -s -L ${SERVER}/info.lib; curl -H ${UAGT} -s -L ${SERVER}requeriments.lib; curl -H ${UAGT} -s -L ${SERVER}loginlogoff.lib; curl -H ${UAGT} -s -L ${SERVER}online.lib; curl -H ${UAGT} -s -L ${SERVER}flagfight.lib; curl -H ${UAGT} -s -L ${SERVER}clanid.lib; curl -H ${UAGT} -s -L ${SERVER}crono.lib; curl -H ${UAGT} -s -L ${SERVER}arena.lib; curl -H ${UAGT} -s -L ${SERVER}coliseum.lib; curl -H ${UAGT} -s -L ${SERVER}campaign.lib; curl -H ${UAGT} -s -L ${SERVER}run.lib; curl -H ${UAGT} -s -L ${SERVER}altars.lib; curl -H ${UAGT} -s -L ${SERVER}clanfight.lib; curl -H ${UAGT} -s -L ${SERVER}clancoliseum.lib; curl -H ${UAGT} -s -L ${SERVER}king.lib; curl -H ${UAGT} -s -L ${SERVER}undying.lib; curl -H ${UAGT} -s -L ${SERVER}clandungeon.lib; curl -H ${UAGT} -s -L ${SERVER}trade.lib; curl -H ${UAGT} -s -L ${SERVER}career.lib; curl -H ${UAGT} -s -L ${SERVER}cave.lib; curl -H ${UAGT} -s -L ${SERVER}allies.lib; curl -H ${UAGT} -s -L ${SERVER}svproxy.lib; curl -H ${UAGT} -s -L ${SERVER}check.lib)
@@ -87,9 +87,11 @@ if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
   i=$((i - 1))
 
   if read -t "0.5"; then
+   >$HOME/$twm_dir/lang_file
    >$HOME/$twm_dir/al_file
    >$HOME/$twm_dir/ur_file
    >$HOME/$twm_dir/fileAgent.txt
+   unset LANGUAGE
    unset UR
    unset UA
    unset AL
