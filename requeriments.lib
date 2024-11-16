@@ -77,7 +77,11 @@ menu_two() {
   echo "13" >"$HOME/$twm_dir/ur_file"  # Select English server if '(1)3' is pressed
  elif [ "$UR" = $'\177' ]; then
   menu_one # Go back to the first menu if Backspace is pressed
- elif [ "$UR" = 'c' ] || [ "$UR" = 'C' ]; then
+ elif $(case "$UR" in
+   'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取')
+    exit 0
+   ;;
+  esac); then
 # Kill any running play.sh script if 'c' is pressed and exit the script
   pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
 
@@ -114,7 +118,7 @@ menu_one() {
    menu_one
   ;; # Go back if Backspace is pressed
 
-  'c'|'C') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
+  'c'|'C'|'a'|'A'|'रद्द'|'M'|'m'|'о'|'О'|'取') # If ‘c’ or ‘C’ is pressed, terminate play.sh and exit
    pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
 
    until [ -z "$pidf" ]; do

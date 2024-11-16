@@ -8,7 +8,7 @@ members_allies() {
  clan_id
 
  if [ -n "$CLD" ]; then
-  printf "${BLACK_CYAN}\n$(G_T "Updating clan members into allies")${COLOR_RESET}\n\\n"
+  printf "\n${BLACK_CYAN}$(G_T "Updating clan members into allies")${COLOR_RESET}\n\\n"
 
   for num in `seq 5 -1 1`; do
    printf "${PURPLEis_BLACK}/clan/${CLD}/${num}${COLOR_RESET}\n"
@@ -30,7 +30,7 @@ members_allies() {
 }
 
 id_allies() {
- printf "${BLACK_CYAN}$(G_T "Looking for allies on friends list")${COLOR_RESET}\n"
+ printf "\n${BLACK_CYAN}$(G_T "Looking for allies on friends list")${COLOR_RESET}\n"
  cd $TMP
  printf "${PURPLEis_BLACK}/mail/friends${COLOR_RESET}\n"
 
