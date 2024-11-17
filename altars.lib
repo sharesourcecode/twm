@@ -4,6 +4,16 @@
 
 #https://furiadetitas.net/altars/enterFight/?r=
 
+altars_fight() {
+ cd $TMP
+ event=altars
+ apply_event
+
+ #/enterFight
+ local LA=3 # interval attack
+ echo "48" >HPER # % to heal
+ echo "15" >RPER # % to random
+
 cf_access() {
  grep -o -E '(/[a-z]+/[a-z]{0,4}at[a-z]{0,3}k/[?]r[=][0-9]+)' $TMP/src.html | sed -n 1p >ATK 2> /dev/null
  grep -o -E '(/[a-z]+/at[a-z]{0,3}k[a-z]{3,6}/[?]r[=][0-9]+)' $TMP/src.html >ATKRND 2> /dev/null
@@ -25,17 +35,6 @@ cf_access() {
   sleep 2s
  fi
 }
-
-altars_fight() {
- cd $TMP
- event=altars
- apply_event
-
- #/enterFight
- local LA=3 # interval attack
- echo "48" >HPER # % to heal
- echo "15" >RPER # % to random
-
  cf_access
  >BREAK_LOOP ; echo `< "HP"` >old_HP
  echo $(( $(date +%s) - 20 )) >last_dodge
