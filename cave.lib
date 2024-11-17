@@ -2,6 +2,21 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
+condition_func() {
+
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/cave/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+ ) </dev/null &>/dev/null &
+ time_exit 17
+
+ ACCESS1=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | head -n 1 | awk -F\' '{ print $2 }')
+ DOWN=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/down' | awk -F\' '{ print $2 }')
+ ACCESS2=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | head -n 2 | tail -n 1 | awk -F\' '{ print $2 }')
+ ACTION=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | awk -F\' '{ print $2 }' | tr -cd "[[:alpha:]]")
+ MEGA=$(sed 's/src=/\n/g' $TMP/SRC | grep '/images/icon/silver.png' | grep "'s'" | tail -n 1 | grep -o 'M')
+
+}
+
 cave_start() {
 
  (
@@ -9,7 +24,7 @@ cave_start() {
  ) </dev/null &>/dev/null &
  time_exit 20
 
- while grep -q -o -E '/cave/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+|[-]cv' "$TMP/SRC" "$RUN"; do
+ while grep -q -E '/cave/[?]quest_t[=]quest&quest_id[=]2&qz[=][a-z0-9]+' "$TMP/SRC" || echo "$RUN"|grep -q -E '[-]cv'; do
   printf "$(G_T "cave") ...\n"
   clan_id
 
@@ -22,21 +37,6 @@ cave_start() {
 
    printf "/clan/${CLD}/quest/help/5\n"
   fi
-
-  condition_func() {
-
-   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/cave/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
-   ) </dev/null &>/dev/null &
-   time_exit 17
-
-   ACCESS1=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | head -n 1 | awk -F\' '{ print $2 }')
-   DOWN=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/down' | awk -F\' '{ print $2 }')
-   ACCESS2=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | head -n 2 | tail -n 1 | awk -F\' '{ print $2 }')
-   ACTION=$(sed 's/href=/\n/g' $TMP/SRC | grep '/cave/' | awk -F\' '{ print $2 }' | tr -cd "[[:alpha:]]")
-   MEGA=$(sed 's/src=/\n/g' $TMP/SRC | grep '/images/icon/silver.png' | grep "'s'" | tail -n 1 | grep -o 'M')
-
-  }
 
   condition_func
 
