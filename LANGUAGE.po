@@ -99,3 +99,19 @@ Angewendet für den Kampf|Applied for battle|Solicitado para la batalla|Candidat
 Handel|trade|comercio|commerce|व्यापार|dagang|commercio|handel|comércio|comerț|торговля|Трговине|贸易
 Clan-Geld|clan money|Dinero del clan|Argent du clan|कबीले का पैसा|Uang klan|Soldi del clan|Pieniądze klanu|dinheiro do clã|Bani de clan|Деньги клана|Новац клана|部落金钱
 Clan gebaut|clan built|Construido por el clan|Construit par le clan|कबीले का निर्माण|Klan Dibangun|Clan costruito|Zbudowany klan|construído pelo clã|Clan construit|Построен клан|клан изграђен|部落已建
+Suche|Searching|Minucioso|Recherche|खोज|Mencari|Indagatore|Wyszukiwanie|Procurando|Căutarea|Поиск|Претраживање|搜索
+Gestartet|Started|Comenzó|Commencé|शुरू किया|Mulai|Avviato|Rozpoczął|Começou|Început|Начатый|Поиела|开始
+Fertig|Finished|Terminado|Fini|पूर्ण|Selesai|Finito|Gotowy|Terminado|Complet|Законченный|Заврљио|完成
+Gesamtzahl der Seiten online|Total pages online|Total de páginas en línea|Nombre total de pages en ligne|कुल पृष्ठ ऑनलाइन|Total halaman online|Totale pagine online|Łączna liczba stron online|Total de páginas online|Total pagini online|Всего страниц в интернете|Укупно страница на мрежи|在线总页数
+Spieler gesamt|Total players|Total de jugadores|Nombre total de joueurs|कुल खिलाड़ी|Total pemain|Giocatori totali|Łączna liczba graczy|Total de jogadores|Total jucători|Всего игроков|Укупно играча|玩家总数
+Aktive Spieler|Active players|Jugadores activos|Joueurs actifs|सक्रिय खिलाड़ी|Pemain aktif|Giocatori attivi|Aktywni gracze|Jogadores ativos|Jucători activi|Активные игроки|Активни играчи|活跃玩家
+Inaktive Spieler|Inactive players|Jugadores inactivos|Joueurs inactifs|निष्क्रिय खिलाड़ी|Pemain yang tidak aktif|Giocatori inattivi|Nieaktywni gracze|Jogadores inativos|Jucători inactivi|Неактивные игроки|Неактивни играчи|非活跃玩家
+Aktiver Asura|Active Asura|Asura activo|Asura actif|सक्रिय असुर|Asura Aktif|Asura attivo|Aktywna Asura|Asura Ativo|Asura activ|Активная Асура|Активна Асура|主动阿修罗
+Inaktive Asuras|Inactive Asuras|Asuras inactivos|Asuras inactifs|निष्क्रिय असुर|Asura Tidak Aktif|Asura inattivi|Nieaktywne Asury|Asuras inativos|Asura inactive|Неактивные асуры|Неактивни Асурас|不活跃的阿修罗
+Boreas aktiv|Boreas active|Boreas activo|Boreas active|बोरियास सक्रिय|Boreas aktif|Boreas active|Boreas aktywny|Bóreas ativas|Boreas activ|Борей активен|Бореас активан|Boreas active （北轴活性）
+Boreas inaktiv|Boreas inactive|Boreas inactivo|Boreas inactif|बोरियास निष्क्रिय|Boreas tidak aktif|Boreas inattivo|Boreas nieaktywny|Bóreas inativas|Boreas inactiv|Бореи неактивны|Бореас неактиван|Boreas 不活跃
+Krieger|Warriors|Guerreros|Guerriers|योद्धाओं|Prajurit|Guerrieri|Wojowników|Guerreiros|Războinici|Воинов|Ратници|战士
+In den Einstellungen|In settings|En la configuración|Dans les paramètres|सेटिंग्स में|Dalam pengaturan|Nelle impostazioni|W ustawieniach|Nas configurações|În setări|В настройках|У подешавањима|在“设置”
+In den Foren|In the Forums|En los foros|Dans les forums|मंचों में|Di Forum|Nei forum|Na forach|Nos fóruns|În forumuri|На форумах|На форумима|在论坛中
+In Chats|In chats|En los chats|Dans les chats|चैट में|Dalam obrolan|Nelle chat|Na czatach|Em bate-papos|În chat-uri|В чатах|У ћаскању|在聊天中
+In der Post|In the mail|En el correo|Par la poste|मेल में|Melalui pos|Nella posta|W wiadomości e-mail|No correio|Prin poștă|На почте|У пошти|邮寄

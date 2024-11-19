@@ -314,7 +314,7 @@ user_agent() {
 
 # If no user agent file exists, write a default one
    if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+    cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
    else
     random_ua
    fi
@@ -334,7 +334,7 @@ user_agent() {
 # If no valid user agent is provided, write a default one
    if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
     printf " ...\n"
-    echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+    cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
    else
     random_ua
    fi
@@ -343,7 +343,7 @@ user_agent() {
 
   (2)
    printf " ...\n${BLACK_PINK}"
-   echo "`< $HOME/$twm_dir/userAgent.txt`" >"$TMP/userAgent.txt"
+   cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
    echo "0" >"$HOME/$twm_dir/fileAgent.txt" # Save selection to file
 
    if [ -e "$TMP/userAgent.txt" ]; then

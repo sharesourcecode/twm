@@ -3,10 +3,9 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-twm_dir="twm-master"
-
 (
  RUN=$1
+ twm_dir="twm-master"
  echo "$RUN" >$HOME/$twm_dir/runmode_file
  while true; do
   pidf=$(jobs -l | awk '/sh.*$twm_dir\/twm\.sh/ { if (NR == 1) print $2 }')
