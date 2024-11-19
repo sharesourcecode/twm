@@ -209,7 +209,7 @@ else
 fi
 
 # Update local easyinstall.sh
-`< "$HOME/$twm_dir/easyinstall.sh"` > $HOME/easyinstall.sh
+cat "$HOME/$twm_dir/easyinstall.sh" > $HOME/easyinstall.sh
 
 tipidf=$(ps ax -o pid=,args=|grep "sh.*titanswarmacro/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
 until [ -z $tipidf ]; do

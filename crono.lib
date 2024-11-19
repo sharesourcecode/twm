@@ -3,7 +3,7 @@
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 # /time
-func_crono () {
+func_crono() {
  HOUR=`date +%H`
  if [ $HOUR = 00 ]; then HOUR=0; fi
  if [ $HOUR = 01 ]; then HOUR=1; fi
@@ -29,7 +29,13 @@ func_crono () {
  printf " \033[02m$URL ⏰$(date +%H):$(date +%M)${COLOR_RESET}\n"
 }
 
-func_cat () {
+list() {
+ printf "\n"
+ grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' $HOME/$twm_dir/*.lib|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
+ read -t 9
+}
+
+func_cat() {
  func_crono
 
  if [ $HOUR -lt 6 ] || [ $HOUR -ge 18 ]; then
@@ -42,15 +48,10 @@ func_cat () {
  printf "${WHITE_BLACK}"
  #local BREAK=$(( $(date +%s) + 10 ))
 
- list () {
-  printf "\n"
-  grep -o -E '[[:alpha:]]+?[_]?[[:alpha:]]+?[ ]?\() \{' $HOME/$twm_dir/*.lib|awk -F\: '{ print $2 }'|awk -F\( '{ print $1 }'
-  read -t 9
- }
-
  while  true; do
-  printf " \033[02m$(G_T "No battles now, waiting") ${i}$(G_T "s")${COLOR_RESET}\n${WHITEb_BLACK}$(G_T "Enter a command or type 'list'"):${COLOR_RESET} \n"
+  printf " \033[02m$(G_T "No battles now, waiting") ${i}$(G_T "s")${COLOR_RESET}\n${WHITEb_BLACK}$(G_T "Enter a command or type") 'list':${COLOR_RESET} \n"
   read -t $i cmd
+
   if [ "$cmd" = " " ]; then
    break
   fi
@@ -60,11 +61,13 @@ func_cat () {
   sleep 0.5s
   break
  done
+
 }
 
-func_sleep () {
+func_sleep() {
  case $(date +%d) in
   (01)
+
    case $(date +%H) in
     (0[012345678])
      arena_duel
@@ -77,8 +80,10 @@ func_sleep () {
 #     sleep 55s
     ;;
    esac
+
   ;;
  esac
+
  case $(date +%M) in
   ([25][89])
    reset
@@ -99,9 +104,10 @@ func_sleep () {
 #   sleep 25s
   ;;
  esac
+
 }
 
-standard_crono () {
+standard_crono() {
  arena_duel
  career_func
  cave_routine
