@@ -3,7 +3,7 @@
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 # Function to determine the appropriate proxy based on the value of UR
-func_proxy () {
+func_proxy() {
 	case "$UR" in
 	'1'|'2'|'3'|4|6|7|9|'11'|'12')
 # Set fallback proxy for UR values 1, 4, 6, 7, 9, 11, or 12

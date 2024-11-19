@@ -2,13 +2,13 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-undying_fight () {
+undying_fight() {
  cd $TMP
 
  #/enterFight
  local LA=5 # hit interval
 
- cf_access () {
+ cf_access() {
   grep -o -E '/undying/(hit|mana)/[?][r][=][0-9]+' $TMP/SRC|sed -n '1p' >HITMANA 2> /dev/null
 
   if grep -q -o 'out_gate' $TMP/SRC; then
@@ -20,6 +20,7 @@ undying_fight () {
    printf "${BLACK_YELLOW}$(G_T "Battle is over").${COLOR_RESET}\n"
    sleep 2s
   fi
+
  }
  cf_access
 
@@ -30,18 +31,22 @@ undying_fight () {
 
   cf_access
   #/attack
-  if awk -v latk="$(( $(date +%s) - $(cat last_atk) ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
+  if awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
+
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
+
    cf_access
    date +%s >last_atk
   else
+
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
+
    cf_access
    sleep 1s
   fi
@@ -56,9 +61,8 @@ undying_fight () {
 
 }
 
-undying_start () {
+undying_start() {
  cd $TMP
-
 
  case $(date +%H:%M) in
   (09:5[5-9]|15:5[5-9]|21:5[5-9])
@@ -66,11 +70,11 @@ undying_start () {
    apply_event undying
 
    printf "$(G_T "Valley of the Immortals will be started")...\n$(date +%Hh:%Mm)"
-   until $(case $(date +%M) in (5[5-9]) exit 1 ;; esac) ;
+
+   until $(case $(date +%M) in (5[5-9]) exit 1 ;; esac);
     do
      sleep 2
    done
-
 
    hpmp -now
    #/hp20%+, mp10%+
@@ -89,6 +93,7 @@ undying_start () {
     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
+
    #/undying/hit|mana/?r=???
    grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/SRC|head -n 1 >HITMANA 2> /dev/null
 
@@ -96,6 +101,7 @@ undying_start () {
    local BREAK=$(( $(date +%s) + 11 ))
 
    until [ -s "BREAK_LOOP" ] || [ "$(date +%s)" -gt "$BREAK" ]; do
+
     #/undying/
     (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
@@ -105,17 +111,19 @@ undying_start () {
     grep -o -E '/undying/(mana|hit)/[?][r][=][0-9]+' $TMP/SRC|head -n 1 >HITMANA 2> /dev/null
 
     if grep -q -o -E '/undying/(hit|mana)' $TMP/SRC; then
+
      #/undying/hit|mana/?r=???
      (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$(cat HITMANA)" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
      ) </dev/null &>/dev/null &
      time_exit 17
-     echo "1" >BREAK_LOOP
 
+     echo "1" >BREAK_LOOP
      #/view
      printf "\n     🙇‍ "
      w3m -dump -T text/html "$TMP/SRC"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{1,6\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\]\ ,\ 💀,g'
     fi
+
     sleep 0.3s
    done
 
@@ -124,4 +132,5 @@ undying_start () {
    undying_fight
   ;;
  esac
+
 }

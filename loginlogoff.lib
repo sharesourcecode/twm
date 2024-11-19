@@ -4,7 +4,7 @@
 
 login_logoff () {
  if [ -f "$TMP/cript_file" ]; then
-  cat $TMP/cript_file|base64 -d >$TMP/cookie_file
+  base64 -d $TMP/cript_file >$TMP/cookie_file
   chmod 600 $TMP/cookie_file
   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
   printf "$(G_T "Setting session cookie")...\n"
@@ -17,7 +17,7 @@ login_logoff () {
 
  printf "$(G_T "Checking if user matches")...\n"
  sed -i 's/^[ \t]*//;s/[ \t]*$//' $TMP/acc_file
- ACC=$(< $TMP/acc_file)
+ ACC=`< "$TMP/acc_file"`
 
  if [ -n "$ACC" ] && [ -n "$URL" ]; then
   local check=3
@@ -84,12 +84,12 @@ login_logoff () {
     echo "login=$username&pass=$password"|base64 -w 0 > $TMP/cript_file
     chmod 600 $TMP/cript_file
     #/decryption
-#    cat $TMP/cript_file|openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" >$TMP/cookie_file
-    cat $TMP/cript_file|base64 -d >$TMP/cookie_file
+#    openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" $TMP/cript_file >$TMP/cookie_file
+    base64 -d $TMP/cript_file >$TMP/cookie_file
     chmod 600 $TMP/cookie_file
    else
-#    cat $TMP/cript_file|openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$ACC" >$TMP/cookie_file
-    cat $TMP/cript_file|base64 -d >$TMP/cookie_file
+#    openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$ACC" $TMP/cript_file >$TMP/cookie_file
+    base64 -d $TMP/cript_file >$TMP/cookie_file
     chmod 600 $TMP/cookie_file
    fi
 
@@ -107,7 +107,7 @@ login_logoff () {
   printf "$(G_T "Please wait")...\n"
   w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
   printf "$(G_T "Checking if user matches")...\n"
-  ACC=$(< $TMP/acc_file)
+  ACC=`< "$TMP/acc_file"`
 
   if [ -n "$ACC" ]; then
    break &>/dev/null

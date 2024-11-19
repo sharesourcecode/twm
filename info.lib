@@ -98,7 +98,7 @@ hpmp() {
  if echo "$@" | grep -q '\-fix'; then
 
   (
-   w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(shuf -n1 userAgent.txt)" >$TMP/TRAIN;
+   w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/TRAIN;
   )  </dev/null &>/dev/null
   time_exit "20";
 
