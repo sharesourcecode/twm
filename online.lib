@@ -67,7 +67,7 @@ online() {
  printf "\n$(G_T "In settings"): `grep -E '( Configura| Einstellungen| Settings| Pengaturan| Impostazioni| Ustawienia| Setări| Настройки| Podesavanja| 设置)' k|wc -l`\n"
  printf "\n$(G_T "In the Forums"): `grep -E '(Fórum|Forum|Foro|Форум|论坛)' k|wc -l`\n"
  printf "\n$(G_T "In chats"): `grep -E '(~Conversar|~Chat|~Charlar|~Czat|~Чат|~Cet|~聊天室)' y|wc -l`\n"
- printf "\n$(G_T "In the mail"): `grep -E '(Correio|Postfach|Mailbox|Mensajes|Messagerie|Kotak Pesan|Messaggi|Poczta|Cutie poștală|Почта|Posta|邮件)' w|wc -l`\n"
+ printf "\n$(G_T "In the mail"): `grep -E '(correio|Postfach|Mailbox|Mensajes|Messagerie|Kotak Pesan|Messaggi|Poczta|Cutie poștală|Почта|Posta|邮件)' w|wc -l`\n"
  rm k w y
  sleep 30s
 }
