@@ -495,7 +495,7 @@ requer_func() {
    TMP="$HOME/$twm_dir/.13"
 # Europe/London +00
    export TZ="GMT"; ALLIES="_WORK"
-
+  ;;
   (*)
    clear
 
