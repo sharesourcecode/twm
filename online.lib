@@ -47,6 +47,7 @@ online() {
 # sed "s, ,~,g" all.txt|sed "s,',_,g" >w
  cat w >y ; sed -i "/_/d" y
  echo ""
+
  printf "\n$(G_T "Started") ${DATE1} - $(G_T "Finished") `date +%H:%M:%S` `date +%d\/%m\/%Y`\n"
  echo ""
  printf "$(G_T "Total pages online"): ${NPG}"
@@ -62,11 +63,11 @@ online() {
  ACTIVE1=`grep "\[1]" y|wc -l`
  printf "\n$(G_T "Boreas active"): ${ACTIVE1} - $(G_T "Boreas inactive"): ${STOPED1}\n"
  echo ""
- printf "\n$(G_T "Warriors"): `grep ' Guerreiro' k|wc -l`\n"
- printf "\n$(G_T "In settings"): `grep ' Configura' k|wc -l`\n"
- printf "\n$(G_T "In the Forums"): `grep 'Fórum' k|wc -l`\n"
- printf "\n$(G_T "In chats"): `grep '~Conversar' y|wc -l`\n"
- printf "\n$(G_T "In the mail"): `grep 'correio' w|wc -l`\n"
+ printf "\n$(G_T "Warriors"): `grep -E '( Guerreiro| Krieger| Warrior| Guerrero| Combattant| Prajurit| Guerriero| Wojownik| Războinic| Боец| Ratnik| Samurai)' k|wc -l`\n"
+ printf "\n$(G_T "In settings"): `grep -E '( Configura| Einstellungen| Settings| Pengaturan| Impostazioni| Ustawienia| Setări| Настройки| Podesavanja| 设置)' k|wc -l`\n"
+ printf "\n$(G_T "In the Forums"): `grep -E '(Fórum|Forum|Foro|Форум|论坛)' k|wc -l`\n"
+ printf "\n$(G_T "In chats"): `grep -E '(~Conversar|~Chat|~Charlar|~Czat|~Чат|~Cet|~聊天室)' y|wc -l`\n"
+ printf "\n$(G_T "In the mail"): `grep -E '(Correio|Postfach|Mailbox|Mensajes|Messagerie|Kotak Pesan|Messaggi|Poczta|Cutie poștală|Почта|Posta|邮件)' w|wc -l`\n"
  rm k w y
  sleep 30s
 }
