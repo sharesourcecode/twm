@@ -14,21 +14,26 @@ online() {
  DATE1=$(date +%H:%M:%S)
  >k
 
- for num in `seq $NPG -1 6` ; do
-  w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >>k
-  grep '<< < 1 ' k && >k
- done
+ if [ "$NPG" -ge '6' ]; then
+
+  for num in `seq $NPG -1 6` ; do
+   w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >>k
+   printf " ${num},"
+   grep -q '<< < 1 ' k && >k
+  done
+
+ fi
 
  w3m -dump "${URL}/online/all/5" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
- grep ' 4 5 ' k || >k
+ grep -q ' 4 5 ' k && printf " 5," || >k
  w3m -dump "${URL}/online/all/4" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
- grep ' 3 4 ' k || >k
+ grep -q ' 3 4 ' k && printf " 4," || >k
  w3m -dump "${URL}/online/all/3" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
- grep ' 2 3 ' k || >k
+ grep -q ' 2 3 ' k && printf " 3," || >k
  w3m -dump "${URL}/online/all/2" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
- grep ' 1 2 ' k || >k
+ grep -q ' 1 2 ' k && printf " 2," || >k
  w3m -dump "${URL}/online/all/1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|head -n 18|tail -n 16 >> k
- grep ' 1 ' k || >k
+ grep -q ' 1 ' k && printf " 1" || >k
  grep '-' k >all.txt
  reset
  sed -i "/Overmobile/d" all.txt
@@ -45,7 +50,8 @@ online() {
  sort -u all.txt -o all.txt
  sed "s, ,~,g;s,',_,g" all.txt > w
 # sed "s, ,~,g" all.txt|sed "s,',_,g" >w
- cat w >y ; sed -i "/_/d" y
+# cat w >y ; sed -i "/_/d" y
+ sed "/_/d" w >y
  echo ""
 
  printf "\n$(G_T "Started") ${DATE1} - $(G_T "Finished") `date +%H:%M:%S` `date +%d\/%m\/%Y`\n"
