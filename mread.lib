@@ -1,0 +1,120 @@
+#!/bin/sh
+# Copyright (c) 2019-2024 Ueliton Alves Dos Santos
+# Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
+mread () {
+
+ local INFO=$(printf "usage;\n mread -n 5 -t 7 VAR\n -n \
+ nchars return after reading NCHARS \
+ characters rather than waiting for a \
+ newline.\n -t time out and return \
+ failure if a complete line of input is \
+ not read within TIMEOUT seconds.\n")
+
+ local A='-n'
+ local B="$(echo $2 | tr -cd '0-9')"
+ local C='-t'
+ local D="$(echo $4 | tr -cd '0-9')"
+ local E="$(echo $5 | tr -cd 'a-zA-Z0-9_')"
+ local F="$(echo $1 | tr -cd 'a-zA-Z0-9_')"
+ local G="$(echo $3 | tr -cd 'a-zA-Z0-9_')"
+ local Z=""
+ while [ $# -gt 0 ]; do
+
+#  echo "1:($1) - 2:($2) - 3:($3) - 4:($4) - 5:($5)"
+
+  case "$1:$2:$3:$4:$5" in
+   # -n 1 -t 1 VAR
+   "$A:$B:$C:$D:$E")
+    # 1 = -n
+    case $2 in
+     *[0-9]*)
+      local MRCOUNT="$2"
+     ;;
+    esac
+    # 3 = -t
+    case $4 in
+     *[0-9]*)
+      local MRTIME="$4"
+      shift 4
+     ;;
+    esac
+   ;;
+   # -t 2 -n 2 VAR
+   "$C:$B:$A:$D:$E")
+    # 1 = -t
+    case $2 in
+     *[0-9]*)
+      local MRTIME="$2"
+     ;;
+    esac
+    # 3 = -n
+    case $4 in
+     *[0-9]*)
+      local MRCOUNT="$4"
+      shift 4
+     ;;
+    esac
+   ;;
+   # -n 3 VAR(3)
+   "$A:$B:$G:$Z:$Z")
+    case $2 in
+     *[0-9]*)
+      local MRTIME=300
+      local MRCOUNT="$2"
+      shift 2
+     ;;
+    esac
+   ;;
+   # -t 4 VAR(3)
+   "$C:$B:$G:$Z:$Z")
+    case $2 in
+     *[0-9]*)
+      local MRTIME="$2"
+      local MRCOUNT=1
+      shift 2
+     ;;
+    esac
+   ;;
+   # VAR(1)
+   "$F:$Z:$Z:$Z:$Z")
+    local MRTIME=300
+    local MRCOUNT=1
+   ;;
+   *)
+    echo "$INFO" && exit 1
+   ;;
+  esac
+
+  if [ "$#" -eq 1 ]; then
+   case "$1" in
+    [0-9]*)
+     echo "Invalid VAR parameter: $1"
+     echo "$INFO" && exit 1
+     exit 1
+    ;;
+    *)
+     local MRVAR_NAME="$1"
+     shift
+    ;;
+   esac
+  fi
+ done
+
+ local MRLAST_ARG=${!#}
+ eval "MRVAR=\$$MRLAST_ARG"
+ eval "${MRVAR_NAME}=\$MRVAR"
+
+# stty raw
+# MRINPUT_READ=$(dd bs=1 count=$MRCOUNT 2>/dev/null)
+# MRINPUT_READ=$(cat < /dev/tty 2>/dev/null)
+ read -t $MRTIME -n $MRCOUNT "MRINPUT_READ"
+ local MRINPUT_READ=$(printf '%s\n' "$MRINPUT_READ" | sed 's/[\/&]/\\&/g')
+# stty -raw
+ eval ${MRVAR_NAME}="$MRINPUT_READ"
+
+}
+#mread $@
+#echo -e "\nx $var x"
+#echo $MRINPUT_READ
+#echo $MRVAR_NAME

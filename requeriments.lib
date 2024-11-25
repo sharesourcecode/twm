@@ -1,0 +1,367 @@
+# $HOME/$twm_dir/requeriments.lib
+# Copyright (c) 2019-2024 Ueliton Alves Dos Santos
+# Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
+options() {
+
+ case $1 in (s1) clear
+     printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs online \033[00m
+	 2)${BLACK_CYAN} Deutsch: Krieg der Titanen online \033[00m
+	 3)${BLACK_CYAN} Español: Guerra de Titanes online \033[00m
+	 4)${BLACK_CYAN} Français: Combat des Titans online \033[00m
+	 5)${BLACK_CYAN} Indian, English: Titan's War India \033[00m
+	 6)${BLACK_CYAN} Indonesian: Titan's War Indonesia \033[00m
+	 7)${BLACK_CYAN} Italiano: Guerra di Titani online \033[00m
+	 8)${BLACK_CYAN} Polski: Wojna Tytanów online \033[00m
+	 9)${BLACK_CYAN} Română: Războiul Titanilor online \033[00m
+	10)${BLACK_CYAN} Русский: Битва Титанов онлайн \033[00m
+	11)${BLACK_CYAN} Srpski: Rat Titana online \033[00m
+	12)${BLACK_CYAN} 中文, Chinese: 泰坦之战 \033[00m
+	13)${BLACK_CYAN} English, Global: Titan's War online \033[00m
+	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g' ;;
+
+   (s2) clear
+     printf " 1)${BLACK_CYAN} Brazil, Português: Furia de Titãs ${BLACK_GREEN}[ENTER]\033[00m
+	 2)${CYAN_CYAN} Deutsch: Krieg der Titanen online \033[00m
+	 3)${CYAN_CYAN} Español: Guerra de Titanes online \033[00m
+	 4)${CYAN_CYAN} Français: Combat des Titans online \033[00m
+	 5)${CYAN_CYAN} Indian, English: Titan's War India \033[00m
+	 6)${CYAN_CYAN} Indonesian: Titan's War Indonesia \033[00m
+	 7)${CYAN_CYAN} Italiano: Guerra di Titani online \033[00m
+	 8)${CYAN_CYAN} Polski: Wojna Tytanów online \033[00m
+	 9)${CYAN_CYAN} Română: Războiul Titanilor online \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}0\033[00m)${BLACK_CYAN} Русский: Битва Титанов онлайн \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}1\033[00m)${BLACK_CYAN} Srpski: Rat Titana online \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}2\033[00m)${BLACK_CYAN} 中文, Chinese: 泰坦之战 \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}3\033[00m)${BLACK_CYAN} English, Global: Titan's War online \033[00m
+	 $(G_T "C"))${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g' ;;
+
+   (l1) clear
+     printf " 1)${BLACK_CYAN} Deutsch \033[00m
+	 2)${BLACK_CYAN} English \033[00m
+	 3)${BLACK_CYAN} Español \033[00m
+	 4)${BLACK_CYAN} Français \033[00m
+	 5)${BLACK_CYAN} Hindi \033[00m
+	 6)${BLACK_CYAN} Indonesian \033[00m
+	 7)${BLACK_CYAN} Italiano \033[00m
+	 8)${BLACK_CYAN} Polski \033[00m
+	 9)${BLACK_CYAN} Português \033[00m
+	10)${BLACK_CYAN} Română \033[00m
+	11)${BLACK_CYAN} Русский \033[00m
+	12)${BLACK_CYAN} Srpski \033[00m
+	13)${BLACK_CYAN} 中文 \033[00m
+	 $(G_T "C")${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g' ;;
+
+   (l2) clear
+     printf " 1)${BLACK_CYAN} Deutsch ${BLACK_GREEN}[ENTER]\033[00m
+	 2)${CYAN_CYAN} English \033[00m
+	 3)${CYAN_CYAN} Español \033[00m
+	 4)${CYAN_CYAN} Français \033[00m
+	 5)${CYAN_CYAN} Hindi \033[00m
+	 6)${CYAN_CYAN} Indonesian \033[00m
+	 7)${CYAN_CYAN} Italiano \033[00m
+	 8)${CYAN_CYAN} Polski \033[00m
+	 9)${CYAN_CYAN} Português \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}0\033[00m)${BLACK_CYAN} Română \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}1\033[00m)${BLACK_CYAN} Русский \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}2\033[00m)${BLACK_CYAN} Srpski \033[00m
+	${BLACK_RED}1\033[00m${BLACK_GREEN}3\033[00m)${BLACK_CYAN} 中文 \033[00m
+	 $(G_T "C")${BLACK_YELLOW} ❌ $(G_T "Cancel") \033[00m
+	" | sed 's/\t//g'
+   ;;
+ esac
+
+}
+
+invalid() {
+
+ case $1 in (s1) options s1
+     printf "$(G_T "Select number Server [1 to 13]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
+     sleep 0.2s
+     menu s1 ;;
+
+   (s2) clear
+     options s2
+     printf "$(G_T "Select number Server [0 to 3]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
+     sleep 0.2s
+     menu s2 ;;
+
+   (l1) options l1
+     printf "$(G_T "Select language number [1 to 13]"): \033[01;31m\033[01;07m$UR◄ $(G_T "invalid option")\033[00m\n"
+     sleep 0.2s
+     menu l1 ;;
+
+   (l2) clear
+     options l2
+     printf "$(G_T "Select language number [0 to 3]"): \033[01;31m\033[01;07m1$UR◄ $(G_T "invalid option")\033[00m\n"
+     sleep 0.2s
+     menu l2
+   ;;
+ esac
+
+}
+
+menu() {
+
+ case $1 in (l2) options l2
+     printf "$(G_T "Select language number [0 to 3]"): 1\n"
+     read -n 1 LANG
+
+     case "$LANG" in $'\0')
+         echo "1" >"$HOME/$twm_dir/lang_file"
+         LANGUAGE='1' ;;
+
+       0|1|2|3)
+         echo "1${LANG}" >"$HOME/$twm_dir/lang_file"
+         LANGUAGE="1${LANG}" ;;
+
+       $'\177') menu l1 ;;
+
+       c|C|a|A|'रद्द'|M|m|о|О|'取')
+         pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+
+         until [ -z "$pidf" ]; do
+           kill -9 "$pidf" 2> /dev/null
+           pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+           sleep 1s
+         done
+
+         kill -9 $$ 2> /dev/null ;;
+
+       *) invalid l2 ;;
+     esac ;;
+
+   (l1) options l1
+     printf "$(G_T "Select language number [1 to 13]"): \n"
+     read -n 1 LANG
+
+     case "$LANG" in 1) menu l2 ;;
+
+       2|3|4|5|6|7|8|9)
+         echo "$LANG" >"$HOME/$twm_dir/lang_file"
+         LANGUAGE="$LANG" ;;
+
+       $'\177') menu l1 ;;
+
+       c|C|a|A|'रद्द'|M|m|о|О|'取')
+         pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+
+         until [ -z "$pidf" ]; do
+           kill -9 "$pidf" 2> /dev/null
+           pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+           sleep 1s
+         done
+
+         kill -9 $$ 2> /dev/null ;;
+
+       *) invalid l1 ;;
+     esac ;;
+
+   (s2) options s2
+     printf "$(G_T "Select number Server [0 to 3]"): 1\n"
+     read -n 1 UR
+
+     case "$UR" in $'\0')
+         echo "1" >"$HOME/$twm_dir/ur_file" ;;
+
+       0|1|2|3)
+         echo "1${UR}" >"$HOME/$twm_dir/ur_file" ;;
+
+       $'\177') menu s1 ;;
+
+       c|C|a|A|'रद्द'|M|m|о|О|'取')
+         pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+
+         until [ -z "$pidf" ]; do
+           kill -9 "$pidf" 2> /dev/null
+           pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh" | grep -v 'grep' | head -n 1 | grep -o -E '([0-9]{3,5})')
+           sleep 1s
+         done
+
+         kill -9 $$ 2> /dev/null ;;
+
+       *) invalid s2 ;;
+     esac ;;
+
+   (s1) options s1
+     printf "$(G_T "Select number Server [1 to 13]"): \n"
+     read -n 1 UR
+
+     case "$UR" in 1) menu s2 ;;
+
+       2|3|4|5|6|7|8|9)
+         echo "$UR" >"$HOME/$twm_dir/ur_file" ;;
+
+       $'\177') menu s1 ;;
+
+       c|C|a|A|'रद्द'|M|m|о|О|'取')
+         pidf=$(ps ax -o pid=,args= | grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+
+         until [ -z "$pidf" ]; do
+           kill -9 "$pidf" 2> /dev/null
+           pidf=$(ps ax -o pid=,args=|grep "sh.*$twm_dir/play.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
+           sleep 1s
+         done
+
+         kill -9 $$ 2> /dev/null ;;
+
+       *) invalid s1 ;;
+     esac
+   ;;
+ esac
+}
+
+random_ua() {
+ total_agents=`wc -l < "$TMP/userAgent.txt"`
+ random_agent=$((RANDOM % $total_agents + 1))
+ user_agent=$(sed -n "${random_agent}p" $TMP/userAgent.txt)
+}
+
+user_agent() {
+ cd "$TMP" || exit 1
+ clear
+
+ printf "${BLACK_CYAN} $(G_T "Simulate your real or random device"). \033[00m
+	1)${BLACK_CYAN} $(G_T "Manual") \033[00m
+	2)${BLACK_CYAN} $(G_T "Automatic") \033[00m
+	" | sed 's/\t//g'
+
+ if [ -f "$HOME/$twm_dir/fileAgent.txt" ] && [ -s "$HOME/$twm_dir/fileAgent.txt" ]; then
+   UA=`< "$HOME/$twm_dir/fileAgent.txt"`
+ else
+   printf "$(G_T "Set up User-Agent [1 to 2]"): \n"
+   read -n 1 UA
+ fi
+
+ case $UA in (0) clear
+     echo "0" >"$HOME/$twm_dir/fileAgent.txt"
+
+     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
+       cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+     else
+       random_ua
+     fi ;;
+
+   (1) clear
+     echo "0" >"$HOME/$twm_dir/fileAgent.txt"
+     xdg-open "$(echo "aHR0cHM6Ly93d3cud2hhdHNteXVhLmluZm8=" | base64 -d)" &>/dev/null
+     printf "$(G_T "Copy and paste your User Agent here and press ENTER"): \n"
+
+     read UA
+
+     echo "$UA" >"$TMP/userAgent.txt"
+
+     if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
+       printf " ...\n"
+       cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+     else
+       random_ua
+     fi ;;
+
+   (2) printf " ...\n${BLACK_PINK}"
+     cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+     echo "0" >"$HOME/$twm_dir/fileAgent.txt"
+
+     if [ -e "$TMP/userAgent.txt" ]; then
+       random_ua
+     fi
+
+     printf "$(G_T "Automatic User Agent selected")\n${COLOR_RESET}"
+     sleep 2s ;;
+
+   (*) clear
+
+     if [ -n "$UA" ]; then
+       printf "\n $(G_T "Invalid option"): $(echo "$UA")\n"
+       kill -9 $$
+     else
+       printf "\n $(G_T "Time exceeded")!\n"
+     fi
+   ;;
+ esac
+
+ unset UA
+}
+
+requer_func() {
+ clear
+
+ if [ -f "$HOME/$twm_dir/lang_file" ] && [ -s "$HOME/$twm_dir/lang_file" ]; then
+   LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+ else
+   menu l1
+ fi
+
+ LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+
+ if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
+   UR=`< "$HOME/$twm_dir/ur_file"`
+ else
+   menu s1
+ fi
+
+ UR=`< "$HOME/$twm_dir/ur_file"`
+
+ case $UR in (1|pt|2|de|3|es|4|fr|5|hi|6|id|7|it|8|pl|9|ro|10|ru|11|sr|12|zh|13|en)
+       # 1•America/Bahia -03 GMT/BRT, 2•Europe/Berlin +01, 3•America/Cancun -05, 4•Europe/Paris +01, 5• Asia/Kolkata +05:30, 6• Asia/Jakarta +07, 7•Europe/Rome +01, 8•Europe/Warsaw +01, 9•Europe/Bucharest +02, 10•Europe/Moscow +03, 11•Europe/Belgrade +01, 12•Asia/Shanghai +08, 13•Europe/London +00
+#// here-document
+evaluated=`sed -n "${UR}p" <<ServerDomainTimeZone
+       URL=$(echo "ZnVyaWFkZXRpdGFzLm5ldA=="|base64 -d); export TZ="BRT+3"
+       URL=$(echo "dGl0YW5lbi5tb2Jp"|base64 -d); export TZ="CET-1"
+       URL=$(echo "Z3VlcnJhZGV0aXRhbmVzLm5ldA=="|base64 -d); export TZ="EST+5"
+       URL=$(echo "dGl3YXIuZnI="|base64 -d); export TZ="CET-1"
+       URL=$(echo "aW4udGl3YXIubmV0"|base64 -d); export TZ="IST-5:30"
+       URL=$(echo "dGl3YXItaWQubmV0"|base64 -d); export TZ="WIB-7"
+       URL=$(echo "Z3VlcnJhZGl0aXRhbmkubmV0"|base64 -d); export TZ="CET-1"
+       URL=$(echo "dGl3YXIucGw="|base64 -d); export TZ="CET-1"
+       URL=$(echo "dGl3YXIucm8="|base64 -d); export TZ="EET-2"
+       URL=$(echo "dGl3YXIucnU="|base64 -d); export TZ="MSK-3"
+       URL=$(echo "cnMudGl3YXIubmV0"|base64 -d); export TZ="CET-1"
+       URL=$(echo "Y24udGl3YXIubmV0"|base64 -d); export TZ="CST-8"
+       URL=$(echo "dGl3YXIubmV0"|base64 -d); export TZ="GMT"
+ServerDomainTimeZone`
+#\\ here-document
+
+     eval "$evaluated" && unset evaluated
+     echo "$UR" >"$HOME/$twm_dir/ur_file"
+     TMP="$HOME/$twm_dir/.${UR}"
+     mkdir -p "$TMP" ;;
+
+   (*)
+     clear
+
+     if [ -n "$UR" ]; then
+       printf "\n $(G_T "Invalid option"): $(echo "$UR")\n"
+       sleep 3s
+       sync && kill -9 $$
+     else
+       printf "\n $(G_T "Time exceeded")!\n"
+     fi
+
+   ;;
+ esac
+
+ clear
+
+ if [ -z "$URL" ]; then
+   exit 1
+ fi
+
+ cd "$TMP" || exit 1
+
+ reset
+ clear
+
+ if [ ! -e "$TMP/userAgent.txt" ] || [ `wc -c < $TMP/userAgent.txt` -lt 10 ] || [ `wc -c < $TMP/userAgent.txt` -gt 65 ]; then
+   user_agent
+ else
+   printf "${BLACK_PINK}\n$(G_T "User-Agent"): ${user_agent}\n${COLOR_RESET}\n"
+ fi
+
+ sed -i 's/^M$//g' "$TMP/userAgent.txt" &>/dev/null
+ sed -i 's/\x0D$//g' "$TMP/userAgent.txt" &>/dev/null
+
+}

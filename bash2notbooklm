@@ -1,0 +1,72 @@
+#!/bin/bash
+twm_dir="twm-master"
+
+# Find all shell script files in the specified directory and replace '.lib' with '.txt'
+# find ~/$twm_dir -type f -name "*.sh" -exec sed -i 's/\.lib/\.txt/g' {} +
+
+# Prompt the user to choose an option
+printf "\nEnter 1, or 2:\n1. Convert to NotebookLM\n2. Revert to shell script\n"
+read -n 1 conver
+
+case $conver in
+
+  # Option 1: Convert files for NotebookLM
+  1)
+    # Change the shebang lines for bash and Bourne shell scripts
+    sed -i 's,#!/bin/bash,_Bash_,g;s,#!/bin/sh,_BourneShell_,g' $HOME/$twm_dir/*.sh
+
+    # Rename .lib files to .lib.txt
+    for file in ~/$twm_dir/*.lib; do
+      [ -f "$file" ] && mv "$file" "${file%.lib}.lib.txt"
+    done;
+
+    # Rename .sh files to .sh.txt
+    for file in ~/$twm_dir/*.sh; do
+      [ -f "$file" ] && mv "$file" "${file%.sh}.sh.txt"
+    done;
+
+    # Rename .po files to .po.txt
+    for file in ~/$twm_dir/*.po; do
+      [ -f "$file" ] && mv "$file" "${file%.po}.po.txt"
+    done;
+
+    # Rename LICENSE file to LICENSE.txt
+    mv ~/$twm_dir/LICENSE ~/$twm_dir/LICENSE.txt;
+
+    # Inform the user that files can now be uploaded to NotebookLM
+    printf "\nNow the files can be uploaded to NotebookLM. To be able to run the scripts, revert to option 2.\n";
+
+    # Open a URL (decoded from base64)
+    xdg-open $(echo 'aHR0cHM6Ly9ub3RlYm9va2xtLmdvb2dsZS5jb20vbm90ZWJvb2svYTFhYzc3MmItMTk2MS00ZmNlLTk0MzMtYTg4ZDY1NjYyNGRkP2F1dGh1c2VyPTA=' | base64 -d)
+  ;;
+
+  # Option 2: Revert changes and restore original scripts
+  2)
+    # Rename .po.txt files back to .po
+    for file in ~/$twm_dir/*.po.txt; do
+      [ -f "$file" ] && mv "$file" "${file%.po.txt}.po"
+    done;
+
+    # Rename .sh.txt files back to .sh
+    for file in ~/$twm_dir/*.sh.txt; do
+      [ -f "$file" ] && mv "$file" "${file%.sh.txt}.sh"
+    done;
+
+    # Rename .lib.txt files back to .lib
+    for file in ~/$twm_dir/*.lib.txt; do
+      [ -f "$file" ] && mv "$file" "${file%.lib.txt}.lib"
+    done;
+
+    # Restore the original shebang lines for bash and Bourne shell scripts
+    sed -i 's,_Bash_,#!/bin/bash,g;s,_BourneShell_,#!/bin/sh,g' $HOME/$twm_dir/*.sh
+
+    # Rename LICENSE.txt back to LICENSE
+    mv ~/$twm_dir/LICENSE.txt ~/$twm_dir/LICENSE;
+
+    # Inform the user that files have been reverted back to scripts
+    printf "\nFiles reverted to Scripts\n"
+  ;;
+esac
+
+# List all files in the specified directory
+ls ~/$twm_dir

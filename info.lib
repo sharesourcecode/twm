@@ -1,0 +1,151 @@
+# $HOME/$twm_dir/info.lib
+# Copyright (c) 2019-2024 Ueliton Alves Dos Santos
+# Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
+colors() {
+ BLACK_BLACK='\033[00;30m';
+ BLACK_CYAN='\033[01;36m\033[01;07m';
+ BLACK_GREEN='\033[00;32m\033[01;07m';
+ BLACK_GRAY='\033[01;30m\033[01;07m';
+ BLACK_PINK='\033[01;35m\033[01;07m';
+ BLACK_RED='\033[01;31m\033[01;07m';
+ BLACK_YELLOW='\033[00;33m\033[01;07m';
+ CYAN_BLACK='\033[36m';
+ CYAN_CYAN='\033[01;36m\033[08;07m';
+ COLOR_RESET='\033[00m';
+ GOLD_BLACK='\033[33m';
+ GREEN_BLACK='\033[32m';
+ PURPLEi_BLACK='\033[03;34m\033[02;03m';
+ PURPLEis_BLACK='\033[03;34m\033[02;04m';
+ WHITE_BLACK='\033[37m';
+ WHITEb_BLACK='\033[01;38m\033[05;01m';
+};
+
+G_T() {
+
+ if [ -z "$LANGUAGE" ]; then
+  local LANGUAGE='2'
+ fi
+
+ local TRANSLATE=$(echo "$1" | sed 's/\[/\\[/g;s/\]/\\]/g;s/:/\:/g')
+ local TEXT=$(echo "$content" | sed -n '/|'"$TRANSLATE"'|/p' | awk -F'|' '{print $'$LANGUAGE'}')
+
+ if [ -z "$TEXT" ]; then
+  echo "$1"
+ else
+  echo "$TEXT"
+ fi
+
+}
+
+script_slogan() {
+ colors="10 9 8 7 6 5 4 3 2 1";
+ t="339";
+ w="59";
+ m="89";
+ author="$(G_T "author"):\nueliton@disroot.org 2019 — 2024";
+ collaborator="$(G_T "collaborator"):\n	@_hviegas";
+
+ for i in $colors; do
+  clear;
+  t=$((t - 27));
+  w=$((w + 1));
+  m=$((m - 2));
+
+  printf "\033[1;38;5;${t}m  ╔══╗╔╗╔══╗╔══╗╔══╗╔══╗\n  ╚╗╔╝╠╣╚╗╔╝║╔╗║║╔╗║║══╣\n  ${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║║${BLACK_BLACK}═\033[1;38;5;${t}m║╔╗║║║║║╠══║\n  ${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝${BLACK_BLACK}═\033[1;38;5;${t}m╚╝╚╝╚╝╚╝╚══╝\033[1;38;5;${w}m\n       ╔╦═╦╗╔══╗╔══╗\n       ║║║║║║╔╗║║╚╝╣\n       ║║║║║║╔╗║║║╗║\n       ╚═╩═╝╚╝╚╝╚╝╚╝\033[1;38;5;${m}m\n  ╔═╦═╗╔══╗╔══╗╔══╗╔══╗\n  ║║║║║║╔╗║║╔═╝║╚╝╣║╔╗║\n  ║║║║║║╔╗║║╚═╗║║╗║║╚╝║\n  ╚╩═╩╝╚╝╚╝╚══╝╚╝╚╝╚══╝\n  ${COLOR_RESET}\n
+  \033[1;38;5;${i}m${author}\n\033[02m${collaborator}\n${COLOR_RESET}\n";
+  sleep "0.2";
+ done;
+
+};
+
+# Function to manage a timeout for a background process
+time_exit() {
+ # Grouping commands in a subshell
+ (
+  local FPID=$!  # Get the process ID of the last background command
+
+  local TIMEOUT=$1  # Set the timeout duration from the first argument
+
+  # Loop until the timeout reaches zero
+  while [ $TIMEOUT -gt 0 ]; do
+   # Check if the process is still running
+   ps -p $FPID > /dev/null 2>&1
+
+   if [ $? -ne 0 ]; then
+    # Process has finished, exit the loop
+    break &>/dev/null
+   fi
+
+   # Wait for 1 second
+   sleep 1
+
+   # Decrement the timeout counter
+   local TIMEOUT=$((TIMEOUT - 1))
+  done
+
+  # If the process is still running after the timeout, terminate it
+  if [ $TIMEOUT -eq 0 ]; then
+   kill -15 $FPID > /dev/null 2>&1
+   printf "${WHITEb_BLACK}Command execution was interrupted!${COLOR_RESET}\n"
+  fi
+
+ ) # End of subshell grouping
+}
+
+hpmp() {
+
+ if echo "$@" | grep -q '\-fix'; then
+
+  (
+   w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/TRAIN;
+  )  </dev/null &>/dev/null
+  time_exit "20";
+
+  FIXHP=$(grep -o -E '\(([0-9]+)\)' $TMP/TRAIN | sed 's/[()]//g');
+  FIXMP=$(grep -o -E ': [0-9]+' $TMP/TRAIN | sed -n '5s/: //p');
+ fi;
+
+ NOWHP=$(grep -o -E "<img src[=]'/images/icon/health.png' alt[=]'hp'/> <span class[=]'(dred|white)'>[ ]?[0-9]{1,7}[ ]?</span> \| <img src[=]'/images/icon/mana.png' alt[=]'mp'/>" $TMP/SRC | tr -c -d "[[:digit:]]");
+ NOWMP=$(grep -o -E "</span> \| <img src='/images/icon/mana.png' alt='mp'/>[ ]?[0-9]{1,7}[ ]?</span><div class='clr'></div></div>" $TMP/SRC | tr -c -d "[[:digit:]]");
+ HPPER=$(awk -v nowhp="$NOWHP" -v fixhp="$FIXHP" 'BEGIN { printf "%.3f", nowhp / fixhp * 100 }' | awk '{printf "%.2f\n", $1}');
+ MPPER=$(awk -v nowmp="$NOWMP" -v fixmp="$FIXMP" 'BEGIN { printf "%.3f", nowmp / fixmp * 100 }' | awk '{printf "%.2f\n", $1}');
+};
+
+messages_info() {
+ >> $TMP/SRC;
+ echo " ⚔️ - $(G_T "Titans War Macro") - ⚔️ " > $TMP/msg_file;
+ printf " -------- $(G_T "MAIL") --------\n" >> $TMP/msg_file;
+
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file;
+ ) </dev/null &>/dev/null
+ time_exit "17";
+
+ printf " -------- $(G_T "CHAT TITANS") --------\n" >> $TMP/msg_file;
+
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
+ ) </dev/null &>/dev/null
+ time_exit "17";
+
+ printf " -------- $(G_T "CHAT CLAN") --------\n" >> $TMP/msg_file;
+
+ (
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
+ ) </dev/null &>/dev/null
+ time_exit "17";
+
+ sed -i 's/\[0\]/🔴/g;s/\[0-off\]/⭕/g;s/\[1\]/🔵/g;s/\[1-off\]/🔘/g' msg_file >> $TMP/msg_file;
+ local TRAIN="$HOME/$twm_dir/.${UR}/TRAIN";
+
+ if [ ! -e "$HOME/$twm_dir/.${UR}/TRAIN" ] || find "$TRAIN" -mmin +30 >/dev/null 2>&1; then
+  hpmp -fix;
+ fi;
+
+ if [ -e "$TMP/SRC" ]; then
+  printf %b "\033[02mHP ❤️ $NOWHP - ${HPPER}% | MP Ⓜ️ $NOWMP - ${MPPER}%${COLOR_RESET}\n" >> $TMP/msg_file;
+ fi;
+
+ printf "${GREEN_BLACK}${ACC}$(grep -o -E '(lvl [0-9]{1,2} \| g [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1} \| s [0-9]{1,3}[^0-9]{0,1}[0-9]{0,3}[A-Za-z]{0,1})' $TMP/info_file|sed 's/lvl/\ lvl/g;s/g/\ g/g;s/s/\ s/g')${COLOR_RESET}\n" >> $TMP/msg_file;
+}

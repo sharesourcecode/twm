@@ -1,0 +1,123 @@
+# $HOME/$twm_dir/online.lib
+# Copyright (c) 2019-2024 Ueliton Alves Dos Santos
+# Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
+# Server Statistics Function
+online() {
+  reset  # Clear the terminal screen for better readability
+
+  # Fetch the source of the online page using w3m and store it in SRC
+  SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)")
+
+  # Extract the number of pages (NPG) from the fetched source
+  NPG=$(echo $SRC | sed 's/href=/\n/g' | grep 'online/all/' | head -n 6 | tail -n 1 | cut -d\' -f2 | cut -d\/ -f4)
+  echo "$NPG Pages"  # Output the number of pages found
+
+  # Indicate that the search is starting
+  echo "$(G_T "Searching")..."
+  DATE1=$(date +%H:%M:%S)  # Capture the current time
+
+  >k  # Create or clear the file 'k'
+
+  # Loop through each page number from NPG down to 1
+  for num in `seq $NPG -1 1`; do
+    # Check if the page number is even
+    if [ $((num % 2)) -eq 0 ]; then
+      (
+       # Fetch and process the online page for even numbers, appending to 'k'
+       w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" | head -n 18 | tail -n 16 >>k
+      ) </dev/null &>/dev/null &  # Run in background and suppress output
+      time_exit 20 &  # Set a timeout for this operation
+    else
+      (
+       # Fetch and process the online page for odd numbers, appending to 'k'
+       w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" | head -n 18 | tail -n 16 >>k
+      ) </dev/null &>/dev/null &  # Run in background and suppress output
+      time_exit 20 &  # Set a timeout for this operation
+    fi
+
+    sleep '0.5'  # Pause briefly to avoid overwhelming the server
+
+    # Conditional checks to print specific numbers based on conditions from file 'k'
+    if [ "$num" -ge '6' ]; then
+      printf " ${num},"  # Print page number if greater than or equal to 6
+    elif [ "$num" -eq 5 ] && grep -q ' 4 5 ' k; then
+      printf " 5,"  # Print if conditions match for page number 5
+    elif [ "$num" -eq 4 ] && grep -q ' 3 4 ' k; then
+      printf " 4,"  # Print if conditions match for page number 4
+    elif [ "$num" -eq 3 ] && grep -q ' 2 3 ' k; then
+      printf " 3,"  # Print if conditions match for page number 3
+    elif [ "$num" -eq 2 ] && grep -q ' 1 2 ' k; then
+      printf " 2,"  # Print if conditions match for page number 2
+    elif [ "$num" -eq 1 ] && grep -q ' 1 ' k; then
+      printf " 1"   # Print if conditions match for page number 1
+    fi
+
+  done
+
+  # Filter results from file 'k' into all.txt, removing unwanted entries and duplicates
+  grep '-' k >all.txt
+  reset
+  sed -i "/Overmobile/d" all.txt
+  sed -i "/Onlinehp/d" all.txt
+  sed -i "/,/d" all.txt
+  sed -i "/\<</d" all.txt
+  sed -i "/\ |/d" all.txt
+  sed -i "/\[user/d" all.txt
+  sed -i "/\[arrow/d" all.txt
+  sed -i "/\ feed/d" all.txt
+  sed -i "/\:/d" all.txt
+  sed -i "/\!/d" all.txt
+  sed -i "/\+/d" all.txt
+
+  sort -u all.txt -o all.txt   # Sort and remove duplicates from all.txt
+
+  # Replace spaces with '~' and apostrophes with '_' in all.txt, saving to w
+  sed "s, ,~,g;s,',_,g" all.txt > w
+
+  sed "/_/d" w >y   # Remove lines containing underscores from w and save to y
+
+  echo ""
+
+  # Output start and finish timestamps along with date information
+  printf "\n$(G_T "Started") ${DATE1} - $(G_T "Finished") `date +%H:%M:%S` `date +%d\/%m\/%Y`\n"
+
+  echo ""
+
+  printf "$(G_T "Total pages online"): ${NPG}"   # Output total pages online
+
+  printf "\n$(G_T "Total players"): `grep '~-~' w|wc -l`\n"   # Count total players
+
+  STOPED=`grep "_~" w|wc -l`   # Count stopped players
+  ACTIVE=`wc -l < y`   # Count active players
+
+  printf "\n$(G_T "Active players"): ${ACTIVE} - $(G_T "Inactive players"): ${STOPED}\n"
+
+  echo ""
+
+  STOPED0=`grep "\[0]" w|grep "_~"|wc -l`   # Count inactive Asura players (category [0])
+  ACTIVE0=`grep "\[0]" y|wc -l`   # Count active Asura players (category [0])
+
+  printf "\n$(G_T "Active Asura"): ${ACTIVE0} - $(G_T "Inactive Asuras"): ${STOPED0}\n"
+
+  STOPED1=`grep "\[1]" w|grep "_~"|wc -l`   # Count inactive Boreas players (category [1])
+  ACTIVE1=`grep "\[1]" y|wc -l`   # Count active Boreas players (category [1])
+
+  printf "\n$(G_T "Boreas active"): ${ACTIVE1} - $(G_T "Boreas inactive"): ${STOPED1}\n"
+
+  echo ""
+
+  printf "\n$(G_T "Warriors"): `grep -E '( Guerreiro| Krieger| Warrior| Guerrero| Combattant| Prajurit| Guerriero| Wojownik| Războinic| Боец| Ratnik| Samurai)' k|wc -l`\n"
+
+  printf "\n$(G_T "In settings"): `grep -E '( Configura| Einstellungen| Settings| Pengaturan| Impostazioni| Ustawienia| Setări| Настройки| Podesavanja| 设置)' k|wc -l`\n"
+
+  printf "\n$(G_T "In the Forums"): `grep -E '(Fórum|Forum|Foro|Форум|论坛)' k|wc -l`\n"
+
+  printf "\n$(G_T "In chats"): `grep -E '(~Conversar|~Chat|~Charlar|~Czat|~Чат|~Cet|~聊天室)' y|wc -l`\n"
+
+  printf "\n$(G_T "In the mail"): `grep -E '(correio|Postfach|Mailbox|Mensajes|Messagerie|Kotak Pesan|Messaggi|Poczta|Cutie poștală|Почта|Posta|邮件)' w|wc -l`\n"
+
+  rm k w y   # Clean up temporary files created during execution
+
+  sleep 30s   # Pause before ending the function to allow user to read output
+}
