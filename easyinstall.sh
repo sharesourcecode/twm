@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # $HOME/easyinstall.sh
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
