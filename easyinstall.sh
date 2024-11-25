@@ -191,9 +191,9 @@ sync_func() {
    ShellCommand='bash'
    Shebang='#!/bin/bash'
    Config='.bashrc'
-   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i 's,#!/bin/sh,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
  else
-   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
 
    if [ ! -e "$HOME/.shrc" ] && command -v zsh > /dev/null 2>&1; then
      ShellCommand='zsh'
@@ -209,7 +209,7 @@ sync_func() {
      Config='.cshrc'
    else
      ShellCommand='sh'
-     Shebang='#!/bin/bash'
+     Shebang='#!/bin/sh'
      Config='.shrc'
    fi
 
