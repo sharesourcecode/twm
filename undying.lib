@@ -34,7 +34,7 @@ undying_fight() {
   if awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -43,7 +43,7 @@ undying_fight() {
   else
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/undying" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -90,7 +90,7 @@ undying_start() {
 
    #/undying/
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying/" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -104,7 +104,7 @@ undying_start() {
 
     #/undying/
     (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/undying" -o user_agent="$vUserAgent" >$TMP/SRC
     ) </dev/null &>/dev/null &
     time_exit 17
 
@@ -114,7 +114,7 @@ undying_start() {
 
      #/undying/hit|mana/?r=???
      (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$vUserAgent" >$TMP/SRC
      ) </dev/null &>/dev/null &
      time_exit 17
 

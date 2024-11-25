@@ -7,7 +7,7 @@ online() {
   reset  # Clear the terminal screen for better readability
 
   # Fetch the source of the online page using w3m and store it in SRC
-  SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)")
+  SRC=$(w3m -debug -dump_source -o accept_encoding=UTF-8 "${URL}/online" -o user_agent="$vUserAgent")
 
   # Extract the number of pages (NPG) from the fetched source
   NPG=$(echo $SRC | sed 's/href=/\n/g' | grep 'online/all/' | head -n 6 | tail -n 1 | cut -d\' -f2 | cut -d\/ -f4)
@@ -25,13 +25,13 @@ online() {
     if [ $((num % 2)) -eq 0 ]; then
       (
        # Fetch and process the online page for even numbers, appending to 'k'
-       w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" | head -n 18 | tail -n 16 >>k
+       w3m -dump "${URL}/online/all/${num}" -o user_agent="$vUserAgent" | head -n 18 | tail -n 16 >>k
       ) </dev/null &>/dev/null &  # Run in background and suppress output
       time_exit 20 &  # Set a timeout for this operation
     else
       (
        # Fetch and process the online page for odd numbers, appending to 'k'
-       w3m -dump "${URL}/online/all/${num}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" | head -n 18 | tail -n 16 >>k
+       w3m -dump "${URL}/online/all/${num}" -o user_agent="$vUserAgent" | head -n 18 | tail -n 16 >>k
       ) </dev/null &>/dev/null &  # Run in background and suppress output
       time_exit 20 &  # Set a timeout for this operation
     fi

@@ -5,7 +5,7 @@
 campaign_func () {
 printf "$(G_T "Campaign...")\n"
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/campaign/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/campaign/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
  if grep -q -o -E '/campaign/(go|fight|attack|end)/[?]r[=][0-9]+' $TMP/SRC ; then
@@ -16,7 +16,7 @@ printf "$(G_T "Campaign...")\n"
         case $CAMPAIGN in
         (*go*|*fight*|*attack*|*end*)
             (
-            w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAMPAIGN" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+            w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAMPAIGN" -o user_agent="$vUserAgent" >$TMP/SRC
             ) </dev/null &>/dev/null &
             time_exit 20
             echo "$CAMPAIGN"

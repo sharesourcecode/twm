@@ -6,7 +6,7 @@ func_trade() {
  printf "$(G_T "trade") ...\n"
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/trade/exchange" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/trade/exchange" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 17
 
@@ -18,7 +18,7 @@ func_trade() {
   printf "$ACCESS\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$ACCESS" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$ACCESS" -o user_agent="$vUserAgent" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 17
 
@@ -35,26 +35,26 @@ clan_money() {
   printf "$(G_T "clan money") ...\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
   ) </dev/null &>/dev/null &
   time_exit 17
 
   printf "/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
   ) </dev/null &>/dev/null &
   time_exit 17
 
   printf "/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
@@ -69,24 +69,24 @@ clan_statue() {
   printf "$(G_T "clan built") ...\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
   ) </dev/null &>/dev/null &
   time_exit 17
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?goldUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?goldUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
   printf "/clan/${CLD}/built/?goldUpgrade=true&r=`< $TMP/CODE`\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
   ) </dev/null &>/dev/null &
   time_exit 17
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?silverUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?silverUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 

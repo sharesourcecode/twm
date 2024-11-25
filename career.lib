@@ -5,7 +5,7 @@
 career_func () {
   printf "$(G_T "career") ... \n"
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 17
   if grep -q -o -E '/career/attack/[?]r[=][0-9]+' $TMP/SRC ; then
@@ -13,14 +13,14 @@ career_func () {
     clan_id
     if [ -n "${CLD}" ] ; then
       (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/quest/help/6" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/quest/help/6" -o user_agent="$vUserAgent" &>/dev/null
       ) </dev/null &>/dev/null &
       time_exit 17
       echo "/clan/${CLD}/quest/help/6"
     fi
 
     (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/career/" -o user_agent="$vUserAgent" >$TMP/SRC
     ) </dev/null &>/dev/null &
     time_exit 20
     if grep -q -o -E '/career/(attack|take)/[?]r[=][0-9]+' $TMP/SRC ; then
@@ -31,7 +31,7 @@ career_func () {
           case $CAREER in
           (*attack*|*take*)
               (
-              w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAREER" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+              w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$CAREER" -o user_agent="$vUserAgent" >$TMP/SRC
               ) </dev/null &>/dev/null &
               time_exit 20
               echo "$CAREER"
@@ -43,19 +43,19 @@ career_func () {
 
     if [ -n "$CLD" ] ; then
       (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/deleteHelp/6" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/clan/$CLD/quest/deleteHelp/6" -o user_agent="$vUserAgent" &>/dev/null
       ) </dev/null &>/dev/null &
       time_exit 17
       printf "/clan/$CLD/quest/deleteHelp/6\n"
     fi
 
       (
-        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$vUserAgent" >$TMP/SRC
       ) </dev/null &>/dev/null &
       time_exit 20
       local ENDQUEST=$(grep -o -E '/quest/end/16[?]r[=][A_z0-9]+' $TMP/SRC)
       (
-        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$vUserAgent" >$TMP/SRC
       ) </dev/null &>/dev/null &
       time_exit 20
       printf "${GREEN_BLACK}$(G_T "career") (✔)${COLOR_RESET}\n"

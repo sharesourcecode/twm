@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # $HOME/easyinstall.sh
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
@@ -191,9 +191,9 @@ sync_func() {
    ShellCommand='bash'
    Shebang='#!/bin/bash'
    Config='.bashrc'
-   sed -i 's,#!/bin/sh,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
  else
-   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
 
    if [ ! -e "$HOME/.shrc" ] && command -v zsh > /dev/null 2>&1; then
      ShellCommand='zsh'
@@ -209,7 +209,7 @@ sync_func() {
      Config='.cshrc'
    else
      ShellCommand='sh'
-     Shebang='#!/bin/sh'
+     Shebang='#!/bin/bash'
      Config='.shrc'
    fi
 

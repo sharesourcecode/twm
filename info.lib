@@ -98,7 +98,7 @@ hpmp() {
  if echo "$@" | grep -q '\-fix'; then
 
   (
-   w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/TRAIN;
+   w3m -cookie -o http_proxy="$PROXY" -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent" >$TMP/TRAIN;
   )  </dev/null &>/dev/null
   time_exit "20";
 
@@ -118,21 +118,21 @@ messages_info() {
  printf " -------- $(G_T "MAIL") --------\n" >> $TMP/msg_file;
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file;
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/mail" -o user_agent="$vUserAgent"|tee $TMP/info_file|sed -n '/[|]\ mp/,/\[arrow\]/p'|sed '1,1d;$d;6q' >> $TMP/msg_file;
  ) </dev/null &>/dev/null
  time_exit "17";
 
  printf " -------- $(G_T "CHAT TITANS") --------\n" >> $TMP/msg_file;
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/titans/changeRoom" -o user_agent="$vUserAgent"|sed -n '/\(\»\)/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
  ) </dev/null &>/dev/null
  time_exit "17";
 
  printf " -------- $(G_T "CHAT CLAN") --------\n" >> $TMP/msg_file;
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -dump "${URL}/chat/clan/changeRoom" -o user_agent="$vUserAgent"|sed -ne '/\[[^a-z]\]/,/\[chat\]/p'|sed '$d;4q' >> $TMP/msg_file;
  ) </dev/null &>/dev/null
  time_exit "17";
 

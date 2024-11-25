@@ -48,7 +48,7 @@ altars_fight() {
   if ! grep -q -o 'txt smpl grey' $TMP/src.html && [ "$(( $(date +%s) - `< last_dodge` ))" -gt 20 -a "$(( $(date +%s) - `< last_dodge` ))" -lt 300 ] && awk -v ush=`< "HP"` -v oldhp=`< "old_HP"` 'BEGIN { exit !(ush < oldhp) }'; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< DODGE`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< DODGE`" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -58,7 +58,7 @@ altars_fight() {
   elif awk -v ush=`< "HP"` -v hlhp=`< "HLHP"` 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - `< last_heal` ))" -gt 90 -a "$(( $(date +%s) - `< last_heal` ))" -lt 300 ]; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HEAL`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HEAL`" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -69,7 +69,7 @@ altars_fight() {
   elif awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/src.html && awk -v rhp=`< "RHP"` -v enh=`< "HP2"` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/src.html && grep -q -o "`< CLAN`" $TMP/callies.txt; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATKRND`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATKRND`" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -79,7 +79,7 @@ altars_fight() {
   elif awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATK`" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATK`" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -88,7 +88,7 @@ altars_fight() {
   else
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/altars" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/altars" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -112,17 +112,17 @@ altars_start() {
   (13:5[5-9]|20:5[5-9])
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" | grep -o -E '\(([0-9]+)\)' | sed 's/[()]//g' >$TMP/FULL
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent" | grep -o -E '\(([0-9]+)\)' | sed 's/[()]//g' >$TMP/FULL
    ) </dev/null &>/dev/null &
    time_exit 17
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/?close=reward" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/?close=reward" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/enterFight" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/enterFight" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -134,7 +134,7 @@ altars_start() {
    done
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/enterFight" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars/enterFight" -o user_agent="$vUserAgent" >$TMP/src.html
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -149,7 +149,7 @@ altars_start() {
     printf "$URL\n 💤	...\n$(< ACCESS)\n"
 
     (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/src.html
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/altars" -o user_agent="$vUserAgent" >$TMP/src.html
     ) </dev/null &>/dev/null &
     time_exit 17
 

@@ -3,36 +3,43 @@
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 login_logoff () {
+
  if [ -f "$TMP/cript_file" ]; then
-  base64 -d $TMP/cript_file >$TMP/cookie_file
-  chmod 600 $TMP/cookie_file
-  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
-  printf "$(G_T "Setting session cookie")...\n"
-  w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
-  printf "$(G_T "Session configured").\n"
-  rm $TMP/cookie_file &>/dev/null
+   base64 -d $TMP/cript_file >$TMP/cookie_file
+   chmod 600 $TMP/cookie_file
+
+   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$vUserAgent" &>/dev/null
+
+   printf "$(G_T "Setting session cookie")...\n"
+
+   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$vUserAgent" &>/dev/null
+
+   printf "$(G_T "Session configured").\n"
+   rm $TMP/cookie_file &>/dev/null
  fi
 
- w3m -cookie -o http_proxy=$PROXY -dump "$URL/user" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
+ w3m -cookie -o http_proxy=$PROXY -dump "$URL/user" -o user_agent="$vUserAgent"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
 
  printf "$(G_T "Checking if user matches")...\n"
  sed -i 's/^[ \t]*//;s/[ \t]*$//' $TMP/acc_file
  ACC=`< "$TMP/acc_file"`
 
  if [ -n "$ACC" ] && [ -n "$URL" ]; then
-  local check=3
+   local check=5
 
-  until [ "$check" -lt 1 ]; do
-   clear
-   printf "$(G_T "Please wait")...\n"
-   printf "[$(G_T "Wait to") $ACC... (${check}s) - ENTER $(G_T "to other account")] \n"
-   local check=$((check - 1))
-   if read -t 1; then
-    ACC=""
-    unset FIXHP FIXMP STATUS NOWHP NOWMP HPPER MPPER
-    break
-   fi
-  done
+   until [ "$check" -lt 1 ]; do
+     clear
+     printf "$(G_T "Please wait")...\n"
+     printf "[$(G_T "Wait to") $ACC... (${check}s) - ENTER $(G_T "to other account")] \n"
+     local check=$((check - 1))
+
+     if read -t "0.6"; then
+       ACC=""
+       unset FIXHP FIXMP STATUS NOWHP NOWMP HPPER MPPER
+       break
+     fi
+
+   done
 
  fi
 
@@ -41,78 +48,88 @@ login_logoff () {
 
  while [ -z "$ACC" ] && [ -n "$URL" ]; do
 
-  log_in () {
-   #/logoff
-   w3m -cookie -o http_proxy=$PROXY -dump "$URL/?exit" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
-   printf "${BLACK_YELLOW}$(G_T "In case of error will repeat")${COLOR_RESET}\n"
-   printf "$(G_T "Username"): "
-   read username
-   local prompt="$(G_T "Password"): "
-   local charcount=0
+   log_in() {
+     #/logoff
 
-   while read -p "$prompt" -r -s -n 1 char; do
+     w3m -cookie -o http_proxy=$PROXY -dump "$URL/?exit" -o user_agent="$vUserAgent" &>/dev/null
 
-    #/NULL - @ - accept password
-    if [ "$char" = $'\0' ] || [ "$char" = $'\400' ]; then
-     break &>/dev/null
-    fi
+     printf "${BLACK_YELLOW}$(G_T "In case of error will repeat")${COLOR_RESET}\n"
+     printf "$(G_T "Username"): "
+     read username
+     local prompt="$(G_T "Password"): "
+     local charcount=0
 
-    #/ESC - DEL
-    if [ "$char" = $'\177' ] || [ "$char" = $'\577' ]; then
+     while read -p "$prompt" -r -s -n 1 char; do
 
-     if [ "$charcount" -gt 0 ]; then
-      local charcount=$((charcount - 1))
-      local prompt=$(echo -n $'\b \b')
-      local password=$(echo "$password"|sed 's/.$//')
+       #/NULL - @ - accept password
+       if [ "$char" = $'\0' ] || [ "$char" = $'\400' ]; then
+         break &>/dev/null
+       fi
+
+       #/ESC - DEL
+       if [ "$char" = $'\177' ] || [ "$char" = $'\577' ]; then
+
+         if [ "$charcount" -gt 0 ]; then
+           local charcount=$((charcount - 1))
+           local prompt=$(echo -n $'\b \b')
+           local password=$(echo "$password"|sed 's/.$//')
+         else
+           local prompt=$(echo -n '')
+         fi
+
+       else
+         local charcount=$((charcount + 1))
+         local prompt=$(echo -n '*')
+         local password="${password}${char}"
+       fi
+
+     done
+
+     printf "\n	$(G_T "Please wait")...\n"
+
+     #/cryptography
+     if [ -z "$ACC" ]; then
+#       echo "login=$username&pass=$password"|openssl enc -aes-256-cbc -md sha512 -a -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" > $TMP/cript_file
+       echo "login=$username&pass=$password"|base64 -w 0 > $TMP/cript_file
+       chmod 600 $TMP/cript_file
+       #/decryption
+#       openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" $TMP/cript_file >$TMP/cookie_file
+       base64 -d $TMP/cript_file >$TMP/cookie_file
+       chmod 600 $TMP/cookie_file
      else
-      local prompt=$(echo -n '')
+#       openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$ACC" $TMP/cript_file >$TMP/cookie_file
+       base64 -d $TMP/cript_file >$TMP/cookie_file
+       chmod 600 $TMP/cookie_file
      fi
 
-    else
-     local charcount=$((charcount + 1))
-     local prompt=$(echo -n '*')
-     local password="${password}${char}"
-    fi
+     #/login2x
+     unset username password
 
-   done
+     w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$vUserAgent" &>/dev/null
 
-   printf "\n	$(G_T "Please wait")...\n"
+     printf "$(G_T "Setting session cookie")...\n"
 
-   #/cryptography
-   if [ -z "$ACC" ]; then
-#    echo "login=$username&pass=$password"|openssl enc -aes-256-cbc -md sha512 -a -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" > $TMP/cript_file
-    echo "login=$username&pass=$password"|base64 -w 0 > $TMP/cript_file
-    chmod 600 $TMP/cript_file
-    #/decryption
-#    openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$username" $TMP/cript_file >$TMP/cookie_file
-    base64 -d $TMP/cript_file >$TMP/cookie_file
-    chmod 600 $TMP/cookie_file
-   else
-#    openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 -iter 100000 -salt -pass pass:"　 　$ACC" $TMP/cript_file >$TMP/cookie_file
-    base64 -d $TMP/cript_file >$TMP/cookie_file
-    chmod 600 $TMP/cookie_file
+     w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$vUserAgent" &>/dev/null
+
+     printf "$(G_T "Session configured").\n"
+     rm $TMP/cookie_file &>/dev/null
+   }
+
+   log_in
+
+   clear
+   printf "$(G_T "Please wait")...\n"
+
+   w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$vUserAgent"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
+
+   printf "$(G_T "Checking if user matches")...\n"
+   ACC=`< "$TMP/acc_file"`
+
+   if [ -n "$ACC" ]; then
+     break &>/dev/null
    fi
 
-   #/login2x
-   unset username password
-   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
-   printf "$(G_T "Setting session cookie")...\n"
-   w3m -cookie -o http_proxy=$PROXY -post $TMP/cookie_file -dump "$URL/?sign_in=1" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" &>/dev/null
-   printf "$(G_T "Session configured").\n"
-   rm $TMP/cookie_file &>/dev/null
-  }
-  log_in
-
-  clear
-  printf "$(G_T "Please wait")...\n"
-  w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
-  printf "$(G_T "Checking if user matches")...\n"
-  ACC=`< "$TMP/acc_file"`
-
-  if [ -n "$ACC" ]; then
-   break &>/dev/null
-  fi
-
  done
+
  messages_info
 }

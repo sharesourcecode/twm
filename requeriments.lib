@@ -217,7 +217,7 @@ menu() {
 random_ua() {
  total_agents=`wc -l < "$TMP/userAgent.txt"`
  random_agent=$((RANDOM % $total_agents + 1))
- user_agent=$(sed -n "${random_agent}p" $TMP/userAgent.txt)
+ vUserAgent=$(sed -n "${random_agent}p" $TMP/userAgent.txt)
 }
 
 user_agent() {

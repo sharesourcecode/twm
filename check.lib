@@ -6,7 +6,7 @@ check_missions() {
  printf "$(G_T "Checking Missions")...\n"
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
 
@@ -15,7 +15,7 @@ check_missions() {
   click=$(grep -o -E "/quest/openChest/(1|2)/[?]r=[0-9]+" $TMP/SRC)
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$vUserAgent" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 20
 
@@ -23,7 +23,7 @@ check_missions() {
  fi
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/quest/$click" -o user_agent="$vUserAgent" >$TMP/SRC
  )  </dev/null &>/dev/null &
  time_exit 20
 
@@ -35,7 +35,7 @@ check_missions() {
    click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC|sed -n '1p')
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 20
 
@@ -47,7 +47,7 @@ check_missions() {
 
  #collect rewards
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/relic/reward/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
 
@@ -59,7 +59,7 @@ check_missions() {
    click=$(grep -o -E "/relic/reward/${i}/[?]r=[0-9]+" $TMP/SRC|sed -n '1p')
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 20
 
@@ -71,7 +71,7 @@ check_missions() {
 
  #collect collections
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
 
@@ -79,7 +79,7 @@ check_missions() {
   click=$(grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC)
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 20
 
@@ -94,7 +94,7 @@ apply_event() {
  event="$@"
 
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/$event/" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/$event/" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 20
 
@@ -102,7 +102,7 @@ apply_event() {
   APPLY=$(grep -o -E "/$event/enter(Game|Fight)/[?]r[=][0-9]+" $TMP/SRC)
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$(sed -n "${random_agent}p" $TMP/userAgent.txt)" >$TMP/SRC
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${APPLY}" -o user_agent="$vUserAgent" >$TMP/SRC
   ) </dev/null &>/dev/null &
   time_exit 20
 
