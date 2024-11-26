@@ -1,137 +1,104 @@
 Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 # TWM(Titans War Macro)
-Scripts macros para titanswar.net em todos os servidores.
+Macro scripts for titanswar.net on all servers
 
 
-**Necessário level 16+ e 50 pontos de treinamento para entrar em algumas batalhas**
+**Level 16+ and 50 training points required to enter some battles**
 
-***Recomendado para Iphone***
+***Instructions for iPhone and Android 7, or higher***
 
 [![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/5i2ELTdjbnhgAV2zMVACgM?start=13s&stop=17m10s&autoplay=1)
 
-1. >  - No Iphone abra o app iSH(https://ish.app/).
-> Em seguida digite, ou copie e cole para atualizar as listas de pacotes
+1. >  - On your iPhone, open the iSH app(https://ish.app/).
+> Then type, or copy and paste to update the package lists
 
 >Iphone(iSH):
 ```bash
 apk update
 ```
+> - On Android, open the Termux app(https://f-droid.org/repo/com.termux_1020.apk) and type or paste the commands below to update the packages.
+* Questions may arise.
 
->2 - Digite ou copie e cole este comando para baixar os pacotes necessários
+* For two options (Y/n) answer Y
+
+* For multiple options (Y/I/N/O/D/Z) just press ENTER to proceed.
+
+```bash
+pkg update -y ; pkg upgrade
+```
+>2 - Type or copy and paste this command to download the required packages
 
 >Iphone(iSH):
 ```bash
 apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-cache tzdata
 ```
-
->3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando)
+>Android(Termux):
+```bash
+pkg install w3m termux-api procps coreutils ncurses-utils 
+```
+>3 - Copy and paste this command to download the twm installer (The link is part of the command)
 
 >Iphone(iSH):
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
 ```
+>Android(Termux):
+```bash
+curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
+```
+>4 - Give the installer execute permission
 
->4 - Dê permissão de execução para o instalador
-
->Iphone(iSH):
+>Iphone(iSH) and Android(Termux):
 ```bash
 chmod +x easyinstall.sh
 ```
 
->5 - Copie e cole este comando para instalar o twm
+>5 - Copy and paste this command to install twm
 
->Iphone(iSH):
+>Iphone(iSH) and Android(Termux):
 ```bash
 ./easyinstall.sh
 ```
 
->6 - Para executar o twm
+>6 - To run twm
 
->Iphone(iSH):
+>iphone(iSH) and Android(Termux):
 ```bash
 ./twmu.sh
 ```
 
-Executar em modo caverna no Iphone(iSH):
+Run in cave mode on iPhone(iSH) or Android(Termux):
 
 ```bash
 ./twmu -cv
 ```
 
-Modo de prioridade coliseu no Iphone(iSH):
+Coliseum priority mode on iPhone(iSH) or Android(Termux):
 
 ```bash
 ./twmu -cl
 ```
 
-* Para interromper `Ctrl c` ou force a parada dos Apps.
+* To interrupt `Ctrl c` or force stop the Apps.
 
-* Para desinstalar scripts em ambos sistemas:
-
-```bash
-rm -rf $HOME/TitansWarMacro-master
-```
-
-***Alternativa para Android 7 ou superior***
-
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
-
->1 - Abra o app Termux(https://f-droid.org/repo/com.termux_1020.apk) no Android e digite ou cole os comandos abaixo para atualizar os pacotes.
-
-* Podem ocorrer questões.
-
-* Para duas opções (Y/n) responda Y
-
-* Para múltiplas opções (Y/I/N/O/D/Z) apenas pressione ENTER para prosseguir.
-
-```bash
-pkg update -y ; pkg upgrade
-```
-Também:
-```bash
-pkg install w3m termux-api procps coreutils ncurses-utils 
-```
->2 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
-```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
-```
->3 - Dê permissão de execução para o instalador:
-
-```bash
-chmod +x easyinstall.sh
-```
->4 - Copie e cole este comando para instalar o twm:
-```bash
-./easyinstall.sh
-```
->5 - Para executar o twm:
-```bash
-./twmu
-```
-Executar o modo Caverna:
-```bash
-./twmu -cv
-```
-Modo de prioridade Coliseum:
-```bash
-./twmu -cl
-```
-Para ver estatísticas do servidor digite "online" e confirme, quando estiver na seguinte seção:
-![](https://codeberg.org/ueliton/auth/raw/branch/main/images/cygwin/1/online.png)
-
-* Para interromper `Ctrl c` ou force a parada do App Termux.
-
-* Para desinstalar scripts:
+* To uninstall scripts on both systems:
 
 ```bash
 rm -rf $HOME/TitansWarMacro-master
 ```
-* Remover atalho do Termux boot:
+
+* Remove Termux boot shortcut on Android:
 
 ```bash
 rm -rf $HOME/.termux/boot/play.sh
 ```
+***Demo video for Android***
+
+[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
+
+Para ver estatísticas do servidor digite "online" e confirme, quando estiver na seguinte seção:
+![](https://codeberg.org/ueliton/auth/raw/branch/main/images/cygwin/1/online.png)
 
 ***
 ***Windows com Cygwin***
