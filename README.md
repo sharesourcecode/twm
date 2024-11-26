@@ -92,10 +92,6 @@ rm -rf $HOME/TitansWarMacro-master
 ```bash
 rm -rf $HOME/.termux/boot/play.sh
 ```
-***Demo video for Android***
-
-[![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
-
 ***
 ***Alt Linux distribution, or Debian and Ubuntu base - [Windows WSL](https://balta-io.translate.goog/blog/wsl?_x_tr_sl=pt&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)***
 
