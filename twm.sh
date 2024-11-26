@@ -41,7 +41,7 @@ script_ads() {
    fi
 
  else
-   xdg-open $(echo 'aHR0cHM6Ly93aGF0c2FwcC5jb20vY2hhbm5lbC8wMDI5VmF2bGFMTjZyc1F3b0c1MU0xMWg=' | base64 -d)
+   xdg-open https://github.com/sharesourcecode/twm/blob/master/README.md
    echo $(date +%d) >$HOME/$twm_dir/ads_file
  fi
 
