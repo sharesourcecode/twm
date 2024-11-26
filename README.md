@@ -13,7 +13,7 @@ Macro scripts for titanswar.net on all servers
 1. > - On your iPhone, open the iSH app(https://ish.app/).
 > Then type, or copy and paste to update the package lists
 
-> <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
+> <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
 ```bash
 apk update
 ```
@@ -23,53 +23,55 @@ apk update
 * For two options (Y/n) answer Y
 
 * For multiple options (Y/I/N/O/D/Z) just press ENTER to proceed.
-> <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+> <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 pkg update -y ; pkg upgrade
 ```
 >2 - Type or copy and paste this command to download the required packages
 
-> <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
+> <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
 ```bash
 apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-cache tzdata
 ```
-> <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+> <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 pkg install w3m termux-api procps coreutils ncurses-utils 
 ```
 >3 - Copy and paste this command to download the twm installer (The link is part of the command)
 
-><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux 
+><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux 
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
 ```
 >4 - Give the installer execute permission
 
-><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copy and paste this command to install twm
 
-><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 ./easyinstall.sh
 ```
 
 >6 - To run twm
 
-><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+><img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 ./twmu.sh
 ```
 
-Run in cave mode <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+Run in cave mode
+<img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 ./twmu -cv
 ```
 
-Coliseum priority mode <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone 　 <img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android 　 <img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+Coliseum priority mode
+<img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 
 ```bash
 ./twmu -cl
@@ -91,9 +93,6 @@ rm -rf $HOME/.termux/boot/play.sh
 ***Demo video for Android***
 
 [![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
-
-Para ver estatísticas do servidor digite "online" e confirme, quando estiver na seguinte seção:
-![](https://codeberg.org/ueliton/auth/raw/branch/main/images/cygwin/1/online.png)
 
 ***
 ***Windows com Cygwin***
