@@ -10,10 +10,10 @@ Macro scripts for titanswar.net on all servers
 
 [![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/5i2ELTdjbnhgAV2zMVACgM?start=13s&stop=17m10s&autoplay=1)
 
-1. >  - On your iPhone, open the iSH app(https://ish.app/).
+1. >  - On your iPhone, open the <img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH app(https://ish.app/).
 > Then type, or copy and paste to update the package lists
 
->Iphone(iSH):
+>Iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH):
 ```bash
 apk update
 ```
@@ -29,7 +29,7 @@ pkg update -y ; pkg upgrade
 ```
 >2 - Type or copy and paste this command to download the required packages
 
->Iphone(iSH):
+>Iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH):
 ```bash
 apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-cache tzdata
 ```
@@ -39,7 +39,7 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 ```
 >3 - Copy and paste this command to download the twm installer (The link is part of the command)
 
->Iphone(iSH):
+>Iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH):
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
 ```
@@ -49,32 +49,32 @@ curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/eas
 ```
 >4 - Give the installer execute permission
 
->Iphone(iSH) and Android(Termux):
+>Iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH) and Android(Termux):
 ```bash
 chmod +x easyinstall.sh
 ```
 
 >5 - Copy and paste this command to install twm
 
->Iphone(iSH) and Android(Termux):
+>Iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH) and Android(Termux):
 ```bash
 ./easyinstall.sh
 ```
 
 >6 - To run twm
 
->iphone(iSH) and Android(Termux):
+>iphone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH) and Android(Termux):
 ```bash
 ./twmu.sh
 ```
 
-Run in cave mode on iPhone(iSH) or Android(Termux):
+Run in cave mode on iPhone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH) or Android(Termux):
 
 ```bash
 ./twmu -cv
 ```
 
-Coliseum priority mode on iPhone(iSH) or Android(Termux):
+Coliseum priority mode on iPhone(<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH) or Android(Termux):
 
 ```bash
 ./twmu -cl
