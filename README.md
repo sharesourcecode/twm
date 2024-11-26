@@ -30,11 +30,11 @@ pkg update -y ; pkg upgrade
 ```
 >2 - Type or copy and paste this command to download the required packages
 
-<img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
+<img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH 👇
 ```bash
 apk add curl ; apk add w3m ; apk add procps ; apk add coreutils ; apk add --no-cache tzdata
 ```
-<img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
+<img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux 👇
 ```bash
 pkg install w3m termux-api procps coreutils ncurses-utils 
 ```
