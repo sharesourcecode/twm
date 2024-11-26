@@ -10,14 +10,14 @@ Macro scripts for titanswar.net on all servers
 
 [![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/5i2ELTdjbnhgAV2zMVACgM?start=13s&stop=17m10s&autoplay=1)
 
-1️⃣　On your iPhone, open the iSH app(https://ish.app/).
+1️⃣　On your iPhone, open the iSH app (https://ish.app/).
 > Then type, or copy and paste to update the package lists
 
 <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16"/> iSH
 ```bash
 apk update
 ```
-• On Android, open the Termux app(https://f-droid.org/repo/com.termux_1020.apk)
+• On Android, open the Termux app ([https://termux.dev/en/](https://termux-dev.translate.goog/en/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=en&_x_tr_pto=sc))
 >Then type or paste the commands below to update the packages.
 >* Questions may arise.
 >* For two options (Y/n) answer Y
