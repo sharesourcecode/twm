@@ -97,55 +97,15 @@ rm -rf $HOME/.termux/boot/play.sh
 [![asciicast](https://asciinema.org/a/5tjdRTdLSgCu1ciDKeBBVgUu0.svg)](https://tube.tchncs.de/w/ejaAKjRBQqxig1V3m4EGQW?start=0s&stop=1m10s&autoplay=1&muted=1)
 
 ***
-***Windows com Cygwin***
+***Alt Linux distribution, or Debian and Ubuntu base - [Windows WSL](https://balta-io.translate.goog/blog/wsl?_x_tr_sl=pt&_x_tr_tl=en&_x_tr_hl=pt-BR&_x_tr_pto=wapp)***
 
->1 - Abra o progama Cygwin(https://www.cygwin.com/setup-x86_64.exe) ou (https://www.cygwin.com/setup-x86.exe) como adiministrador no Windows. Na instalação selecione qualquer link, a parti daí é só dá Next até concluir. Em sequida com adiministrador abra o Cygwin Terminal que foi instalado. Digite, ou copie e cole o comando abaixo para baixar o instalador do twm(O link faz parte do comando):
-
-```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
-```
-
->2 - Dê permissão de execução para o instalador:
-
-```bash
-chmod +x easyinstall.sh
-```
->3 - Copie e cole este comando para instalar o twm:
-
-```bash
-bash $HOME/easyinstall.sh
-```
-
->4 - Para executar o twm:
-
-```bash
-bash twmu
-```
-
-Executar em modo caverna:
-
-```bash
-bash twmu -cv
-```
-
-Modo de prioridade coliseu:
-
-```bash
-bash twmu -cl
-```
-
-`Para interroper (CTRL c) ou feche o programa Cygwin`
-
-***
-***Distribuição Alt Linux, ou base Debian e Ubuntu - Windows WSL***
-
->1 - No emulador de terminal digite, ou copie e cole para atualizar as listas de pacotes:
+>1 - In the terminal emulator type, or copy and paste to update the package lists:
 
 ```bash
 sudo apt-get update -y
 ```
 
->2 - Digite ou copie e cole este comando para baixar os pacotes necessários:
+>2 - Type or copy and paste this command to download the required packages:
 
 ```bash
 sudo apt-get install curl w3m procps -y
@@ -156,42 +116,81 @@ Opcional:
 sudo apt-get install coreutils dnsutils-y
 ```
 
->3 - Copie e cole este comando para baixar o instalador do twm(O link faz parte do comando):
+>3 - Copy and paste this command to download the twm installer (The link is part of the command):
 
 ```bash
 curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
 ```
 
->4 - Dê permissão de execução para o instalador:
+>4 - Give execute permission to the installer:
 
 ```bash
 chmod +x easyinstall.sh
 ```
->5 - Copie e cole este comando para instalar o twm:
+>5 - Copy and paste this command to install twm:
 
 ```bash
 bash easyinstall.sh
 ```
 
->6 - Comando para executar o twm:
+>6 - Command to run twm:
 
 ```bash
 bash twmu
 ```
 
-Executar em modo caverna:
+• Run in cave mode:
 
 ```bash
 bash twmu -cv
 ```
 
-Modo de prioridade coliseu:
+• Colosseum Priority Mode:
 
 ```bash
 bash twmu -cl
 ```
 
 `Para interroper (CTRL c)`
+***
+***Windows com Cygwin***
+
+>1 - Open the program Cygwin(https://www.cygwin.com/setup-x86_64.exe) or (https://www.cygwin.com/setup-x86.exe) as an administrator in Windows. During installation, select any link, then just click Next until finished. Then, as an administrator, open the Cygwin Terminal that was installed. Type, or copy and paste the command below to download the twm installer (The link is part of the command):
+
+```bash
+curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
+```
+
+>2 - Give execute permission to the installer:
+
+```bash
+chmod +x easyinstall.sh
+```
+>3 - Copy and paste this command to install twm:
+
+```bash
+bash $HOME/easyinstall.sh
+```
+
+>4 - To run twm:
+
+```bash
+bash twmu
+```
+
+• Run in cave mode:
+
+```bash
+bash twmu -cv
+```
+
+• Colosseum Priority Mode:
+
+```bash
+bash twmu -cl
+```
+
+`To interrupt (CTRL c) or close the Cygwin program`
 
 ***
 
