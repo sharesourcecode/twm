@@ -23,6 +23,7 @@ apk update
 * For two options (Y/n) answer Y
 
 * For multiple options (Y/I/N/O/D/Z) just press ENTER to proceed.
+
 <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux
 ```bash
 pkg update -y ; pkg upgrade
