@@ -1,23 +1,27 @@
 # $HOME/$twm_dir/run.lib
+
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-twm_play () {
+restart_script() {
 
- restart_script () {
+ if [ "$RUN" != "aboot" ]; then
+   pidf=$(ps ax -o pid=,args= |grep "sh.*$twm_dir/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
 
-   if [ "$RUN" != "aboot" ]; then
+   until [ -z "$pidf" ]; do
+     kill -9 $pidf 2> /dev/null
      pidf=$(ps ax -o pid=,args= |grep "sh.*$twm_dir/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-     until [ -z "$pidf" ]; do
-       kill -9 $pidf 2> /dev/null
-       pidf=$(ps ax -o pid=,args= |grep "sh.*$twm_dir/twm.sh"|grep -v 'grep'|head -n 1|grep -o -E '([0-9]{3,5})')
-       sleep 1s
-     done
-   fi
- }
+     sleep 1s
+   done
+
+ fi
+
+}
+
+twm_play() {
 
  if [ ! -s "$TMP/CLD" ]; then
-  clan_id
+   clan_id
  fi
 
  case $(date +%H:%M) in
@@ -74,9 +78,9 @@ twm_play () {
 
      if [ "$RUN" = "acl" ]; then
        printf "$(G_T "Running in coliseum mode"): -cl\n"
-       sleep 5s
-       arena_duel
+       sleep 2s
        coliseum_start
+       arena_duel
        messages_info
      fi
 
