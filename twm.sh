@@ -63,11 +63,11 @@ fi
 
 twm_start() {
 
- if echo "$RUN"|grep -q -E '[-]cv'; then
+ if [ "$RUN" = "acv" ]; then
    cave_start
- elif echo "$RUN"|grep -q -E '[-]cl'; then
+ elif [ "$RUN" = "acl" ]; then
    twm_play
- elif echo "$RUN"|grep -q -E '[-]boot'; then
+ elif [ "$RUN" = "aboot" ]; then
    twm_play
  else
    twm_play
@@ -111,7 +111,7 @@ func_proxy
 
 login_logoff
 
-if [ "$RUN" != "-cv" ]; then
+if [ "$RUN" != "acv" ]; then
  conf_allies
  clear
 fi
