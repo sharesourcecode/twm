@@ -83,7 +83,7 @@ fi
 
 # cygwin
 if uname|grep -q -i "cygwin"; then
- LS="/usr/share/doc"
+ Ls"/usr/share/doc"
 
  if [ -e /bin/apt-cyg ]; then
    :
@@ -123,24 +123,24 @@ fi
 AppIsh=$(uname -a|grep -o "\-ish")
 
 if [ "$SHELL" = "/bin/ash" ] && [ "$AppIsh" = '-ish' ]; then
- LS='/usr/share/doc'
+ Ls='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app ISh(Iphone)"):${ColorReset}\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\n"
  sleep 5s
 
 # UserLAnd Terminal
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E '(aarch64|armhf|armv7|mips64)' && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
- LS='/usr/share/doc'
+ Ls='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app UserLAnd(Android)"):${ColorReset}\n apk update\n sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata\n\n"
  sleep 1s
 
 # Other unix
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E "(ppc64le|riscv64|s390x|x86|x86_64)" && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
- LS='/usr/share/doc'
+ Ls='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install required packages for"); Linux, Windows WSL:${ColorReset}\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
  sleep 5s
 fi
 
-unset LS
+unset Ls
 printf "${BlackCyan}\n ⌛ $(G_T "Wait downloading scripts")...${ColorReset}\n"
 
 rcconf() {
