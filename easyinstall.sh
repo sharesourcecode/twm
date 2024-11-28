@@ -1,5 +1,6 @@
 #!/bin/sh
 # $HOME/easyinstall.sh
+
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
@@ -125,11 +126,13 @@ if [ "$SHELL" = "/bin/ash" ] && [ "$AppIsh" = '-ish' ]; then
  LS='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app ISh(Iphone)"):${ColorReset}\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\n"
  sleep 5s
+
 # UserLAnd Terminal
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E '(aarch64|armhf|armv7|mips64)' && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
  LS='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app UserLAnd(Android)"):${ColorReset}\n apk update\n sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata\n\n"
  sleep 1s
+
 # Other unix
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E "(ppc64le|riscv64|s390x|x86|x86_64)" && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
  LS='/usr/share/doc'
@@ -150,22 +153,18 @@ rcconf() {
 
  sed -i '/alias twmu/d' $HOME/$Config
 
- # // here-document 1
-cat <<AliasTwmu >> $HOME/$Config
-alias twmu="$HOME/$TwmDir/play.sh"
-AliasTwmu
- # \\
+ echo "alias twmu=_$HOME/$TwmDir/play.sh_"|sed 's#_#"#g' >> $HOME/$Config #"
 
- # // here-document 2
-cat <<LoadRcFile >> $HOME/loadrcfile.sh
-$Shebang
-$ShellCommand `source $HOME/$Config`
-LoadRcFile
- # \\
+ echo "$Shebang" > $HOME/loadrcfile.sh
+ echo "$ShellCommand _source $HOME/${Config}_"|sed 's#_#`#g' >> $HOME/loadrcfile.sh #`
 
  chmod +x $HOME/loadrcfile.sh
- echo $$
- $ShellCommand  $HOME/loadrcfile.sh
+
+ (
+   sleep 3 && kill -15 $$ > /dev/null 2>&1
+ ) </dev/null &>/dev/null &
+
+ $ShellCommand $HOME/loadrcfile.sh
  rm $HOME/loadrcfile.sh
 }
 
@@ -191,9 +190,9 @@ sync_func() {
    ShellCommand='bash'
    Shebang='#!/bin/bash'
    Config='.bashrc'
-   sed -i 's,#!/bin/sh,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i '1s,#!/bin/sh,#!/bin/bash,' $HOME/$TwmDir/{play.sh,twm.sh} > /dev/null 2>&1
  else
-   sed -i 's,#!/bin/bash,#!/bin/sh,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
+   sed -i '1s,#!/bin/bash,#!/bin/sh,' $HOME/$TwmDir/{play.sh,twm.sh} > /dev/null 2>&1
 
    if [ ! -e "$HOME/.shrc" ] && command -v zsh > /dev/null 2>&1; then
      ShellCommand='zsh'
@@ -204,7 +203,7 @@ sync_func() {
      Shebang='#!/bin/ksh'
      Config='.kshrc'
    elif [ ! -e "$HOME/.shrc" ] && command -v csh > /dev/null 2>&1; then
-     ShellCommand='csh'
+     ShellCommand='csh '
      Shebang='#!/bin/csh'
      Config='.cshrc'
    else
