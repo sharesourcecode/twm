@@ -14,7 +14,7 @@ members_allies() {
    printf "${PURPLEis_BLACK}/clan/${CLD}/${num}${COLOR_RESET}\n"
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}/${num}" -o user_agent="$vUserAgent" | grep -o -E "[/]>([[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14},[[:space:]])<s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}/${num}" -o user_agent="$vUserAgent"|grep -o -E "user/[0-9]*/'>[[:upper:]][[:alpha:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:alpha:]]{0,14}</a"|sed -n 's,\ ,_,;s/.*>\(.*\)<.*/\1/p' >>allies.txt
    ) </dev/null &>/dev/null &
    time_exit 17
 
