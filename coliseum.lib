@@ -177,13 +177,14 @@ coliseum_fight() {
 
      if ! grep -q '?out_gate' $mSrcRam; then
 
+       fShow|head -n 1
+
        (
          w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/coliseum" -o user_agent="$vUserAgent" >$mSrcRam
        ) </dev/null &>/dev/null &
        time_exit 15
 
-       fShow
-       sleep 5s
+       sleep 9s
 
        if ! grep -q '?end_fight' $mSrcRam; then
          vBreakLoop=1
@@ -192,7 +193,7 @@ coliseum_fight() {
 
      fi
 
-     sleep 1s
+     sleep "0.9"
    done
 
    rm $mSrcRam $mFullRam
