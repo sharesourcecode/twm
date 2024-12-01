@@ -3,85 +3,75 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-cl_access() {
- last_heal=$(( $(date +%s) - 90 ))
- last_dodge=$(( $(date +%s) - 20 ))
- last_atk=$(( $(date +%s) - "$LA" ))
- USH=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $src_ram|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
- ENH=$(grep -o -E '(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}' $src_ram|sed -n 's,nbsp[;],,;s,\ ,,;1p')
- USER=$(grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $src_ram|sed -n 's,\ [<]s,,;s,\ ,_,;2p')
- ATK=$(grep -o -E '/coliseum/atk/[?]r[=][0-9]+' $src_ram|sed -n 1p)
- ATKRND=$(grep -o -E '/coliseum/atkrnd/[?]r[=][0-9]+' $src_ram)
- DODGE=$(grep -o -E '/coliseum/dodge/[?]r[=][0-9]+' $src_ram)
- HEAL=$(grep -o -E '/coliseum/heal/[?]r[=][0-9]+' $src_ram)
- RHP=$(awk -v ush="$USH" -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }')
- HLHP=$(awk -v ush=`< "$full_ram"` -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }')
+fShow() {
+ printf "\n     🙇‍ "
+ w3m -dump -T text/html "$mSrcRam"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{2,5\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\],\ 💀,g'
+}
 
- if grep -q '?out_gate' $src_ram; then
+fDredHp() {
 
-   (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/coliseum" -o user_agent="$vUserAgent" >$src_ram
-   ) </dev/null &>/dev/null &
-   time_exit 15
+ case $1 in h)
 
-   printf "\n     🙇‍ "
-   w3m -dump -T text/html "$src_ram"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{2,5\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\],\ 💀,g'
- elif grep -q '?end_fight' $src_ram; then
-
-   (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/coliseum" -o user_agent="$vUserAgent" >$src_ram
-   ) </dev/null &>/dev/null &
-   time_exit 15
-
-   printf "\n     🙇‍ "
-   w3m -dump -T text/html "$src_ram"|head -n 18|sed '0,/^\([a-z]\{2\}\)[[:space:]]\([0-9]\{2,5\}\)\([0-9]\{2\}\):\([0-9]\{2\}\)/s//\♥️\2 ⏰\3:\4/;s,\[0\]\ ,\🔴,g;s,\[1\]\ ,\🔵,g;s,\[stone\],\ 💪,;s,\[herb\],\ 🌿,;s,\[grass\],\ 🌿,g;s,\[potio\],\ 💊,;s,\ \[health\]\ ,\ 🧡,;s,\ \[icon\]\ ,\ 🐾,g;s,\[rip\],\ 💀,g'
-   sleep 5s
- else
-   BREAK_LOOP=1
-   printf "${BLACK_YELLOW}$(G_T "Battle is over").${COLOR_RESET}\n" ; sleep 2s
- fi
+     if ( grep -q "alt='hp'/> <span class='dred'>" $mSrcRam && \
+       grep -q "nbtn b_green' href='/coliseum/heal" $mSrcRam ); then
+       exit 0
+     else
+       exit 1
+     fi ;;
+   d)
+     if ( ! grep -q -o 'txt smpl grey' $mSrcRam && \
+      grep -q "nbtn b_green' href='/coliseum/dodge" $mSrcRam && \
+       ! grep -q "$vUserHp" $mSrcRam ); then
+       exit 0
+     else
+       exit 1
+     fi ;;
+   r)
+     if ( ! grep -q -o 'txt smpl grey' $mSrcRam ) && \
+      [ "$vUserHp" -lt "`fRivalHp`" ]; then
+       exit 0
+     else
+       exit 1
+     fi ;;
+ esac
 
 }
 
 coliseum_fight() {
 
  if [ -d "/dev/shm" ]; then
-   local dir_ram="/dev/shm/"
+   local vDirRam="/dev/shm/"
  else
-   local dir_ram="$PREFIX/tmp/"
+   local vDirRam="$TMPDIR"
  fi
 
- mkdir -p $dir_ram
- local src_ram=$(mktemp -p $dir_ram data.XXXXXX)
- local full_ram=$(mktemp -p $dir_ram data.XXXXXX)
- local tmp_ram=$(mktemp -d -t twmdir.XXXXXX)
- cp -r $TMP/* $tmp_ram
- cd $tmp_ram
+ mkdir -p $vDirRam
+ local mSrcRam=$(mktemp -p $vDirRam data.XXXXXX)
+ local mFullRam=$(mktemp -p $vDirRam data.XXXXXX)
+ local mTmpRam=$(mktemp -d -t twmdir.XXXXXX)
+ cp -r $TMP/* $mTmpRam
+ cd $mTmpRam
 
  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$full_ram
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent"|grep -o -E '\(([0-9]+)\)'|sed 's/[()]//g' >$mFullRam
  ) </dev/null &>/dev/null &
  time_exit 15
 
- #/enterFight
- local LA=5
- local HPER=38
- local RPER=5
  printf "\n$(G_T "Coliseum") ...\n"
 
  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug $URL/settings/graphics/0 -o user_agent="$vUserAgent" >$src_ram
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug $URL/settings/graphics/0 -o user_agent="$vUserAgent" >$mSrcRam
  ) </dev/null &>/dev/null &
  time_exit 15
 
  printf "/settings/graphics/0\n"
 
  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/coliseum" -o user_agent="$vUserAgent" >$src_ram
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/coliseum" -o user_agent="$vUserAgent" >$mSrcRam
  ) </dev/null &>/dev/null &
  time_exit 15
 
- if grep -q -o '?end_fight' $src_ram; then
+ if grep -q -o '?end_fight' $mSrcRam; then
 
    (
      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "$URL/coliseum/?end_fight=true" -o user_agent="$vUserAgent"|head -n 11|tail -n 7|sed "/\[2hit/d;/\[str/d;/combat/d"
@@ -91,111 +81,122 @@ coliseum_fight() {
    printf "/coliseum/?end_fight=true\n"
 
    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/coliseum" -o user_agent="$vUserAgent" >$src_ram
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/coliseum" -o user_agent="$vUserAgent" >$mSrcRam
    ) </dev/null &>/dev/null &
    time_exit 15
 
  fi
 
- local access_link=$(grep -o -E '/coliseum(/[A-Za-z]+/[?]r[=][0-9]+|/)' $src_ram|sed -n '1p')
- local go_stop=$(grep -o -E '/coliseum/enterFight/[?]r[=][0-9]+' $src_ram)
+ local vAccessLink=$(grep -o -E '/coliseum(/[A-Za-z]+/[?]r[=][0-9]+|/)' $mSrcRam|sed -n '1p')
+ local vGoStop=$(grep -o -E '/coliseum/enterFight/[?]r[=][0-9]+' $mSrcRam)
 
- if [ -n "$go_stop" ]; then
-   printf " 👣 $(G_T "Entering")...\n${go_stop}\n"
+ if [ -n "$vGoStop" ]; then
+   printf " 👣 $(G_T "Entering")...\n${vGoStop}\n"
 
    (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${go_stop}" -o user_agent="$vUserAgent" >$src_ram
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${vGoStop}" -o user_agent="$vUserAgent" >$mSrcRam
    ) </dev/null &>/dev/null &
    time_exit 15
 
-   local access_link=$(grep -o -E '/coliseum(/[A-Za-z]+/[?]r[=][0-9]+|/)' $src_ram|grep -v 'dodge'|sed -n 1p)
+   local vAccessLink=$(grep -o -E '/coliseum(/[A-Za-z]+/[?]r[=][0-9]+|/)' $mSrcRam|grep -v 'dodge'|sed -n 1p)
    #/wait
    printf " 😴 $(G_T "Waiting")...\n"
 
-   until grep -q 'coliseum/dodge/' $src_ram; do
+   until grep -q 'coliseum/dodge/' $mSrcRam; do
+
      (
-       w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$access_link" -o user_agent="$vUserAgent" >$src_ram
+       w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$vAccessLink" -o user_agent="$vUserAgent" >$mSrcRam
      ) </dev/null &>/dev/null &
      time_exit 15
 
-     local access_link=$(grep -o -E '/(coliseum/[A-Za-z]+/[?]r[=][0-9]+|coliseum)' $src_ram|grep -v 'dodge'|sed -n 1p)
-     printf " 💤	...\n${access_link}\n"
+     local vAccessLink=$(grep -o -E '/(coliseum/[A-Za-z]+/[?]r[=][0-9]+|coliseum)' $mSrcRam|grep -v 'dodge'|sed -n 1p)
+     printf " 💤	...\n${vAccessLink}\n"
      sleep 3s
 
    done
 
-   cl_access
-   local OLDHP="$USH"
-   BREAK_LOOP=""
+   vBreakLoop=""
+   vUserHp=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $mSrcRam|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
 
-   until [ -n "$BREAK_LOOP" ]; do
+   fRivalHp() { grep -o -E '(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}' $mSrcRam|sed -n 's,nbsp[;],,;s,\ ,,;1p'; }
+   fUserName() { grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $mSrcRam | sed -n 's,\ [<]s,,;s,\ ,_,;2p'; }
+   fAttack() { grep -o -E '/coliseum/atk/[?]r[=][0-9]+' $mSrcRam|sed -n 1p; }
+   fRndAtk() { grep -o -E '/coliseum/atkrnd/[?]r[=][0-9]+' $mSrcRam; }
+   fDodge() { grep -o -E '/coliseum/dodge/[?]r[=][0-9]+' $mSrcRam; }
+   fHeal() { grep -o -E '/coliseum/heal/[?]r[=][0-9]+' $mSrcRam; }
 
-     #/heal
-     if [ -n "$USH" ] && [ -n "$HPLP" ] && [ -n "$last_heal" ] && \
-     [ "$USH" -lt "$HLHP" ] > /dev/null 2>&1 && [ "$(( $(date +%s) - $last_heal ))" -gt 90 ] > /dev/null 2>&1 && [ "$(( $(date +%s) - $last_heal ))" -lt 300 ] > /dev/null 2>&1; then
+   until [ -n "$vBreakLoop" ]; do
+
+     case `date +%X` in
+       *:*:?1|*:*:?2|*:*:?3|*:*:?4|*:*:?6|*:*:?7|*:*:?8|*:*:?9)
+
+         #/heal
+         if `fDredHp h`; then
+
+           (
+             w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`fHeal`" -o user_agent="$vUserAgent" >$mSrcRam
+           ) </dev/null &>/dev/null &
+           time_exit 15
+
+           vUserHp=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $mSrcRam|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
+           fShow
+
+         #/dodge
+         elif `fDredHp d`; then
+
+           (
+             w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`fDodge`" -o user_agent="$vUserAgent" >$mSrcRam
+           ) </dev/null &>/dev/null &
+           time_exit 15
+
+           vUserHp=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $mSrcRam|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
+           fShow
+
+         #/random
+         elif `fDredHp r` || grep -q -o "`fUserName`" allies.txt; then
+
+           (
+             w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`fRndAtk`" -o user_agent="$vUserAgent" >$mSrcRam
+           ) </dev/null &>/dev/null &
+           time_exit 15
+
+           vUserHp=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $mSrcRam|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
+           fShow
+         fi ;;
+
+       #/attack
+       *:*:?0|*:*:?5)
+
+         (
+           w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`fAttack`" -o user_agent="$vUserAgent" >$mSrcRam
+         ) </dev/null &>/dev/null &
+         time_exit 15
+
+         fShow ;;
+     esac
+
+     if ! grep -q '?out_gate' $mSrcRam; then
 
        (
-         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$HEAL" -o user_agent="$vUserAgent" >$src_ram
+         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/coliseum" -o user_agent="$vUserAgent" >$mSrcRam
        ) </dev/null &>/dev/null &
        time_exit 15
 
-       cl_access
-       echo "$USH" >$full_ram
-#       OLDHP=$USH
-       last_heal=$(date +%s)
-       last_atk=$(date +%s)
+       fShow
+       sleep 5s
 
-     #/dodge
-     elif [ -n "$USH" ] && [ -n "$OLDHP" ] && [ -n "$last_dodge" ] && \
-     ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - $last_dodge ))" -gt 20 ] > /dev/null 2>&1 && [ "$(( $(date +%s) - $last_dodge ))" -lt 300 ] > /dev/null 2>&1 && [ "$USH" -lt "$OLDHP" ] > /dev/null 2>&1; then
+       if ! grep -q '?end_fight' $mSrcRam; then
+         vBreakLoop=1
+         printf "${BLACK_YELLOW}$(G_T "Battle is over").${COLOR_RESET}\n" ; sleep 2s
+       fi
 
-       (
-         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$DODGE" -o user_agent="$vUserAgent" >$src_ram
-       ) </dev/null &>/dev/null &
-       time_exit 15
-
-       cl_access
-       OLDHP="$USH"
-       last_dodge=$(date +%s)
-       last_atk=$(date +%s)
-
-     #/random
-     elif [ -n "$RHP" ] && [ -n "$ENH" ] && [ -n "$last_attack" ] && \
-     awk -v latk="$(( $(date +%s) - $last_atk ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' > /dev/null 2>&1 && ! grep -q -o 'txt smpl grey' $src_ram && [ "$RHP" -lt "$ENH" ] > /dev/null 2>&1 || awk -v latk="$(( $(date +%s) - $last_atk ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' > /dev/null 2>&1 && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "$USER" allies.txt; then
-
-       (
-         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$ATKRND" -o user_agent="$vUserAgent" >$src_ram
-       ) </dev/null &>/dev/null &
-       time_exit 15
-
-       cl_access
-       last_atk=$(date +%s)
-
-     #/attack
-     elif awk -v latk="$(( $(date +%s) - $last_atk ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' > /dev/null 2>&1; then
-
-       (
-         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}$ATK" -o user_agent="$vUserAgent" >$src_ram
-       ) </dev/null &>/dev/null &
-       time_exit 15
-
-       cl_access
-       last_atk=$(date +%s)
-     else
-
-       (
-         w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/coliseum" -o user_agent="$vUserAgent" >$src_ram
-       ) </dev/null &>/dev/null &
-       time_exit 15
-
-       cl_access
-       sleep 1s
      fi
 
+     sleep 1s
    done
 
-   rm $src_ram $full_ram
-   unset last_heal last_dodge last_atk USH ENH USER ATK ATKRND DODGE HEAL BREAK_LOOP cl_access
+   rm $mSrcRam $mFullRam
+   unset vLastHeal vLastDodge vLastAtk vUserHp fRivalHp fUserName fAttack fRndAtk fDodge fHeal vBreakLoop
    #/end
    func_unset
 
@@ -232,14 +233,15 @@ coliseum_start() {
        ) </dev/null &>/dev/null &
        time_exit 15
 
-       local ENDQUEST=$(grep -o -E '/quest/end/11[?]r[=][A_z0-9]+' $TMP/SRC)
+       local vEndquest=$(grep -o -E '/quest/end/11[?]r[=][A_z0-9]+' $TMP/SRC)
 
-       if [ ! -z "$ENDQUEST" ]; then
+       if [ ! -z "$vEndquest" ]; then
 
         (
-          w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${ENDQUEST}" -o user_agent="$vUserAgent" >$TMP/SRC
+          w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${vEndquest}" -o user_agent="$vUserAgent" >$TMP/SRC
         ) </dev/null &>/dev/null &
         time_exit 15
+
        fi
 
      done
