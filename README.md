@@ -84,7 +84,7 @@ chmod +x easyinstall.sh
 * To uninstall scripts on both systems:
 
 ```bash
-rm -rf $HOME/TitansWarMacro-master
+rm -rf $HOME/twm-master
 ```
 
 * Remove Termux boot shortcut on Android:
