@@ -204,7 +204,7 @@ sync_func() {
      Shebang='#!/bin/ksh'
      Config='.kshrc'
    elif [ ! -e "$HOME/.shrc" ] && command -v csh > /dev/null 2>&1; then
-     ShellCommand='csh '
+     ShellCommand='csh'
      Shebang='#!/bin/csh'
      Config='.cshrc'
    else
