@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 # $HOME/easyinstall.sh
-
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
@@ -52,7 +51,8 @@ if ( case $PREFIX in *termux*) exit 0 ;; esac ); then
  Ls="/data/data/com.termux/files/usr/share/doc"
  rm -rf ~/.termux/boot/play.sh 2>/dev/null
  mkdir -p ~/.termux/boot
- echo "IyEvZGF0YS9kYXRhL2NvbS50ZXJtdXgvZmlsZXMvdXNyL2Jpbi9zaApiYXNoICRIT01FL3R3bS90d20uc2ggLWJvb3QK"|base64 -d >~/.termux/boot/play.sh 2>/dev/null
+ echo '#!/data/data/com.termux/files/usr/bin/sh' > ~/.termux/boot/play.sh 2>/dev/null
+ echo 'bash $HOME/twm-master/twm.sh -boot' >> ~/.termux/boot/play.sh 2>/dev/null
  chmod +x ~/.termux/boot/play.sh 2>/dev/null
 
  if whereis -b w3m >/dev/null 2>&1; then
@@ -83,7 +83,7 @@ fi
 
 # cygwin
 if uname|grep -q -i "cygwin"; then
- Ls"/usr/share/doc"
+ LS="/usr/share/doc"
 
  if [ -e /bin/apt-cyg ]; then
    :
@@ -123,24 +123,22 @@ fi
 AppIsh=$(uname -a|grep -o "\-ish")
 
 if [ "$SHELL" = "/bin/ash" ] && [ "$AppIsh" = '-ish' ]; then
- Ls='/usr/share/doc'
+ LS='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app ISh(Iphone)"):${ColorReset}\n apk update\n apk add curl ; apk add w3m ; apk add coreutils ; apk add --no-cache tzdata\n\n"
  sleep 5s
-
 # UserLAnd Terminal
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E '(aarch64|armhf|armv7|mips64)' && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
- Ls='/usr/share/doc'
+ LS='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install the necessary packages for Alpine on app UserLAnd(Android)"):${ColorReset}\n apk update\n sudo apk add curl ; sudo apk add w3m ; sudo apk add coreutils ; sudo apk add --no-cache tzdata\n\n"
  sleep 1s
-
 # Other unix
 elif [ "$SHELL" != "/bin/ash" ] && [ "$AppIsh" != '-ish' ] && uname -m|grep -q -E "(ppc64le|riscv64|s390x|x86|x86_64)" && [ ! -d /data/data/com.termux/files/usr/share/doc ]; then
- Ls='/usr/share/doc'
+ LS='/usr/share/doc'
  printf "${BlackCyan}$(G_T "Install required packages for"); Linux, Windows WSL:${ColorReset}\n sudo apt update\n sudo apt install curl coreutils ncurses-term procps w3m -y\n"
  sleep 5s
 fi
 
-unset Ls
+unset LS
 printf "${BlackCyan}\n ⌛ $(G_T "Wait downloading scripts")...${ColorReset}\n"
 
 rcconf() {
@@ -153,25 +151,26 @@ rcconf() {
 
  sed -i '/alias twmu/d' $HOME/$Config
 
- echo "alias twmu=_$HOME/$TwmDir/play.sh_"|sed 's#_#"#g' >> $HOME/$Config #"
+ {
+   alias twmu="$HOME/$TwmDir/play.sh"
+ } >> $HOME/$Config
 
- echo "$Shebang" > $HOME/loadrcfile.sh
- echo "$ShellCommand _source $HOME/${Config}_"|sed 's#_#`#g' >> $HOME/loadrcfile.sh #`
+ {
+   $Shebang
+   $ShellCommand `source $HOME/$Config`
+ } > $HOME/loadrcfile.sh
 
  chmod +x $HOME/loadrcfile.sh
-
- (
-   sleep 3 && kill -15 $$ > /dev/null 2>&1
- ) </dev/null &>/dev/null &
-
+# echo $$
  $ShellCommand $HOME/loadrcfile.sh
  rm $HOME/loadrcfile.sh
+ kill -15 $$
 }
 
 sync_func() {
  cd $HOME
- curl -L -O "https://github.com/sharesourcecode/twm/archive/refs/heads/master.tar.gz" -H "$Uagt"
- tar -xvzf master.tar.gz > /dev/null 2>&1
+# curl -L -O "https://github.com/sharesourcecode/twm/archive/refs/heads/master.tar.gz" -H "$Uagt"
+# tar -xvzf master.tar.gz > /dev/null 2>&1
 # sha256sum master.tar.gz >$HOME/$TwmDir/sha256sum
  rm master.tar.gz > /dev/null 2>&1
 
@@ -190,9 +189,9 @@ sync_func() {
    ShellCommand='bash'
    Shebang='#!/bin/bash'
    Config='.bashrc'
-   sed -i '1s,#!/bin/sh,#!/bin/bash,' $HOME/$TwmDir/{play.sh,twm.sh} > /dev/null 2>&1
+   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
  else
-   sed -i '1s,#!/bin/bash,#!/bin/sh,' $HOME/$TwmDir/{play.sh,twm.sh} > /dev/null 2>&1
+   sed -i 's,#!/bin/bash,#!/bin/bash,g' $HOME/$TwmDir/*.sh > /dev/null 2>&1
 
    if [ ! -e "$HOME/.shrc" ] && command -v zsh > /dev/null 2>&1; then
      ShellCommand='zsh'
@@ -203,12 +202,12 @@ sync_func() {
      Shebang='#!/bin/ksh'
      Config='.kshrc'
    elif [ ! -e "$HOME/.shrc" ] && command -v csh > /dev/null 2>&1; then
-     ShellCommand='csh '
+     ShellCommand='csh'
      Shebang='#!/bin/csh'
      Config='.cshrc'
    else
      ShellCommand='sh'
-     Shebang='#!/bin/sh'
+     Shebang='#!/bin/bash'
      Config='.shrc'
    fi
 
@@ -238,5 +237,5 @@ until [ -z $TiPidF ]; do
 done
 
 # Update local easyinstall.sh
-cat "$HOME/$TwmDir/easyinstall.sh" > $HOME/easyinstall.sh
+#cat "$HOME/$TwmDir/easyinstall.sh" > $HOME/easyinstall.sh
 rcconf
