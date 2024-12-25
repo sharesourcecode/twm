@@ -5,7 +5,7 @@
 
 (
  RUN=`echo $1|sed 's#-#a#'`
- twm_dir="twm-master"
+ twm_dir="twm"
  echo "$RUN" >$HOME/$twm_dir/runmode_file
 
  while true; do

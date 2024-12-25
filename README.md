@@ -41,7 +41,7 @@ pkg install w3m termux-api procps coreutils ncurses-utils
 
 <img src="https://www.apple.com/favicon.ico" height="16" width="16" /> Iphone　<img src=https://ish.app/assets/icon.png height="16" width="16" /> iSH | <img src="https://www.android.com/static/img/favicons/16.png" /> Android　<img src="https://cdn.fosstodon.org/accounts/avatars/108/640/704/836/321/085/original/0e9b031ff15a4c3d.png" height="16" width="16" /> Termux 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
+curl https://git.disroot.org/BourneShell/twm/raw/branch/master/easyinstall.sh -L -O
 ```
 4️⃣　Give the installer execute permission
 
@@ -115,7 +115,7 @@ sudo apt-get install coreutils dnsutils-y
 >3 - Copy and paste this command to download the twm installer (The link is part of the command):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
+curl https://git.disroot.org/BourneShell/twm/raw/branch/master/easyinstall.sh -L -O
 ```
 
 >4 - Give execute permission to the installer:
@@ -154,7 +154,7 @@ bash twmu -cl
 >1 - Open the program Cygwin(https://www.cygwin.com/setup-x86_64.exe) or (https://www.cygwin.com/setup-x86.exe) as an administrator in Windows. During installation, select any link, then just click Next until finished. Then, as an administrator, open the Cygwin Terminal that was installed. Type, or copy and paste the command below to download the twm installer (The link is part of the command):
 
 ```bash
-curl https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/easyinstall.sh -L -O
+curl https://git.disroot.org/BourneShell/twm/raw/branch/master/easyinstall.sh -L -O
 ```
 
 >2 - Give execute permission to the installer:

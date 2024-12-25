@@ -4,12 +4,12 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-TwmDir="twm-master"
+TwmDir="twm"
 mkdir -p $HOME/$TwmDir
 
 cd $HOME/$TwmDir
 
-Server="https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/"
+Server="https://git.disroot.org/BourneShell/twm/raw/branch/master/"
 
 Uagt='Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124'
 
@@ -162,7 +162,7 @@ rcconf() {
  chmod +x $HOME/loadrcfile.sh
 
  (
-   sleep 3 && kill -15 $$ > /dev/null 2>&1
+   sleep 2 && kill -15 $$ > /dev/null 2>&1
  ) </dev/null &>/dev/null &
 
  $ShellCommand $HOME/loadrcfile.sh
@@ -171,7 +171,7 @@ rcconf() {
 
 sync_func() {
  cd $HOME
- curl -L -O "https://github.com/sharesourcecode/twm/archive/refs/heads/master.tar.gz" -H "$Uagt"
+ curl -L -O "https://git.disroot.org/BourneShell/twm/archive/master.tar.gz" -H "$Uagt"
  tar -xvzf master.tar.gz > /dev/null 2>&1
 # sha256sum master.tar.gz >$HOME/$TwmDir/sha256sum
  rm master.tar.gz > /dev/null 2>&1

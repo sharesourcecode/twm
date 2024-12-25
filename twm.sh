@@ -3,11 +3,10 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-twm_dir="twm-master"
+twm_dir="twm"
 cd $HOME/$twm_dir
 
-SERVER="https://raw.githubusercontent.com/sharesourcecode/twm/refs/heads/master/"
-#SERVER="https://codeberg.org/ueliton/TitansWarMacro/raw/branch/master/"
+SERVER="https://git.disroot.org/BourneShell/twm/raw/branch/master/"
 
 UAGT='Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124'
 
@@ -36,12 +35,12 @@ script_ads() {
  if [ -e "$HOME/$twm_dir/ads_file" ]; then
 
    if [ `< "$HOME/$twm_dir/ads_file"` != "$(date +%d)" ]; then
-     xdg-open https://github.com/sharesourcecode/twm/blob/master/README.md
+     xdg-open https://git.disroot.org/BourneShell/twm/src/branch/master/README.md
      echo $(date +%d) >$HOME/$twm_dir/ads_file
    fi
 
  else
-   xdg-open https://github.com/sharesourcecode/twm/blob/master/README.md
+   xdg-open https://git.disroot.org/BourneShell/twm/src/branch/master/README.md
    echo $(date +%d) >$HOME/$twm_dir/ads_file
  fi
 
