@@ -17,7 +17,7 @@ Macro scripts for titanswar.net on all servers
 ```bash
 apk update
 ```
-• On Android, open the Termux app ([https://termux.dev/en/](https://termux-dev.translate.goog/en/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=en&_x_tr_pto=sc))
+• On Android, open the Termux app ([https://termux.dev/en/](https://termux.dev))
 >Then type or paste the commands below to update the packages.
 >* Questions may arise.
 >* For two options (Y/n) answer Y
