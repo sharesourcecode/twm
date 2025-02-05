@@ -5,7 +5,7 @@
 # Copyright (c) 2019-2024 Ueliton Alves Dos Santos
 # Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
-twm_dir="twm-master"
+twm_dir="twm"
 cd $HOME/$twm_dir
 SCRIPT=$HOME/$twm_dir/${1}
 TRANSLATE="$2"
