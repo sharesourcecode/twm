@@ -103,7 +103,7 @@ if [ "$status" -eq 0 ]; then
   printf "${GREEN_BLACK} $(G_T "Starting with last settings used").${COLOR_RESET}\n"
   printf "$(G_T "Hit")${GOLD_BLACK} [Enter]${COLOR_RESET} $(G_T "to reconfigure, or wait")${GREEN_BLACK} 5$(G_T "s")${COLOR_RESET}\n"
   ( sleep 5s && pkill -SIGTERM -s 0 dd ) </dev/null &>/dev/null &
-  input=$(dd bs=1 count=1 2>/dev/null) || input=3
+  input=$(dd bs=512 count=1 2>/dev/null) || input=3
 fi
 
 if [ -z "$input" ] || [ "$status" -eq 1 ]; then
