@@ -20,7 +20,8 @@ printf "\n• Loading local software libraries...\n- - - - -	Please wait	- - - -
 LOADLIBS="info.lib requeriments.lib loginlogoff.lib online.lib flagfight.lib clanid.lib crono.lib arena.lib coliseum.lib campaign.lib run.lib altars.lib clanfight.lib clancoliseum.lib king.lib undying.lib clandungeon.lib trade.lib career.lib cave.lib allies.lib svproxy.lib check.lib"
 
 for lib in $LOADLIBS; do
- lib_content=`< "$HOME/$twm_dir/$lib"` && \
+# lib_content=`< "$HOME/$twm_dir/$lib"` && \
+ lib_content=`dd if=$HOME/$twm_dir/$lib 2>/dev/null` && \
  eval "$lib_content" && \
  unset lib lib_content
 done
