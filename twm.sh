@@ -20,7 +20,6 @@ printf "\n• Loading local software libraries...\n- - - - -	Please wait	- - - -
 LOADLIBS="info.lib requeriments.lib loginlogoff.lib online.lib flagfight.lib clanid.lib crono.lib arena.lib coliseum.lib campaign.lib run.lib altars.lib clanfight.lib clancoliseum.lib king.lib undying.lib clandungeon.lib trade.lib career.lib cave.lib allies.lib svproxy.lib check.lib"
 
 for lib in $LOADLIBS; do
-# lib_content=`< "$HOME/$twm_dir/$lib"` && \
  lib_content=`dd if=$HOME/$twm_dir/$lib 2>/dev/null` && \
  eval "$lib_content" && \
  unset lib lib_content
@@ -29,13 +28,13 @@ done
 unset UAGT SERVER LOADLIBS
 
 colors
-RUN=`< "$HOME/$twm_dir/runmode_file"`
+RUN=`dd if=$HOME/$twm_dir/runmode_file 2>/dev/null`
 
 script_ads() {
 
  if [ -e "$HOME/$twm_dir/ads_file" ]; then
 
-   if [ `< "$HOME/$twm_dir/ads_file"` != "$(date +%d)" ]; then
+   if [ `dd if=$HOME/$twm_dir/ads_file 2>/dev/null` != "$(date +%d)" ]; then
      xdg-open https://git.disroot.org/BourneShell/twm/src/branch/master/README.md
      echo $(date +%d) >$HOME/$twm_dir/ads_file
    fi
@@ -85,18 +84,16 @@ for file in $files; do
 
  if test -e "$file"; then
    status=0
-   continue
 
    if test -s "$file"; then
      status=0
-     continue
    else
      status=1
    fi
 
  else
    status=1
- fi || status=$?
+ fi
 
 done
 
