@@ -44,7 +44,7 @@ func_cat() {
   printf "${CYAN_BLACK}"
  fi
 
- cat $TMP/msg_file
+ dd if=$TMP/msg_file 2>/dev/null
  printf "${WHITE_BLACK}"
  #local BREAK=$(( $(date +%s) + 10 ))
 

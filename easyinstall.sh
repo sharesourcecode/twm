@@ -162,7 +162,7 @@ rcconf() {
  chmod +x $HOME/loadrcfile.sh
 
  (
-   sleep 2 && kill -15 $$ > /dev/null 2>&1
+   sleep 1 && kill -15 $$ > /dev/null 2>&1
  ) </dev/null &>/dev/null &
 
  $ShellCommand $HOME/loadrcfile.sh
@@ -239,5 +239,5 @@ until [ -z $TiPidF ]; do
 done
 
 # Update local easyinstall.sh
-cat "$HOME/$TwmDir/easyinstall.sh" > $HOME/easyinstall.sh
+dd if=$HOME/$TwmDir/easyinstall.sh 2>/dev/null > $HOME/easyinstall.sh
 rcconf
