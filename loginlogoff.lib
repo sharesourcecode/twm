@@ -22,7 +22,7 @@ login_logoff () {
 
  printf "$(G_T "Checking if user matches")...\n"
  sed -i 's/^[ \t]*//;s/[ \t]*$//' $TMP/acc_file
- ACC=`< "$TMP/acc_file"`
+ ACC=`dd if=$TMP/acc_file 2>/dev/null`
 
  if [ -n "$ACC" ] && [ -n "$URL" ]; then
    local check=5
@@ -123,7 +123,7 @@ login_logoff () {
    w3m -cookie -o http_proxy=$PROXY -debug "$URL/user" -o user_agent="$vUserAgent"|grep "\[level"|grep -o -E "[[:space:]][[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14}[[:space:]]" >$TMP/acc_file
 
    printf "$(G_T "Checking if user matches")...\n"
-   ACC=`< "$TMP/acc_file"`
+   ACC=`dd if=$TMP/acc_file 2>/dev/null`
 
    if [ -n "$ACC" ]; then
      break &>/dev/null

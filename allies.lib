@@ -24,7 +24,7 @@ members_allies() {
  fi
 
  printf "\n${BLACK_CYAN}$(G_T "Allies for Coliseum and King of the Immortals"):\n${COLOR_RESET}\n"
- printf "\n${GOLD_BLACK}$(< allies.txt)${COLOR_RESET}\n"
+ printf "\n${GOLD_BLACK}$(dd if=allies.txt 2>/dev/null)${COLOR_RESET}\n"
  printf "\n${BLACK_CYAN}$(G_T "Wait to continue.")  👈${COLOR_RESET}\n"
  sleep 5
 }
@@ -39,7 +39,7 @@ id_allies() {
  ) </dev/null &>/dev/null &
  time_exit 17
 
-  NPG=$(grep -o -E '/mail/friends/([[:digit:]]{0,4})[^[:alnum:]]{4}62[^[:alnum:]]{3}62[^[:alnum:]]' < $TMP/SRC | sed 's/\/mail\/friends\/\([[:digit:]]\{0,4\}\).*/\1/')
+  NPG=$(grep -o -E '/mail/friends/([[:digit:]]{0,4})[^[:alnum:]]{4}62[^[:alnum:]]{3}62[^[:alnum:]]' $TMP/SRC | sed 's/\/mail\/friends\/\([[:digit:]]\{0,4\}\).*/\1/')
   >tmp.txt
 
   if [ -z "$NPG" ]; then
@@ -115,7 +115,7 @@ conf_allies() {
  printf "${BLACK_CYAN}\n$(G_T "The script will consider users on your friends list and") \n$(G_T "Clan as allies.")\n$(G_T "Leader, deputy on friend list will add") \n$(G_T "Clan allies.")\n${COLOR_RESET}\n1) $(G_T "Add, update alliances(All Battles)")🏳️👨‍🏴‍👩‍🏳️👧‍🏴‍👦🏳️\n\n2) 👫 $(G_T "Add, update just Herois alliances(Coliseum, King of immortals)")\n\n3) 🏴🏳️ $(G_T "Add, Update just Clan alliances(Altars, Clan Coliseum and Clan Fight)")\n\n4) 🚶$(G_T "Do nothing")\n"
 
  if [ -f "$HOME/$twm_dir/al_file" ] && [ -s "$HOME/$twm_dir/al_file" ]; then
-  AL=`< "$HOME/$twm_dir/al_file"`
+  AL=`dd if=$HOME/$twm_dir/al_file 2>/dev/null`
  else
   printf "$(G_T "Set up alliances[1 to 4]"): \n"
   read -n 1 AL
