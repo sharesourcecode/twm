@@ -230,7 +230,7 @@ user_agent() {
 	" | sed 's/\t//g'
 
  if [ -f "$HOME/$twm_dir/fileAgent.txt" ] && [ -s "$HOME/$twm_dir/fileAgent.txt" ]; then
-   UA=`< "$HOME/$twm_dir/fileAgent.txt"`
+   UA=`dd if=$HOME/$twm_dir/fileAgent.txt 2>/dev/null`
  else
    printf "$(G_T "Set up User-Agent [1 to 2]"): \n"
    read -n 1 UA
@@ -240,7 +240,7 @@ user_agent() {
      echo "0" >"$HOME/$twm_dir/fileAgent.txt"
 
      if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
-       cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+       dd if=$HOME/$twm_dir/userAgent.txt 2>/dev/null >"$TMP/userAgent.txt"
      else
        random_ua
      fi ;;
@@ -256,13 +256,13 @@ user_agent() {
 
      if [ ! -e "$TMP/userAgent.txt" ] || [ -z "$UA" ]; then
        printf " ...\n"
-       cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+       dd if=$HOME/$twm_dir/userAgent.txt 2>/dev/null >"$TMP/userAgent.txt"
      else
        random_ua
      fi ;;
 
    (2) printf " ...\n${BLACK_PINK}"
-     cat "$HOME/$twm_dir/userAgent.txt" >"$TMP/userAgent.txt"
+     dd if=$HOME/$twm_dir/userAgent.txt 2>/dev/null >"$TMP/userAgent.txt"
      echo "0" >"$HOME/$twm_dir/fileAgent.txt"
 
      if [ -e "$TMP/userAgent.txt" ]; then
@@ -290,20 +290,20 @@ requer_func() {
  clear
 
  if [ -f "$HOME/$twm_dir/lang_file" ] && [ -s "$HOME/$twm_dir/lang_file" ]; then
-   LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+   LANGUAGE=`dd if=$HOME/$twm_dir/lang_file 2>/dev/null`
  else
    menu l1
  fi
 
- LANGUAGE=`< "$HOME/$twm_dir/lang_file"`
+ LANGUAGE=`dd if=$HOME/$twm_dir/lang_file 2>/dev/null`
 
  if [ -f "$HOME/$twm_dir/ur_file" ] && [ -s "$HOME/$twm_dir/ur_file" ]; then
-   UR=`< "$HOME/$twm_dir/ur_file"`
+   UR=`dd if=$HOME/$twm_dir/ur_file 2>/dev/null`
  else
    menu s1
  fi
 
- UR=`< "$HOME/$twm_dir/ur_file"`
+ UR=`dd if=$HOME/$twm_dir/ur_file 2>/dev/null`
 
  case $UR in (1|pt|2|de|3|es|4|fr|5|hi|6|id|7|it|8|pl|9|ro|10|ru|11|sr|12|zh|13|en)
        # 1•America/Bahia -03 GMT/BRT, 2•Europe/Berlin +01, 3•America/Cancun -05, 4•Europe/Paris +01, 5• Asia/Kolkata +05:30, 6• Asia/Jakarta +07, 7•Europe/Rome +01, 8•Europe/Warsaw +01, 9•Europe/Bucharest +02, 10•Europe/Moscow +03, 11•Europe/Belgrade +01, 12•Asia/Shanghai +08, 13•Europe/London +00
