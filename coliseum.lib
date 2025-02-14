@@ -193,7 +193,7 @@ coliseum_fight() {
 
      fi
 
-     sleep "0.9"
+     sleep "0.8"
    done
 
    rm $mSrcRam $mFullRam
