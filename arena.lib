@@ -136,12 +136,12 @@ arena_fullmana () {
  time_exit 17
  echo " ⚔ - $(G_T "1 Attack")..."
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/attack/1/?r=`< ARENA`" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep 'arena/lastPlayer'|head -n1|awk -F\' '{ print $1 }'|tr -cd "[[:digit:]]" >ATK1
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/attack/1/?r=`dd if=ARENA 2>/dev/null`" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep 'arena/lastPlayer'|head -n1|awk -F\' '{ print $1 }'|tr -cd "[[:digit:]]" >ATK1
  ) </dev/null &>/dev/null &
  time_exit 17
  echo " ⚔ - $(G_T "Full Attack")..."
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump "${URL}/arena/lastPlayer/?r=`< ATK1`&fullmana=true" -o user_agent="$vUserAgent"|head -n5|tail -n4
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump "${URL}/arena/lastPlayer/?r=`dd if=ATK1 2>/dev/null`&fullmana=true" -o user_agent="$vUserAgent"|head -n5|tail -n4
  ) </dev/null &>/dev/null &
  time_exit 17
  echo -e "${GREEN_BLACK}$(G_T "energy arena") (✔)${COLOR_RESET} \n"

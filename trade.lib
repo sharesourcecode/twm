@@ -39,10 +39,10 @@ clan_money() {
   ) </dev/null &>/dev/null &
   time_exit 17
 
-  printf "/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit\n"
+  printf "/clan/${CLD}/money/?r=`dd if=$TMP/CODE 2>/dev/null`&silver=1000&gold=0&confirm=true&type=limit\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`dd if=$TMP/CODE 2>/dev/null`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
@@ -51,10 +51,10 @@ clan_money() {
   ) </dev/null &>/dev/null &
   time_exit 17
 
-  printf "/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit\n"
+  printf "/clan/${CLD}/money/?r=`dd if=$TMP/CODE 2>/dev/null`&silver=1000&gold=0&confirm=true&type=limit\n"
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`< $TMP/CODE`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/money/?r=`dd if=$TMP/CODE 2>/dev/null`&silver=1000&gold=0&confirm=true&type=limit" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
@@ -74,11 +74,11 @@ clan_statue() {
   time_exit 17
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?goldUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$vUserAgent"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?goldUpgrade=true&r=`dd if=$TMP/CODE 2>/dev/null`" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
-  printf "/clan/${CLD}/built/?goldUpgrade=true&r=`< $TMP/CODE`\n"
+  printf "/clan/${CLD}/built/?goldUpgrade=true&r=`dd if=$TMP/CODE 2>/dev/null`\n"
 
   (
    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/arena/quit" -o user_agent="$vUserAgent"|sed "s/href='/\n/g"|grep "attack/1"|head -n 1|awk -F\/ '{ print $5 }'|tr -cd "[[:digit:]]" >$TMP/CODE
@@ -86,11 +86,11 @@ clan_statue() {
   time_exit 17
 
   (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?silverUpgrade=true&r=`< $TMP/CODE`" -o user_agent="$vUserAgent"|tail -n 0
+   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug "${URL}/clan/${CLD}/built/?silverUpgrade=true&r=`dd if=$TMP/CODE 2>/dev/null`" -o user_agent="$vUserAgent"|tail -n 0
   ) </dev/null &>/dev/null &
   time_exit 17
 
-  printf "/clan/${CLD}/built/?silverUpgrade=true&r=`< $TMP/CODE`\n"
+  printf "/clan/${CLD}/built/?silverUpgrade=true&r=`dd if=$TMP/CODE 2>/dev/null`\n"
   printf "$(G_T "clan built") (✔)\n"
  fi
 
