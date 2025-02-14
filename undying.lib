@@ -31,10 +31,10 @@ undying_fight() {
 
   cf_access
   #/attack
-  if awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
+  if awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }'; then
 
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$vUserAgent" >$TMP/SRC
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=HITMANA 2>/dev/null`" -o user_agent="$vUserAgent" >$TMP/SRC
    ) </dev/null &>/dev/null &
    time_exit 17
 
@@ -114,7 +114,7 @@ undying_start() {
 
      #/undying/hit|mana/?r=???
      (
-      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HITMANA`" -o user_agent="$vUserAgent" >$TMP/SRC
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=HITMANA 2>/dev/null`" -o user_agent="$vUserAgent" >$TMP/SRC
      ) </dev/null &>/dev/null &
      time_exit 17
 
