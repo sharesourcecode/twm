@@ -19,8 +19,8 @@ clancoliseum_fight () {
 #  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:]]s' $src_ram|sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
   grep -o -E "(hp)[^A-Za-z0-9]{1,4}[0-9]{1,6}" $src_ram|sed "s,hp[']\/[>],,;s,\ ,," >USH 2> /dev/null
   grep -o -E "(nbsp)[^A-Za-z0-9]{1,2}[0-9]{1,6}" $src_ram|sed -n 's,nbsp[;],,;s,\ ,,;1p' >ENH 2> /dev/null
-  awk -v ush=` "USH"` -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }' >RHP
-  awk -v ush=`< "$full_ram"` -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
+  awk -v ush=`dd if=USH 2>/dev/null` -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }' >RHP
+  awk -v ush=`dd if=$full_ram 2>/dev/null` -v hper="$HPER" 'BEGIN { printf "%.0f", ush * hper / 100 }' >HLHP
 
   if grep -q -o '/dodge/' $src_ram; then
    printf "\n     🙇‍ "
@@ -34,41 +34,41 @@ clancoliseum_fight () {
  cf_access
 
  >BREAK_LOOP
- cat USH >old_HP
+ dd if=USH 2>/dev/null >old_HP
  echo $(( $(date +%s) - 20 )) >last_dodge
  echo $(( $(date +%s) - 90 )) >last_heal
  echo $(( $(date +%s) - $LA )) >last_atk
 
  until [ -s "BREAK_LOOP" ]; do
   #/heal
-  if awk -v ush=`< "USH"` -v hlhp=`< "HLHP"` 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - `< last_heal` ))" -gt 90 -a "$(( $(date +%s) - `< last_heal` ))" -lt 300 ]; then
+  if awk -v ush=`dd if=USH 2>/dev/null` -v hlhp=`dd if=HLHP 2>/dev/null` 'BEGIN { exit !(ush < hlhp) }' && [ "$(( $(date +%s) - `dd if=last_heal 2>/dev/null` ))" -gt 90 -a "$(( $(date +%s) - `dd if=last_heal 2>/dev/null` ))" -lt 300 ]; then
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< HEAL`" -o user_agent="$vUserAgent" >$src_ram
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=HEAL 2>/dev/null`" -o user_agent="$vUserAgent" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
-   cat USH >old_HP
+   dd if=USH 2>/dev/null >old_HP
    date +%s >last_heal
   #/dodge
-  elif ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - `< last_dodge` ))" -gt 20 -a "$(( $(date +%s) - `< last_dodge` ))" -lt 300 ] && awk -v ush=`< "USH"` -v oldhp=`< "old_HP"` 'BEGIN { exit !(ush < oldhp) }'; then
+  elif ! grep -q -o 'txt smpl grey' $src_ram && [ "$(( $(date +%s) - `dd if=last_dodge 2>/dev/null` ))" -gt 20 -a "$(( $(date +%s) - `dd if=last_dodge 2>/dev/null` ))" -lt 300 ] && awk -v ush=`dd if=USH 2>/dev/null` -v oldhp=`dd if=old_HP 2>/dev/null` 'BEGIN { exit !(ush < oldhp) }'; then
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< DODGE`" -o user_agent="$vUserAgent" >$src_ram
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=DODGE 2>/dev/null`" -o user_agent="$vUserAgent" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
-   cat USH >old_HP ; date +%s >last_dodge
+   dd if=USH 2>/dev/null >old_HP ; date +%s >last_dodge
   #/random
-  elif awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && awk -v rhp=`< "RHP"` -v enh=`< "ENH"` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "`< CLAN`" $TMP/callies.txt; then
+  elif awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && awk -v rhp=`dd if=RHP 2>/dev/null` -v enh=`dd if=ENH 2>/dev/null` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $src_ram && grep -q -o "`dd if=CLAN 2>/dev/null`" $TMP/callies.txt; then
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATKRND`" -o user_agent="$vUserAgent" >$src_ram
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=ATKRND 2>/dev/null`" -o user_agent="$vUserAgent" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
    date +%s >last_atk
   #/attack
-  elif awk -v latk="$(( $(date +%s) - `< last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
+  elif awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`< ATK`" -o user_agent="$vUserAgent" >$src_ram
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=ATK 2>/dev/null`" -o user_agent="$vUserAgent" >$src_ram
    ) </dev/null &>/dev/null &
    time_exit 17
    cf_access
