@@ -94,6 +94,7 @@ king_fight () {
 #    fi #...stone
    else #...kingatk
     #/random
+#    if ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`dd if=USER 2>/dev/null`" $HOME/allies.txt || ! grep -q -o 'txt smpl grey' $TMP/SRC && ! grep -q -o "`dd if=USER 2>/dev/null`" $HOME/adversary.txt ; then
     if awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && awk -v rhp="$RHP" -v enh=`dd if=HP2 2>/dev/null` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`dd if=USER 2>/dev/null`" allies.txt ; then
      (
       w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=ATKRND 2>/dev/null`" -o user_agent="$vUserAgent" >$TMP/SRC
