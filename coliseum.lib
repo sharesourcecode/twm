@@ -27,8 +27,7 @@ fDredHp() {
        exit 1
      fi ;;
    r)
-     if ( ! grep -q -o 'txt smpl grey' $mSrcRam ) && \
-      [ "$vUserHp" -lt "`fRivalHp`" ]; then
+     if ( ! grep -q -o 'txt smpl grey' $mSrcRam ) && [ "$(echo $(($vUserHp*2)))" -lt "`fRivalHp`" ] || ( ! grep -q -o 'txt smpl grey' $mSrcRam ) && $(case $vAllies in (*`fUserName 2>/dev/null`*) exit 0 ;; (*) exit 1 ;; esac); then
        exit 0
      else
        exit 1
@@ -115,6 +114,7 @@ coliseum_fight() {
 
    done
 
+   vAllies=`dd if=allies.txt 2>/dev/null`
    vBreakLoop=""
    vUserHp=$(grep -o -E '(hp)[^A-z0-9]{1,4}[0-9]{1,6}' $mSrcRam|grep -o -E '[0-9]{2,5}'|sed 's,\ ,,g')
 
@@ -153,7 +153,7 @@ coliseum_fight() {
            fShow
 
          #/random
-         elif `fDredHp r` || grep -q -o "`fUserName`" allies.txt; then
+         elif `fDredHp r`; then
 
            (
              w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`fRndAtk`" -o user_agent="$vUserAgent" >$mSrcRam
@@ -193,7 +193,7 @@ coliseum_fight() {
 
      fi
 
-     sleep "0.8"
+     sleep "0.85"
    done
 
    rm $mSrcRam $mFullRam
