@@ -7,7 +7,7 @@ members_allies () {
   for num in `seq 5 -1 1` ; do
    printf "${PURPLEis_BLACK}/clan/${CLD}/${num}${COLOR_RESET}\n"
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}/${num}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | grep -o -E "[/]>([[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14},[[:space:]])<s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}/${num}" -o user_agent="$vUserAgent" | grep -o -E "[/]>([[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14},[[:space:]])<s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt
    ) </dev/null &>/dev/null &
    time_exit 17
 #   sleep 1s
@@ -24,7 +24,7 @@ id_allies () {
  cd $TMP
  printf "${PURPLEis_BLACK}/mail/friends${COLOR_RESET}\n"
  (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends" -o user_agent="$vUserAgent" >$TMP/SRC
  ) </dev/null &>/dev/null &
  time_exit 17
 #  NPG=$(cat $TMP/SRC | sed 's/href=/\n/g' | grep "/mail/friends/[0-9]'>&#62;&#62;" | cut -d\' -f2 | cut -d\/ -f4)
@@ -33,14 +33,14 @@ id_allies () {
   if [ -z "$NPG" ] ; then
    printf "${PURPLEis_BLACK}/mail/friends${COLOR_RESET}\n"
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed 's,/user/,\n/user/,g' |  grep '/user/' | grep '/mail/' | cut -d\< -f1 >>tmp.txt
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends" -o user_agent="$vUserAgent" | sed 's,/user/,\n/user/,g' |  grep '/user/' | grep '/mail/' | cut -d\< -f1 >>tmp.txt
    ) </dev/null &>/dev/null &
    time_exit 17
   else
    for num in `seq "$NPG" -1 1` ; do
     printf "${BLACK_CYAN}Friends list page ${num}\033[00m\n${PURPLEis_BLACK}/mail/friends/${num}${COLOR_RESET}\n"
     (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends/${num}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" | sed 's,/user/,\n/user/,g' | grep '/user/' | grep '/mail/' | cut -d\< -f1 >>tmp.txt
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/mail/friends/${num}" -o user_agent="$vUserAgent" | sed 's,/user/,\n/user/,g' | grep '/user/' | grep '/mail/' | cut -d\< -f1 >>tmp.txt
     ) </dev/null &>/dev/null &
     time_exit 17
 #    sleep 1s
@@ -62,7 +62,7 @@ clan_allies () {
    if [ -n "$IDN" ] ; then
     printf "${Lnl} ${PURPLEis_BLACK}/user/${IDN}${COLOR_RESET}\n"
     (
-     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/user/${IDN}" -o user_agent="$(shuf -n1 $TMP/userAgent.txt)" >$TMP/SRC
+     w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/user/${IDN}" -o user_agent="$vUserAgent" >$TMP/SRC
     ) </dev/null &>/dev/null &
     time_exit 17
     LEADPU=$(cat $TMP/SRC | sed 's,/clan/,\n/clan/,g' |  grep -E "</a>, <span class='blue'|</a>, <span class='green'" | cut -d\< -f1 |cut -d\> -f2)
