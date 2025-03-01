@@ -23,8 +23,8 @@ king_fight () {
   grep -o -E '(/king/dodge/[?]r[=][0-9]+)' $TMP/SRC >DODGE 2> /dev/null
   grep -o -E '(/king/stone/[?]r[=][0-9]+)' $TMP/SRC >STONE 2> /dev/null
   grep -o -E '(/king/heal/[?]r[=][0-9]+)' $TMP/SRC >HEAL 2> /dev/null
-  grep -o -E '([[:upper:]][[:lower:]]{0,15}( [[:upper:]][[:lower:]]{0,13})?)[[:space:]][^[:alnum:][:space:]]' $TMP/SRC|sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
-#  grep -o -P "\p{Lu}{1}\p{Ll}{0,15}[\ ]{0,1}\p{L}{0,14}\s\Ws" $TMP/SRC|sed -n 's,\ [<]s,,;s,\ ,_,;2p' >USER 2> /dev/null
+  grep --color -o -E '/images/icon/race/(0|1).png[^[:alnum:]] alt=[^[:alnum:]][^[:alnum:]]/[^[:alnum:]].*[^[:alnum:]]/span' $TMP/SRC|sed 's,/images/,\n/images/,g'|awk -F'[> ][ <]' '{print $2}'|sed -n 's,\ ,_,;4p' >USER 2> /dev/null
+#  grep --color -o -E '/images/icon/race/(0|1).png[^[:alnum:]] alt=[^[:alnum:]][^[:alnum:]]/[^[:alnum:]].*[^[:alnum:]]/span' $TMP/SRC|awk -F'[> ][ <]' '{print $2}'|sed 's,\ ,_,' >Iam 2> /dev/null
   grep -o -E "(hp)[^A-Za-z0-9_]{1,4}[0-9]{1,6}" $TMP/SRC|sed "s,hp[']\/[>],,;s,\ ,," >HP 2> /dev/null
   grep -o -E "(nbsp)[^A-Za-z0-9_]{1,2}[0-9]{1,6}" $TMP/SRC|sed -n 's,nbsp[;],,;s,\ ,,;1p' >HP2 2> /dev/null
   RHP=$(awk -v ush=`dd if=HP 2>/dev/null` -v rper="$RPER" 'BEGIN { printf "%.0f", ush * rper / 100 + ush }')
