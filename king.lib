@@ -75,7 +75,7 @@ king_fight () {
    time_exit 17
    cl_access
    dd if=HP 2>/dev/null >FULL ; date +%s >last_heal
-  sleep 0.3s
+#  sleep 0.3s
   #/attack_all
   elif awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk > atktime) }' ; then
    if grep -q -o -E '(king/kingatk/[^A-Za-z0-9_]r[^A-Za-z0-9_][0-9]+)' $TMP/SRC ; then  #kingatk...
@@ -94,8 +94,8 @@ king_fight () {
 #    fi #...stone
    else #...kingatk
     #/random
-#    if ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`dd if=USER 2>/dev/null`" $HOME/allies.txt || ! grep -q -o 'txt smpl grey' $TMP/SRC && ! grep -q -o "`dd if=USER 2>/dev/null`" $HOME/adversary.txt ; then
-    if awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && awk -v rhp="$RHP" -v enh=`dd if=HP2 2>/dev/null` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `dd if=last_atk 2>/dev/null` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`dd if=USER 2>/dev/null`" allies.txt ; then
+#    if ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`cat USER`" $HOME/allies.txt || ! grep -q -o 'txt smpl grey' $TMP/SRC && ! grep -q -o "`cat USER`" $HOME/adversary.txt ; then
+    if awk -v latk="$(( $(date +%s) - `cat last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && awk -v rhp="$RHP" -v enh=`cat HP2` 'BEGIN { exit !(rhp < enh) }' || awk -v latk="$(( $(date +%s) - `cat last_atk` ))" -v atktime="$LA" 'BEGIN { exit !(latk != atktime) }' && ! grep -q -o 'txt smpl grey' $TMP/SRC && grep -q -o "`cat USER`" allies.txt ; then
      (
       w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}`dd if=ATKRND 2>/dev/null`" -o user_agent="$vUserAgent" >$TMP/SRC
      ) </dev/null &>/dev/null &
