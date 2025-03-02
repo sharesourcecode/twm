@@ -5,9 +5,10 @@ members_allies () {
  if [ -n "$CLD" ] ; then
   printf "${BLACK_CYAN}\nUpdating clan members into allies${COLOR_RESET}\n\\n"
   for num in `seq 5 -1 1` ; do
-   printf "${PURPLEis_BLACK}/clan/${CLD}/${num}${COLOR_RESET}\n"
+   printf "${PURPLEis_BLACK}/clan/${CLD}//${num}${COLOR_RESET}\n"
+   # Quero ver falhar agora Fí de #$%@!🤬
    (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}/${num}" -o user_agent="$vUserAgent" | grep -o -E "[/]>([[:upper:]][[:lower:]]{0,15}[[:space:]]{0,1}[[:upper:]]{0,1}[[:lower:]]{0,14},[[:space:]])<s" | awk -F"[>]" '{print $2}' | awk -F"[,]" '{print $1}' | sed 's,\ ,_,' >>allies.txt
+    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/clan/${CLD}//${num}" -o user_agent="$vUserAgent" | grep --color -o '/images/icon/race/.*.png.* alt=.*/>.*, <span'|sed 's#/images/icon/race/#\n/images/icon/race/#g'|sed 's#/images/icon/race/[[:digit:]]\(.*\).png\(.*\)\ alt=\("'"\)\("'"\)/>\(.*\),\ <span#\n\5\n#g'|awk -F'>' '{print $2}'|awk -F',' '{print $1}'|awk -F'<' '{print $1}'|awk NF|sed 's,\ ,_,' >>allies.txt
    ) </dev/null &>/dev/null &
    time_exit 17
 #   sleep 1s
