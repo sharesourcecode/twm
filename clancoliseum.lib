@@ -83,6 +83,11 @@ clancoliseum_fight () {
   fi
  done
 
+ while $(case $(date +%M) in (?5) exit 1 ;; esac); do
+   printf "$(G_T "Waiting for a time limit, supposedly not to interfere in the battle.  Damn superstitions")...😒\n"
+   sleep 10
+ done
+
  rm -rf $tmp_ram
  rm $src_ram $full_ram
  unset dir_ram tmp_ram src_ram full_ram ACCESS cf_access
