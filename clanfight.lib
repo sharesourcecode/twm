@@ -90,7 +90,7 @@ clanfight_fight () {
 
  while $(case $(date +%M) in (?5) exit 1 ;; esac); do
    printf "$(G_T "Waiting for a time limit, supposedly not to interfere in the battle.  Damn superstitions")...😒\n"
-   sleep 10
+   sleep 30s
  done
 
  unset cf_access _random
