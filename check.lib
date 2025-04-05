@@ -70,21 +70,21 @@ check_missions() {
  done
 
  #collect collections
- (
-  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$vUserAgent" >$TMP/SRC
- ) </dev/null &>/dev/null &
- time_exit 20
+# (
+#  w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}/collector/" -o user_agent="$vUserAgent" >$TMP/SRC
+# ) </dev/null &>/dev/null &
+# time_exit 20
 
- if grep -o -E "/collector/reward/element/[?]r=[0-9]+" $TMP/SRC; then
-  click=$(grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC)
+# if grep -o -E "/collector/reward/element/[?]r=[0-9]+" $TMP/SRC; then
+#  click=$(grep -o -E '/collector/reward/element/[?]r=[0-9]+' $TMP/SRC)
 
-  (
-   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
-  ) </dev/null &>/dev/null &
-  time_exit 20
-
-  printf "${GREEN_BLACK}$(G_T "Collection collected") (✔)${COLOR_RESET}\n"
- fi
+#  (
+#   w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
+#  ) </dev/null &>/dev/null &
+#  time_exit 20
+#
+#  printf "${GREEN_BLACK}$(G_T "Collection collected") (✔)${COLOR_RESET}\n"
+# fi
 
  printf "${GREEN_BLACK}$(G_T "Missions") (✔)${COLOR_RESET}\n"
 }
