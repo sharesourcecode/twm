@@ -208,8 +208,6 @@ coliseum_fight() {
    printf "${GREEN_BLACK}$(G_T "Coliseum") (✔)${COLOR_RESET}\n"
  else
    printf "${WHITEb_BLACK}$(G_T "It was not possible to start the battle at this moment").${COLOR_RESET}\n"
-   i=$((i+1))
-#   exit 1
  fi
 
 }

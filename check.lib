@@ -32,14 +32,27 @@ check_missions() {
  while [ $i -lt 15 ]; do
 
   if grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC; then
-   click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC|sed -n '1p')
+    click=$(grep -o -E "/quest/end/${i}[?]r=[0-9]+" $TMP/SRC|sed -n '1p')
 
-   (
-    w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
-   ) </dev/null &>/dev/null &
-   time_exit 20
+    if [ $i -eq 11 ]; then
+      (
+        w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent"|grep -o -E ': <b>[0-9]{1,3}</b>'|grep -o -E '[0-9]{1,3}' >$TMP/SKILLS
+      ) </dev/null &>/dev/null &
 
-   printf "${GREEN_BLACK}$(G_T "Mission Completed") (✔)${COLOR_RESET}\n"
+      if [ "$(cat $TMP/SKILLS)" -ge 50 ]; then
+        continue
+      else
+        i=$((i+1))
+      fi
+
+    fi
+
+    (
+      w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "${URL}${click}" -o user_agent="$vUserAgent" >$TMP/SRC
+    ) </dev/null &>/dev/null &
+    time_exit 20
+
+    printf "${GREEN_BLACK}$(G_T "Mission Completed") (✔)${COLOR_RESET}\n"
   fi
 
   i=$((i+1))
