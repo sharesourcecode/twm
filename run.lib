@@ -79,7 +79,21 @@ twm_play() {
      if [ "$RUN" = "acl" ]; then
        printf "$(G_T "Running in coliseum mode"): -cl\n"
        sleep 2s
-       coliseum_start
+
+       file="$TMP/SKILLS"
+
+       if test -e "$file" && test -s "$file"; then
+
+         (
+           w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent"|grep -o -E ': <b>[0-9]{1,3}</b>'|grep -o -E '[0-9]{1,3}' >$TMP/SKILLS
+         ) </dev/null &>/dev/null &
+
+       fi
+
+       if [ "$(cat $TMP/SKILLS)" -ge 50 ]; then
+         coliseum_start
+       fi
+
        arena_duel
        messages_info
      fi
