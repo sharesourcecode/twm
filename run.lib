@@ -83,6 +83,8 @@ twm_play() {
        file="$TMP/SKILLS"
 
        if test -e "$file" && test -s "$file"; then
+         printf "Skills: $(cat $TMP/SKILLS)\n"
+       else
 
          (
            w3m -cookie -o http_proxy=$PROXY -o accept_encoding=UTF-8 -debug -dump_source "$URL/train" -o user_agent="$vUserAgent"|grep -o -E ': <b>[0-9]{1,3}</b>'|grep -o -E '[0-9]{1,3}' >$TMP/SKILLS
