@@ -40,7 +40,7 @@ check_missions() {
       ) </dev/null &>/dev/null &
 
       if [ "$(cat $TMP/SKILLS)" -ge 50 ]; then
-        exit 0
+        echo "Skills: $(cat $TMP/SKILLS)"
       else
         i=$((i+1))
       fi

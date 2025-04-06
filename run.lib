@@ -83,7 +83,7 @@ twm_play() {
        file="$TMP/SKILLS"
 
        if test -e "$file" && test -s "$file"; then
-         printf "Skills: $(cat $TMP/SKILLS)\n"
+         echo "Skills: $(cat $TMP/SKILLS)"
        else
 
          (
