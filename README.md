@@ -141,7 +141,7 @@ bash twmu
 bash twmu -cv
 ```
 
-• Colosseum Priority Mode:
+• Coliseum Priority Mode:
 
 ```bash
 bash twmu -cl
@@ -180,7 +180,7 @@ bash twmu
 bash twmu -cv
 ```
 
-• Colosseum Priority Mode:
+• Coliseum Priority Mode:
 
 ```bash
 bash twmu -cl
